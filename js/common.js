@@ -61,10 +61,11 @@ function registerSpeakText(text) {
   return SpeakTextRegistry.length - 1;
 }
 
-function speakById(id, btnEl) {
+function speakById(id, btnEl, accentId) {
   const text = SpeakTextRegistry[id];
   if (text) {
-    speakEnglish(text, btnEl);
+    const langCode = accentId ? ((typeof ACCENT_CONFIG !== 'undefined' && ACCENT_CONFIG[accentId] && ACCENT_CONFIG[accentId].code) || accentId) : null;
+    speakEnglish(text, btnEl, langCode);
   }
 }
 
@@ -98,14 +99,21 @@ function soundWaveSvg() {
 }
 
 /* =====================================================================
-   COUNTRY ACCENT CONFIGURATION & SPEECH SYNCHRONIZATION
+   COUNTRY & MULTI-ACCENT CONFIGURATION & SPEECH SYNCHRONIZATION
 ====================================================================== */
+const ACCENT_CONFIG = {
+  UK: { id: 'UK', code: 'en-GB', name: 'British Accent', shortLabel: 'UK', flag: '🇬🇧', countryId: 'UK' },
+  US: { id: 'US', code: 'en-US', name: 'American Accent', shortLabel: 'US', flag: '🇺🇸', countryId: 'US' },
+  AU: { id: 'AU', code: 'en-AU', name: 'Australian Accent', shortLabel: 'AU', flag: '🇦🇺', countryId: 'AU' },
+  CA: { id: 'CA', code: 'en-CA', name: 'Canadian Accent', shortLabel: 'CA', flag: '🇨🇦', countryId: 'CA' }
+};
+
 const COUNTRY_CONFIG = {
-  UK: { id: 'UK', name: 'United Kingdom', flag: '🇬🇧', lang: 'en-GB', accentLabel: 'British (en-GB)' },
-  US: { id: 'US', name: 'United States', flag: '🇺🇸', lang: 'en-US', accentLabel: 'American (en-US)' },
-  AU: { id: 'AU', name: 'Australia', flag: '🇦🇺', lang: 'en-AU', accentLabel: 'Australian (en-AU)' },
-  CA: { id: 'CA', name: 'Canada', flag: '🇨🇦', lang: 'en-CA', accentLabel: 'Canadian (en-CA)' },
-  BD: { id: 'BD', name: 'Bangladesh', flag: '🇧🇩', lang: 'en-US', accentLabel: 'Bangla Support (en-US)' }
+  UK: { id: 'UK', name: 'United Kingdom', flag: '🇬🇧', lang: 'en-GB', accentId: 'UK', accentLabel: 'British (en-GB)' },
+  US: { id: 'US', name: 'United States', flag: '🇺🇸', lang: 'en-US', accentId: 'US', accentLabel: 'American (en-US)' },
+  AU: { id: 'AU', name: 'Australia', flag: '🇦🇺', lang: 'en-AU', accentId: 'AU', accentLabel: 'Australian (en-AU)' },
+  CA: { id: 'CA', name: 'Canada', flag: '🇨🇦', lang: 'en-CA', accentId: 'CA', accentLabel: 'Canadian (en-CA)' },
+  BD: { id: 'BD', name: 'Bangladesh', flag: '🇧🇩', lang: 'en-GB', accentId: 'UK', accentLabel: 'Bangla Support (UK/US)' }
 };
 
 function getSelectedCountry() {
@@ -116,10 +124,74 @@ function getSelectedCountry() {
   return (saved && COUNTRY_CONFIG[saved]) || COUNTRY_CONFIG.US;
 }
 
+function getActiveAccent() {
+  let savedAccent = null;
+  try {
+    savedAccent = localStorage.getItem('vw_accent');
+  } catch (e) {}
+  if (savedAccent && ACCENT_CONFIG[savedAccent]) {
+    return ACCENT_CONFIG[savedAccent];
+  }
+  const country = getSelectedCountry();
+  if (country && country.accentId && ACCENT_CONFIG[country.accentId]) {
+    return ACCENT_CONFIG[country.accentId];
+  }
+  return ACCENT_CONFIG.US;
+}
+
+function setActiveAccent(accentId, skipRender = false) {
+  if (!ACCENT_CONFIG[accentId]) return;
+  try {
+    localStorage.setItem('vw_accent', accentId);
+  } catch (e) {}
+
+  // Update country if appropriate
+  const country = getSelectedCountry();
+  if (country && country.id !== 'BD' && country.accentId !== accentId) {
+    if (COUNTRY_CONFIG[accentId]) {
+      try {
+        localStorage.setItem('vw_country', accentId);
+      } catch (e) {}
+    }
+  }
+
+  // Update navbar badge if rendered
+  const badge = document.getElementById('vw-navbar-accent-badge');
+  if (badge) badge.textContent = accentId;
+
+  // Update all card pills if rendered
+  document.querySelectorAll('.vw-accent-card-pill').forEach((btn) => {
+    if (btn.dataset.accent === accentId) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update active cartoon player if open
+  if (typeof CartoonPlayer !== 'undefined' && CartoonPlayer.isOpen) {
+    CartoonPlayer.setAccent(accentId);
+  }
+
+  if (!skipRender) {
+    const activePage = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+    if (typeof renderAppHeader === 'function') renderAppHeader(activePage);
+  }
+
+  if (typeof showToast === 'function') {
+    const acc = ACCENT_CONFIG[accentId];
+    showToast(`উচ্চারণ অ্যাকসেন্ট: ${acc.name} (${acc.shortLabel})`);
+  }
+}
+window.getActiveAccent = getActiveAccent;
+window.setActiveAccent = setActiveAccent;
+window.ACCENT_CONFIG = ACCENT_CONFIG;
+window.COUNTRY_CONFIG = COUNTRY_CONFIG;
+
 /* =====================================================================
    2. HYBRID ENGLISH PRONUNCIATION AUDIO SYSTEM
-   - Tier 1: HTML5 SpeechSynthesis (Matched to Selected Country Accent)
-   - Tier 2: Free Dictionary API Studio MP3 Fallback
+   - Tier 1: HTML5 SpeechSynthesis (Multi-Accent & Gender-Aware)
+   - Tier 2: Free Dictionary API Studio MP3 Fallback (UK vs US Dialect)
    - Tier 3: High-Quality Google TTS Accent Fallback
 ====================================================================== */
 const PronunciationEngine = {
@@ -143,31 +215,59 @@ const PronunciationEngine = {
     return getSelectedCountry();
   },
 
-  pickEnglishVoice(targetLang) {
+  getVoiceForAccent(langCode, genderPreference = 'female') {
     if (!this.voices.length && 'speechSynthesis' in window) {
       this.voices = window.speechSynthesis.getVoices() || [];
     }
-    const country = this.getSelectedCountry();
-    const desiredLang = (targetLang || country.lang || 'en-US').toLowerCase();
+    if (!this.voices.length) return null;
 
-    // 1. Exact match e.g. en-gb or en-us
-    let match = this.voices.find(
-      (v) => v.lang && v.lang.replace('_', '-').toLowerCase() === desiredLang
-    );
-    // 2. Starts with desired dialect e.g. en-gb
-    if (!match) {
-      match = this.voices.find(
-        (v) => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(desiredLang)
-      );
+    const desiredLang = (langCode || 'en-US').toLowerCase().replace('_', '-');
+    const baseLang = desiredLang.split('-')[0];
+
+    // 1. Dialect voices matching exact code (e.g., en-gb or en-us)
+    let dialectVoices = this.voices.filter((v) => {
+      const vLang = (v.lang || '').toLowerCase().replace('_', '-');
+      return vLang === desiredLang || vLang.startsWith(desiredLang);
+    });
+
+    // 2. Fallback to any voice with the base language (e.g. en)
+    if (!dialectVoices.length) {
+      dialectVoices = this.voices.filter((v) => {
+        const vLang = (v.lang || '').toLowerCase().replace('_', '-');
+        return vLang.startsWith(baseLang);
+      });
     }
-    // 3. Fallback to any English voice
-    if (!match) {
-      const base = desiredLang.split('-')[0];
-      match = this.voices.find(
-        (v) => v.lang && v.lang.toLowerCase().startsWith(base)
-      );
+
+    if (!dialectVoices.length) return this.voices[0] || null;
+
+    const isFemale = genderPreference === 'female';
+    const femaleKw = ['female', 'zira', 'samantha', 'aria', 'jenny', 'sonia', 'karen', 'hazel', 'victoria', 'catherine', 'alice', 'susan'];
+    const maleKw = ['david', 'george', 'alex', 'guy', 'oliver', 'daniel', 'richard', 'james', 'brian', 'lee'];
+
+    if (isFemale) {
+      const fMatch = dialectVoices.find((v) => {
+        const name = (v.name || '').toLowerCase();
+        return femaleKw.some((kw) => name.includes(kw));
+      });
+      if (fMatch) return fMatch;
+    } else {
+      // Safe male check: Must NOT contain "female", and must contain "male" or known male name
+      const mMatch = dialectVoices.find((v) => {
+        const name = (v.name || '').toLowerCase();
+        if (name.includes('female')) return false;
+        return name.includes('male') || maleKw.some((kw) => name.includes(kw));
+      });
+      if (mMatch) return mMatch;
     }
-    return match || null;
+
+    // Secondary fallback: if requested gender voice is not distinct, use first dialect voice
+    return dialectVoices[0];
+  },
+
+  pickEnglishVoice(targetLang, gender = 'female') {
+    const activeAccent = (typeof getActiveAccent === 'function') ? getActiveAccent() : { code: 'en-US' };
+    const lang = targetLang || activeAccent.code || 'en-US';
+    return this.getVoiceForAccent(lang, gender);
   },
 
   resetButton(btn) {
@@ -213,7 +313,9 @@ const PronunciationEngine = {
       : soundWaveSvg();
   },
 
-  async playFallbackAudio(text, btnEl) {
+  async playFallbackAudio(text, btnEl, targetLang) {
+    const activeAccent = (typeof getActiveAccent === 'function') ? getActiveAccent() : { id: 'US', code: 'en-US' };
+    const langCode = targetLang || activeAccent.code || 'en-US';
     const isSingleWord = !text.includes(' ');
     if (isSingleWord) {
       try {
@@ -223,7 +325,14 @@ const PronunciationEngine = {
           if (res.ok) {
             const data = await res.json();
             const phonetics = (data && data[0] && data[0].phonetics) || [];
-            const audioEntry = phonetics.find((p) => p.audio && p.audio.length > 0);
+            
+            // Prefer dialect-specific studio audio (e.g. -uk.mp3 vs -us.mp3)
+            const targetSuffix = langCode.toLowerCase().includes('gb') ? '-uk.mp3' : '-us.mp3';
+            let audioEntry = phonetics.find((p) => p.audio && p.audio.toLowerCase().includes(targetSuffix));
+            if (!audioEntry) {
+              audioEntry = phonetics.find((p) => p.audio && p.audio.length > 0);
+            }
+
             if (audioEntry && this.activeBtn === btnEl) {
               const dictAudio = new Audio(audioEntry.audio);
               this.activeAudio = dictAudio;
@@ -231,7 +340,7 @@ const PronunciationEngine = {
                 if (this.activeBtn === btnEl) this.stopAll();
               };
               dictAudio.onerror = () => {
-                if (this.activeBtn === btnEl) this.playGoogleTts(text, btnEl);
+                if (this.activeBtn === btnEl) this.playGoogleTts(text, btnEl, langCode);
               };
               await dictAudio.play();
               return;
@@ -242,14 +351,14 @@ const PronunciationEngine = {
     }
 
     if (this.activeBtn === btnEl) {
-      this.playGoogleTts(text, btnEl);
+      this.playGoogleTts(text, btnEl, langCode);
     }
   },
 
-  playGoogleTts(text, btnEl) {
-    const country = this.getSelectedCountry();
+  playGoogleTts(text, btnEl, targetLang) {
+    const activeAccent = (typeof getActiveAccent === 'function') ? getActiveAccent() : { code: 'en-US' };
+    const tl = (targetLang || activeAccent.code || 'en-US').toLowerCase();
     const encoded = encodeURIComponent(text.slice(0, 220));
-    const tl = (country.lang || 'en-US').toLowerCase();
     const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=${encodeURIComponent(tl)}&q=${encoded}`;
     const audio = new Audio(url);
     this.activeAudio = audio;
@@ -272,8 +381,9 @@ const PronunciationEngine = {
     });
   }
 };
+window.PronunciationEngine = PronunciationEngine;
 
-function speakEnglish(text, btnEl) {
+function speakEnglish(text, btnEl, targetLangCode) {
   const cleanText = String(text || '').trim();
   if (!cleanText) return;
 
@@ -286,16 +396,17 @@ function speakEnglish(text, btnEl) {
   const hasLabel = btnEl && btnEl.textContent && btnEl.textContent.trim().length > 0;
   PronunciationEngine.activateButton(btnEl, hasLabel);
 
+  const activeAccent = (typeof getActiveAccent === 'function') ? getActiveAccent() : { code: 'en-US' };
+  const langCode = targetLangCode || activeAccent.code || 'en-US';
   const isSentence = cleanText.split(/\s+/).length > 2;
   let started = false;
 
   if ('speechSynthesis' in window) {
     try {
-      const country = PronunciationEngine.getSelectedCountry();
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      const voice = PronunciationEngine.pickEnglishVoice(country.lang);
+      const voice = PronunciationEngine.getVoiceForAccent(langCode, 'female');
       if (voice) utterance.voice = voice;
-      utterance.lang = country.lang || 'en-US';
+      utterance.lang = langCode;
       utterance.rate = isSentence ? 0.92 : 0.95;
 
       utterance.onstart = () => {
@@ -314,7 +425,7 @@ function speakEnglish(text, btnEl) {
 
       utterance.onerror = () => {
         if (!started && PronunciationEngine.activeBtn === btnEl) {
-          PronunciationEngine.playFallbackAudio(cleanText, btnEl);
+          PronunciationEngine.playFallbackAudio(cleanText, btnEl, langCode);
         }
       };
 
@@ -325,18 +436,67 @@ function speakEnglish(text, btnEl) {
           try {
             window.speechSynthesis.cancel();
           } catch (e) {}
-          PronunciationEngine.playFallbackAudio(cleanText, btnEl);
+          PronunciationEngine.playFallbackAudio(cleanText, btnEl, langCode);
         }
       }, 650);
       return;
     } catch (err) {}
   }
 
-  PronunciationEngine.playFallbackAudio(cleanText, btnEl);
+  PronunciationEngine.playFallbackAudio(cleanText, btnEl, langCode);
 }
 
 // Global alias for speakEnglish
 window.speakWord = speakEnglish;
+
+function speakWordWithAccent(textOrId, accentId, btnEl) {
+  const targetAcc = ACCENT_CONFIG[accentId] || ACCENT_CONFIG.US;
+  let text = '';
+  if (typeof textOrId === 'number') {
+    text = SpeakTextRegistry[textOrId] || '';
+  } else {
+    text = String(textOrId || '');
+  }
+  if (!text) return;
+
+  // Visual active feedback for the clicked accent button
+  if (btnEl && btnEl.parentElement) {
+    btnEl.parentElement.querySelectorAll('.vw-accent-card-pill').forEach((p) => p.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+
+  speakEnglish(text, btnEl, targetAcc.code);
+}
+window.speakWordWithAccent = speakWordWithAccent;
+
+function renderCardAccentSwitcherHTML(wordSpeakId, wordId) {
+  const activeAcc = (typeof getActiveAccent === 'function') ? getActiveAccent() : { id: 'US' };
+  const currentAccentId = activeAcc.id;
+  const targetId = typeof wordSpeakId === 'number' ? wordSpeakId : registerSpeakText(wordSpeakId);
+  return `
+    <div class="vw-card-accent-group inline-flex items-center rounded-full p-0.5 border shrink-0" style="background-color: var(--surface-sand); border-color: var(--border-subtle);" title="Compare UK vs US pronunciation &bull; উচ্চারণ তুলনা">
+      <button
+        type="button"
+        data-accent="UK"
+        onclick="event.stopPropagation(); ${wordId ? `if(typeof trackWordExplored==='function')trackWordExplored('${wordId}');` : ''} speakWordWithAccent(${targetId}, 'UK', this)"
+        class="vw-accent-card-pill ${currentAccentId === 'UK' ? 'active' : ''} px-2 py-0.5 rounded-full text-[10px] font-bold transition-all"
+        title="British Pronunciation (UK) &bull; ব্রিটিশ উচ্চারণ"
+      >
+        UK
+      </button>
+      <button
+        type="button"
+        data-accent="US"
+        onclick="event.stopPropagation(); ${wordId ? `if(typeof trackWordExplored==='function')trackWordExplored('${wordId}');` : ''} speakWordWithAccent(${targetId}, 'US', this)"
+        class="vw-accent-card-pill ${currentAccentId === 'US' ? 'active' : ''} px-2 py-0.5 rounded-full text-[10px] font-bold transition-all"
+        title="American Pronunciation (US) &bull; আমেরিকান উচ্চারণ"
+      >
+        US
+      </button>
+    </div>
+  `;
+}
+window.renderCardAccentSwitcherHTML = renderCardAccentSwitcherHTML;
 
 function showToast(msg) {
   const toast = document.getElementById('vw-toast');
@@ -735,15 +895,21 @@ function selectCountry(countryId) {
     localStorage.setItem('vw_country', countryId);
   } catch (e) {}
 
+  const country = COUNTRY_CONFIG[countryId];
+  if (country.accentId && ACCENT_CONFIG[country.accentId]) {
+    try {
+      localStorage.setItem('vw_accent', country.accentId);
+    } catch (e) {}
+  }
+
   const picker = document.getElementById('vw-country-picker');
   if (picker) picker.classList.add('hidden');
 
-  const country = COUNTRY_CONFIG[countryId];
   const activePage = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
   renderAppHeader(activePage);
 
   if (typeof showToast === 'function') {
-    showToast(`উচ্চারণ অ্যাকসেন্ট পরিবর্তিত হয়েছে: ${country.name} (${country.lang})`);
+    showToast(`দেশ ও উচ্চারণ অ্যাকসেন্ট পরিবর্তিত হয়েছে: ${country.name} (${country.lang})`);
   }
 }
 
@@ -940,6 +1106,7 @@ function renderAppHeader(activePage = 'home') {
   ];
 
   const selectedCountry = getSelectedCountry();
+  const activeAccent = getActiveAccent();
   const userProfile = getStoredUserProfile();
   const isDark = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark';
 
@@ -1071,46 +1238,75 @@ function renderAppHeader(activePage = 'home') {
               id="vw-country-btn"
               onclick="toggleCountryPicker()"
               class="vw-country-btn"
-              title="Pronunciation Accent: ${selectedCountry.name} (${selectedCountry.lang}) &bull; Click to switch"
+              title="Pronunciation Accent: ${activeAccent.name} (${activeAccent.shortLabel}) &bull; Click to switch"
             >
               <span class="vw-country-flag text-base leading-none">${selectedCountry.flag}</span>
-              <span class="vw-country-code hidden xl:inline text-[11px] font-bold" style="color: var(--ink-primary);">${selectedCountry.id}</span>
+              <span id="vw-navbar-accent-badge" class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
               <span class="text-[8px] text-gray-400">&blacktriangledown;</span>
             </button>
 
-            <!-- Country Dropdown Menu -->
+            <!-- Country & Accent Dropdown Menu -->
             <div
               id="vw-country-picker"
-              class="hidden absolute right-0 mt-2 w-64 rounded-2xl border p-2 shadow-xl z-50 vw-panel-reveal"
+              class="hidden absolute right-0 mt-2 w-72 rounded-2xl border p-2.5 shadow-xl z-50 vw-panel-reveal"
               style="background-color: var(--surface-white); border-color: var(--border-subtle);"
             >
-              <div class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border-b mb-1" style="color: var(--ink-muted); border-color: var(--border-subtle);">
-                Pronunciation Accent &bull; উচ্চারণ ধরন
+              <!-- Quick Accent Switcher Row -->
+              <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border-b mb-1.5 flex items-center justify-between" style="color: var(--ink-muted); border-color: var(--border-subtle);">
+                <span>Quick Accent &bull; দ্রুত অ্যাকসেন্ট</span>
+                <span class="font-mono text-[9px] lowercase opacity-75">${activeAccent.code}</span>
               </div>
-              ${Object.values(COUNTRY_CONFIG)
-                .map((c) => {
-                  const isSelected = c.id === selectedCountry.id;
-                  return `
-                    <button
-                      type="button"
-                      onclick="selectCountry('${c.id}')"
-                      class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-colors ${
-                        isSelected ? 'bg-[#EEF4F1] text-[#2D5A4C]' : 'hover:bg-black/5'
-                      }"
-                      style="${isSelected ? 'background-color: var(--accent-sage-soft); color: var(--accent-sage);' : 'color: var(--ink-primary);'}"
-                    >
-                      <div class="flex items-center gap-2.5">
-                        <span class="text-lg leading-none">${c.flag}</span>
-                        <div class="text-left">
-                          <span class="block text-xs font-bold">${c.name}</span>
-                          <span class="block text-[10px] font-normal" style="color: var(--ink-muted);">${c.accentLabel}</span>
+              <div class="grid grid-cols-4 gap-1 px-1 mb-2.5">
+                ${Object.values(ACCENT_CONFIG)
+                  .map((acc) => {
+                    const isAct = acc.id === activeAccent.id;
+                    return `
+                      <button
+                        type="button"
+                        onclick="setActiveAccent('${acc.id}')"
+                        class="vw-quick-accent-btn px-1.5 py-1 rounded-xl text-center border transition-all ${
+                          isAct ? 'active font-bold' : ''
+                        }"
+                        title="${acc.name} (${acc.code})"
+                      >
+                        <span class="block text-sm leading-tight">${acc.flag}</span>
+                        <span class="block text-[10px] font-mono font-bold leading-tight mt-0.5">${acc.shortLabel}</span>
+                      </button>
+                    `;
+                  })
+                  .join('')}
+              </div>
+
+              <!-- Country & Dialect List -->
+              <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border-b mb-1" style="color: var(--ink-muted); border-color: var(--border-subtle);">
+                Country &amp; Dialect &bull; দেশভিত্তিক নির্বাচন
+              </div>
+              <div class="space-y-0.5 max-h-60 overflow-y-auto">
+                ${Object.values(COUNTRY_CONFIG)
+                  .map((c) => {
+                    const isSelected = c.id === selectedCountry.id;
+                    return `
+                      <button
+                        type="button"
+                        onclick="selectCountry('${c.id}')"
+                        class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors ${
+                          isSelected ? 'bg-[#EEF4F1] text-[#2D5A4C]' : 'hover:bg-black/5 dark:hover:bg-white/5'
+                        }"
+                        style="${isSelected ? 'background-color: var(--accent-sage-soft); color: var(--accent-sage);' : 'color: var(--ink-primary);'}"
+                      >
+                        <div class="flex items-center gap-2.5">
+                          <span class="text-base leading-none">${c.flag}</span>
+                          <div class="text-left">
+                            <span class="block text-xs font-bold">${c.name}</span>
+                            <span class="block text-[10px] font-normal" style="color: var(--ink-muted);">${c.accentLabel}</span>
+                          </div>
                         </div>
-                      </div>
-                      ${isSelected ? '<span class="text-xs font-bold" style="color: var(--accent-sage);">&check;</span>' : ''}
-                    </button>
-                  `;
-                })
-                .join('')}
+                        ${isSelected ? '<span class="text-xs font-bold" style="color: var(--accent-sage);">&check;</span>' : ''}
+                      </button>
+                    `;
+                  })
+                  .join('')}
+              </div>
             </div>
           </div>
 
@@ -1227,10 +1423,10 @@ function renderAppHeader(activePage = 'home') {
               type="button"
               onclick="toggleCountryPicker()"
               class="vw-country-btn h-8 text-xs px-2"
-              title="Country accent"
+              title="Country accent: ${activeAccent.name}"
             >
               <span>${selectedCountry.flag}</span>
-              <span class="text-[11px] font-bold">${selectedCountry.id}</span>
+              <span class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
             </button>
           </div>
 
@@ -2342,7 +2538,9 @@ const CartoonPlayer = {
   conv: null,
   lineIdx: 0,
   isPlaying: false,
+  isOpen: false,
   speed: 1.0,
+  accent: null,
   timer: null,
   progressRaf: null,
   lineStartTime: 0,
@@ -2361,7 +2559,7 @@ const CartoonPlayer = {
           style="background-color: var(--surface-white); border-color: var(--border-subtle);"
         >
           <!-- 1. Modal Header -->
-          <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b shrink-0" style="border-color: var(--border-subtle); background-color: var(--bg-ivory);">
+          <div class="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b shrink-0 gap-3" style="border-color: var(--border-subtle); background-color: var(--bg-ivory);">
             <div class="flex items-center gap-3 min-w-0">
               <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 font-editorial font-bold text-white shadow-xs" style="background-color: var(--accent-sage);">
                 V
@@ -2381,15 +2579,48 @@ const CartoonPlayer = {
               </div>
             </div>
 
-            <button
-              type="button"
-              onclick="CartoonPlayer.close()"
-              class="w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#2D5A4C] shrink-0 ml-2"
-              style="border-color: var(--border-subtle); color: var(--ink-muted);"
-              aria-label="Close video player"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
+            <!-- Accent Switcher Pill [ UK | US | AU ] & Close button -->
+            <div class="flex items-center gap-2 shrink-0">
+              <div id="vw-cv-accent-bar" class="hidden xs:flex items-center rounded-full p-0.5 border" style="background-color: var(--surface-sand); border-color: var(--border-subtle);" title="Switch Conversation Accent &bull; বাচনভঙ্গি পরিবর্তন">
+                <button
+                  type="button"
+                  data-accent="UK"
+                  onclick="CartoonPlayer.setAccent('UK')"
+                  class="vw-cv-accent-btn px-2.5 py-1 rounded-full text-xs font-bold transition-all"
+                  title="British Accent (UK)"
+                >
+                  🇬🇧 UK
+                </button>
+                <button
+                  type="button"
+                  data-accent="US"
+                  onclick="CartoonPlayer.setAccent('US')"
+                  class="vw-cv-accent-btn px-2.5 py-1 rounded-full text-xs font-bold transition-all"
+                  title="American Accent (US)"
+                >
+                  🇺🇸 US
+                </button>
+                <button
+                  type="button"
+                  data-accent="AU"
+                  onclick="CartoonPlayer.setAccent('AU')"
+                  class="vw-cv-accent-btn px-2.5 py-1 rounded-full text-xs font-bold transition-all"
+                  title="Australian Accent (AU)"
+                >
+                  🇦🇺 AU
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onclick="CartoonPlayer.close()"
+                class="w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#2D5A4C] shrink-0"
+                style="border-color: var(--border-subtle); color: var(--ink-muted);"
+                aria-label="Close video player"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
           </div>
 
           <!-- 2. Scrollable Body -->
@@ -2450,6 +2681,12 @@ const CartoonPlayer = {
                   </div>
 
                   <div class="flex items-center gap-2">
+                    <div class="xs:hidden flex items-center rounded-full p-0.5 bg-white/20 text-white text-[10px]">
+                      <button type="button" onclick="CartoonPlayer.setAccent('UK')" data-accent="UK" class="vw-cv-accent-btn px-1.5 py-0.5 rounded-full font-bold">UK</button>
+                      <button type="button" onclick="CartoonPlayer.setAccent('US')" data-accent="US" class="vw-cv-accent-btn px-1.5 py-0.5 rounded-full font-bold">US</button>
+                      <button type="button" onclick="CartoonPlayer.setAccent('AU')" data-accent="AU" class="vw-cv-accent-btn px-1.5 py-0.5 rounded-full font-bold">AU</button>
+                    </div>
+
                     <button
                       type="button"
                       id="vw-cv-speed-btn"
@@ -2494,6 +2731,40 @@ const CartoonPlayer = {
     }
   },
 
+  setAccent(accentId) {
+    if (typeof ACCENT_CONFIG !== 'undefined' && !ACCENT_CONFIG[accentId]) return;
+    this.accent = accentId;
+    this.updateAccentPills();
+
+    // If currently playing, restart the current line with the newly selected accent & voice
+    if (this.isPlaying) {
+      if ('speechSynthesis' in window) {
+        try { window.speechSynthesis.cancel(); } catch (e) {}
+      }
+      if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+      if (this.progressRaf) { cancelAnimationFrame(this.progressRaf); this.progressRaf = null; }
+      this.playLine(this.lineIdx);
+    }
+
+    if (typeof showToast === 'function') {
+      const acc = (typeof ACCENT_CONFIG !== 'undefined' && ACCENT_CONFIG[accentId]) || { name: accentId, shortLabel: accentId };
+      showToast(`কার্টুন কথপোকথন অ্যাকসেন্ট: ${acc.name} (${acc.shortLabel})`);
+    }
+  },
+
+  updateAccentPills() {
+    const currentAccent = this.accent || ((typeof getActiveAccent === 'function') ? getActiveAccent().id : 'US');
+    const modal = document.getElementById('vw-cartoon-video-modal');
+    if (!modal) return;
+    modal.querySelectorAll('.vw-cv-accent-btn').forEach((btn) => {
+      if (btn.dataset.accent === currentAccent) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  },
+
   open(wordId) {
     this.ensureModal();
     let foundWord = null;
@@ -2529,6 +2800,9 @@ const CartoonPlayer = {
     this.conv = getWordCartoonConversation(foundWord);
     this.lineIdx = 0;
     this.isPlaying = true;
+    this.isOpen = true;
+    this.accent = (typeof getActiveAccent === 'function') ? getActiveAccent().id : 'US';
+    this.updateAccentPills();
 
     if (typeof trackWordExplored === 'function') {
       trackWordExplored(foundWord.id);
@@ -2687,11 +2961,15 @@ const CartoonPlayer = {
     if ('speechSynthesis' in window) {
       try {
         const utterance = new SpeechSynthesisUtterance(line.en);
-        const country = (typeof PronunciationEngine !== 'undefined') ? PronunciationEngine.getSelectedCountry() : { lang: 'en-US' };
+        const currentAccentId = this.accent || ((typeof getActiveAccent === 'function') ? getActiveAccent().id : 'US');
+        const accentObj = (typeof ACCENT_CONFIG !== 'undefined' && ACCENT_CONFIG[currentAccentId]) || { code: 'en-US' };
+        const langCode = accentObj.code;
+
         if (typeof PronunciationEngine !== 'undefined') {
-          utterance.voice = PronunciationEngine.pickEnglishVoice(country.lang);
+          const voice = PronunciationEngine.getVoiceForAccent(langCode, isMaya ? 'female' : 'male');
+          if (voice) utterance.voice = voice;
         }
-        utterance.lang = country.lang || 'en-US';
+        utterance.lang = langCode;
         utterance.pitch = isMaya ? 1.25 : 0.82;
         utterance.rate = (this.speed === 0.85 ? 0.78 : 0.94);
 
@@ -2786,6 +3064,7 @@ const CartoonPlayer = {
 
   close() {
     this.isPlaying = false;
+    this.isOpen = false;
     if (this.timer) { clearTimeout(this.timer); this.timer = null; }
     if (this.progressRaf) { cancelAnimationFrame(this.progressRaf); this.progressRaf = null; }
     if ('speechSynthesis' in window) {
@@ -2795,6 +3074,7 @@ const CartoonPlayer = {
     if (modal) modal.classList.add('hidden');
   }
 };
+window.CartoonPlayer = CartoonPlayer;
 
 function openCartoonVideoModal(wordId) {
   CartoonPlayer.open(wordId);
