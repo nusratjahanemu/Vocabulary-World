@@ -73,8 +73,8 @@ Vocabulary-World/
 
 1. রিপোজিটরিটি ক্লোন করুন:
    ```bash
-   git clone https://github.com/mykelbarua/vocabulary-world.git
-   cd vocabulary-world
+   git clone https://github.com/nusratjahanemu/Vocabulary-World.git
+   cd Vocabulary-World
    ```
 2. যেকোনো ব্রাউজারে `index.html` ফাইলটি সরাসরি ডাবল ক্লিক করে অথবা লাইভ সার্ভার এক্সটেনশন দিয়ে ওপেন করুন।
 
@@ -82,7 +82,7 @@ Vocabulary-World/
 
 ## 🌐 লাইভ ডেমো (Live GitHub Pages)
 
-- **URL:** [https://mykelbarua.github.io/vocabulary-world/](https://mykelbarua.github.io/vocabulary-world/)
+- **URL:** [https://nusratjahanemu.github.io/Vocabulary-World/](https://nusratjahanemu.github.io/Vocabulary-World/)
 
 ---
 
