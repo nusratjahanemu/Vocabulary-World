@@ -979,7 +979,7 @@ function renderAppHeader(activePage = 'home') {
                 <a
                   href="${item.href}"
                   data-page="${item.id}"
-                  class="vw-top-nav-item ${isActive ? 'active' : ''}"
+                  class="vw-top-nav-item nav-item ${isActive ? 'active is-pill-target' : ''}"
                 >
                   <span class="vw-nav-icon ${isActive ? 'nav-icon-pop' : ''}">${item.icon}</span>
                   <span>${item.label}</span>
@@ -1365,11 +1365,11 @@ function realignTopNavSlidingPill() {
   const nav = document.getElementById('vw-top-nav');
   const pill = document.getElementById('vw-top-sliding-pill');
   if (!nav || !pill) return;
-  const activeItem = nav.querySelector('.vw-top-nav-item.active');
-  if (activeItem) {
+  const targetItem = nav.querySelector('.vw-top-nav-item.is-pill-target') || nav.querySelector('.vw-top-nav-item.active');
+  if (targetItem) {
     pill.style.transition = 'none';
-    pill.style.width = `${activeItem.offsetWidth}px`;
-    pill.style.transform = `translate3d(${activeItem.offsetLeft}px, 0, 0)`;
+    pill.style.width = `${targetItem.offsetWidth}px`;
+    pill.style.transform = `translate3d(${targetItem.offsetLeft}px, 0, 0)`;
     void pill.offsetWidth;
     pill.style.transition = '';
   }
@@ -1380,42 +1380,116 @@ function initTopNavSlidingPill() {
   const pill = document.getElementById('vw-top-sliding-pill');
   if (!nav || !pill) return;
 
-  const items = Array.from(nav.querySelectorAll('.vw-top-nav-item'));
+  const items = Array.from(nav.querySelectorAll('.vw-top-nav-item, .nav-item'));
   if (!items.length) return;
 
   const activeItem = items.find((el) => el.classList.contains('active')) || null;
+  let currentTarget = activeItem;
+
+  // Ensure initial active tab has .is-pill-target
+  items.forEach((it) => it.classList.remove('is-pill-target'));
   if (activeItem) {
-    const popIcon = activeItem.querySelector('.vw-nav-icon.nav-icon-pop');
-    if (popIcon) {
-      setTimeout(() => {
-        popIcon.classList.remove('nav-icon-pop');
-      }, 550);
-    }
+    activeItem.classList.add('is-pill-target');
   }
 
-  function movePillTo(targetEl, animate = true) {
+  let trackingRafId = null;
+  let trackingStartTime = null;
+
+  // Helper to extract current horizontal translation from transform matrix
+  function getPillTranslateX() {
+    try {
+      const transform = window.getComputedStyle(pill).transform;
+      if (!transform || transform === 'none') return pill.offsetLeft || 0;
+      const mat = transform.match(/^matrix\((.+)\)$/);
+      if (mat) return parseFloat(mat[1].split(',')[4]) || 0;
+      const mat3d = transform.match(/^matrix3d\((.+)\)$/);
+      if (mat3d) return parseFloat(mat3d[1].split(',')[12]) || 0;
+    } catch (e) {}
+    return pill.offsetLeft || 0;
+  }
+
+  // Smooth ease-out cubic approximation matching cubic-bezier(0.22, 1, 0.36, 1)
+  function easePillMotion(t) {
+    return 1 - Math.pow(1 - t, 3.2);
+  }
+
+  function syncPillWithTarget(targetEl, animate = true) {
     if (!targetEl) {
       pill.style.opacity = '0';
       return;
     }
 
+    currentTarget = targetEl;
+
     if (!animate) {
+      if (trackingRafId) {
+        cancelAnimationFrame(trackingRafId);
+        trackingRafId = null;
+      }
       pill.style.transition = 'none';
-    } else {
-      pill.style.transition = '';
-    }
-
-    const targetLeft = targetEl.offsetLeft;
-    const targetWidth = targetEl.offsetWidth;
-
-    pill.style.width = `${targetWidth}px`;
-    pill.style.transform = `translate3d(${targetLeft}px, 0, 0)`;
-    pill.style.opacity = '1';
-
-    if (!animate) {
+      pill.style.width = `${targetEl.offsetWidth}px`;
+      pill.style.transform = `translate3d(${targetEl.offsetLeft}px, 0, 0)`;
+      pill.style.opacity = '1';
       void pill.offsetWidth;
       pill.style.transition = '';
+      return;
     }
+
+    if (trackingRafId) cancelAnimationFrame(trackingRafId);
+
+    const startX = getPillTranslateX();
+    const startW = pill.offsetWidth || targetEl.offsetWidth;
+    const duration = 360; // tracks icon expansion and neighbor shifts in lockstep
+    trackingStartTime = performance.now();
+
+    pill.style.opacity = '1';
+    pill.style.transition = 'none'; // frame-by-frame lockstep glide without sluggish transition lag
+
+    function step(now) {
+      if (currentTarget !== targetEl) return;
+      const elapsed = now - trackingStartTime;
+      const progress = Math.min(1, elapsed / duration);
+      const ease = easePillMotion(progress);
+
+      const targetX = targetEl.offsetLeft;
+      const targetW = targetEl.offsetWidth;
+
+      const curX = startX + (targetX - startX) * ease;
+      const curW = startW + (targetW - startW) * ease;
+
+      pill.style.transform = `translate3d(${curX}px, 0, 0)`;
+      pill.style.width = `${curW}px`;
+
+      if (progress < 1) {
+        trackingRafId = requestAnimationFrame(step);
+      } else {
+        pill.style.transform = `translate3d(${targetEl.offsetLeft}px, 0, 0)`;
+        pill.style.width = `${targetEl.offsetWidth}px`;
+        pill.style.transition = '';
+        trackingRafId = null;
+      }
+    }
+
+    trackingRafId = requestAnimationFrame(step);
+  }
+
+  // Function to switch .is-pill-target cleanly
+  function setPillTarget(targetItem) {
+    if (!targetItem) {
+      items.forEach((it) => it.classList.remove('is-pill-target'));
+      pill.style.opacity = '0';
+      return;
+    }
+
+    items.forEach((it) => {
+      if (it === targetItem) {
+        it.classList.add('is-pill-target');
+      } else {
+        it.classList.remove('is-pill-target');
+      }
+    });
+
+    syncPillWithTarget(targetItem, true);
   }
 
   // Cross-Page Slide Continuity:
@@ -1434,37 +1508,29 @@ function initTopNavSlidingPill() {
   const curPage = activeItem ? activeItem.dataset.page : null;
 
   if (activeItem) {
-    const curLeft = activeItem.offsetLeft;
-    const curWidth = activeItem.offsetWidth;
-
-    // If navigated from another tab/page, glide smoothly from the previous position!
-    if (prevLeft !== null && !isNaN(prevLeft) && (prevPage !== curPage || Math.abs(prevLeft - curLeft) > 2)) {
+    if (prevLeft !== null && !isNaN(prevLeft) && (prevPage !== curPage || Math.abs(prevLeft - activeItem.offsetLeft) > 2)) {
       // 1. Initial position at previous tab's horizontal offset without animation
       pill.style.transition = 'none';
-      pill.style.width = `${prevWidth || curWidth}px`;
+      pill.style.width = `${prevWidth || activeItem.offsetWidth}px`;
       pill.style.transform = `translate3d(${prevLeft}px, 0, 0)`;
       pill.style.opacity = '1';
-
-      // Force synchronous reflow
       void pill.offsetWidth;
 
       // 2. Animate smoothly to new active tab's position
       requestAnimationFrame(() => {
-        pill.style.transition = '';
-        pill.style.width = `${curWidth}px`;
-        pill.style.transform = `translate3d(${curLeft}px, 0, 0)`;
+        syncPillWithTarget(activeItem, true);
         try {
-          sessionStorage.setItem(TOP_NAV_LEFT_KEY, String(curLeft));
-          sessionStorage.setItem(TOP_NAV_WIDTH_KEY, String(curWidth));
+          sessionStorage.setItem(TOP_NAV_LEFT_KEY, String(activeItem.offsetLeft));
+          sessionStorage.setItem(TOP_NAV_WIDTH_KEY, String(activeItem.offsetWidth));
           if (curPage) sessionStorage.setItem(TOP_NAV_PAGE_KEY, curPage);
         } catch (e) {}
       });
     } else {
       // Direct positioning on initial visit or same-page reload
-      movePillTo(activeItem, false);
+      syncPillWithTarget(activeItem, false);
       try {
-        sessionStorage.setItem(TOP_NAV_LEFT_KEY, String(curLeft));
-        sessionStorage.setItem(TOP_NAV_WIDTH_KEY, String(curWidth));
+        sessionStorage.setItem(TOP_NAV_LEFT_KEY, String(activeItem.offsetLeft));
+        sessionStorage.setItem(TOP_NAV_WIDTH_KEY, String(activeItem.offsetWidth));
         if (curPage) sessionStorage.setItem(TOP_NAV_PAGE_KEY, curPage);
       } catch (e) {}
     }
@@ -1472,36 +1538,59 @@ function initTopNavSlidingPill() {
     pill.style.opacity = '0';
   }
 
-  // Hover Glide across the 6 items (Left-to-Right or Right-to-Left)
+  // Interactive Hover Glide & Click Continuity across all menu items
   items.forEach((item) => {
     // Click: Save horizontal position for cross-page continuity
     item.addEventListener('click', () => {
       try {
-        const fromLeft = activeItem ? activeItem.offsetLeft : item.offsetLeft;
-        const fromWidth = activeItem ? activeItem.offsetWidth : item.offsetWidth;
-        sessionStorage.setItem(TOP_NAV_LEFT_KEY, String(fromLeft));
-        sessionStorage.setItem(TOP_NAV_WIDTH_KEY, String(fromWidth));
-        if (activeItem && activeItem.dataset.page) {
-          sessionStorage.setItem(TOP_NAV_PAGE_KEY, activeItem.dataset.page);
+        sessionStorage.setItem(TOP_NAV_LEFT_KEY, String(item.offsetLeft));
+        sessionStorage.setItem(TOP_NAV_WIDTH_KEY, String(item.offsetWidth));
+        if (item.dataset.page) {
+          sessionStorage.setItem(TOP_NAV_PAGE_KEY, item.dataset.page);
         }
       } catch (e) {}
-      movePillTo(item, true);
+      setPillTarget(item);
     });
 
-    // Mouseenter: Glide smoothly to hovered item
+    // Mouseenter: Glide smoothly to hovered item and expand its icon
     item.addEventListener('mouseenter', () => {
-      movePillTo(item, true);
+      setPillTarget(item);
     });
+
+    // Transitionend listener on nav icons to guarantee perfect resting width
+    const iconEl = item.querySelector('.vw-nav-icon');
+    if (iconEl) {
+      iconEl.addEventListener('transitionend', (e) => {
+        if (e.propertyName === 'width' && currentTarget === item && !trackingRafId) {
+          pill.style.width = `${item.offsetWidth}px`;
+          pill.style.transform = `translate3d(${item.offsetLeft}px, 0, 0)`;
+        }
+      });
+    }
   });
 
-  // Mouseleave on navbar: Glide back to active tab
+  // Mouseleave on navbar: Glide back to active tab (or collapse all if no active item)
   nav.addEventListener('mouseleave', () => {
     if (activeItem) {
-      movePillTo(activeItem, true);
+      setPillTarget(activeItem);
     } else {
+      items.forEach((it) => it.classList.remove('is-pill-target'));
       pill.style.opacity = '0';
     }
   });
+
+  // ResizeObserver to track layout shifts dynamically
+  if (typeof ResizeObserver !== 'undefined') {
+    try {
+      const ro = new ResizeObserver(() => {
+        if (currentTarget && !trackingRafId) {
+          pill.style.width = `${currentTarget.offsetWidth}px`;
+          pill.style.transform = `translate3d(${currentTarget.offsetLeft}px, 0, 0)`;
+        }
+      });
+      items.forEach((it) => ro.observe(it));
+    } catch (e) {}
+  }
 }
 
 // Global window resize listener to keep horizontal pill aligned
