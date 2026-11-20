@@ -977,6 +977,16 @@
                 <p class="text-xs sm:text-sm font-medium" style="color: var(--ink-primary);">&ldquo;${escapeHtml(example)}&rdquo;</p>
                 <p class="font-bengali text-xs" style="color: var(--ink-secondary);">(${escapeHtml(exampleBn)})</p>
               </div>
+
+              <!-- 16:9 AI Cartoon Conversation Video Card Preview -->
+              ${typeof renderCartoonThumbnailCardHTML === 'function' ? renderCartoonThumbnailCardHTML({
+                id: 'preview-' + word,
+                word: word,
+                pos: pos,
+                meaningBn: meaning,
+                example: example,
+                exampleBn: exampleBn
+              }) : ''}
             </div>
 
             <!-- Right Col: Synonyms & Antonyms -->
@@ -1763,12 +1773,24 @@
 
                   <div class="pt-2 border-t flex items-center justify-between text-[11px]" style="border-color: var(--border-subtle); color: var(--ink-muted);">
                     <span>${escapeHtml(item.pos || 'Word')}</span>
-                    <a
-                      href="learn.html?level=${item.level}"
-                      class="text-[#2D5A4C] font-semibold hover:underline"
-                    >
-                      View in Learn &rarr;
-                    </a>
+                    <div class="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onclick="openCartoonVideoModal('${escapeHtml(item.id)}')"
+                        class="text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 transition-colors hover:bg-[#2D5A4C] hover:text-white"
+                        style="background-color: var(--accent-sage-soft); color: var(--accent-sage);"
+                        title="Watch Cartoon Conversation"
+                      >
+                        <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span>Cartoon Video</span>
+                      </button>
+                      <a
+                        href="learn.html?level=${item.level}"
+                        class="text-[#2D5A4C] font-semibold hover:underline"
+                      >
+                        Learn &rarr;
+                      </a>
+                    </div>
                   </div>
                 </div>
               `;

@@ -990,3 +990,2507 @@
         ]
       }
     };
+
+
+/* =====================================================================
+   5. AI CARTOON CONVERSATIONS DATABASE (MAYA & LEO)
+   Contextual 4-Line Dialogues with Bengali Subtitles for Curriculum Words
+====================================================================== */
+const WORD_CARTOON_CONVERSATIONS = {
+  "beg-1": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "serene",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Look at the gentle sunset over the garden, Leo. Everything feels so serene today.",
+        "bn": "লিও, বাগানের ওপর স্নিগ্ধ সূর্যাস্তটি দেখ। আজ সবকিছু কেমন প্রশান্ত লাগছে।",
+        "targetWord": "serene",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "It really is, Maya! Listening to the birds in this calm atmosphere clears my mind.",
+        "bn": "সত্যিই তাই, মায়া! এই শান্ত পরিবেশে পাখিদের গান শুনলে মন ভালো হয়ে যায়।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Whenever I feel stressed, spending time in a serene place helps me recharge.",
+        "bn": "আমি যখনই মানসিক চাপে থাকি, এমন কোনো নির্মল স্থানে সময় কাটালে আবার নতুন শক্তি পাই।",
+        "targetWord": "serene",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Me too! Staying serene makes solving difficult problems much easier.",
+        "bn": "আমারও তাই! শান্ত ও স্থির থাকলে কঠিন সমস্যার সমাধান করা অনেক সহজ হয়।",
+        "targetWord": "serene",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "serene": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "serene",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Look at the gentle sunset over the garden, Leo. Everything feels so serene today.",
+        "bn": "লিও, বাগানের ওপর স্নিগ্ধ সূর্যাস্তটি দেখ। আজ সবকিছু কেমন প্রশান্ত লাগছে।",
+        "targetWord": "serene",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "It really is, Maya! Listening to the birds in this calm atmosphere clears my mind.",
+        "bn": "সত্যিই তাই, মায়া! এই শান্ত পরিবেশে পাখিদের গান শুনলে মন ভালো হয়ে যায়।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Whenever I feel stressed, spending time in a serene place helps me recharge.",
+        "bn": "আমি যখনই মানসিক চাপে থাকি, এমন কোনো নির্মল স্থানে সময় কাটালে আবার নতুন শক্তি পাই।",
+        "targetWord": "serene",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Me too! Staying serene makes solving difficult problems much easier.",
+        "bn": "আমারও তাই! শান্ত ও স্থির থাকলে কঠিন সমস্যার সমাধান করা অনেক সহজ হয়।",
+        "targetWord": "serene",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-2": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "grateful",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Leo, I am so grateful to our mentor for helping us prepare for the test.",
+        "bn": "লিও, পরীক্ষায় সহায়তার জন্য আমাদের শিক্ষকের প্রতি আমি খুবই কৃতজ্ঞ।",
+        "targetWord": "grateful",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes! His patient guidance made all the difference in our confidence.",
+        "bn": "হ্যাঁ! ওনার ধৈর্যশীল দিকনির্দেশনা আমাদের আত্মবিশ্বাস অনেক বাড়িয়ে দিয়েছে।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Being grateful reminds us to appreciate every bit of support we receive.",
+        "bn": "কৃতজ্ঞ থাকার মনোভাব আমাদের মনে করিয়ে দেয় যে প্রতিটি সাহায্যের মূল্যায়ন করা উচিত।",
+        "targetWord": "grateful",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Absolutely, Maya. A grateful heart always brings more joy to everyday life.",
+        "bn": "একদম ঠিক, মায়া। একটি কৃতজ্ঞ হৃদয় সবসময় দৈনন্দিন জীবনে আরও আনন্দ নিয়ে আসে।",
+        "targetWord": "grateful",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "grateful": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "grateful",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Leo, I am so grateful to our mentor for helping us prepare for the test.",
+        "bn": "লিও, পরীক্ষায় সহায়তার জন্য আমাদের শিক্ষকের প্রতি আমি খুবই কৃতজ্ঞ।",
+        "targetWord": "grateful",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes! His patient guidance made all the difference in our confidence.",
+        "bn": "হ্যাঁ! ওনার ধৈর্যশীল দিকনির্দেশনা আমাদের আত্মবিশ্বাস অনেক বাড়িয়ে দিয়েছে।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Being grateful reminds us to appreciate every bit of support we receive.",
+        "bn": "কৃতজ্ঞ থাকার মনোভাব আমাদের মনে করিয়ে দেয় যে প্রতিটি সাহায্যের মূল্যায়ন করা উচিত।",
+        "targetWord": "grateful",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Absolutely, Maya. A grateful heart always brings more joy to everyday life.",
+        "bn": "একদম ঠিক, মায়া। একটি কৃতজ্ঞ হৃদয় সবসময় দৈনন্দিন জীবনে আরও আনন্দ নিয়ে আসে।",
+        "targetWord": "grateful",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-3": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "diligent",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "You have been studying here for three hours, Leo! You are remarkably diligent.",
+        "bn": "তুমি এখানে তিন ঘণ্টা ধরে পড়ছ, লিও! তুমি সত্যিই অসাধারণ পরিশ্রমী।",
+        "targetWord": "diligent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Thanks, Maya! I believe regular practice is the key to mastering English vocabulary.",
+        "bn": "ধন্যবাদ, মায়া! আমি বিশ্বাস করি নিয়মিত অনুশীলনই ইংরেজি শব্দভান্ডার শেখার মূল চাবিকাঠি।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A diligent learner never gives up when encountering difficult words.",
+        "bn": "একজন অধ্যবসায়ী শিক্ষার্থী কঠিন শব্দের মুখোমুখি হলেও কখনো হাল ছেড়ে দেয় না।",
+        "targetWord": "diligent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Exactly! Our diligent efforts today will open great opportunities tomorrow.",
+        "bn": "একদম! আজকের আমাদের পরিশ্রমী প্রচেষ্টা আগামী দিনে বড় সুযোগ তৈরি করবে।",
+        "targetWord": "diligent",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "diligent": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "diligent",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "You have been studying here for three hours, Leo! You are remarkably diligent.",
+        "bn": "তুমি এখানে তিন ঘণ্টা ধরে পড়ছ, লিও! তুমি সত্যিই অসাধারণ পরিশ্রমী।",
+        "targetWord": "diligent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Thanks, Maya! I believe regular practice is the key to mastering English vocabulary.",
+        "bn": "ধন্যবাদ, মায়া! আমি বিশ্বাস করি নিয়মিত অনুশীলনই ইংরেজি শব্দভান্ডার শেখার মূল চাবিকাঠি।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A diligent learner never gives up when encountering difficult words.",
+        "bn": "একজন অধ্যবসায়ী শিক্ষার্থী কঠিন শব্দের মুখোমুখি হলেও কখনো হাল ছেড়ে দেয় না।",
+        "targetWord": "diligent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Exactly! Our diligent efforts today will open great opportunities tomorrow.",
+        "bn": "একদম! আজকের আমাদের পরিশ্রমী প্রচেষ্টা আগামী দিনে বড় সুযোগ তৈরি করবে।",
+        "targetWord": "diligent",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-4": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "generous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Did you hear that Leo shared his revision notes with the study group? That was so generous!",
+        "bn": "তুমি কি শুনেছ যে লিও তার সব নোট স্টাডি গ্রুপের সাথে শেয়ার করেছে? এটা সত্যিই খুব উদার কাজ!",
+        "targetWord": "generous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I am happy to help, Maya! Knowledge grows when we are generous with our learning.",
+        "bn": "আমি সাহায্য করতে পেরে আনন্দিত, মায়া! শেখার ক্ষেত্রে উদার হলে জ্ঞান আরও বৃদ্ধি পায়।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A generous person doesn't just share materials; they also give encouragement freely.",
+        "bn": "একজন উদার মানুষ শুধু জিনিসপত্রই দেন না, বরং মন খুলে উৎসাহও জোগান।",
+        "targetWord": "generous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "True! When we are generous, everyone in the study circle succeeds together.",
+        "bn": "সত্যি! যখন আমরা উদার হই, তখন দলের সবাই একসাথে সফল হতে পারে।",
+        "targetWord": "generous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "generous": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "generous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Did you hear that Leo shared his revision notes with the study group? That was so generous!",
+        "bn": "তুমি কি শুনেছ যে লিও তার সব নোট স্টাডি গ্রুপের সাথে শেয়ার করেছে? এটা সত্যিই খুব উদার কাজ!",
+        "targetWord": "generous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I am happy to help, Maya! Knowledge grows when we are generous with our learning.",
+        "bn": "আমি সাহায্য করতে পেরে আনন্দিত, মায়া! শেখার ক্ষেত্রে উদার হলে জ্ঞান আরও বৃদ্ধি পায়।",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A generous person doesn't just share materials; they also give encouragement freely.",
+        "bn": "একজন উদার মানুষ শুধু জিনিসপত্রই দেন না, বরং মন খুলে উৎসাহও জোগান।",
+        "targetWord": "generous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "True! When we are generous, everyone in the study circle succeeds together.",
+        "bn": "সত্যি! যখন আমরা উদার হই, তখন দলের সবাই একসাথে সফল হতে পারে।",
+        "targetWord": "generous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-5": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "curious",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "I saw you reading that science encyclopedia, Leo. You always stay so curious!",
+        "bn": "আমি দেখলাম তুমি বিজ্ঞানের বিশ্বকোষ পড়ছিলে, লিও। তুমি সবসময় সবকিছু জানতে খুব কৌতূহলী!",
+        "targetWord": "curious",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I love discovering how everyday technology works, Maya. Curiosity makes reading fun!",
+        "bn": "দৈনন্দিন প্রযুক্তি কীভাবে কাজ করে তা আবিষ্কার করতে আমার ভালো লাগে, মায়া। কৌতূহল পড়াকে আনন্দদায়ক করে!",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A curious mind asks thoughtful questions and never stops discovering.",
+        "bn": "একটি কৌতূহলী মন চিন্তাশীল প্রশ্ন করে এবং নতুন কিছু শেখা কখনোই থামায় না।",
+        "targetWord": "curious",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Indeed! Staying curious turns every simple lesson into an exciting adventure.",
+        "bn": "অবশ্যই! কৌতূহলী থাকা প্রতিটি সাধারণ পাঠকে একটি রোমাঞ্চকর অভিজ্ঞতায় পরিণত করে।",
+        "targetWord": "curious",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "curious": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "curious",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "I saw you reading that science encyclopedia, Leo. You always stay so curious!",
+        "bn": "আমি দেখলাম তুমি বিজ্ঞানের বিশ্বকোষ পড়ছিলে, লিও। তুমি সবসময় সবকিছু জানতে খুব কৌতূহলী!",
+        "targetWord": "curious",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I love discovering how everyday technology works, Maya. Curiosity makes reading fun!",
+        "bn": "দৈনন্দিন প্রযুক্তি কীভাবে কাজ করে তা আবিষ্কার করতে আমার ভালো লাগে, মায়া। কৌতূহল পড়াকে আনন্দদায়ক করে!",
+        "targetWord": null,
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A curious mind asks thoughtful questions and never stops discovering.",
+        "bn": "একটি কৌতূহলী মন চিন্তাশীল প্রশ্ন করে এবং নতুন কিছু শেখা কখনোই থামায় না।",
+        "targetWord": "curious",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Indeed! Staying curious turns every simple lesson into an exciting adventure.",
+        "bn": "অবশ্যই! কৌতূহলী থাকা প্রতিটি সাধারণ পাঠকে একটি রোমাঞ্চকর অভিজ্ঞতায় পরিণত করে।",
+        "targetWord": "curious",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-6": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "courage",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Public speaking was terrifying for me, but today I found the courage to speak up.",
+        "bn": "জনসম্মুখে কথা বলা আমার জন্য ভীতিজনক ছিল, কিন্তু আজ আমি কথা বলার সাহস পেয়েছি।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I saw your presentation, Maya! You spoke with great courage and clarity.",
+        "bn": "আমি তোমার উপস্থাপনা দেখেছি, মায়া! তুমি চমৎকার সাহস ও স্পষ্টতার সাথে কথা বলেছ।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Courage doesn't mean having no fear; it means moving forward despite the fear.",
+        "bn": "সাহস মানে ভয় না থাকা নয়; বরং ভয় থাকা সত্ত্বেও এগিয়ে যাওয়া।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Well said! Every small step outside our comfort zone builds lasting courage.",
+        "bn": "দারুণ বলেছ! স্বাচ্ছন্দ্য বলয়ের বাইরে প্রতিটি ছোট পদক্ষেপই স্থায়ী মনোবল গড়ে তোলে।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "courage": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "courage",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Public speaking was terrifying for me, but today I found the courage to speak up.",
+        "bn": "জনসম্মুখে কথা বলা আমার জন্য ভীতিজনক ছিল, কিন্তু আজ আমি কথা বলার সাহস পেয়েছি।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I saw your presentation, Maya! You spoke with great courage and clarity.",
+        "bn": "আমি তোমার উপস্থাপনা দেখেছি, মায়া! তুমি চমৎকার সাহস ও স্পষ্টতার সাথে কথা বলেছ।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Courage doesn't mean having no fear; it means moving forward despite the fear.",
+        "bn": "সাহস মানে ভয় না থাকা নয়; বরং ভয় থাকা সত্ত্বেও এগিয়ে যাওয়া।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Well said! Every small step outside our comfort zone builds lasting courage.",
+        "bn": "দারুণ বলেছ! স্বাচ্ছন্দ্য বলয়ের বাইরে প্রতিটি ছোট পদক্ষেপই স্থায়ী মনোবল গড়ে তোলে।",
+        "targetWord": "courage",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-7": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "harmony",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Working together in harmony made our team project so smooth and enjoyable.",
+        "bn": "সম্প্রীতি ও মিল রেখে একসাথে কাজ করায় আমাদের প্রজেক্টটি খুব সুন্দর হয়েছে।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I agree, Maya! When everyone listens respectfully, real harmony is created.",
+        "bn": "আমি একমত, মায়া! সবাই যখন সম্মানের সাথে শোনে, তখন প্রকৃত সম্প্রীতি তৈরি হয়।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Living in harmony with others brings deep peace to any community.",
+        "bn": "অন্যদের সাথে মিলেমিশে থাকা যেকোনো সমাজে গভীর শান্তি বয়ে আনে।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us keep building harmony wherever we go, both in school and at work.",
+        "bn": "চল আমরা যেখানেই যাই, শিক্ষাঙ্গনে ও কর্মক্ষেত্রে সবসময় সম্প্রীতি বজায় রাখি।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "harmony": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "harmony",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Working together in harmony made our team project so smooth and enjoyable.",
+        "bn": "সম্প্রীতি ও মিল রেখে একসাথে কাজ করায় আমাদের প্রজেক্টটি খুব সুন্দর হয়েছে।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I agree, Maya! When everyone listens respectfully, real harmony is created.",
+        "bn": "আমি একমত, মায়া! সবাই যখন সম্মানের সাথে শোনে, তখন প্রকৃত সম্প্রীতি তৈরি হয়।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Living in harmony with others brings deep peace to any community.",
+        "bn": "অন্যদের সাথে মিলেমিশে থাকা যেকোনো সমাজে গভীর শান্তি বয়ে আনে।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us keep building harmony wherever we go, both in school and at work.",
+        "bn": "চল আমরা যেখানেই যাই, শিক্ষাঙ্গনে ও কর্মক্ষেত্রে সবসময় সম্প্রীতি বজায় রাখি।",
+        "targetWord": "harmony",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "beg-8": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "polite",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The receptionist greeted us with such a polite tone this morning.",
+        "bn": "আজ সকালে রিসেপশনিস্ট খুব ভদ্র ও মার্জিত কণ্ঠে আমাদের অভ্যর্থনা জানিয়েছিলেন।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes, being polite immediately puts people at ease and builds trust.",
+        "bn": "হ্যাঁ, বিনয়ী ব্যবহার তাৎক্ষণিকভাবে মানুষের মন জয় করে এবং আস্থা তৈরি করে।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Simple polite phrases like \"please\" and \"thank you\" make a huge difference.",
+        "bn": "সহজ কিছু ভদ্র শব্দ যেমন \"দয়া করে\" এবং \"ধন্যবাদ\" অনেক বড় পরিবর্তন আনে।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "A polite conversation is always the first step toward lasting friendships.",
+        "bn": "একটি বিনয়ী কথোপকথন সবসময় দীর্ঘস্থায়ী বন্ধুত্বের প্রথম ধাপ।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "polite": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "polite",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The receptionist greeted us with such a polite tone this morning.",
+        "bn": "আজ সকালে রিসেপশনিস্ট খুব ভদ্র ও মার্জিত কণ্ঠে আমাদের অভ্যর্থনা জানিয়েছিলেন।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes, being polite immediately puts people at ease and builds trust.",
+        "bn": "হ্যাঁ, বিনয়ী ব্যবহার তাৎক্ষণিকভাবে মানুষের মন জয় করে এবং আস্থা তৈরি করে।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Simple polite phrases like \"please\" and \"thank you\" make a huge difference.",
+        "bn": "সহজ কিছু ভদ্র শব্দ যেমন \"দয়া করে\" এবং \"ধন্যবাদ\" অনেক বড় পরিবর্তন আনে।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "A polite conversation is always the first step toward lasting friendships.",
+        "bn": "একটি বিনয়ী কথোপকথন সবসময় দীর্ঘস্থায়ী বন্ধুত্বের প্রথম ধাপ।",
+        "targetWord": "polite",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-1": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "resilient",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Even after failing the first quiz, Leo stayed resilient and scored top marks today.",
+        "bn": "প্রথম কুইজে খারাপ করার পরও লিও মনোবল না হারিয়ে ঘুরে দাঁড়িয়ে আজ সর্বোচ্চ নম্বর পেয়েছে।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Thank you, Maya! Setbacks happen, but being resilient taught me to adapt and grow.",
+        "bn": "ধন্যবাদ, মায়া! বাধা আসতেই পারে, তবে প্রতিকূলতা কাটিয়ে ওঠার মানসিকতা আমাকে শিখিয়েছে কীভাবে মানিয়ে নিতে হয়।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A resilient attitude turns every failure into a valuable stepping stone.",
+        "bn": "একটি ইতিবাচক ও সহনশীল মনোভাব প্রতিটি ব্যর্থতাকে এগিয়ে যাওয়ার সিঁড়িতে পরিণত করে।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "True! The most successful learners are resilient when facing challenging grammar.",
+        "bn": "সত্যি! সবচেয়ে সফল শিক্ষার্থীরাই কঠিন ব্যাকরণের মুখোমুখি হয়েও ঘুরে দাঁড়াতে পারে।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "resilient": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "resilient",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Even after failing the first quiz, Leo stayed resilient and scored top marks today.",
+        "bn": "প্রথম কুইজে খারাপ করার পরও লিও মনোবল না হারিয়ে ঘুরে দাঁড়িয়ে আজ সর্বোচ্চ নম্বর পেয়েছে।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Thank you, Maya! Setbacks happen, but being resilient taught me to adapt and grow.",
+        "bn": "ধন্যবাদ, মায়া! বাধা আসতেই পারে, তবে প্রতিকূলতা কাটিয়ে ওঠার মানসিকতা আমাকে শিখিয়েছে কীভাবে মানিয়ে নিতে হয়।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A resilient attitude turns every failure into a valuable stepping stone.",
+        "bn": "একটি ইতিবাচক ও সহনশীল মনোভাব প্রতিটি ব্যর্থতাকে এগিয়ে যাওয়ার সিঁড়িতে পরিণত করে।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "True! The most successful learners are resilient when facing challenging grammar.",
+        "bn": "সত্যি! সবচেয়ে সফল শিক্ষার্থীরাই কঠিন ব্যাকরণের মুখোমুখি হয়েও ঘুরে দাঁড়াতে পারে।",
+        "targetWord": "resilient",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-2": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "eloquent",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The guest speaker delivered an eloquent talk on cultural heritage today.",
+        "bn": "আজ অতিথি বক্তা সাংস্কৃতিক ঐতিহ্যের ওপর এক প্রাঞ্জল ও প্রভাবশালী বক্তৃতা দিয়েছেন।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Her words flowed so naturally! Being eloquent is truly a powerful communication skill.",
+        "bn": "তার কথাগুলো চমৎকার সাবলীলভাবে প্রকাশ পেয়েছিল! বাকপটু হওয়া যোগাযোগের এক অসাধারণ ক্ষমতা।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We can become more eloquent by expanding our vocabulary and practicing daily.",
+        "bn": "নিয়মিত শব্দভান্ডার বাড়িয়ে এবং প্রতিদিন অনুশীলন করে আমরাও আরও বাকপটু হতে পারি।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I am inspired! Let us practice writing eloquent essays for our upcoming exam.",
+        "bn": "আমি অনুপ্রাণিত! চল আমাদের আসন্ন পরীক্ষার জন্য প্রাঞ্জল প্রবন্ধ লেখার অনুশীলন করি।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "eloquent": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "eloquent",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The guest speaker delivered an eloquent talk on cultural heritage today.",
+        "bn": "আজ অতিথি বক্তা সাংস্কৃতিক ঐতিহ্যের ওপর এক প্রাঞ্জল ও প্রভাবশালী বক্তৃতা দিয়েছেন।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Her words flowed so naturally! Being eloquent is truly a powerful communication skill.",
+        "bn": "তার কথাগুলো চমৎকার সাবলীলভাবে প্রকাশ পেয়েছিল! বাকপটু হওয়া যোগাযোগের এক অসাধারণ ক্ষমতা।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We can become more eloquent by expanding our vocabulary and practicing daily.",
+        "bn": "নিয়মিত শব্দভান্ডার বাড়িয়ে এবং প্রতিদিন অনুশীলন করে আমরাও আরও বাকপটু হতে পারি।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I am inspired! Let us practice writing eloquent essays for our upcoming exam.",
+        "bn": "আমি অনুপ্রাণিত! চল আমাদের আসন্ন পরীক্ষার জন্য প্রাঞ্জল প্রবন্ধ লেখার অনুশীলন করি।",
+        "targetWord": "eloquent",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-3": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "inevitable",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "With so much dedicated practice, Leo, your fluency in English was inevitable.",
+        "bn": "এত নিষ্ঠাবান অনুশীলনের পর, লিও, তোমার ইংরেজিতে সাবলীলতা অর্জন করা তো অনিবার্যই ছিল।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Hard work makes progress inevitable, but change itself is also part of life.",
+        "bn": "কঠোর পরিশ্রম অগ্রগতিকে নিশ্চিত করে, তবে পরিবর্তনও জীবনের একটি অংশ।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Facing occasional mistakes while learning a new language is completely inevitable.",
+        "bn": "নতুন কোনো ভাষা শেখার সময় মাঝে মাঝে ভুল হওয়া একেবারেই স্বাভাবিক ও অনিবার্য।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Exactly! Once we accept that errors are inevitable, we learn without fear.",
+        "bn": "একদম! ভুল হওয়া স্বাভাবিক এটা মেনে নিলে আমরা কোনো ভয় ছাড়াই শিখতে পারি।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "inevitable": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "inevitable",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "With so much dedicated practice, Leo, your fluency in English was inevitable.",
+        "bn": "এত নিষ্ঠাবান অনুশীলনের পর, লিও, তোমার ইংরেজিতে সাবলীলতা অর্জন করা তো অনিবার্যই ছিল।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Hard work makes progress inevitable, but change itself is also part of life.",
+        "bn": "কঠোর পরিশ্রম অগ্রগতিকে নিশ্চিত করে, তবে পরিবর্তনও জীবনের একটি অংশ।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Facing occasional mistakes while learning a new language is completely inevitable.",
+        "bn": "নতুন কোনো ভাষা শেখার সময় মাঝে মাঝে ভুল হওয়া একেবারেই স্বাভাবিক ও অনিবার্য।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Exactly! Once we accept that errors are inevitable, we learn without fear.",
+        "bn": "একদম! ভুল হওয়া স্বাভাবিক এটা মেনে নিলে আমরা কোনো ভয় ছাড়াই শিখতে পারি।",
+        "targetWord": "inevitable",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-4": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "meticulous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Your research report looks flawless, Leo! Your proofreading is meticulous.",
+        "bn": "তোমার রিসার্চ রিপোর্টটি দেখতে নিখুঁত হয়েছে, লিও! তোমার রিভিশন সত্যিই অত্যন্ত খুঁতখুঁতে ও নিখুঁত।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I checked every single citation twice. A meticulous approach avoids silly errors.",
+        "bn": "আমি প্রতিটি তথ্যসূত্র দুবার করে যাচাই করেছি। নিখুঁত দৃষ্টিভঙ্গি সাধারণ ভুলগুলো দূর করে।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Being meticulous with word choices makes our written ideas much clearer.",
+        "bn": "শব্দ নির্বাচনের ক্ষেত্রে যত্নশীল ও নিখুঁত হলে আমাদের লেখার ভাব অনেক স্পষ্ট হয়।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Great habits start small. A meticulous study routine pays off over time.",
+        "bn": "ভালো অভ্যাস ছোট থেকেই শুরু হয়। একটি নিখুঁত পড়ার রুটিন সময়ের সাথে দারুণ ফল দেয়।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "meticulous": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "meticulous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Your research report looks flawless, Leo! Your proofreading is meticulous.",
+        "bn": "তোমার রিসার্চ রিপোর্টটি দেখতে নিখুঁত হয়েছে, লিও! তোমার রিভিশন সত্যিই অত্যন্ত খুঁতখুঁতে ও নিখুঁত।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I checked every single citation twice. A meticulous approach avoids silly errors.",
+        "bn": "আমি প্রতিটি তথ্যসূত্র দুবার করে যাচাই করেছি। নিখুঁত দৃষ্টিভঙ্গি সাধারণ ভুলগুলো দূর করে।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Being meticulous with word choices makes our written ideas much clearer.",
+        "bn": "শব্দ নির্বাচনের ক্ষেত্রে যত্নশীল ও নিখুঁত হলে আমাদের লেখার ভাব অনেক স্পষ্ট হয়।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Great habits start small. A meticulous study routine pays off over time.",
+        "bn": "ভালো অভ্যাস ছোট থেকেই শুরু হয়। একটি নিখুঁত পড়ার রুটিন সময়ের সাথে দারুণ ফল দেয়।",
+        "targetWord": "meticulous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-5": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "collaborate",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "If we collaborate on this vocabulary project, we can finish it twice as fast.",
+        "bn": "আমরা যদি এই শব্দভান্ডার প্রজেক্টে একসাথে কাজ করি, তবে দ্বিগুণ দ্রুত শেষ করতে পারব।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Great idea! When we collaborate, we combine our individual strengths.",
+        "bn": "দারুণ আইডিয়া! যখন আমরা সহযোগিতা করি, তখন আমাদের সবার দক্ষতা একত্রিত হয়।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "In the modern workplace, the ability to collaborate with diverse teams is essential.",
+        "bn": "আধুনিক কর্মক্ষেত্রে বৈচিত্র্যময় দলের সাথে একসাথে কাজ করার সক্ষমতা অপরিহার্য।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us divide the chapters now and collaborate until everything is completed.",
+        "bn": "চল আমরা অধ্যায়গুলো ভাগ করে নিই এবং সম্পূর্ণ শেষ হওয়া পর্যন্ত সহযোগিতা করে কাজ করি।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "collaborate": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "collaborate",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "If we collaborate on this vocabulary project, we can finish it twice as fast.",
+        "bn": "আমরা যদি এই শব্দভান্ডার প্রজেক্টে একসাথে কাজ করি, তবে দ্বিগুণ দ্রুত শেষ করতে পারব।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Great idea! When we collaborate, we combine our individual strengths.",
+        "bn": "দারুণ আইডিয়া! যখন আমরা সহযোগিতা করি, তখন আমাদের সবার দক্ষতা একত্রিত হয়।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "In the modern workplace, the ability to collaborate with diverse teams is essential.",
+        "bn": "আধুনিক কর্মক্ষেত্রে বৈচিত্র্যময় দলের সাথে একসাথে কাজ করার সক্ষমতা অপরিহার্য।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us divide the chapters now and collaborate until everything is completed.",
+        "bn": "চল আমরা অধ্যায়গুলো ভাগ করে নিই এবং সম্পূর্ণ শেষ হওয়া পর্যন্ত সহযোগিতা করে কাজ করি।",
+        "targetWord": "collaborate",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-6": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "insight",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Reading that classic novel gave me a fascinating insight into human nature.",
+        "bn": "ঐ ক্লাসিক উপন্যাসটি পড়ে আমি মানবচরিত্রের এক আকর্ষণীয় গভীর অন্তর্দৃষ্টি পেয়েছি।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Deep reading always brings valuable insight that surface skimming misses.",
+        "bn": "গভীর মনোযোগ দিয়ে পড়লে এমন সূক্ষ্ম উপলব্ধি পাওয়া যায় যা ভাসাভাসা পড়ায় মেলে না।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our teacher shared an insightful perspective on how languages evolve over time.",
+        "bn": "আমাদের শিক্ষক ভাষার বিবর্তন নিয়ে এক চমৎকার অন্তর্দৃষ্টিপূর্ণ দৃষ্টিভঙ্গি তুলে ধরেছিলেন।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That insight helped me understand why English borrows words from so many cultures.",
+        "bn": "ঐ উপলব্ধিটি আমাকে বুঝতে সাহায্য করেছে কেন ইংরেজি এত সংস্কৃতি থেকে শব্দ ধার করেছে।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "insight": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "insight",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Reading that classic novel gave me a fascinating insight into human nature.",
+        "bn": "ঐ ক্লাসিক উপন্যাসটি পড়ে আমি মানবচরিত্রের এক আকর্ষণীয় গভীর অন্তর্দৃষ্টি পেয়েছি।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Deep reading always brings valuable insight that surface skimming misses.",
+        "bn": "গভীর মনোযোগ দিয়ে পড়লে এমন সূক্ষ্ম উপলব্ধি পাওয়া যায় যা ভাসাভাসা পড়ায় মেলে না।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our teacher shared an insightful perspective on how languages evolve over time.",
+        "bn": "আমাদের শিক্ষক ভাষার বিবর্তন নিয়ে এক চমৎকার অন্তর্দৃষ্টিপূর্ণ দৃষ্টিভঙ্গি তুলে ধরেছিলেন।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That insight helped me understand why English borrows words from so many cultures.",
+        "bn": "ঐ উপলব্ধিটি আমাকে বুঝতে সাহায্য করেছে কেন ইংরেজি এত সংস্কৃতি থেকে শব্দ ধার করেছে।",
+        "targetWord": "insight",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-7": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "momentum",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our daily study streak has reached thirty days! We have built real momentum.",
+        "bn": "আমাদের পড়ার নিয়মিত ধারা ত্রিশ দিনে পৌঁছেছে! আমরা সত্যিকারের অগ্রগতির গতিবেগ পেয়েছি।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes! Once you build momentum, staying consistent feels natural and effortless.",
+        "bn": "হ্যাঁ! একবার অগ্রগতির ছন্দ পেয়ে গেলে নিয়মিত থাকা স্বাভাবিক ও সহজ হয়ে যায়।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We must protect this momentum by reviewing at least ten new words every day.",
+        "bn": "প্রতিদিন অন্তত দশটি নতুন শব্দ রিভিশন দিয়ে আমাদের এই অগ্রগতির ধারা ধরে রাখতে হবে।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Agreed! Positive momentum in learning leads to breakthroughs in confidence.",
+        "bn": "একমত! শেখার গতিবেগ ধরে রাখলে আত্মবিশ্বাসে অভাবনীয় সাফল্য আসে।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "momentum": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "momentum",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our daily study streak has reached thirty days! We have built real momentum.",
+        "bn": "আমাদের পড়ার নিয়মিত ধারা ত্রিশ দিনে পৌঁছেছে! আমরা সত্যিকারের অগ্রগতির গতিবেগ পেয়েছি।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes! Once you build momentum, staying consistent feels natural and effortless.",
+        "bn": "হ্যাঁ! একবার অগ্রগতির ছন্দ পেয়ে গেলে নিয়মিত থাকা স্বাভাবিক ও সহজ হয়ে যায়।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We must protect this momentum by reviewing at least ten new words every day.",
+        "bn": "প্রতিদিন অন্তত দশটি নতুন শব্দ রিভিশন দিয়ে আমাদের এই অগ্রগতির ধারা ধরে রাখতে হবে।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Agreed! Positive momentum in learning leads to breakthroughs in confidence.",
+        "bn": "একমত! শেখার গতিবেগ ধরে রাখলে আত্মবিশ্বাসে অভাবনীয় সাফল্য আসে।",
+        "targetWord": "momentum",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-8": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "versatile",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "This tablet is so versatile; I use it for note-taking, sketching, and reading.",
+        "bn": "এই ট্যাবলেটটি বহুমুখী ব্যবহারযোগ্য; আমি এটি নোট নেওয়া, ছবি আঁকা এবং পড়ার কাজে ব্যবহার করি।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Just like you, Maya! You are a versatile student who excels in both art and math.",
+        "bn": "ঠিক তোমার মতোই, মায়া! তুমি এক বহুমুখী প্রতিভাবান শিক্ষার্থী যে শিল্প ও গণিত উভয় বিষয়েই দক্ষ।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Learning versatile vocabulary allows us to express ideas in multiple contexts.",
+        "bn": "বহুমুখী শব্দ শেখার ফলে আমরা বিভিন্ন পরিস্থিতিতে সুন্দরভাবে ভাব প্রকাশ করতে পারি।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "True! A versatile communicator adapts easily to any audience.",
+        "bn": "সত্যি! একজন বহুমুখী বক্তা যেকোনো শ্রোতার সাথে সহজেই খাপ খাইয়ে নিতে পারে।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "versatile": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "versatile",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "This tablet is so versatile; I use it for note-taking, sketching, and reading.",
+        "bn": "এই ট্যাবলেটটি বহুমুখী ব্যবহারযোগ্য; আমি এটি নোট নেওয়া, ছবি আঁকা এবং পড়ার কাজে ব্যবহার করি।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Just like you, Maya! You are a versatile student who excels in both art and math.",
+        "bn": "ঠিক তোমার মতোই, মায়া! তুমি এক বহুমুখী প্রতিভাবান শিক্ষার্থী যে শিল্প ও গণিত উভয় বিষয়েই দক্ষ।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Learning versatile vocabulary allows us to express ideas in multiple contexts.",
+        "bn": "বহুমুখী শব্দ শেখার ফলে আমরা বিভিন্ন পরিস্থিতিতে সুন্দরভাবে ভাব প্রকাশ করতে পারি।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "True! A versatile communicator adapts easily to any audience.",
+        "bn": "সত্যি! একজন বহুমুখী বক্তা যেকোনো শ্রোতার সাথে সহজেই খাপ খাইয়ে নিতে পারে।",
+        "targetWord": "versatile",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-1": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "ephemeral",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Look at that cherry blossom petal drifting down. Its beauty is so ephemeral.",
+        "bn": "ঝরে পড়া চেরি ফুলের পাপড়িটি দেখ। এর সৌন্দর্য কতটা ক্ষণস্থায়ী।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Indeed, Maya. Because blossoms are ephemeral, we appreciate them even more.",
+        "bn": "অবশ্যই, মায়া। ফুলের আয়ু স্বল্পস্থায়ী বলেই আমরা এদের আরও বেশি কদর করি।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Many digital trends are ephemeral, but genuine knowledge lasts a lifetime.",
+        "bn": "অনলাইনের অনেক ট্রেন্ডই ক্ষণস্থায়ী, তবে প্রকৃত জ্ঞান সারাজীবন স্থায়ী হয়।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Well said! Let us focus on timeless wisdom rather than ephemeral distractions.",
+        "bn": "দারুণ বলেছ! চল ক্ষণস্থায়ী মোহের চেয়ে চিরন্তন জ্ঞানের দিকেই আমাদের মনোযোগ দিই।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "ephemeral": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "ephemeral",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Look at that cherry blossom petal drifting down. Its beauty is so ephemeral.",
+        "bn": "ঝরে পড়া চেরি ফুলের পাপড়িটি দেখ। এর সৌন্দর্য কতটা ক্ষণস্থায়ী।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Indeed, Maya. Because blossoms are ephemeral, we appreciate them even more.",
+        "bn": "অবশ্যই, মায়া। ফুলের আয়ু স্বল্পস্থায়ী বলেই আমরা এদের আরও বেশি কদর করি।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Many digital trends are ephemeral, but genuine knowledge lasts a lifetime.",
+        "bn": "অনলাইনের অনেক ট্রেন্ডই ক্ষণস্থায়ী, তবে প্রকৃত জ্ঞান সারাজীবন স্থায়ী হয়।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Well said! Let us focus on timeless wisdom rather than ephemeral distractions.",
+        "bn": "দারুণ বলেছ! চল ক্ষণস্থায়ী মোহের চেয়ে চিরন্তন জ্ঞানের দিকেই আমাদের মনোযোগ দিই।",
+        "targetWord": "ephemeral",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-2": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "ubiquitous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Smartphones have become truly ubiquitous in every corner of the world today.",
+        "bn": "আজ বিশ্বের প্রতিটি কোণে স্মার্টফোন সত্যি সর্বব্যাপী হয়ে উঠেছে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes, their ubiquitous presence has transformed how we communicate and learn.",
+        "bn": "হ্যাঁ, সর্বত্র তাদের উপস্থিতি আমাদের যোগাযোগ ও শেখার ধরণকে বদলে দিয়েছে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "English has also achieved a ubiquitous status as the global language of science.",
+        "bn": "বিজ্ঞানের বৈশ্বিক ভাষা হিসেবে ইংরেজিও আজ একটি সর্বব্যাপী মর্যাদা অর্জন করেছে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That is why mastering vocabulary opens doors everywhere across the globe.",
+        "bn": "এ কারণেই সমৃদ্ধ শব্দভান্ডার বিশ্বজুড়ে সর্বত্র সফলতার দ্বার উন্মোচন করে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "ubiquitous": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "ubiquitous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Smartphones have become truly ubiquitous in every corner of the world today.",
+        "bn": "আজ বিশ্বের প্রতিটি কোণে স্মার্টফোন সত্যি সর্বব্যাপী হয়ে উঠেছে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes, their ubiquitous presence has transformed how we communicate and learn.",
+        "bn": "হ্যাঁ, সর্বত্র তাদের উপস্থিতি আমাদের যোগাযোগ ও শেখার ধরণকে বদলে দিয়েছে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "English has also achieved a ubiquitous status as the global language of science.",
+        "bn": "বিজ্ঞানের বৈশ্বিক ভাষা হিসেবে ইংরেজিও আজ একটি সর্বব্যাপী মর্যাদা অর্জন করেছে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That is why mastering vocabulary opens doors everywhere across the globe.",
+        "bn": "এ কারণেই সমৃদ্ধ শব্দভান্ডার বিশ্বজুড়ে সর্বত্র সফলতার দ্বার উন্মোচন করে।",
+        "targetWord": "ubiquitous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-3": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "pragmatic",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Instead of worrying about high scores, Leo took a pragmatic approach to daily revision.",
+        "bn": "উচ্চ নম্বরের দুশ্চিন্তা না করে লিও প্রতিদিনের রিভিশনে বাস্তববাদী দৃষ্টিভঙ্গি গ্রহণ করেছিল।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I focused on practical study habits. A pragmatic mindset solves real problems.",
+        "bn": "আমি ব্যবহারিক পড়ার অভ্যাসে জোর দিয়েছিলাম। বাস্তববাদী মানসিকতা প্রকৃত সমস্যার সমাধান করে।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "When planning a career, being both visionary and pragmatic is key.",
+        "bn": "ক্যারিয়ার পরিকল্পনার ক্ষেত্রে যেমন স্বপ্নদর্শী হতে হয়, তেমনি বাস্তববাদী হওয়াও জরুরি।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Exactly! Pragmatic solutions turn ambitious goals into everyday reality.",
+        "bn": "একদম! বাস্তবভিত্তিক সমাধানই উচ্চাকাঙ্ক্ষী লক্ষ্যকে প্রাত্যহিক বাস্তবে রূপ দেয়।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pragmatic": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "pragmatic",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Instead of worrying about high scores, Leo took a pragmatic approach to daily revision.",
+        "bn": "উচ্চ নম্বরের দুশ্চিন্তা না করে লিও প্রতিদিনের রিভিশনে বাস্তববাদী দৃষ্টিভঙ্গি গ্রহণ করেছিল।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I focused on practical study habits. A pragmatic mindset solves real problems.",
+        "bn": "আমি ব্যবহারিক পড়ার অভ্যাসে জোর দিয়েছিলাম। বাস্তববাদী মানসিকতা প্রকৃত সমস্যার সমাধান করে।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "When planning a career, being both visionary and pragmatic is key.",
+        "bn": "ক্যারিয়ার পরিকল্পনার ক্ষেত্রে যেমন স্বপ্নদর্শী হতে হয়, তেমনি বাস্তববাদী হওয়াও জরুরি।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Exactly! Pragmatic solutions turn ambitious goals into everyday reality.",
+        "bn": "একদম! বাস্তবভিত্তিক সমাধানই উচ্চাকাঙ্ক্ষী লক্ষ্যকে প্রাত্যহিক বাস্তবে রূপ দেয়।",
+        "targetWord": "pragmatic",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-4": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "scrutinize",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Before submitting the thesis, the editor will scrutinize every paragraph.",
+        "bn": "থিসিস জমা দেওয়ার আগে সম্পাদক প্রতিটি অনুচ্ছেদ খুঁটিয়ে পরীক্ষা করবেন।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Scholars must always scrutinize their sources to prevent misinformation.",
+        "bn": "ভুল তথ্য রোধ করতে গবেষকদের সবসময় তাদের উৎসগুলো চুলচেরা বিশ্লেষণ করা উচিত।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "When we scrutinize complex words, we uncover their root origins and history.",
+        "bn": "আমরা যখন জটিল শব্দগুলো গভীরভাবে বিশ্লেষণ করি, তখন তাদের মূল উৎস ও ইতিহাস জানতে পারি।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That careful scrutiny makes advanced vocabulary stick in our long-term memory.",
+        "bn": "ঐ পুঙ্খানুপুঙ্খ বিশ্লেষণই উচ্চতর শব্দগুলোকে আমাদের স্মৃতিতে স্থায়ী করে তোলে।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "scrutinize": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "scrutinize",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Before submitting the thesis, the editor will scrutinize every paragraph.",
+        "bn": "থিসিস জমা দেওয়ার আগে সম্পাদক প্রতিটি অনুচ্ছেদ খুঁটিয়ে পরীক্ষা করবেন।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Scholars must always scrutinize their sources to prevent misinformation.",
+        "bn": "ভুল তথ্য রোধ করতে গবেষকদের সবসময় তাদের উৎসগুলো চুলচেরা বিশ্লেষণ করা উচিত।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "When we scrutinize complex words, we uncover their root origins and history.",
+        "bn": "আমরা যখন জটিল শব্দগুলো গভীরভাবে বিশ্লেষণ করি, তখন তাদের মূল উৎস ও ইতিহাস জানতে পারি।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That careful scrutiny makes advanced vocabulary stick in our long-term memory.",
+        "bn": "ঐ পুঙ্খানুপুঙ্খ বিশ্লেষণই উচ্চতর শব্দগুলোকে আমাদের স্মৃতিতে স্থায়ী করে তোলে।",
+        "targetWord": "scrutinize",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-5": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "quintessential",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "This quiet reading hall with oak desks is the quintessential study space.",
+        "bn": "ওক কাঠের টেবিল সাজানো এই শান্ত রিডিং হলটি একটি আদর্শ পড়ার জায়গার খাঁটি উদাহরণ।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "It has the quintessential ambiance for deep concentration and reflection.",
+        "bn": "গভীর মনোযোগ ও ভাবনার জন্য এখানে সর্বোৎকৃষ্ট পরিবেশ বিদ্যমান।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Jane Austen's prose is often seen as the quintessential British literature style.",
+        "bn": "জেন অস্টিনের গদ্যকে প্রায়শই ব্রিটিশ সাহিত্যের এক সর্বোৎকৃষ্ট নিদর্শন হিসেবে গণ্য করা হয়।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Studying such quintessential works elevates our own vocabulary and writing.",
+        "bn": "এমন উৎকৃষ্ট সাহিত্যকর্ম অধ্যয়ন আমাদের নিজস্ব শব্দভান্ডার ও লেখাকে উন্নত করে।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "quintessential": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "quintessential",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "This quiet reading hall with oak desks is the quintessential study space.",
+        "bn": "ওক কাঠের টেবিল সাজানো এই শান্ত রিডিং হলটি একটি আদর্শ পড়ার জায়গার খাঁটি উদাহরণ।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "It has the quintessential ambiance for deep concentration and reflection.",
+        "bn": "গভীর মনোযোগ ও ভাবনার জন্য এখানে সর্বোৎকৃষ্ট পরিবেশ বিদ্যমান।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Jane Austen's prose is often seen as the quintessential British literature style.",
+        "bn": "জেন অস্টিনের গদ্যকে প্রায়শই ব্রিটিশ সাহিত্যের এক সর্বোৎকৃষ্ট নিদর্শন হিসেবে গণ্য করা হয়।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Studying such quintessential works elevates our own vocabulary and writing.",
+        "bn": "এমন উৎকৃষ্ট সাহিত্যকর্ম অধ্যয়ন আমাদের নিজস্ব শব্দভান্ডার ও লেখাকে উন্নত করে।",
+        "targetWord": "quintessential",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-6": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "ambiguous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The prompt was ambiguous, so several students interpreted it differently.",
+        "bn": "নির্দেশনাটি অস্পষ্ট ও দ্ব্যর্থক ছিল, যার ফলে শিক্ষার্থীরা একে ভিন্ন ভিন্নভাবে বুঝেছিল।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Ambiguous wording in contracts or exam questions can cause serious confusion.",
+        "bn": "চুক্তিপত্রে বা পরীক্ষার প্রশ্নে অস্পষ্ট শব্দচয়ন মারাত্মক বিভ্রান্তি সৃষ্টি করতে পারে।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Clear writers choose precise vocabulary to avoid ambiguous statements.",
+        "bn": "দক্ষ লেখকরা সবসময় দ্ব্যর্থহীন ও স্পষ্ট বক্তব্য দিতে সঠিক শব্দ নির্বাচন করেন।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Learning synonyms helps us eliminate ambiguous phrasing from our essays.",
+        "bn": "সমার্থক শব্দ জানা আমাদের প্রবন্ধ থেকে যেকোনো অস্পষ্ট ভাষা দূর করতে সাহায্য করে।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "ambiguous": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "ambiguous",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The prompt was ambiguous, so several students interpreted it differently.",
+        "bn": "নির্দেশনাটি অস্পষ্ট ও দ্ব্যর্থক ছিল, যার ফলে শিক্ষার্থীরা একে ভিন্ন ভিন্নভাবে বুঝেছিল।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Ambiguous wording in contracts or exam questions can cause serious confusion.",
+        "bn": "চুক্তিপত্রে বা পরীক্ষার প্রশ্নে অস্পষ্ট শব্দচয়ন মারাত্মক বিভ্রান্তি সৃষ্টি করতে পারে।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Clear writers choose precise vocabulary to avoid ambiguous statements.",
+        "bn": "দক্ষ লেখকরা সবসময় দ্ব্যর্থহীন ও স্পষ্ট বক্তব্য দিতে সঠিক শব্দ নির্বাচন করেন।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Learning synonyms helps us eliminate ambiguous phrasing from our essays.",
+        "bn": "সমার্থক শব্দ জানা আমাদের প্রবন্ধ থেকে যেকোনো অস্পষ্ট ভাষা দূর করতে সাহায্য করে।",
+        "targetWord": "ambiguous",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-7": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "nuance",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Did you catch the subtle nuance between \"confident\" and \"arrogant\" in that speech?",
+        "bn": "তুমি কি বক্তৃতায় \"আত্মবিশ্বাসী\" এবং \"অহংকারী\" শব্দের মধ্যকার সূক্ষ্ম ভাবটি লক্ষ্য করেছ?",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes! Understanding every nuance of tone makes communication far more artful.",
+        "bn": "হ্যাঁ! বক্তব্যের প্রতিটি সূক্ষ্ম ভাব বুঝতে পারলে যোগাযোগ অনেক বেশি শিল্পসম্মত হয়।",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Poets and translators pay close attention to the emotional nuance of words.",
+        "bn": "কবি ও অনুবাদকরা শব্দের আবেগীয় সূক্ষ্ম পার্থক্যের প্রতি গভীর মনোযোগ দেন।",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Mastering these nuances marks the transition from intermediate to master speaker.",
+        "bn": "এই সূক্ষ্ম ভাবগুলো আয়ত্ত করাই একজন শিক্ষার্থীকে দক্ষ বক্তায় রূপান্তরিত করে।",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "nuance": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "nuance",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Did you catch the subtle nuance between \"confident\" and \"arrogant\" in that speech?",
+        "bn": "তুমি কি বক্তৃতায় \"আত্মবিশ্বাসী\" এবং \"অহংকারী\" শব্দের মধ্যকার সূক্ষ্ম ভাবটি লক্ষ্য করেছ?",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Yes! Understanding every nuance of tone makes communication far more artful.",
+        "bn": "হ্যাঁ! বক্তব্যের প্রতিটি সূক্ষ্ম ভাব বুঝতে পারলে যোগাযোগ অনেক বেশি শিল্পসম্মত হয়।",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Poets and translators pay close attention to the emotional nuance of words.",
+        "bn": "কবি ও অনুবাদকরা শব্দের আবেগীয় সূক্ষ্ম পার্থক্যের প্রতি গভীর মনোযোগ দেন।",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Mastering these nuances marks the transition from intermediate to master speaker.",
+        "bn": "এই সূক্ষ্ম ভাবগুলো আয়ত্ত করাই একজন শিক্ষার্থীকে দক্ষ বক্তায় রূপান্তরিত করে।",
+        "targetWord": "nuance",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "adv-8": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "synthesis",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our final presentation represents a creative synthesis of art, science, and history.",
+        "bn": "আমাদের চূড়ান্ত প্রেজেন্টেশনটি শিল্প, বিজ্ঞান ও ইতিহাসের এক চমৎকার সমন্বয়।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Synthesizing ideas from different fields creates truly original breakthroughs.",
+        "bn": "বিভিন্ন বিষয়ের ধারণাসমূহের সংশ্লেষণ এক অনন্য নতুন উদ্ভাবন সৃষ্টি করে।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A strong essay requires the synthesis of multiple academic viewpoints.",
+        "bn": "একটি শক্তিশালী প্রবন্ধের জন্য একাধিক অ্যাকাডেমিক দৃষ্টিভঙ্গির সুসমন্বয় প্রয়োজন।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us refine our conclusion to show how all these theories achieve synthesis.",
+        "bn": "চল আমাদের উপসংহারটি পরিমার্জন করি যাতে দেখা যায় কীভাবে সব তত্ত্বের সমন্বয় হয়েছে।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "synthesis": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "synthesis",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our final presentation represents a creative synthesis of art, science, and history.",
+        "bn": "আমাদের চূড়ান্ত প্রেজেন্টেশনটি শিল্প, বিজ্ঞান ও ইতিহাসের এক চমৎকার সমন্বয়।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Synthesizing ideas from different fields creates truly original breakthroughs.",
+        "bn": "বিভিন্ন বিষয়ের ধারণাসমূহের সংশ্লেষণ এক অনন্য নতুন উদ্ভাবন সৃষ্টি করে।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "A strong essay requires the synthesis of multiple academic viewpoints.",
+        "bn": "একটি শক্তিশালী প্রবন্ধের জন্য একাধিক অ্যাকাডেমিক দৃষ্টিভঙ্গির সুসমন্বয় প্রয়োজন।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us refine our conclusion to show how all these theories achieve synthesis.",
+        "bn": "চল আমাদের উপসংহারটি পরিমার্জন করি যাতে দেখা যায় কীভাবে সব তত্ত্বের সমন্বয় হয়েছে।",
+        "targetWord": "synthesis",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-1": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "mitigate",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our proactive contingency plan helped mitigate the risk of project delays.",
+        "bn": "আমাদের সতর্কতামূলক পূর্বপরিকল্পনা প্রজেক্টে বিলম্বের ঝুঁকি প্রশমিত করতে সাহায্য করেছে।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Excellent strategy! Taking early action is the best way to mitigate financial loss.",
+        "bn": "চমৎকার কৌশল! দ্রুত পদক্ষেপ গ্রহণ করাই আর্থিক ক্ষতি কমানোর সর্বোত্তম উপায়।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Good leaders work tirelessly to mitigate workplace stress and burnout.",
+        "bn": "দক্ষ নেতারা সবসময় কাজের চাপ ও মানসিক ক্লান্তি প্রশমিত করার জন্য কাজ করেন।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Effective communication can mitigate misunderstandings before they escalate.",
+        "bn": "কার্যকর যোগাযোগ যেকোনো ভুল বোঝাবুঝি বড় হওয়ার আগেই তা প্রশমিত করতে পারে।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "mitigate": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "mitigate",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Our proactive contingency plan helped mitigate the risk of project delays.",
+        "bn": "আমাদের সতর্কতামূলক পূর্বপরিকল্পনা প্রজেক্টে বিলম্বের ঝুঁকি প্রশমিত করতে সাহায্য করেছে।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Excellent strategy! Taking early action is the best way to mitigate financial loss.",
+        "bn": "চমৎকার কৌশল! দ্রুত পদক্ষেপ গ্রহণ করাই আর্থিক ক্ষতি কমানোর সর্বোত্তম উপায়।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Good leaders work tirelessly to mitigate workplace stress and burnout.",
+        "bn": "দক্ষ নেতারা সবসময় কাজের চাপ ও মানসিক ক্লান্তি প্রশমিত করার জন্য কাজ করেন।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Effective communication can mitigate misunderstandings before they escalate.",
+        "bn": "কার্যকর যোগাযোগ যেকোনো ভুল বোঝাবুঝি বড় হওয়ার আগেই তা প্রশমিত করতে পারে।",
+        "targetWord": "mitigate",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-2": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "expedite",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We upgraded our automation workflow to expedite the delivery of customer orders.",
+        "bn": "গ্রাহকদের অর্ডারের সরবরাহ ত্বরান্বিত করার জন্য আমরা আমাদের অটোমেশন উন্নত করেছি।",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That will expedite response times and significantly boost client satisfaction.",
+        "bn": "এটি উত্তর প্রদানের সময় দ্রুত করবে এবং গ্রাহকদের সন্তুষ্টি ব্যাপকভাবে বাড়িয়ে তুলবে।",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Can we request the admissions office to expedite our visa documentation?",
+        "bn": "আমরা কি ভর্তি দপ্তরকে আমাদের ভিসা সংক্রান্ত কাগজপত্র দ্রুত সম্পন্ন করতে অনুরোধ করতে পারি?",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I will submit the urgent cover letter today to expedite their review process.",
+        "bn": "তাদের মূল্যায়ন প্রক্রিয়া ত্বরান্বিত করতে আমি আজই জরুরি কভার লেটারটি জমা দেব।",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "expedite": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "expedite",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We upgraded our automation workflow to expedite the delivery of customer orders.",
+        "bn": "গ্রাহকদের অর্ডারের সরবরাহ ত্বরান্বিত করার জন্য আমরা আমাদের অটোমেশন উন্নত করেছি।",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "That will expedite response times and significantly boost client satisfaction.",
+        "bn": "এটি উত্তর প্রদানের সময় দ্রুত করবে এবং গ্রাহকদের সন্তুষ্টি ব্যাপকভাবে বাড়িয়ে তুলবে।",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Can we request the admissions office to expedite our visa documentation?",
+        "bn": "আমরা কি ভর্তি দপ্তরকে আমাদের ভিসা সংক্রান্ত কাগজপত্র দ্রুত সম্পন্ন করতে অনুরোধ করতে পারি?",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I will submit the urgent cover letter today to expedite their review process.",
+        "bn": "তাদের মূল্যায়ন প্রক্রিয়া ত্বরান্বিত করতে আমি আজই জরুরি কভার লেটারটি জমা দেব।",
+        "targetWord": "expedite",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-3": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "astute",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The manager made an astute market observation that predicted consumer trends.",
+        "bn": "ম্যানেজার একটি বিচক্ষণ পর্যবেক্ষণ করেছিলেন যা ভোক্তাদের ভবিষ্যৎ চাহিদার পূর্বাভাস দিয়েছিল।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Her astute analysis gave our enterprise a tremendous competitive advantage.",
+        "bn": "তার তীক্ষ্ণবুদ্ধিসম্পন্ন বিশ্লেষণ আমাদের প্রতিষ্ঠানকে এক বিশাল প্রতিযোগিতামূলক সুবিধা এনে দিয়েছিল।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "An astute investor evaluates both financial data and executive integrity.",
+        "bn": "একজন বিচক্ষণ বিনিয়োগকারী আর্থিক তথ্য এবং ব্যবস্থাপনা সততা উভয়ই বিবেচনা করেন।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Developing astute judgment requires constant reading and critical thinking.",
+        "bn": "বিচক্ষণ বিচারবুদ্ধি গড়ে তুলতে নিয়মিত পড়াশোনা এবং যৌক্তিক চিন্তাভাবনা প্রয়োজন।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "astute": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "astute",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The manager made an astute market observation that predicted consumer trends.",
+        "bn": "ম্যানেজার একটি বিচক্ষণ পর্যবেক্ষণ করেছিলেন যা ভোক্তাদের ভবিষ্যৎ চাহিদার পূর্বাভাস দিয়েছিল।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Her astute analysis gave our enterprise a tremendous competitive advantage.",
+        "bn": "তার তীক্ষ্ণবুদ্ধিসম্পন্ন বিশ্লেষণ আমাদের প্রতিষ্ঠানকে এক বিশাল প্রতিযোগিতামূলক সুবিধা এনে দিয়েছিল।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "An astute investor evaluates both financial data and executive integrity.",
+        "bn": "একজন বিচক্ষণ বিনিয়োগকারী আর্থিক তথ্য এবং ব্যবস্থাপনা সততা উভয়ই বিবেচনা করেন।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Developing astute judgment requires constant reading and critical thinking.",
+        "bn": "বিচক্ষণ বিচারবুদ্ধি গড়ে তুলতে নিয়মিত পড়াশোনা এবং যৌক্তিক চিন্তাভাবনা প্রয়োজন।",
+        "targetWord": "astute",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-4": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "unprecedented",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The startup achieved unprecedented growth, expanding to ten nations in one year.",
+        "bn": "স্টার্টআপটি এক বছরে দশটি দেশে কার্যক্রম বাড়িয়ে এক অভূতপূর্ব প্রবৃদ্ধি অর্জন করেছে।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Such unprecedented momentum in the tech sector is truly historic.",
+        "bn": "প্রযুক্তি খাতে এমন নজিরবিহীন অগ্রগতি সত্যিই ঐতিহাসিক।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Global challenges often demand unprecedented cooperation among leaders.",
+        "bn": "বৈশ্বিক সংকটগুলোর সমাধানে প্রায়শই বিশ্বনেতাদের মধ্যে নজিরবিহীন সহযোগিতার প্রয়োজন হয়।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us prepare thoroughly so we are ready for unprecedented opportunities.",
+        "bn": "চল আমরা এমনভাবে প্রস্তুতি নিই যাতে যেকোনো নজিরবিহীন সুযোগের জন্য প্রস্তুত থাকতে পারি।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "unprecedented": {
+    "theme": "garden",
+    "duration": 18,
+    "targetWord": "unprecedented",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The startup achieved unprecedented growth, expanding to ten nations in one year.",
+        "bn": "স্টার্টআপটি এক বছরে দশটি দেশে কার্যক্রম বাড়িয়ে এক অভূতপূর্ব প্রবৃদ্ধি অর্জন করেছে।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Such unprecedented momentum in the tech sector is truly historic.",
+        "bn": "প্রযুক্তি খাতে এমন নজিরবিহীন অগ্রগতি সত্যিই ঐতিহাসিক।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Global challenges often demand unprecedented cooperation among leaders.",
+        "bn": "বৈশ্বিক সংকটগুলোর সমাধানে প্রায়শই বিশ্বনেতাদের মধ্যে নজিরবিহীন সহযোগিতার প্রয়োজন হয়।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us prepare thoroughly so we are ready for unprecedented opportunities.",
+        "bn": "চল আমরা এমনভাবে প্রস্তুতি নিই যাতে যেকোনো নজিরবিহীন সুযোগের জন্য প্রস্তুত থাকতে পারি।",
+        "targetWord": "unprecedented",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-5": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "consensus",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "After three rounds of constructive debate, the committee reached a clear consensus.",
+        "bn": "তিন দফা গঠনমূলক আলোচনার পর কমিটি একটি স্পষ্ট ঐকমত্যে পৌঁছেছে।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Building consensus among stakeholders ensures that everyone is committed.",
+        "bn": "অংশীদারদের মধ্যে সর্বসম্মত মত তৈরি করলে সবার আন্তরিক প্রতিশ্রুতি নিশ্চিত হয়।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Without consensus, executing a major organizational transformation is impossible.",
+        "bn": "ঐকমত্য ছাড়া বড় কোনো সাংগঠনিক রূপান্তর বাস্তবায়ন করা অসম্ভব।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Respectful dialogue is always the foundation for sustainable consensus.",
+        "bn": "শ্রদ্ধাশীল আলোচনাই সবসময় একটি দীর্ঘস্থায়ী ঐকমত্যের মূল ভিত্তি।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "consensus": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "consensus",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "After three rounds of constructive debate, the committee reached a clear consensus.",
+        "bn": "তিন দফা গঠনমূলক আলোচনার পর কমিটি একটি স্পষ্ট ঐকমত্যে পৌঁছেছে।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Building consensus among stakeholders ensures that everyone is committed.",
+        "bn": "অংশীদারদের মধ্যে সর্বসম্মত মত তৈরি করলে সবার আন্তরিক প্রতিশ্রুতি নিশ্চিত হয়।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Without consensus, executing a major organizational transformation is impossible.",
+        "bn": "ঐকমত্য ছাড়া বড় কোনো সাংগঠনিক রূপান্তর বাস্তবায়ন করা অসম্ভব।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Respectful dialogue is always the foundation for sustainable consensus.",
+        "bn": "শ্রদ্ধাশীল আলোচনাই সবসময় একটি দীর্ঘস্থায়ী ঐকমত্যের মূল ভিত্তি।",
+        "targetWord": "consensus",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-6": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "exemplify",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Dr. Yunus's social business models exemplify sustainable poverty alleviation.",
+        "bn": "ড. ইউনূসের সামাজিক ব্যবসার মডেলগুলো টেকসই দারিদ্র্য বিমোচনের আদর্শ দৃষ্টান্ত স্থাপন করে।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "His dedication and ethics exemplify the highest ideals of global leadership.",
+        "bn": "তার নিষ্ঠা এবং সততা বিশ্ব নেতৃত্বের সর্বোচ্চ আদর্শের এক অনন্য উদাহরণ।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We should design case studies that exemplify best corporate practices.",
+        "bn": "আমাদের এমন কেস স্টাডি প্রস্তুত করা উচিত যা সেরা করপোরেট রীতির উদাহরণ দেয়।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Living with integrity is the best way to exemplify our core values to others.",
+        "bn": "সততার সাথে জীবনযাপন করাই অন্যদের কাছে নিজের মূল নীতিগুলোর দৃষ্টান্ত স্থাপনের সেরা উপায়।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "exemplify": {
+    "theme": "library",
+    "duration": 18,
+    "targetWord": "exemplify",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Dr. Yunus's social business models exemplify sustainable poverty alleviation.",
+        "bn": "ড. ইউনূসের সামাজিক ব্যবসার মডেলগুলো টেকসই দারিদ্র্য বিমোচনের আদর্শ দৃষ্টান্ত স্থাপন করে।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "His dedication and ethics exemplify the highest ideals of global leadership.",
+        "bn": "তার নিষ্ঠা এবং সততা বিশ্ব নেতৃত্বের সর্বোচ্চ আদর্শের এক অনন্য উদাহরণ।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "We should design case studies that exemplify best corporate practices.",
+        "bn": "আমাদের এমন কেস স্টাডি প্রস্তুত করা উচিত যা সেরা করপোরেট রীতির উদাহরণ দেয়।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Living with integrity is the best way to exemplify our core values to others.",
+        "bn": "সততার সাথে জীবনযাপন করাই অন্যদের কাছে নিজের মূল নীতিগুলোর দৃষ্টান্ত স্থাপনের সেরা উপায়।",
+        "targetWord": "exemplify",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-7": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "synergy",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The merger of the two research labs created remarkable scientific synergy.",
+        "bn": "দুটি গবেষণাগারের একত্রীকরণ এক অভাবনীয় বৈজ্ঞানিক সম্মিলিত শক্তি ও সমন্বয় সৃষ্টি করেছে।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "When marketing and engineering collaborate, their synergy yields breakthrough products.",
+        "bn": "মার্কেটিং এবং ইঞ্জিনিয়ারিং একসাথে কাজ করলে তাদের সমন্বয় যুগান্তকারী পণ্য তৈরি করে।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "True synergy means the whole outcome is vastly greater than the sum of its parts.",
+        "bn": "প্রকৃত সমন্বয়ের অর্থ হলো সামগ্রিক ফলাফল প্রতিটি পৃথক অংশের যোগফলের চেয়েও অনেক বড়।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us cultivate synergy across our study groups to amplify our achievements.",
+        "bn": "আমাদের সাফল্যকে বহুগুণ বাড়িয়ে তুলতে চল পড়ার গ্রুপগুলোতে সমন্বিত শক্তি গড়ে তুলি।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "synergy": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "synergy",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "The merger of the two research labs created remarkable scientific synergy.",
+        "bn": "দুটি গবেষণাগারের একত্রীকরণ এক অভাবনীয় বৈজ্ঞানিক সম্মিলিত শক্তি ও সমন্বয় সৃষ্টি করেছে।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "When marketing and engineering collaborate, their synergy yields breakthrough products.",
+        "bn": "মার্কেটিং এবং ইঞ্জিনিয়ারিং একসাথে কাজ করলে তাদের সমন্বয় যুগান্তকারী পণ্য তৈরি করে।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "True synergy means the whole outcome is vastly greater than the sum of its parts.",
+        "bn": "প্রকৃত সমন্বয়ের অর্থ হলো সামগ্রিক ফলাফল প্রতিটি পৃথক অংশের যোগফলের চেয়েও অনেক বড়।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us cultivate synergy across our study groups to amplify our achievements.",
+        "bn": "আমাদের সাফল্যকে বহুগুণ বাড়িয়ে তুলতে চল পড়ার গ্রুপগুলোতে সমন্বিত শক্তি গড়ে তুলি।",
+        "targetWord": "synergy",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "pro-8": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "benchmark",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "This institution sets the global benchmark for excellence in language education.",
+        "bn": "এই প্রতিষ্ঠানটি ভাষা শিক্ষার ক্ষেত্রে বৈশ্বিক উৎকর্ষের মাপকাঠি নির্ধারণ করে দিয়েছে।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "We can use their comprehensive curriculum as a benchmark for our own learning goals.",
+        "bn": "তাদের সমৃদ্ধ পাঠ্যক্রমকে আমরা আমাদের নিজস্ব লক্ষ্যগুলোর একটি মানদণ্ড হিসেবে ব্যবহার করতে পারি।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Regular assessments help students benchmark their progress against international standards.",
+        "bn": "নিয়মিত মূল্যায়ন শিক্ষার্থীদের আন্তর্জাতিক মানের সাথে নিজেদের অগ্রগতির তুলনা করতে সাহায্য করে।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Setting a high personal benchmark motivates us to strive for mastery every single day.",
+        "bn": "উচ্চ ব্যক্তিগত মানদণ্ড নির্ধারণ আমাদের প্রতিদিন দক্ষতা অর্জনে অনুপ্রাণিত করে।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "benchmark": {
+    "theme": "study",
+    "duration": 18,
+    "targetWord": "benchmark",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "This institution sets the global benchmark for excellence in language education.",
+        "bn": "এই প্রতিষ্ঠানটি ভাষা শিক্ষার ক্ষেত্রে বৈশ্বিক উৎকর্ষের মাপকাঠি নির্ধারণ করে দিয়েছে।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "We can use their comprehensive curriculum as a benchmark for our own learning goals.",
+        "bn": "তাদের সমৃদ্ধ পাঠ্যক্রমকে আমরা আমাদের নিজস্ব লক্ষ্যগুলোর একটি মানদণ্ড হিসেবে ব্যবহার করতে পারি।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Regular assessments help students benchmark their progress against international standards.",
+        "bn": "নিয়মিত মূল্যায়ন শিক্ষার্থীদের আন্তর্জাতিক মানের সাথে নিজেদের অগ্রগতির তুলনা করতে সাহায্য করে।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Setting a high personal benchmark motivates us to strive for mastery every single day.",
+        "bn": "উচ্চ ব্যক্তিগত মানদণ্ড নির্ধারণ আমাদের প্রতিদিন দক্ষতা অর্জনে অনুপ্রাণিত করে।",
+        "targetWord": "benchmark",
+        "approxDuration": 4.5
+      }
+    ]
+  }
+};
