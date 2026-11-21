@@ -1040,19 +1040,323 @@ function renderAppHeader(activePage = 'home') {
 
   const path = (window.location.pathname || '').toLowerCase();
   const file = path.split('/').pop().split('\\').pop() || '';
-  const isIndex = file === '' || file === 'index.html';
-
-  // Locked Entry View: If on index.html and level has NOT been chosen in the current session,
-  // completely hide the top navigation bar and all feature links
-  if (isIndex && !isLevelChosen()) {
-    headerContainer.innerHTML = '';
-    headerContainer.classList.add('hidden');
-    return;
-  }
+  const isIndex = file === '' || file === 'index.html' || activePage === 'home';
 
   headerContainer.classList.remove('hidden');
 
-  const currentLevelId = AppState.selectedLevel || 'beginner';
+  const selectedCountry = getSelectedCountry();
+  const activeAccent = getActiveAccent();
+  const userProfile = getStoredUserProfile();
+  const isDark = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark';
+
+  // Helper 1: Dark / Light Theme Toggle Button
+  const themeToggleBtnHTML = `
+    <button
+      type="button"
+      id="vw-theme-toggle-btn"
+      onclick="toggleTheme()"
+      class="vw-theme-toggle-btn"
+      title="${isDark ? 'Switch to Light Mode &bull; লাইট মোড' : 'Switch to Dark Mode &bull; ডার্ক মোড'}"
+      aria-label="Toggle theme"
+    >
+      <span class="vw-theme-toggle-icon">
+        ${isDark ? getSunIconSvg() : getMoonIconSvg()}
+      </span>
+    </button>
+  `;
+
+  // Helper 2: Country & Accent Selector
+  const countrySelectorHTML = `
+    <div class="relative">
+      <button
+        type="button"
+        id="vw-country-btn"
+        onclick="toggleCountryPicker()"
+        class="vw-country-btn"
+        title="Pronunciation Accent: ${activeAccent.name} (${activeAccent.shortLabel}) &bull; Click to switch"
+      >
+        <span class="vw-country-flag text-base leading-none">${selectedCountry.flag}</span>
+        <span id="vw-navbar-accent-badge" class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
+        <span class="text-[8px] text-gray-400">&blacktriangledown;</span>
+      </button>
+
+      <!-- Country & Accent Dropdown Menu -->
+      <div
+        id="vw-country-picker"
+        class="hidden absolute right-0 mt-2 w-72 rounded-2xl border p-2.5 shadow-xl z-50 vw-panel-reveal"
+        style="background-color: var(--surface-white); border-color: var(--border-subtle);"
+      >
+        <!-- Quick Accent Switcher Row -->
+        <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border-b mb-1.5 flex items-center justify-between" style="color: var(--ink-muted); border-color: var(--border-subtle);">
+          <span>Quick Accent &bull; দ্রুত অ্যাকসেন্ট</span>
+          <span class="font-mono text-[9px] lowercase opacity-75">${activeAccent.code}</span>
+        </div>
+        <div class="grid grid-cols-4 gap-1 px-1 mb-2.5">
+          ${Object.values(ACCENT_CONFIG)
+            .map((acc) => {
+              const isAct = acc.id === activeAccent.id;
+              return `
+                <button
+                  type="button"
+                  onclick="setActiveAccent('${acc.id}')"
+                  class="vw-quick-accent-btn px-1.5 py-1 rounded-xl text-center border transition-all ${
+                    isAct ? 'active font-bold' : ''
+                  }"
+                  title="${acc.name} (${acc.code})"
+                >
+                  <span class="block text-sm leading-tight">${acc.flag}</span>
+                  <span class="block text-[10px] font-mono font-bold leading-tight mt-0.5">${acc.shortLabel}</span>
+                </button>
+              `;
+            })
+            .join('')}
+        </div>
+
+        <!-- Country & Dialect List -->
+        <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border-b mb-1" style="color: var(--ink-muted); border-color: var(--border-subtle);">
+          Country &amp; Dialect &bull; দেশভিত্তিক নির্বাচন
+        </div>
+        <div class="space-y-0.5 max-h-60 overflow-y-auto">
+          ${Object.values(COUNTRY_CONFIG)
+            .map((c) => {
+              const isSelected = c.id === selectedCountry.id;
+              return `
+                <button
+                  type="button"
+                  onclick="selectCountry('${c.id}')"
+                  class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors ${
+                    isSelected ? 'bg-[#EEF4F1] text-[#2D5A4C]' : 'hover:bg-black/5 dark:hover:bg-white/5'
+                  }"
+                  style="${isSelected ? 'background-color: var(--accent-sage-soft); color: var(--accent-sage);' : 'color: var(--ink-primary);'}"
+                >
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-base leading-none">${c.flag}</span>
+                    <div class="text-left">
+                      <span class="block text-xs font-bold">${c.name}</span>
+                      <span class="block text-[10px] font-normal" style="color: var(--ink-muted);">${c.accentLabel}</span>
+                    </div>
+                  </div>
+                  ${isSelected ? '<span class="text-xs font-bold" style="color: var(--accent-sage);">&check;</span>' : ''}
+                </button>
+              `;
+            })
+            .join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Helper 3: Sign In Pill / User Profile Menu
+  const authBtnHTML = userProfile ? `
+    <div class="relative">
+      <button
+        type="button"
+        id="vw-user-menu-btn"
+        onclick="toggleUserMenu()"
+        class="vw-auth-user-btn"
+        title="Signed in as ${userProfile.name}"
+      >
+        <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+          ${userProfile.initial || userProfile.name.charAt(0).toUpperCase()}
+        </span>
+        <span class="hidden sm:inline max-w-[90px] truncate">${userProfile.name}</span>
+        <span class="text-[8px] text-gray-400 ml-0.5">&blacktriangledown;</span>
+      </button>
+
+      <!-- User Profile Dropdown -->
+      <div
+        id="vw-user-menu-dropdown"
+        class="hidden absolute right-0 mt-2 w-64 rounded-2xl border p-3 shadow-xl z-50 vw-panel-reveal"
+        style="background-color: var(--surface-white); border-color: var(--border-subtle);"
+      >
+        <div class="flex items-center gap-2.5 pb-3 border-b" style="border-color: var(--border-subtle);">
+          <span class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+            ${userProfile.initial || userProfile.name.charAt(0).toUpperCase()}
+          </span>
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-bold truncate" style="color: var(--ink-primary);">${userProfile.name}</p>
+            <p class="text-[11px] truncate" style="color: var(--ink-muted);">${userProfile.email}</p>
+          </div>
+        </div>
+
+        <div class="py-2 space-y-1">
+          <div class="flex items-center justify-between px-2 py-1 rounded-xl text-xs" style="color: var(--ink-secondary);">
+            <span>Membership</span>
+            <span class="font-bold text-[10px] px-2 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">Active Learner</span>
+          </div>
+          <a href="tracker.html" class="flex items-center justify-between px-2 py-1.5 rounded-xl text-xs font-bold transition-colors hover:bg-black/5" style="color: var(--ink-primary);">
+            <span>View Daily Progress</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+
+        <div class="pt-2 border-t" style="border-color: var(--border-subtle);">
+          <button
+            type="button"
+            onclick="handleSignOut()"
+            class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-red-600 hover:bg-red-500/10 transition-colors"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span>Sign Out &bull; লগ আউট</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  ` : `
+    <button
+      type="button"
+      id="vw-auth-btn"
+      onclick="openAuthModal()"
+      class="vw-auth-pill-btn"
+      title="Sign in to save your vocabulary progress"
+    >
+      <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span class="hidden sm:inline">Sign In</span>
+    </button>
+  `;
+
+  // Helper 4: Global Auth Modal HTML
+  const authModalHTML = `
+    <!-- Global Sign In / Authentication Modal -->
+    <div id="vw-auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs hidden">
+      <div class="fixed inset-0" onclick="closeAuthModal()"></div>
+      <div
+        class="relative w-full max-w-md rounded-3xl border p-6 sm:p-8 shadow-2xl z-10 vw-view-enter"
+        style="background-color: var(--surface-white); border-color: var(--border-subtle);"
+      >
+        <button
+          type="button"
+          onclick="closeAuthModal()"
+          class="absolute top-5 right-5 w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#2D5A4C]"
+          style="border-color: var(--border-subtle); color: var(--ink-muted);"
+          aria-label="Close"
+        >
+          <svg class="w-4 h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <div class="flex items-center gap-3 mb-5">
+          <div
+            class="w-10 h-10 rounded-2xl flex items-center justify-center font-editorial font-bold text-xl text-white shadow-xs shrink-0"
+            style="background-color: var(--accent-sage);"
+          >
+            V
+          </div>
+          <div>
+            <h3 class="font-editorial text-xl font-bold" style="color: var(--ink-primary);">
+              Sign In to Vocabulary World
+            </h3>
+            <p class="font-bengali text-xs mt-0.5" style="color: var(--ink-muted);">
+              আপনার শব্দ শেখার অগ্রগতি ট্র্যাক ও সংরক্ষণ করুন
+            </p>
+          </div>
+        </div>
+
+        <form id="vw-auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--ink-secondary);">
+              Full Name &bull; পূর্ণ নাম
+            </label>
+            <input
+              id="auth-name-input"
+              type="text"
+              required
+              placeholder="e.g. John Doe / রাকিব হাসান"
+              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
+              style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--ink-secondary);">
+              Email Address &bull; ইমেইল ঠিকানা
+            </label>
+            <input
+              id="auth-email-input"
+              type="email"
+              placeholder="you@example.com"
+              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
+              style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="vw-auth-pill-btn w-full py-3 justify-center text-sm shadow-md mt-2"
+          >
+            <span>Sign In &bull; সাইন ইন</span>
+          </button>
+
+          <div class="relative flex py-1 items-center">
+            <div class="flex-grow border-t" style="border-color: var(--border-subtle);"></div>
+            <span class="flex-shrink mx-3 text-[11px] font-bold uppercase" style="color: var(--ink-muted);">Or &bull; অথবা</span>
+            <div class="flex-grow border-t" style="border-color: var(--border-subtle);"></div>
+          </div>
+
+          <button
+            type="button"
+            onclick="handleGuestAuth()"
+            class="w-full py-2.5 rounded-2xl border text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all hover:border-[#2D5A4C]"
+            style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+          >
+            <svg class="w-4 h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span>Continue as Guest &bull; অতিথি হিসেবে প্রবেশ</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  `;
+
+  // =========================================================================
+  // CASE 1: index.html (Pure Clean Level Selection Gateway)
+  // Keeps ONLY Logo on left, and Theme Toggle, Country Selector, Sign In on right.
+  // Absolutely NO center nav links, NO level dropdown, and NO mobile menu.
+  // =========================================================================
+  if (isIndex) {
+    headerContainer.innerHTML = `
+      <header
+        id="vw-top-header"
+        class="sticky top-0 z-40 w-full border-b backdrop-blur-md"
+        style="background-color: rgba(250, 248, 245, 0.95); border-color: var(--border-subtle);"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+          <!-- 1. LEFT: Brand Logo & Title -->
+          <a href="index.html" class="flex items-center gap-2.5 shrink-0 group focus:outline-none" title="Vocabulary World Home">
+            <div
+              class="w-9 h-9 rounded-xl flex items-center justify-center font-editorial font-bold text-lg text-white shadow-xs shrink-0 transition-transform group-hover:scale-105"
+              style="background-color: var(--accent-sage);"
+            >
+              V
+            </div>
+            <div class="hidden sm:block">
+              <span class="font-editorial text-lg font-bold block leading-none" style="color: var(--ink-primary);">
+                Vocabulary World
+              </span>
+              <span class="font-bengali text-[10px] block mt-0.5" style="color: var(--ink-muted);">
+                বাংলা-ইংরেজি শব্দভান্ডার
+              </span>
+            </div>
+          </a>
+
+          <!-- 2. RIGHT: Clean Utility Controls (Theme Toggle + Country Selector + Sign In Pill Button) -->
+          <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+            ${themeToggleBtnHTML}
+            ${countrySelectorHTML}
+            ${authBtnHTML}
+          </div>
+        </div>
+      </header>
+      ${authModalHTML}
+    `;
+    return;
+  }
+
+  // =========================================================================
+  // CASE 2: All Subsequent Pages (learn, flashcards, games, tracker, assessment, etc.)
+  // Full top navigation bar with sliding pill menu, Level switcher dropdown, mobile menu, etc.
+  // =========================================================================
+  const currentLevelId = (typeof AppState !== 'undefined' && AppState.selectedLevel) || 'beginner';
   let levelTitle = 'Beginner';
   let levelSubtitle = 'প্রাথমিক স্তর';
   let levelBadgeClass = 'badge-beginner';
@@ -1062,7 +1366,7 @@ function renderAppHeader(activePage = 'home') {
     if (meta) {
       levelTitle = meta.title;
       levelSubtitle = meta.bengaliSubtitle;
-      levelBadgeClass = `badge-${meta.id}`;
+      levelBadgeClass = 'badge-' + meta.id;
     }
   }
 
@@ -1104,11 +1408,6 @@ function renderAppHeader(activePage = 'home') {
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8m-4-4h8"/></svg>`
     }
   ];
-
-  const selectedCountry = getSelectedCountry();
-  const activeAccent = getActiveAccent();
-  const userProfile = getStoredUserProfile();
-  const isDark = typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark';
 
   headerContainer.innerHTML = `
     <header
@@ -1217,169 +1516,9 @@ function renderAppHeader(activePage = 'home') {
             </div>
           </div>
 
-          <!-- 1. Dark / Light Theme Toggle (Moon & Sun Icon Button) -->
-          <button
-            type="button"
-            id="vw-theme-toggle-btn"
-            onclick="toggleTheme()"
-            class="vw-theme-toggle-btn"
-            title="${isDark ? 'Switch to Light Mode &bull; লাইট মোড' : 'Switch to Dark Mode &bull; ডার্ক মোড'}"
-            aria-label="Toggle theme"
-          >
-            <span class="vw-theme-toggle-icon">
-              ${isDark ? getSunIconSvg() : getMoonIconSvg()}
-            </span>
-          </button>
-
-          <!-- 2. Country Selector (Circular Country Button + Dropdown) -->
-          <div class="relative">
-            <button
-              type="button"
-              id="vw-country-btn"
-              onclick="toggleCountryPicker()"
-              class="vw-country-btn"
-              title="Pronunciation Accent: ${activeAccent.name} (${activeAccent.shortLabel}) &bull; Click to switch"
-            >
-              <span class="vw-country-flag text-base leading-none">${selectedCountry.flag}</span>
-              <span id="vw-navbar-accent-badge" class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
-              <span class="text-[8px] text-gray-400">&blacktriangledown;</span>
-            </button>
-
-            <!-- Country & Accent Dropdown Menu -->
-            <div
-              id="vw-country-picker"
-              class="hidden absolute right-0 mt-2 w-72 rounded-2xl border p-2.5 shadow-xl z-50 vw-panel-reveal"
-              style="background-color: var(--surface-white); border-color: var(--border-subtle);"
-            >
-              <!-- Quick Accent Switcher Row -->
-              <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border-b mb-1.5 flex items-center justify-between" style="color: var(--ink-muted); border-color: var(--border-subtle);">
-                <span>Quick Accent &bull; দ্রুত অ্যাকসেন্ট</span>
-                <span class="font-mono text-[9px] lowercase opacity-75">${activeAccent.code}</span>
-              </div>
-              <div class="grid grid-cols-4 gap-1 px-1 mb-2.5">
-                ${Object.values(ACCENT_CONFIG)
-                  .map((acc) => {
-                    const isAct = acc.id === activeAccent.id;
-                    return `
-                      <button
-                        type="button"
-                        onclick="setActiveAccent('${acc.id}')"
-                        class="vw-quick-accent-btn px-1.5 py-1 rounded-xl text-center border transition-all ${
-                          isAct ? 'active font-bold' : ''
-                        }"
-                        title="${acc.name} (${acc.code})"
-                      >
-                        <span class="block text-sm leading-tight">${acc.flag}</span>
-                        <span class="block text-[10px] font-mono font-bold leading-tight mt-0.5">${acc.shortLabel}</span>
-                      </button>
-                    `;
-                  })
-                  .join('')}
-              </div>
-
-              <!-- Country & Dialect List -->
-              <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider border-b mb-1" style="color: var(--ink-muted); border-color: var(--border-subtle);">
-                Country &amp; Dialect &bull; দেশভিত্তিক নির্বাচন
-              </div>
-              <div class="space-y-0.5 max-h-60 overflow-y-auto">
-                ${Object.values(COUNTRY_CONFIG)
-                  .map((c) => {
-                    const isSelected = c.id === selectedCountry.id;
-                    return `
-                      <button
-                        type="button"
-                        onclick="selectCountry('${c.id}')"
-                        class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-bold transition-colors ${
-                          isSelected ? 'bg-[#EEF4F1] text-[#2D5A4C]' : 'hover:bg-black/5 dark:hover:bg-white/5'
-                        }"
-                        style="${isSelected ? 'background-color: var(--accent-sage-soft); color: var(--accent-sage);' : 'color: var(--ink-primary);'}"
-                      >
-                        <div class="flex items-center gap-2.5">
-                          <span class="text-base leading-none">${c.flag}</span>
-                          <div class="text-left">
-                            <span class="block text-xs font-bold">${c.name}</span>
-                            <span class="block text-[10px] font-normal" style="color: var(--ink-muted);">${c.accentLabel}</span>
-                          </div>
-                        </div>
-                        ${isSelected ? '<span class="text-xs font-bold" style="color: var(--accent-sage);">&check;</span>' : ''}
-                      </button>
-                    `;
-                  })
-                  .join('')}
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Sign In Pill Button & Authentication Modal -->
-          ${userProfile ? `
-            <div class="relative">
-              <button
-                type="button"
-                id="vw-user-menu-btn"
-                onclick="toggleUserMenu()"
-                class="vw-auth-user-btn"
-                title="Signed in as ${userProfile.name}"
-              >
-                <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
-                  ${userProfile.initial || userProfile.name.charAt(0).toUpperCase()}
-                </span>
-                <span class="hidden sm:inline max-w-[90px] truncate">${userProfile.name}</span>
-                <span class="text-[8px] text-gray-400 ml-0.5">&blacktriangledown;</span>
-              </button>
-
-              <!-- User Profile Dropdown -->
-              <div
-                id="vw-user-menu-dropdown"
-                class="hidden absolute right-0 mt-2 w-64 rounded-2xl border p-3 shadow-xl z-50 vw-panel-reveal"
-                style="background-color: var(--surface-white); border-color: var(--border-subtle);"
-              >
-                <div class="flex items-center gap-2.5 pb-3 border-b" style="border-color: var(--border-subtle);">
-                  <span class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
-                    ${userProfile.initial || userProfile.name.charAt(0).toUpperCase()}
-                  </span>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-xs font-bold truncate" style="color: var(--ink-primary);">${userProfile.name}</p>
-                    <p class="text-[11px] truncate" style="color: var(--ink-muted);">${userProfile.email}</p>
-                  </div>
-                </div>
-
-                <div class="py-2 space-y-1">
-                  <div class="flex items-center justify-between px-2 py-1 rounded-xl text-xs" style="color: var(--ink-secondary);">
-                    <span>Membership</span>
-                    <span class="font-bold text-[10px] px-2 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">Active Learner</span>
-                  </div>
-                  <a href="tracker.html" class="flex items-center justify-between px-2 py-1.5 rounded-xl text-xs font-bold transition-colors hover:bg-black/5" style="color: var(--ink-primary);">
-                    <span>View Daily Progress</span>
-                    <span>&rarr;</span>
-                  </a>
-                </div>
-
-                <div class="pt-2 border-t" style="border-color: var(--border-subtle);">
-                  <button
-                    type="button"
-                    onclick="handleSignOut()"
-                    class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-red-600 hover:bg-red-500/10 transition-colors"
-                  >
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                    <span>Sign Out &bull; লগ আউট</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ` : `
-            <button
-              type="button"
-              id="vw-auth-btn"
-              onclick="openAuthModal()"
-              class="vw-auth-pill-btn"
-              title="Sign in to save your vocabulary progress"
-            >
-              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-              </svg>
-              <span class="hidden sm:inline">Sign In</span>
-            </button>
-          `}
+          ${themeToggleBtnHTML}
+          ${countrySelectorHTML}
+          ${authBtnHTML}
 
           <!-- Mobile Hamburger Toggle (< md) -->
           <button
@@ -1469,97 +1608,9 @@ function renderAppHeader(activePage = 'home') {
           .join('')}
       </div>
     </header>
-
-    <!-- Global Sign In / Authentication Modal -->
-    <div id="vw-auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs hidden">
-      <div class="fixed inset-0" onclick="closeAuthModal()"></div>
-      <div
-        class="relative w-full max-w-md rounded-3xl border p-6 sm:p-8 shadow-2xl z-10 vw-view-enter"
-        style="background-color: var(--surface-white); border-color: var(--border-subtle);"
-      >
-        <button
-          type="button"
-          onclick="closeAuthModal()"
-          class="absolute top-5 right-5 w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#2D5A4C]"
-          style="border-color: var(--border-subtle); color: var(--ink-muted);"
-          aria-label="Close"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-
-        <div class="flex items-center gap-3 mb-5">
-          <div
-            class="w-10 h-10 rounded-2xl flex items-center justify-center font-editorial font-bold text-xl text-white shadow-xs shrink-0"
-            style="background-color: var(--accent-sage);"
-          >
-            V
-          </div>
-          <div>
-            <h3 class="font-editorial text-xl font-bold" style="color: var(--ink-primary);">
-              Sign In to Vocabulary World
-            </h3>
-            <p class="font-bengali text-xs mt-0.5" style="color: var(--ink-muted);">
-              আপনার শব্দ শেখার অগ্রগতি ট্র্যাক ও সংরক্ষণ করুন
-            </p>
-          </div>
-        </div>
-
-        <form id="vw-auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--ink-secondary);">
-              Full Name &bull; পূর্ণ নাম
-            </label>
-            <input
-              id="auth-name-input"
-              type="text"
-              required
-              placeholder="e.g. John Doe / রাকিব হাসান"
-              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
-              style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--ink-secondary);">
-              Email Address &bull; ইমেইল ঠিকানা
-            </label>
-            <input
-              id="auth-email-input"
-              type="email"
-              placeholder="you@example.com"
-              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
-              style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
-            />
-          </div>
-
-          <button
-            type="submit"
-            class="vw-auth-pill-btn w-full py-3 justify-center text-sm shadow-md mt-2"
-          >
-            <span>Sign In &bull; সাইন ইন</span>
-          </button>
-
-          <div class="relative flex py-1 items-center">
-            <div class="flex-grow border-t" style="border-color: var(--border-subtle);"></div>
-            <span class="flex-shrink mx-3 text-[11px] font-bold uppercase" style="color: var(--ink-muted);">Or &bull; অথবা</span>
-            <div class="flex-grow border-t" style="border-color: var(--border-subtle);"></div>
-          </div>
-
-          <button
-            type="button"
-            onclick="handleGuestAuth()"
-            class="w-full py-2.5 rounded-2xl border text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all hover:border-[#2D5A4C]"
-            style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-            <span>Continue as Guest &bull; অতিথি হিসেবে প্রবেশ</span>
-          </button>
-        </form>
-      </div>
-    </div>
+    ${authModalHTML}
   `;
 
-  // Initialize LanGeek-style horizontal sliding pill highlight
   initTopNavSlidingPill();
 }
 
@@ -1807,7 +1858,7 @@ function renderAppFooter() {
   const path = (window.location.pathname || '').toLowerCase();
   const file = path.split('/').pop().split('\\').pop() || '';
   const isIndex = file === '' || file === 'index.html';
-  const showNavLinks = isLevelChosen() || !isIndex;
+  const showNavLinks = !isIndex;
 
   footerContainer.innerHTML = `
     <footer
