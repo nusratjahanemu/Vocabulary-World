@@ -534,7 +534,28 @@ function getCustomWords() {
     const raw = localStorage.getItem(STORAGE_KEYS.CUSTOM_WORDS);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed;
+      if (Array.isArray(parsed)) {
+        let updated = false;
+        parsed.forEach((w) => {
+          if (w && typeof w === 'object') {
+            if (!w.conversation || !Array.isArray(w.conversation) || !w.sceneTheme || !w.cartoonConversation) {
+              if (typeof generateCartoonConversation === 'function') {
+                const convData = generateCartoonConversation(w);
+                w.sceneTheme = convData.sceneTheme || convData.theme;
+                w.conversation = convData.lines;
+                w.cartoonConversation = convData;
+                updated = true;
+              }
+            }
+          }
+        });
+        if (updated) {
+          try {
+            localStorage.setItem(STORAGE_KEYS.CUSTOM_WORDS, JSON.stringify(parsed));
+          } catch (e) {}
+        }
+        return parsed;
+      }
     }
   } catch (e) {}
   return [];
@@ -561,6 +582,14 @@ function syncCustomWordsIntoCurriculum() {
 
   // 2. Inject current custom words into their assigned curriculum levels
   customWords.forEach((wordObj) => {
+    if (!wordObj.conversation || !wordObj.sceneTheme || !wordObj.cartoonConversation) {
+      if (typeof generateCartoonConversation === 'function') {
+        const convData = generateCartoonConversation(wordObj);
+        wordObj.sceneTheme = convData.sceneTheme || convData.theme;
+        wordObj.conversation = convData.lines;
+        wordObj.cartoonConversation = convData;
+      }
+    }
     const targetLvl = (wordObj.level && CURRICULUM_DATA[wordObj.level]) ? wordObj.level : 'beginner';
     if (CURRICULUM_DATA[targetLvl] && Array.isArray(CURRICULUM_DATA[targetLvl].words)) {
       CURRICULUM_DATA[targetLvl].words.push(wordObj);
@@ -585,7 +614,7 @@ function formatWordEntry(rawWord, targetLevel = 'beginner') {
     level: level,
     pos: String(rawWord.pos || 'Word').trim(),
     ipa: String(rawWord.ipa || '').trim(),
-    meaningBn: String(rawWord.meaningBn || 'অর্থ যোগ করা হয়নি').trim(),
+    meaningBn: String(rawWord.meaningBn || rawWord.meaning || 'অর্থ যোগ করা হয়নি').trim(),
     explanationEn: String(rawWord.explanationEn || `Definition and contextual usage of "${formattedWord}".`).trim(),
     example: String(rawWord.example || `The student practiced using "${formattedWord}" in sentences.`).trim(),
     exampleBn: String(rawWord.exampleBn || `শিক্ষার্থীটি বাক্যে "${formattedWord}" শব্দটি ব্যবহারের অনুশীলন করেছে।`).trim(),
@@ -596,9 +625,29 @@ function formatWordEntry(rawWord, targetLevel = 'beginner') {
     addedAt: rawWord.addedAt || new Date().toISOString()
   };
 
-  entry.cartoonConversation = (rawWord.cartoonConversation && Array.isArray(rawWord.cartoonConversation.lines) && rawWord.cartoonConversation.lines.length >= 4)
-    ? rawWord.cartoonConversation
-    : generateCartoonConversation(entry);
+  // Attach cartoon conversation and sceneTheme across all pathways
+  if (rawWord.cartoonConversation && Array.isArray(rawWord.cartoonConversation.lines) && rawWord.cartoonConversation.lines.length >= 4) {
+    entry.cartoonConversation = rawWord.cartoonConversation;
+    entry.sceneTheme = rawWord.cartoonConversation.sceneTheme || rawWord.cartoonConversation.theme || rawWord.sceneTheme || 'cafe';
+    entry.conversation = rawWord.cartoonConversation.lines;
+  } else if (Array.isArray(rawWord.conversation) && rawWord.conversation.length >= 4) {
+    const theme = rawWord.sceneTheme || rawWord.theme || 'cafe';
+    entry.sceneTheme = theme;
+    entry.conversation = rawWord.conversation;
+    entry.cartoonConversation = {
+      theme: theme,
+      sceneTheme: theme,
+      duration: 18,
+      targetWord: formattedWord.toLowerCase(),
+      lines: rawWord.conversation,
+      conversation: rawWord.conversation
+    };
+  } else {
+    const convData = generateCartoonConversation(entry);
+    entry.sceneTheme = convData.sceneTheme;
+    entry.conversation = convData.lines;
+    entry.cartoonConversation = convData;
+  }
 
   return entry;
 }
@@ -2189,73 +2238,162 @@ function highlightTargetWordInSubtitle(text, targetWord) {
 }
 
 function generateCartoonConversation(wordObj) {
-  const word = (wordObj && wordObj.word) ? String(wordObj.word).trim() : 'Word';
-  const pos = (wordObj && wordObj.pos) ? String(wordObj.pos).trim() : 'Word';
-  const meaningBn = (wordObj && wordObj.meaningBn) ? String(wordObj.meaningBn).trim() : 'অর্থ';
-  const example = (wordObj && wordObj.example) ? String(wordObj.example).trim() : 'We practiced using "' + word + '" in everyday conversations.';
-  const exampleBn = (wordObj && wordObj.exampleBn) ? String(wordObj.exampleBn).trim() : 'আমরা দৈনন্দিন কথোপকথনে "' + word + '" শব্দটি ব্যবহার করার অনুশীলন করেছি।';
-  const cleanWord = word.toLowerCase();
+  if (!wordObj || typeof wordObj !== 'object') {
+    wordObj = { word: 'Word', meaningBn: 'শব্দার্থ' };
+  }
 
-  const themes = ['cafe', 'library', 'garden', 'study'];
-  const themeIdx = (word.charCodeAt(0) + word.length) % themes.length;
-  const theme = themes[themeIdx];
+  const rawWord = String(wordObj.word || 'Word').trim();
+  const word = rawWord.charAt(0).toUpperCase() + rawWord.slice(1);
+  const cleanWord = word.toLowerCase();
+  const pos = String(wordObj.pos || 'word').trim().toLowerCase();
+
+  // Meaning in Bengali
+  const meaningBn = String(wordObj.meaningBn || wordObj.meaning || wordObj.bn || 'অর্থ').trim();
+
+  // Rotating 16:9 scene theme ('cafe', 'library', 'rooftop', 'studio')
+  const SCENE_THEMES = ['cafe', 'library', 'rooftop', 'studio'];
+  let charSum = 0;
+  for (let i = 0; i < cleanWord.length; i++) {
+    charSum = (charSum * 31 + cleanWord.charCodeAt(i)) & 0xffffffff;
+  }
+  const themeIdx = Math.abs(charSum) % SCENE_THEMES.length;
+  const sceneTheme = (wordObj.sceneTheme && SCENE_THEMES.includes(wordObj.sceneTheme))
+    ? wordObj.sceneTheme
+    : (wordObj.theme && SCENE_THEMES.includes(wordObj.theme))
+    ? wordObj.theme
+    : SCENE_THEMES[themeIdx];
+
+  // Synonyms extraction
+  let synWords = [];
+  if (Array.isArray(wordObj.synonyms)) {
+    synWords = wordObj.synonyms
+      .map((s) => (typeof s === 'string' ? s.trim() : (s && s.word ? s.word.trim() : '')))
+      .filter((s) => s && s.toLowerCase() !== cleanWord);
+  } else if (typeof wordObj.synonyms === 'string' && wordObj.synonyms.trim()) {
+    synWords = wordObj.synonyms.split(',').map((s) => s.trim()).filter((s) => s && s.toLowerCase() !== cleanWord);
+  }
+  const firstSynonym = synWords.length > 0 ? (synWords[0].charAt(0).toUpperCase() + synWords[0].slice(1)) : null;
+
+  // Example handling
+  const rawEx = String(wordObj.example || wordObj.exampleEn || '').trim();
+  const rawExBn = String(wordObj.exampleBn || '').trim();
+  const isGeneric = !rawEx ||
+    rawEx.toLowerCase().includes('practiced using') ||
+    rawEx.toLowerCase().includes('example sentence for') ||
+    rawEx.toLowerCase().includes('was added from bulk list') ||
+    rawEx.toLowerCase().includes('he used') ||
+    rawEx.toLowerCase().includes('she applied');
+
+  let exampleSentence = '';
+  let exampleSentenceBn = '';
+
+  if (!isGeneric && rawEx) {
+    exampleSentence = rawEx.replace(/^["'“”‘’]|["'“”‘’]$/g, '').trim();
+    exampleSentenceBn = rawExBn ? rawExBn.replace(/^["'“”‘’]|["'“”‘’]$/g, '').trim() : '';
+  } else {
+    exampleSentence = `Using "${word}" naturally makes our communication much more precise and impactful.`;
+    exampleSentenceBn = `কথাবার্তায় স্বাভাবিকভাবে "${word}" ব্যবহার করলে আমাদের বক্তব্য আরও স্পষ্ট ও আকর্ষণীয় হয়।`;
+  }
+
+  // Generate natural 4-line dual-character conversation
+  const line1En = `Leo, have you practiced using the word "${word}" in your conversation today?`;
+  const line1Bn = `লিও, তুমি কি আজ তোমার কথোপকথনে "${word}" (${meaningBn}) শব্দটি ব্যবহার করে অনুশীলন করেছ?`;
+
+  const line2En = firstSynonym
+    ? `Yes, Maya! "${word}" means "${meaningBn}", similar to "${firstSynonym}"—it is such a useful ${pos} for expressing ideas clearly.`
+    : `Yes, Maya! "${word}" is such a useful ${pos} when expressing ideas clearly—it means "${meaningBn}".`;
+  const line2Bn = firstSynonym
+    ? `হ্যাঁ, মায়া! "${word}"-এর অর্থ "${meaningBn}", অনেকটা "${firstSynonym}"-এর মতো—ভাব প্রকাশের ক্ষেত্রে এটি খুবই কার্যকর একটি শব্দ।`
+    : `হ্যাঁ, মায়া! ভাব প্রকাশের ক্ষেত্রে "${word}" (${meaningBn}) সত্যিই একটি চমৎকার ও কার্যকর শব্দ।`;
+
+  const line3En = `Exactly! For instance, remember this sentence: "${exampleSentence}"`;
+  const line3Bn = exampleSentenceBn
+    ? `একদম ঠিক! উদাহরণস্বরূপ এই বাক্যটি মনে রেখো: "${exampleSentenceBn}"`
+    : `একদম ঠিক! যেমন এই বাক্যটি মনে রেখো: "${exampleSentence}" — এটি শব্দটির অর্থ চমৎকারভাবে প্রকাশ করে।`;
+
+  const line4En = `I love that example! Practicing "${word}" regularly in conversations will help us master it forever.`;
+  const line4Bn = `উদাহরণটি আমার খুব পছন্দ হয়েছে! প্রতিদিন কথোপকথনে "${word}" চর্চা করলে এটি আমাদের মনে স্থায়ী হয়ে যাবে।`;
+
+  const lines = [
+    {
+      speaker: 'Maya',
+      avatar: 'maya',
+      en: line1En,
+      bn: line1Bn,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      speaker: 'Leo',
+      avatar: 'leo',
+      en: line2En,
+      bn: line2Bn,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      speaker: 'Maya',
+      avatar: 'maya',
+      en: line3En,
+      bn: line3Bn,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      speaker: 'Leo',
+      avatar: 'leo',
+      en: line4En,
+      bn: line4Bn,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    }
+  ];
 
   return {
-    theme: theme,
+    theme: sceneTheme,
+    sceneTheme: sceneTheme,
     duration: 18,
     targetWord: cleanWord,
-    lines: [
-      {
-        speaker: 'Maya',
-        avatar: 'maya',
-        en: 'Leo, have you practiced using the word "' + word + '" in your conversation today?',
-        bn: 'লিও, তুমি কি আজ তোমার কথোপকথনে "' + word + '" (' + meaningBn + ') শব্দটি ব্যবহার করে অনুশীলন করেছ?',
-        targetWord: cleanWord,
-        approxDuration: 4.5
-      },
-      {
-        speaker: 'Leo',
-        avatar: 'leo',
-        en: 'Yes, Maya! "' + word + '" is such a useful ' + pos.toLowerCase() + ' when expressing ideas clearly.',
-        bn: 'হ্যাঁ, মায়া! ভাব প্রকাশের ক্ষেত্রে "' + word + '" (' + meaningBn + ') সত্যিই একটি চমৎকার ও কার্যকর শব্দ।',
-        targetWord: cleanWord,
-        approxDuration: 4.5
-      },
-      {
-        speaker: 'Maya',
-        avatar: 'maya',
-        en: 'Exactly! For instance, remember this sentence: "' + example + '"',
-        bn: 'একদম ঠিক! উদাহরণস্বরূপ এই বাক্যটি মনে রেখো: "' + exampleBn + '"',
-        targetWord: cleanWord,
-        approxDuration: 4.5
-      },
-      {
-        speaker: 'Leo',
-        avatar: 'leo',
-        en: 'I love that example! Practicing "' + word + '" regularly will help us master it forever.',
-        bn: 'উদাহরণটি আমার খুব পছন্দ হয়েছে! নিয়মিত "' + word + '" ব্যবহার করলে এটি আমাদের মনে স্থায়ী হয়ে যাবে।',
-        targetWord: cleanWord,
-        approxDuration: 4.5
-      }
-    ]
+    lines: lines,
+    conversation: lines
   };
 }
 
 function getWordCartoonConversation(wordObj) {
   if (!wordObj) return null;
-  // 1. Direct property
+  // 1. Direct cartoonConversation property
   if (wordObj.cartoonConversation && Array.isArray(wordObj.cartoonConversation.lines) && wordObj.cartoonConversation.lines.length >= 4) {
     return wordObj.cartoonConversation;
   }
-  // 2. Lookup in WORD_CARTOON_CONVERSATIONS
+  // 2. Direct conversation array property
+  if (Array.isArray(wordObj.conversation) && wordObj.conversation.length >= 4) {
+    const theme = wordObj.sceneTheme || wordObj.theme || 'cafe';
+    const convObj = {
+      theme: theme,
+      sceneTheme: theme,
+      duration: 18,
+      targetWord: String(wordObj.word || '').toLowerCase(),
+      lines: wordObj.conversation,
+      conversation: wordObj.conversation
+    };
+    wordObj.cartoonConversation = convObj;
+    return convObj;
+  }
+  // 3. Lookup in static dataset WORD_CARTOON_CONVERSATIONS
   if (typeof WORD_CARTOON_CONVERSATIONS !== 'undefined') {
     const idKey = (wordObj.id || '').toLowerCase();
     const wordKey = (wordObj.word || '').toLowerCase();
     if (WORD_CARTOON_CONVERSATIONS[idKey]) return WORD_CARTOON_CONVERSATIONS[idKey];
     if (WORD_CARTOON_CONVERSATIONS[wordKey]) return WORD_CARTOON_CONVERSATIONS[wordKey];
   }
-  // 3. Fallback dynamic generation
-  return generateCartoonConversation(wordObj);
+  // 4. On-the-fly dynamic generation fallback for any custom or missing word
+  const generated = generateCartoonConversation(wordObj);
+  if (wordObj && typeof wordObj === 'object') {
+    wordObj.sceneTheme = generated.sceneTheme || generated.theme;
+    wordObj.conversation = generated.lines;
+    wordObj.cartoonConversation = generated;
+  }
+  return generated;
 }
 
 function renderCartoonSceneSvg(theme = 'cafe', speaker = 'Maya', isSpeaking = false) {
@@ -2288,7 +2426,7 @@ function renderCartoonSceneSvg(theme = 'cafe', speaker = 'Maya', isSpeaking = fa
       <path d="M 370 315 Q 400 300 430 315 Z" fill="#065F46"/>
       <circle cx="400" cy="320" r="16" fill="#FEF08A" opacity="0.35"/>
     `;
-  } else if (theme === 'garden') {
+  } else if (theme === 'rooftop' || theme === 'garden') {
     bgElements = `
       <linearGradient id="gardenSky" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#C084FC"/>
@@ -2312,7 +2450,7 @@ function renderCartoonSceneSvg(theme = 'cafe', speaker = 'Maya', isSpeaking = fa
       <circle cx="380" cy="300" r="22" fill="#10B981"/>
       <circle cx="420" cy="295" r="24" fill="#059669"/>
     `;
-  } else if (theme === 'study') {
+  } else if (theme === 'studio' || theme === 'study') {
     bgElements = `
       <linearGradient id="studyWall" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#EFF6F3"/>
@@ -2506,8 +2644,10 @@ function renderCartoonThumbnailCardHTML(wordItem) {
   const themeLabels = {
     cafe: 'Cozy Café • কফি শপ',
     library: 'Grand Library • লাইব্রেরি',
+    rooftop: 'Rooftop Garden • ছাদবাগান',
     garden: 'Rooftop Garden • ছাদবাগান',
-    study: 'Study Room • পড়ার ঘর'
+    studio: 'Study Studio • পড়ার ঘর',
+    study: 'Study Studio • পড়ার ঘর'
   };
   const themeLabel = themeLabels[theme] || 'Cozy Café';
 
@@ -2838,17 +2978,21 @@ const CartoonPlayer = {
     }
 
     if (!foundWord) {
+      const cleanName = String(wordId).replace(/^preview-/, '').trim();
       foundWord = {
         id: wordId,
-        word: String(wordId).charAt(0).toUpperCase() + String(wordId).slice(1),
+        word: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
         pos: 'Word',
         meaningBn: 'শব্দার্থ',
-        example: 'We practiced using ' + wordId + ' in everyday conversation.'
+        example: 'We practiced using ' + cleanName + ' in everyday conversation.'
       };
     }
 
     this.currentWord = foundWord;
     this.conv = getWordCartoonConversation(foundWord);
+    if (!this.conv || !Array.isArray(this.conv.lines) || this.conv.lines.length === 0) {
+      this.conv = generateCartoonConversation(foundWord);
+    }
     this.lineIdx = 0;
     this.isPlaying = true;
     this.isOpen = true;
@@ -2871,10 +3015,13 @@ const CartoonPlayer = {
     const themeTitles = {
       cafe: 'Scene: Cozy Café • কফি শপ',
       library: 'Scene: Grand Library • লাইব্রেরি',
+      rooftop: 'Scene: Rooftop Garden • ছাদবাগান',
       garden: 'Scene: Rooftop Garden • ছাদবাগান',
-      study: 'Scene: Study Room • পড়ার ঘর'
+      studio: 'Scene: Study Studio • পড়ার ঘর',
+      study: 'Scene: Study Studio • পড়ার ঘর'
     };
-    if (sceneEl) sceneEl.textContent = (themeTitles[this.conv.theme] || 'Scene: Cozy Café') + ' • মায়া ও লিওর ইংরেজি কথোপকথন';
+    const activeTheme = this.conv.sceneTheme || this.conv.theme || 'cafe';
+    if (sceneEl) sceneEl.textContent = (themeTitles[activeTheme] || 'Scene: Cozy Café') + ' • মায়া ও লিওর ইংরেজি কথোপকথন';
 
     this.renderTranscriptList();
 

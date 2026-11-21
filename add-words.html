@@ -1063,6 +1063,14 @@
         antonyms: antList
       };
 
+      // Automatically generate & attach AI cartoon conversation script and sceneTheme
+      if (typeof generateCartoonConversation === 'function') {
+        const convData = generateCartoonConversation(newWordObj);
+        newWordObj.sceneTheme = convData.sceneTheme || convData.theme;
+        newWordObj.conversation = convData.lines;
+        newWordObj.cartoonConversation = convData;
+      }
+
       const added = addCustomWord(newWordObj);
       if (added) {
         showToast(`"${added.word}" সফলভাবে ডাটাবেজে সংরক্ষণ করা হয়েছে! ✓`);
@@ -1233,14 +1241,23 @@
         });
       });
 
-      // Filter and clean word entries
+      // Filter and clean word entries with auto-generated cartoon conversation data
       return result
         .filter((item) => item && item.word && item.word.length >= 2)
-        .map((item) => ({
-          ...item,
-          word: item.word.charAt(0).toUpperCase() + item.word.slice(1).trim(),
-          isDuplicate: isWordDuplicate(item.word)
-        }));
+        .map((item) => {
+          const formatted = {
+            ...item,
+            word: item.word.charAt(0).toUpperCase() + item.word.slice(1).trim(),
+            isDuplicate: isWordDuplicate(item.word)
+          };
+          if (typeof generateCartoonConversation === 'function') {
+            const convData = generateCartoonConversation(formatted);
+            formatted.sceneTheme = convData.sceneTheme || convData.theme;
+            formatted.conversation = convData.lines;
+            formatted.cartoonConversation = convData;
+          }
+          return formatted;
+        });
     }
 
     function parseBulkTextAndPreview() {
@@ -1438,13 +1455,21 @@
                 lvl = defaultLevel;
               }
 
-              results.push({
+              const parsedItem = {
                 word: w.charAt(0).toUpperCase() + w.slice(1),
                 meaningBn: m,
                 example: ex,
                 level: lvl,
                 isDuplicate: isWordDuplicate(w)
-              });
+              };
+              if (typeof generateCartoonConversation === 'function') {
+                const convData = generateCartoonConversation(parsedItem);
+                parsedItem.sceneTheme = convData.sceneTheme || convData.theme;
+                parsedItem.conversation = convData.lines;
+                parsedItem.cartoonConversation = convData;
+              }
+
+              results.push(parsedItem);
             });
 
             resolve(results);
@@ -1664,6 +1689,17 @@
 
     function confirmSaveAllPendingWords() {
       if (!pendingWords.length) return;
+
+      pendingWords.forEach((w) => {
+        if (!w.conversation || !w.sceneTheme || !w.cartoonConversation) {
+          if (typeof generateCartoonConversation === 'function') {
+            const convData = generateCartoonConversation(w);
+            w.sceneTheme = convData.sceneTheme || convData.theme;
+            w.conversation = convData.lines;
+            w.cartoonConversation = convData;
+          }
+        }
+      });
 
       const added = addCustomWordsBulk(pendingWords);
       showToast(`অভিনন্দন! মোট ${added}টি নতুন শব্দ আপনার শব্দভান্ডারে সেভ করা হয়েছে! ✓`);
