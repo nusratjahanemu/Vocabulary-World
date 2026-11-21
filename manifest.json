@@ -1,8 +1,7 @@
 {
-  "id": "vocabulary-world-pwa-v1",
-  "name": "Vocabulary World — ইংরেজি শব্দভাণ্ডার",
+  "name": "Vocabulary World",
   "short_name": "VocabWorld",
-  "description": "Master English vocabulary from Beginner to Pro with interactive Bengali meanings, 3D Flashcards, Memory Games, AI Cartoon Conversation Videos, and Next-Day Warm-Up Revision.",
+  "description": "Interactive English-Bangla Vocabulary Learning Platform",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -18,31 +17,31 @@
   ],
   "icons": [
     {
-      "src": "icons/favicon.svg",
+      "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-192.png",
+      "src": "./icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "./icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-maskable-192.png",
+      "src": "./icons/icon-maskable-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icons/icon-maskable-512.png",
+      "src": "./icons/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -56,9 +55,9 @@
       "url": "./learn.html",
       "icons": [
         {
-          "src": "icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -69,9 +68,9 @@
       "url": "./flashcards.html",
       "icons": [
         {
-          "src": "icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -82,9 +81,9 @@
       "url": "./games.html",
       "icons": [
         {
-          "src": "icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -95,9 +94,9 @@
       "url": "./tracker.html",
       "icons": [
         {
-          "src": "icons/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "./icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     }

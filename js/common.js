@@ -1304,8 +1304,8 @@ function renderAppHeader(activePage = 'home') {
       title="Install Vocabulary World App on your device &bull; অ্যাপ ইনস্টল করুন"
       aria-label="Install App"
     >
-      <span class="text-sm">📲</span>
-      <span class="hidden md:inline font-bengali">ইনস্টল অ্যাপ</span>
+      <span class="text-xs">📲</span>
+      <span>Install App</span>
     </button>
   `;
 
@@ -5269,6 +5269,8 @@ let deferredPWAInstallPrompt = null;
 
 function registerServiceWorker() {
   if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return;
+  // Cleanly ignore file:// protocol without any console errors
+  if (window.location.protocol === 'file:') return;
   const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   if (!isSecure) return;
 

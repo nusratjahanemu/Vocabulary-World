@@ -1596,6 +1596,8 @@ button:active:not(:disabled),
   color: var(--accent-sage);
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
   user-select: none;
 }
 
