@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline Mode — Vocabulary World</title>
+
+  <!-- PWA & Mobile Meta Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2D5A4C" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="VocabWorld" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+
+  <!-- Tailwind CSS CDN (with fallback inline styles) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Shared Editorial Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    :root {
+      --bg-ivory: #FAF8F5;
+      --surface-white: #FFFFFF;
+      --surface-sand: #F3EFEA;
+      --ink-primary: #1E2421;
+      --ink-secondary: #48534E;
+      --ink-muted: #748079;
+      --border-subtle: #E8E3DA;
+      --accent-sage: #2D5A4C;
+      --accent-sage-soft: #E8F0EC;
+      --accent-terracotta: #C26D53;
+      --accent-terracotta-soft: #FAF0ED;
+    }
+    body {
+      background-color: var(--bg-ivory);
+      color: var(--ink-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
+  <div class="w-full max-w-lg rounded-3xl p-6 sm:p-10 border shadow-xl text-center space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+    <!-- Offline Signal Icon -->
+    <div class="w-20 h-20 mx-auto rounded-3xl flex items-center justify-center text-4xl shadow-sm" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+      📡
+    </div>
+
+    <!-- Status Badge -->
+    <div>
+      <span class="text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border inline-block" style="background-color: var(--accent-terracotta-soft); border-color: rgba(194, 109, 83, 0.25); color: var(--accent-terracotta);">
+        OFFLINE MODE &bull; অফলাইন মোড
+      </span>
+      <h1 class="text-2xl sm:text-3xl font-bold mt-2.5 font-serif" style="color: var(--ink-primary);">
+        You&rsquo;re Currently Offline
+      </h1>
+      <p class="text-xs sm:text-sm mt-1.5 leading-relaxed" style="color: var(--ink-secondary);">
+        আপনার ইন্টারনেট সংযোগ বিচ্ছিন্ন থাকলেও কোনো সমস্যা নেই! পূর্বে সংরক্ষিত শব্দসমূহ, ৩ডি ফ্ল্যাশকার্ড এবং অফলাইন ক্যাশ করা ফিচারগুলো আপনি এখনও ব্যবহার করতে পারেন।
+      </p>
+    </div>
+
+    <!-- Cached Modules Quick Access -->
+    <div class="grid grid-cols-2 gap-3 pt-2 text-left">
+      <a
+        href="learn.html"
+        class="rounded-2xl p-4 border transition-all hover:border-[#2D5A4C] hover:shadow-xs block"
+        style="background-color: var(--bg-ivory); border-color: var(--border-subtle);"
+      >
+        <span class="text-xl block mb-1">📚</span>
+        <strong class="text-sm font-bold block" style="color: var(--ink-primary);">Learn</strong>
+        <span class="text-[11px] block mt-0.5" style="color: var(--ink-muted);">কোর ভোকাবুলারি কার্ড</span>
+      </a>
+
+      <a
+        href="flashcards.html"
+        class="rounded-2xl p-4 border transition-all hover:border-[#2D5A4C] hover:shadow-xs block"
+        style="background-color: var(--bg-ivory); border-color: var(--border-subtle);"
+      >
+        <span class="text-xl block mb-1">🗂️</span>
+        <strong class="text-sm font-bold block" style="color: var(--ink-primary);">Flashcards</strong>
+        <span class="text-[11px] block mt-0.5" style="color: var(--ink-muted);">৩ডি রিভিশন কার্ড</span>
+      </a>
+
+      <a
+        href="games.html"
+        class="rounded-2xl p-4 border transition-all hover:border-[#2D5A4C] hover:shadow-xs block"
+        style="background-color: var(--bg-ivory); border-color: var(--border-subtle);"
+      >
+        <span class="text-xl block mb-1">🎮</span>
+        <strong class="text-sm font-bold block" style="color: var(--ink-primary);">Games</strong>
+        <span class="text-[11px] block mt-0.5" style="color: var(--ink-muted);">মেমোরি গেম খেলুন</span>
+      </a>
+
+      <a
+        href="tracker.html"
+        class="rounded-2xl p-4 border transition-all hover:border-[#2D5A4C] hover:shadow-xs block"
+        style="background-color: var(--bg-ivory); border-color: var(--border-subtle);"
+      >
+        <span class="text-xl block mb-1">📊</span>
+        <strong class="text-sm font-bold block" style="color: var(--ink-primary);">My Vocab</strong>
+        <span class="text-[11px] block mt-0.5" style="color: var(--ink-muted);">সেভ করা শব্দ তালিকা</span>
+      </a>
+    </div>
+
+    <!-- Actions -->
+    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <button
+        type="button"
+        onclick="window.location.reload()"
+        class="w-full sm:w-auto px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white transition-all shadow-sm cursor-pointer"
+        style="background-color: var(--accent-sage);"
+      >
+        <span>পুনরায় চেষ্টা করুন (Retry) ↻</span>
+      </button>
+
+      <a
+        href="index.html"
+        class="w-full sm:w-auto px-5 py-2.5 rounded-xl border text-xs sm:text-sm font-bold text-center transition-all hover:border-[#2D5A4C]"
+        style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+      >
+        <span>হোম পেজে যান &rarr;</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+{
+  "id": "vocabulary-world-pwa-v1",
+  "name": "Vocabulary World — ইংরেজি শব্দভাণ্ডার",
+  "short_name": "VocabWorld",
+  "description": "Master English vocabulary from Beginner to Pro with interactive Bengali meanings, 3D Flashcards, Memory Games, AI Cartoon Conversation Videos, and Next-Day Warm-Up Revision.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#2D5A4C",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "books",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Learn Vocabulary",
+      "short_name": "Learn",
+      "description": "Core vocabulary cards, big stories, and newspaper sentences",
+      "url": "./learn.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "3D Flashcards",
+      "short_name": "Flashcards",
+      "description": "Practice interactive 3D flip flashcards",
+      "url": "./flashcards.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Memory Games",
+      "short_name": "Games",
+      "description": "Play 4 fun vocabulary memory games",
+      "url": "./games.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Daily Study Tracker",
+      "short_name": "Tracker",
+      "description": "Track your daily study activity and My Vocab list",
+      "url": "./tracker.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

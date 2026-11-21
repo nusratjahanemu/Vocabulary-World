@@ -1294,6 +1294,21 @@ function renderAppHeader(activePage = 'home') {
     </button>
   `;
 
+  // Helper 3c: PWA Install App Button
+  const pwaInstallBtnHTML = `
+    <button
+      type="button"
+      id="vw-pwa-install-btn"
+      onclick="triggerPWAInstall()"
+      class="vw-pwa-install-btn hidden items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shadow-xs"
+      title="Install Vocabulary World App on your device &bull; অ্যাপ ইনস্টল করুন"
+      aria-label="Install App"
+    >
+      <span class="text-sm">📲</span>
+      <span class="hidden md:inline font-bengali">ইনস্টল অ্যাপ</span>
+    </button>
+  `;
+
   // Helper 4: Global Auth Modal HTML
   const authModalHTML = `
     <!-- Global Sign In / Authentication Modal -->
@@ -1418,6 +1433,7 @@ function renderAppHeader(activePage = 'home') {
 
           <!-- 2. RIGHT: Clean Utility Controls (Theme Toggle + Country Selector + Sign In Pill Button) -->
           <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+            ${pwaInstallBtnHTML}
             ${themeToggleBtnHTML}
             ${countrySelectorHTML}
             ${authBtnHTML}
@@ -1603,6 +1619,7 @@ function renderAppHeader(activePage = 'home') {
             </div>
           </div>
 
+          ${pwaInstallBtnHTML}
           ${feedbackNavBtnHTML}
           ${themeToggleBtnHTML}
           ${countrySelectorHTML}
@@ -5245,14 +5262,121 @@ if (typeof module !== 'undefined' && module.exports) {
 
 
 /* =====================================================================
-   9. AUTO-INITIALIZATION HOOK
+   10. PROGRESSIVE WEB APP (PWA) & SERVICE WORKER ENGINE
+====================================================================== */
+
+let deferredPWAInstallPrompt = null;
+
+function registerServiceWorker() {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return;
+  const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isSecure) return;
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('[PWA] New version of Vocabulary World is available.');
+              }
+            });
+          }
+        });
+      })
+      .catch((err) => {
+        console.warn('[PWA] Service Worker registration failed:', err);
+      });
+  });
+}
+
+function initPWAInstallEngine() {
+  if (typeof window === 'undefined') return;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPWAInstallPrompt = e;
+    window.__deferredPWAInstallPrompt = e;
+    showPWAInstallButtons();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredPWAInstallPrompt = null;
+    window.__deferredPWAInstallPrompt = null;
+    hidePWAInstallButtons();
+    if (typeof showToast === 'function') {
+      showToast('🎉 Vocabulary World অ্যাপটি আপনার ডিভাইসে সফলভাবে ইনস্টল করা হয়েছে!', 'success');
+    }
+  });
+
+  const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isStandalone = typeof window !== 'undefined' && ((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true);
+  if (isIOS && !isStandalone) {
+    showPWAInstallButtons();
+  }
+}
+
+function showPWAInstallButtons() {
+  if (typeof document === 'undefined') return;
+  const btns = document.querySelectorAll('.vw-pwa-install-btn, #vw-pwa-install-btn');
+  btns.forEach((btn) => {
+    btn.classList.remove('hidden');
+    btn.classList.add('inline-flex');
+  });
+}
+
+function hidePWAInstallButtons() {
+  if (typeof document === 'undefined') return;
+  const btns = document.querySelectorAll('.vw-pwa-install-btn, #vw-pwa-install-btn');
+  btns.forEach((btn) => {
+    btn.classList.add('hidden');
+    btn.classList.remove('inline-flex');
+  });
+}
+
+async function triggerPWAInstall() {
+  if (deferredPWAInstallPrompt) {
+    deferredPWAInstallPrompt.prompt();
+    const choice = await deferredPWAInstallPrompt.userChoice;
+    if (choice && choice.outcome === 'accepted') {
+      console.log('[PWA] User accepted install prompt');
+    }
+    deferredPWAInstallPrompt = null;
+    window.__deferredPWAInstallPrompt = null;
+    hidePWAInstallButtons();
+  } else {
+    const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+      alert('iOS ডিভাইসে ইনস্টল করতে: Safari ব্রাউজারের নিচে "Share" (শেয়ার) আইকনে চাপুন এবং "Add to Home Screen" নির্বাচন করুন। 📲');
+    } else {
+      if (typeof showToast === 'function') {
+        showToast('ℹ️ ব্রাউজার মেন্যু (৩-ডট) থেকে "Install Vocabulary World" অথবা "Add to Home screen" নির্বাচন করুন।', 'info');
+      }
+    }
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.registerServiceWorker = registerServiceWorker;
+  window.initPWAInstallEngine = initPWAInstallEngine;
+  window.triggerPWAInstall = triggerPWAInstall;
+  window.showPWAInstallButtons = showPWAInstallButtons;
+  window.hidePWAInstallButtons = hidePWAInstallButtons;
+}
+
+/* =====================================================================
+   AUTO-INITIALIZATION HOOK
 ====================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    PronunciationEngine.init();
+  PronunciationEngine.init();
   loadPersistedState();
   WordImageLoader.init();
   ensureToastElement();
   ensureFeedbackWidget();
   updateTrackerDisplay();
   updateMyVocabPillCounters();
+  registerServiceWorker();
+  initPWAInstallEngine();
 });
