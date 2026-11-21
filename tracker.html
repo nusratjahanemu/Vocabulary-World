@@ -364,6 +364,11 @@
             }
           </div>
 
+          <!-- My Vocab List & Daily Revision Notebook Section -->
+          <section aria-label="My Vocab List & Daily Revision" class="space-y-4">
+            ${typeof renderMyVocabListMarkup === 'function' ? renderMyVocabListMarkup({ containerId: 'tracker-my-vocab' }) : ''}
+          </section>
+
           <!-- Quick Navigation Hub -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <a

@@ -265,6 +265,7 @@
                         <span class="hidden sm:inline">Listen</span>
                       </button>
                       ${renderCardAccentSwitcherHTML(wordSpeakId, item.id)}
+                      ${typeof renderMyVocabCardButtonHTML === 'function' ? renderMyVocabCardButtonHTML(item.id) : ''}
                     </div>
 
                     <div class="flex items-center gap-1.5 shrink-0">
@@ -1033,9 +1034,11 @@
       const assessOpt = typeof ASSESSMENT_OPTIONS !== 'undefined' ? ASSESSMENT_OPTIONS.find((o) => o.id === AppState.assessmentIndex) : null;
       if (!mount || !lvl || !meta) return;
 
+      const myVocabCount = typeof getMyVocabList === 'function' ? getMyVocabList().length : 0;
       const tabItems = [
         { id: 'all', label: 'All Sections (সবগুলো)' },
         { id: 'vocab', label: `Vocabulary Cards (${lvl.words.length}টি শব্দ)` },
+        { id: 'my-vocab', label: `My Vocab List (${myVocabCount}টি সেভ করা শব্দ)` },
         { id: 'curriculum', label: 'Curriculum (পাঠ্যক্রম)' },
         { id: 'stories', label: `Big Stories (${lvl.stories ? lvl.stories.length : 0}টি বড় গল্প)` }
       ];
@@ -1048,6 +1051,7 @@
       }
 
       const showVocab = activeTab === 'all' || activeTab === 'vocab';
+      const showMyVocab = activeTab === 'my-vocab';
       const showCurriculum = activeTab === 'all' || activeTab === 'curriculum';
       const showStories = activeTab === 'all' || activeTab === 'stories';
       const showNewspaper = (activeTab === 'all' || activeTab === 'newspaper') && lvl.id !== 'beginner';
@@ -1169,6 +1173,17 @@
               .join('')}
           </div>
 
+          <!-- MY VOCAB LIST (DATE GROUPED & REVISION) -->
+          ${
+            showMyVocab
+              ? `
+                <section aria-label="My Vocab List & Daily Revision" class="space-y-6">
+                  ${typeof renderMyVocabListMarkup === 'function' ? renderMyVocabListMarkup({ containerId: 'learn-my-vocab' }) : ''}
+                </section>
+              `
+              : ''
+          }
+
           <!-- 1. CORE VOCABULARY CARDS -->
           ${
             showVocab
@@ -1265,6 +1280,9 @@
       renderAppHeader('learn');
       renderAppFooter();
       renderLearnPage();
+      if (typeof WarmupExam !== 'undefined' && typeof WarmupExam.checkAndTrigger === 'function') {
+        WarmupExam.checkAndTrigger();
+      }
     });
   </script>
 </body>

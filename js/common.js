@@ -524,7 +524,9 @@ const STORAGE_KEYS = {
   TRACKER: 'vw_daily_tracker_v1',
   WORD_IMAGES: 'vw_word_images_v1',
   CUSTOM_WORDS: 'vw_custom_words_v1',
-  FEEDBACKS: 'vw_user_feedbacks_v1'
+  FEEDBACKS: 'vw_user_feedbacks_v1',
+  MY_VOCAB: 'vw_my_vocab_list',
+  LAST_WARMUP_DATE: 'vw_last_warmup_date'
 };
 if (typeof window !== 'undefined') {
   window.STORAGE_KEYS = STORAGE_KEYS;
@@ -823,6 +825,12 @@ function trackWordExplored(wordId) {
     if (typeof updateLevelProgressBar === 'function') {
       try { updateLevelProgressBar(); } catch (e) {}
     }
+  }
+  // Automatic "My Vocab List" daily tracking on Listen / Explore / Video
+  if (typeof addToMyVocabList === 'function' && !isInMyVocabList(wordId)) {
+    try {
+      addToMyVocabList(wordId, false);
+    } catch (e) {}
   }
 }
 
@@ -4183,6 +4191,1059 @@ if (typeof window !== 'undefined') {
 }
 
 
+
+/* =====================================================================
+   9. "MY VOCAB LIST" DAILY TRACKING & WARM-UP REVISION ENGINE
+====================================================================== */
+
+function getTodayDateString() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function getYesterdayDateString() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function formatVocabDateDisplay(dateStr) {
+  if (!dateStr) return 'Earlier (পূর্ববর্তী)';
+  const today = getTodayDateString();
+  const yest = getYesterdayDateString();
+  if (dateStr === today) return 'Today (আজকের শব্দ)';
+  if (dateStr === yest) return 'Yesterday (গতকালের শব্দ)';
+  try {
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const mIdx = parseInt(parts[1], 10) - 1;
+      const mName = months[mIdx] || parts[1];
+      return `${parseInt(parts[2], 10)} ${mName} ${parts[0]}`;
+    }
+  } catch (e) {}
+  return dateStr;
+}
+
+function findWordAnywhere(wordId) {
+  if (!wordId) return null;
+  const targetId = String(wordId).trim().toLowerCase();
+  const currData = (typeof CURRICULUM_DATA !== 'undefined' && CURRICULUM_DATA) || (typeof window !== 'undefined' && window.CURRICULUM_DATA);
+
+  // Search CURRICULUM_DATA
+  if (currData) {
+    for (const lvlKey of Object.keys(currData)) {
+      const lvl = currData[lvlKey];
+      if (lvl && Array.isArray(lvl.words)) {
+        const found = lvl.words.find(w => w && (String(w.id).toLowerCase() === targetId || (w.word && w.word.toLowerCase() === targetId)));
+        if (found) {
+          return {
+            id: found.id || wordId,
+            word: found.word,
+            meaning: found.meaningBn || found.meaning || '',
+            meaningBn: found.meaningBn || found.meaning || '',
+            explanationEn: found.explanationEn || '',
+            synonyms: Array.isArray(found.synonyms) ? found.synonyms.map(s => typeof s === 'string' ? s : (s && s.word ? s.word : '')) : [],
+            antonyms: Array.isArray(found.antonyms) ? found.antonyms.map(a => typeof a === 'string' ? a : (a && a.word ? a.word : '')) : [],
+            example: found.example || '',
+            exampleBn: found.exampleBn || '',
+            pos: found.pos || 'noun',
+            ipa: found.ipa || '',
+            level: lvlKey,
+            levelTitle: lvl.title || lvlKey
+          };
+        }
+      }
+      if (lvl && Array.isArray(lvl.practiceExtraWords)) {
+        const found = lvl.practiceExtraWords.find(w => w && (String(w.id).toLowerCase() === targetId || (w.word && w.word.toLowerCase() === targetId)));
+        if (found) {
+          return {
+            id: found.id || wordId,
+            word: found.word,
+            meaning: found.meaningBn || found.meaning || '',
+            meaningBn: found.meaningBn || found.meaning || '',
+            explanationEn: found.explanationEn || '',
+            synonyms: Array.isArray(found.synonyms) ? found.synonyms.map(s => typeof s === 'string' ? s : (s && s.word ? s.word : '')) : [],
+            antonyms: Array.isArray(found.antonyms) ? found.antonyms.map(a => typeof a === 'string' ? a : (a && a.word ? a.word : '')) : [],
+            example: found.example || '',
+            exampleBn: found.exampleBn || '',
+            pos: found.pos || 'noun',
+            ipa: found.ipa || '',
+            level: lvlKey,
+            levelTitle: lvl.title || lvlKey
+          };
+        }
+      }
+    }
+  }
+
+  // Search Custom Words
+  if (typeof getCustomWords === 'function') {
+    const customWords = getCustomWords();
+    const found = customWords.find(w => w && (String(w.id).toLowerCase() === targetId || (w.word && w.word.toLowerCase() === targetId)));
+    if (found) {
+      return {
+        id: found.id || wordId,
+        word: found.word,
+        meaning: found.meaningBn || found.meaning || '',
+        meaningBn: found.meaningBn || found.meaning || '',
+        explanationEn: found.explanationEn || '',
+        synonyms: Array.isArray(found.synonyms) ? found.synonyms.map(s => typeof s === 'string' ? s : (s && s.word ? s.word : '')) : [],
+        antonyms: Array.isArray(found.antonyms) ? found.antonyms.map(a => typeof a === 'string' ? a : (a && a.word ? a.word : '')) : [],
+        example: found.example || '',
+        exampleBn: found.exampleBn || '',
+        pos: found.pos || 'noun',
+        ipa: found.ipa || '',
+        level: found.level || 'beginner',
+        levelTitle: 'Custom Word'
+      };
+    }
+  }
+
+  return null;
+}
+
+function getMyVocabList() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.MY_VOCAB);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveMyVocabList(list) {
+  try {
+    localStorage.setItem(STORAGE_KEYS.MY_VOCAB, JSON.stringify(list || []));
+    updateMyVocabPillCounters();
+  } catch (e) {}
+}
+
+function isInMyVocabList(wordId) {
+  if (!wordId) return false;
+  const list = getMyVocabList();
+  const cleanId = String(wordId).trim().toLowerCase();
+  return list.some(item => item && (item.id === wordId || String(item.id).toLowerCase() === cleanId || (item.word && item.word.toLowerCase() === cleanId)));
+}
+
+function addToMyVocabList(wordId, userInitiated = false) {
+  if (!wordId) return null;
+  const list = getMyVocabList();
+  const cleanId = String(wordId).trim().toLowerCase();
+  const existing = list.find(item => item && (item.id === wordId || String(item.id).toLowerCase() === cleanId || (item.word && item.word.toLowerCase() === cleanId)));
+
+  if (existing) {
+    if (userInitiated && typeof showToast === 'function') {
+      showToast(`ℹ️ "${existing.word}" শব্দটি ইতিমধ্যেই আপনার Vocab List-এ রয়েছে`, 'info');
+    }
+    updateMyVocabCardButton(wordId, true);
+    return existing;
+  }
+
+  const wordData = findWordAnywhere(wordId);
+  const entry = {
+    id: wordData ? wordData.id : wordId,
+    word: wordData ? wordData.word : wordId,
+    meaning: wordData ? (wordData.meaningBn || wordData.meaning || '') : '',
+    meaningBn: wordData ? (wordData.meaningBn || wordData.meaning || '') : '',
+    synonyms: wordData ? (wordData.synonyms || []) : [],
+    antonyms: wordData ? (wordData.antonyms || []) : [],
+    example: wordData ? (wordData.example || '') : '',
+    exampleBn: wordData ? (wordData.exampleBn || '') : '',
+    pos: wordData ? (wordData.pos || 'noun') : 'noun',
+    ipa: wordData ? (wordData.ipa || '') : '',
+    level: wordData ? (wordData.level || (typeof AppState !== 'undefined' ? AppState.selectedLevel : 'beginner')) : 'beginner',
+    learnedDate: getTodayDateString(),
+    revisionCount: 0,
+    lastRevisedDate: null
+  };
+
+  list.unshift(entry);
+  saveMyVocabList(list);
+  updateMyVocabCardButton(wordId, true);
+
+  if (userInitiated && typeof showToast === 'function') {
+    showToast(`✅ "${entry.word}" My Vocab List-এ যুক্ত হয়েছে!`, 'success');
+  }
+
+  return entry;
+}
+
+function removeFromMyVocabList(wordId) {
+  if (!wordId) return;
+  const list = getMyVocabList();
+  const cleanId = String(wordId).trim().toLowerCase();
+  const target = list.find(item => item && (item.id === wordId || String(item.id).toLowerCase() === cleanId || (item.word && item.word.toLowerCase() === cleanId)));
+  const filtered = list.filter(item => !(item && (item.id === wordId || String(item.id).toLowerCase() === cleanId || (item.word && item.word.toLowerCase() === cleanId))));
+
+  saveMyVocabList(filtered);
+  updateMyVocabCardButton(wordId, false);
+
+  if (typeof showToast === 'function') {
+    const wordLabel = target ? target.word : wordId;
+    showToast(`🗑️ "${wordLabel}" My Vocab List থেকে সরানো হয়েছে`, 'info');
+  }
+
+  if (typeof renderLearnPage === 'function' && typeof activeTab !== 'undefined' && activeTab === 'my-vocab') {
+    renderLearnPage();
+  }
+  if (typeof renderTrackerPage === 'function' && typeof window !== 'undefined' && window.location && window.location.pathname.includes('tracker')) {
+    renderTrackerPage();
+  }
+}
+
+function toggleMyVocabWord(wordId) {
+  if (isInMyVocabList(wordId)) {
+    removeFromMyVocabList(wordId);
+  } else {
+    addToMyVocabList(wordId, true);
+  }
+}
+
+function renderMyVocabCardButtonHTML(wordId) {
+  const isLearned = isInMyVocabList(wordId);
+  return `
+    <button
+      id="my-vocab-btn-${escapeHtml(wordId)}"
+      type="button"
+      onclick="event.stopPropagation(); toggleMyVocabWord('${escapeHtml(wordId)}')"
+      class="vw-my-vocab-btn ${isLearned ? 'is-learned' : ''} px-2.5 py-1 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer flex items-center gap-1.5"
+      title="${isLearned ? 'In My Vocab List (Click to remove)' : 'Mark as Learned & Add to My Vocab'}"
+    >
+      <span class="vw-my-vocab-icon">${isLearned ? '✓' : '+'}</span>
+      <span class="vw-my-vocab-text">${isLearned ? 'In My Vocab' : 'Mark Learned'}</span>
+    </button>
+  `;
+}
+
+function updateMyVocabCardButton(wordId, isLearned) {
+  const btn = document.getElementById(`my-vocab-btn-${wordId}`);
+  if (!btn) return;
+  if (isLearned) {
+    btn.classList.add('is-learned');
+    btn.title = 'In My Vocab List (Click to remove)';
+    const icon = btn.querySelector('.vw-my-vocab-icon');
+    const text = btn.querySelector('.vw-my-vocab-text');
+    if (icon) icon.textContent = '✓';
+    if (text) text.textContent = 'In My Vocab';
+  } else {
+    btn.classList.remove('is-learned');
+    btn.title = 'Mark as Learned & Add to My Vocab';
+    const icon = btn.querySelector('.vw-my-vocab-icon');
+    const text = btn.querySelector('.vw-my-vocab-text');
+    if (icon) icon.textContent = '+';
+    if (text) text.textContent = 'Mark Learned';
+  }
+}
+
+function updateMyVocabPillCounters() {
+  const count = getMyVocabList().length;
+  const pills = document.querySelectorAll('.vw-my-vocab-count-badge');
+  pills.forEach(el => {
+    el.textContent = count;
+  });
+}
+
+function groupMyVocabByDate(list) {
+  const today = getTodayDateString();
+  const yest = getYesterdayDateString();
+
+  const groups = {
+    today: [],
+    yesterday: [],
+    earlier: []
+  };
+
+  list.forEach(item => {
+    if (!item.learnedDate || item.learnedDate === today) {
+      groups.today.push(item);
+    } else if (item.learnedDate === yest) {
+      groups.yesterday.push(item);
+    } else {
+      groups.earlier.push(item);
+    }
+  });
+
+  return groups;
+}
+
+function renderMyVocabListMarkup(options = {}) {
+  const list = getMyVocabList();
+  const groups = groupMyVocabByDate(list);
+  const totalCount = list.length;
+
+  if (totalCount === 0) {
+    return `
+      <div class="rounded-3xl p-8 sm:p-12 border text-center space-y-4" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+        <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+          📖
+        </div>
+        <h3 class="font-editorial text-2xl font-bold" style="color: var(--ink-primary);">
+          Your Vocab List is Currently Empty
+        </h3>
+        <p class="font-bengali text-sm max-w-md mx-auto" style="color: var(--ink-secondary);">
+          আপনার তালিকায় এখনো কোনো শব্দ যুক্ত হয়নি। শব্দ কার্ডের <strong>"Mark Learned"</strong> বাটনে ক্লিক করলে অথবা উচ্চারণ শুনলে / কার্টুন ভিডিও দেখলে শব্দগুলো স্বয়ংক্রিয়ভাবে এখানে সংরক্ষিত হবে!
+        </p>
+        <div class="pt-2">
+          <a href="learn.html" class="vw-btn-primary font-bengali px-6 py-2.5 rounded-xl text-xs font-bold inline-flex items-center gap-1.5">
+            <span>শব্দ শিখতে যান (Start Learning)</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderWordItemCard(item) {
+    const sid = registerSpeakText(item.word);
+    const revCount = item.revisionCount || 0;
+    const revBadge = revCount > 0
+      ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25); color: var(--accent-sage);">🔄 ${revCount} বার রিভিশন</span>`
+      : `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-muted);">নতুন শব্দ (Unrevised)</span>`;
+
+    return `
+      <div class="vw-my-vocab-card rounded-2xl p-4 sm:p-5 border flex flex-col justify-between transition-all space-y-3" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">
+        <div>
+          <!-- Top Row: Word & Actions -->
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <strong class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">${escapeHtml(item.word)}</strong>
+                <button
+                  type="button"
+                  onclick="speakById(${sid}, this)"
+                  class="vw-speak-btn vw-speak-main px-2 py-0.5 rounded-full text-xs font-bold gap-1 shrink-0 cursor-pointer"
+                  title="Listen pronunciation"
+                >
+                  ${speakerIconSvg('w-3 h-3')}
+                  <span>Listen</span>
+                </button>
+                ${typeof renderCardAccentSwitcherHTML === 'function' ? renderCardAccentSwitcherHTML(sid, item.id) : ''}
+              </div>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="text-[10px] font-mono" style="color: var(--ink-muted);">${escapeHtml(item.ipa || '')}</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.2 rounded uppercase" style="background-color: var(--surface-sand); color: var(--ink-secondary);">${escapeHtml(item.pos || 'Word')}</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.2 rounded uppercase" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">${escapeHtml(item.level || 'vocab')}</span>
+              </div>
+            </div>
+
+            <!-- Delete / Remove Button -->
+            <button
+              type="button"
+              onclick="removeFromMyVocabList('${escapeHtml(item.id)}')"
+              class="text-xs p-1.5 rounded-lg opacity-60 hover:opacity-100 hover:bg-red-50 text-red-600 transition-all cursor-pointer"
+              title="Remove from My Vocab List"
+            >
+              ✕
+            </button>
+          </div>
+
+          <!-- Bengali Meaning -->
+          <div class="rounded-xl px-3 py-1.5 border mb-2.5" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+            <p class="font-bengali text-xs sm:text-sm font-bold" style="color: var(--ink-primary);">
+              অর্থ: ${escapeHtml(item.meaning || item.meaningBn || '')}
+            </p>
+          </div>
+
+          <!-- Example Sentence if present -->
+          ${item.example ? `
+            <div class="text-xs leading-relaxed" style="color: var(--ink-secondary);">
+              <span class="font-semibold block text-[10px] uppercase tracking-wider mb-0.5" style="color: var(--ink-muted);">Example:</span>
+              <p class="italic">&ldquo;${escapeHtml(item.example)}&rdquo;</p>
+              ${item.exampleBn ? `<p class="font-bengali text-[11px] mt-0.5" style="color: var(--ink-muted);">(${escapeHtml(item.exampleBn)})</p>` : ''}
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- Footer Row: Revision status & AI Cartoon Button -->
+        <div class="pt-2 border-t flex items-center justify-between gap-2 flex-wrap" style="border-color: var(--border-subtle);">
+          <div>${revBadge}</div>
+          <button
+            type="button"
+            onclick="CartoonPlayer.open('${escapeHtml(item.id)}')"
+            class="vw-cartoon-play-btn font-bengali text-[11px] font-bold px-2.5 py-1 rounded-xl border flex items-center gap-1.5 hover:border-[#2D5A4C] cursor-pointer"
+            style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--accent-sage);"
+          >
+            <span>🎬 কার্টুন ভিডিও</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  const sectionsHTML = [];
+
+  // 1. Today Group
+  if (groups.today.length > 0) {
+    sectionsHTML.push(`
+      <div class="space-y-3.5">
+        <div class="flex items-center justify-between gap-2 pb-1 border-b" style="border-color: var(--border-subtle);">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" style="background-color: var(--accent-sage);"></span>
+            <h4 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+              Today&rsquo;s Saved Words <span class="font-bengali text-xs font-semibold" style="color: var(--accent-sage);">(আজকের শব্দ &bull; ${groups.today.length}টি)</span>
+            </h4>
+          </div>
+          <span class="font-editorial text-xs font-semibold px-2.5 py-1 rounded-full border" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.2); color: var(--accent-sage);">
+            ${escapeHtml(getTodayDateString())}
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          ${groups.today.map(renderWordItemCard).join('')}
+        </div>
+      </div>
+    `);
+  }
+
+  // 2. Yesterday Group
+  if (groups.yesterday.length > 0) {
+    sectionsHTML.push(`
+      <div class="space-y-3.5">
+        <div class="flex items-center justify-between gap-2 pb-1 border-b" style="border-color: var(--border-subtle);">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" style="background-color: var(--accent-terracotta);"></span>
+            <h4 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+              Yesterday&rsquo;s Words <span class="font-bengali text-xs font-semibold" style="color: var(--accent-terracotta);">(গতকালের শব্দ &bull; ${groups.yesterday.length}টি)</span>
+            </h4>
+          </div>
+          <span class="font-editorial text-xs font-semibold px-2.5 py-1 rounded-full border" style="background-color: var(--accent-terracotta-soft); border-color: rgba(194, 109, 83, 0.2); color: var(--accent-terracotta);">
+            ${escapeHtml(getYesterdayDateString())}
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          ${groups.yesterday.map(renderWordItemCard).join('')}
+        </div>
+      </div>
+    `);
+  }
+
+  // 3. Earlier Group
+  if (groups.earlier.length > 0) {
+    sectionsHTML.push(`
+      <div class="space-y-3.5">
+        <div class="flex items-center justify-between gap-2 pb-1 border-b" style="border-color: var(--border-subtle);">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" style="background-color: var(--ink-muted);"></span>
+            <h4 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+              Earlier Learned Words <span class="font-bengali text-xs font-semibold" style="color: var(--ink-muted);">(পূর্ববর্তী শব্দ &bull; ${groups.earlier.length}টি)</span>
+            </h4>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-secondary);">
+            Previous Days
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          ${groups.earlier.map(renderWordItemCard).join('')}
+        </div>
+      </div>
+    `);
+  }
+
+  return `
+    <div class="space-y-6">
+      <!-- Top Action & Overview Bar -->
+      <div class="rounded-3xl p-5 sm:p-7 border flex flex-col md:flex-row md:items-center justify-between gap-4" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              MY VOCABULARY NOTEBOOK &bull; আমার শব্দভাণ্ডার
+            </span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);">
+              মোট ${totalCount}টি শব্দ
+            </span>
+          </div>
+          <h3 class="font-editorial text-xl sm:text-2xl font-bold mt-1.5" style="color: var(--ink-primary);">
+            Personal Vocab &amp; Next-Day Revision Hub
+          </h3>
+          <p class="font-bengali text-xs sm:text-sm mt-0.5" style="color: var(--ink-secondary);">
+            প্রতিদিন তোমার শেখা শব্দগুলো তারিখ অনুযায়ী সাজানো থাকে। প্রতিদিন নতুন শব্দ শেখার আগে রিভিশন কুইজ দিয়ে স্মৃতি ঝালিয়ে নিন!
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onclick="WarmupExam.open(true)"
+            class="vw-btn-primary font-bengali px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold inline-flex items-center gap-2 shadow-sm cursor-pointer"
+          >
+            <span>⚡ রিভিশন কুইজ দিন (Take Revision Quiz)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Date-Grouped Word Cards -->
+      ${sectionsHTML.join('')}
+    </div>
+  `;
+}
+
+const WarmupExam = {
+  state: {
+    isOpen: false,
+    forceOnDemand: false,
+    questions: [],
+    currentIdx: 0,
+    score: 0,
+    answered: false,
+    isExamComplete: false
+  },
+
+  checkAndTrigger: function() {
+    try {
+      const list = getMyVocabList();
+      if (!list || list.length === 0) return;
+      const today = getTodayDateString();
+      const previousWords = list.filter(w => w.learnedDate && w.learnedDate < today);
+      if (previousWords.length === 0) return;
+
+      const lastWarmup = localStorage.getItem(STORAGE_KEYS.LAST_WARMUP_DATE);
+      if (lastWarmup !== today) {
+        // Trigger warm-up exam gate automatically!
+        this.open(false);
+      }
+    } catch (e) {
+      console.error('Error in WarmupExam.checkAndTrigger:', e);
+    }
+  },
+
+  open: function(forceOnDemand = false) {
+    const list = getMyVocabList();
+    if (!list || list.length === 0) {
+      if (forceOnDemand && typeof showToast === 'function') {
+        showToast('ℹ️ My Vocab List-এ এখনো কোনো শব্দ নেই। কার্ডে "Mark Learned" চাপুন বা শব্দ শুনুন!', 'info');
+      }
+      return;
+    }
+
+    const today = getTodayDateString();
+    let candidates = list.filter(w => w.learnedDate && w.learnedDate < today);
+
+    // If on-demand and no previous words exist, allow quizzing today's words
+    if (candidates.length === 0) {
+      if (forceOnDemand) {
+        candidates = [...list];
+      } else {
+        return;
+      }
+    }
+
+    const questions = this.generateQuestions(candidates, list);
+    if (!questions || questions.length === 0) {
+      if (forceOnDemand && typeof showToast === 'function') {
+        showToast('ℹ️ কুইজ তৈরির জন্য পর্যাপ্ত তথ্য পাওয়া যায়নি।', 'info');
+      }
+      return;
+    }
+
+    this.state = {
+      isOpen: true,
+      forceOnDemand: forceOnDemand,
+      questions: questions,
+      currentIdx: 0,
+      score: 0,
+      answered: false,
+      isExamComplete: false
+    };
+
+    this.ensureModal();
+    const modal = document.getElementById('vw-warmup-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    this.renderQuestion();
+  },
+
+  close: function() {
+    this.state.isOpen = false;
+    const modal = document.getElementById('vw-warmup-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  },
+
+  skip: function() {
+    this.close();
+    if (typeof showToast === 'function') {
+      showToast('ℹ️ আজকের রিভিশন এড়িয়ে যাওয়া হয়েছে। পরবর্তীতে My Vocab থেকে পরীক্ষা দিতে পারবেন।', 'info');
+    }
+  },
+
+  getAllAvailableWords: function() {
+    const map = {};
+    const currData = (typeof CURRICULUM_DATA !== 'undefined' && CURRICULUM_DATA) || (typeof window !== 'undefined' && window.CURRICULUM_DATA);
+    if (currData) {
+      Object.keys(currData).forEach(k => {
+        const lvl = currData[k];
+        if (lvl && lvl.words) {
+          lvl.words.forEach(w => {
+            if (w && w.word) map[w.word.toLowerCase()] = w;
+          });
+        }
+      });
+    }
+    const myVocab = getMyVocabList();
+    myVocab.forEach(w => {
+      if (w && w.word) map[w.word.toLowerCase()] = w;
+    });
+    return Object.values(map);
+  },
+
+  generateQuestions: function(candidates, list) {
+    const yest = getYesterdayDateString();
+    const allPool = this.getAllAvailableWords();
+
+    // Prioritize:
+    // 1. Learned yesterday
+    // 2. Least revised
+    // 3. Other previous words
+    const sorted = [...candidates].sort((a, b) => {
+      const aIsYest = a.learnedDate === yest ? 1 : 0;
+      const bIsYest = b.learnedDate === yest ? 1 : 0;
+      if (aIsYest !== bIsYest) return bIsYest - aIsYest;
+      return (a.revisionCount || 0) - (b.revisionCount || 0);
+    });
+
+    const targetWords = sorted.slice(0, 5);
+    const questions = [];
+
+    targetWords.forEach((tw, idx) => {
+      const hasSyn = Array.isArray(tw.synonyms) && tw.synonyms.length > 0;
+      const hasAnt = Array.isArray(tw.antonyms) && tw.antonyms.length > 0;
+
+      let qType = idx % 4; // 0: Word->Meaning, 1: Meaning->Word, 2: Synonym, 3: Antonym
+      if (qType === 2 && !hasSyn) qType = 0;
+      if (qType === 3 && !hasAnt) qType = 1;
+
+      if (qType === 0) {
+        // Word -> Meaning
+        const correctMeaning = tw.meaning || tw.meaningBn || 'সঠিক অর্থ';
+        const distractors = allPool
+          .filter(w => w.word.toLowerCase() !== tw.word.toLowerCase() && (w.meaningBn || w.meaning) && (w.meaningBn || w.meaning) !== correctMeaning)
+          .map(w => w.meaningBn || w.meaning);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push('বিকল্প অর্থ ' + (uniqueDistractors.length + 1));
+        }
+
+        const choices = shuffleArray([
+          { text: correctMeaning, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          type: 'word-to-meaning',
+          targetWord: tw,
+          title: `"${tw.word}" শব্দটির সঠিক বাংলা অর্থ কোনটি?`,
+          subtitle: `What is the correct Bengali meaning of "${tw.word}"?`,
+          choices: choices,
+          explanation: `"${tw.word}" এর অর্থ হলো: ${correctMeaning}`
+        });
+      } else if (qType === 1) {
+        // Meaning -> Word
+        const targetMeaning = tw.meaning || tw.meaningBn || 'অর্থ';
+        const distractors = allPool
+          .filter(w => w.word.toLowerCase() !== tw.word.toLowerCase())
+          .map(w => w.word);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push('Option ' + (uniqueDistractors.length + 1));
+        }
+
+        const choices = shuffleArray([
+          { text: tw.word, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          type: 'meaning-to-word',
+          targetWord: tw,
+          title: `কোন ইংরেজি শব্দটির অর্থ "${targetMeaning}"?`,
+          subtitle: `Which English word corresponds to this meaning?`,
+          choices: choices,
+          explanation: `সঠিক শব্দ: ${tw.word} (${targetMeaning})`
+        });
+      } else if (qType === 2) {
+        // Synonym Match
+        const correctSyn = typeof tw.synonyms[0] === 'string' ? tw.synonyms[0] : (tw.synonyms[0].word || tw.synonyms[0]);
+        const distractors = allPool
+          .filter(w => w.word.toLowerCase() !== tw.word.toLowerCase() && w.word.toLowerCase() !== String(correctSyn).toLowerCase())
+          .map(w => w.word);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push('Alternative ' + (uniqueDistractors.length + 1));
+        }
+
+        const choices = shuffleArray([
+          { text: correctSyn, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          type: 'synonym-match',
+          targetWord: tw,
+          title: `"${tw.word}" শব্দটির সঠিক সমার্থক শব্দ (Synonym) কোনটি?`,
+          subtitle: `Identify the correct synonym for "${tw.word}":`,
+          choices: choices,
+          explanation: `"${tw.word}" এর সমার্থক শব্দ: ${correctSyn}`
+        });
+      } else {
+        // Antonym Match
+        const correctAnt = typeof tw.antonyms[0] === 'string' ? tw.antonyms[0] : (tw.antonyms[0].word || tw.antonyms[0]);
+        const distractors = allPool
+          .filter(w => w.word.toLowerCase() !== tw.word.toLowerCase() && w.word.toLowerCase() !== String(correctAnt).toLowerCase())
+          .map(w => w.word);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push('Alternative ' + (uniqueDistractors.length + 1));
+        }
+
+        const choices = shuffleArray([
+          { text: correctAnt, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          type: 'antonym-match',
+          targetWord: tw,
+          title: `"${tw.word}" শব্দটির বিপরীতার্থক শব্দ (Antonym) কোনটি?`,
+          subtitle: `Identify the correct antonym for "${tw.word}":`,
+          choices: choices,
+          explanation: `"${tw.word}" এর বিপরীতার্থক শব্দ: ${correctAnt}`
+        });
+      }
+    });
+
+    return questions;
+  },
+
+  ensureModal: function() {
+    let modal = document.getElementById('vw-warmup-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'vw-warmup-modal';
+      modal.className = 'fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto';
+      modal.style.backgroundColor = 'rgba(30, 36, 33, 0.7)';
+      modal.style.backdropFilter = 'blur(8px)';
+      modal.innerHTML = `
+        <div class="relative w-full max-w-xl rounded-3xl p-6 sm:p-8 border shadow-2xl space-y-6 my-auto" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <div id="vw-warmup-body"></div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+  },
+
+  renderQuestion: function() {
+    const body = document.getElementById('vw-warmup-body');
+    if (!body) return;
+
+    const q = this.state.questions[this.state.currentIdx];
+    const total = this.state.questions.length;
+    const currentNum = this.state.currentIdx + 1;
+    const pct = Math.round((currentNum / total) * 100);
+
+    this.state.answered = false;
+
+    body.innerHTML = `
+      <!-- Header with Gate Badge & Skip -->
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+            🌅 NEXT-DAY WARM-UP REVISION &bull; দৈনিক প্রস্তুতি পরীক্ষা
+          </span>
+        </div>
+        <button
+          type="button"
+          onclick="WarmupExam.skip()"
+          class="font-bengali text-xs font-semibold hover:underline cursor-pointer"
+          style="color: var(--ink-muted);"
+        >
+          এখন এড়িয়ে যান (Skip)
+        </button>
+      </div>
+
+      <!-- Question Progress -->
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-1.5" style="color: var(--ink-secondary);">
+          <span>প্রশ্ন ${currentNum} / ${total}</span>
+          <span class="font-editorial text-[#2D5A4C] font-bold">${pct}%</span>
+        </div>
+        <div class="vw-progress-track h-2 w-full rounded-full overflow-hidden">
+          <div class="vw-progress-bar h-full rounded-full bg-[#2D5A4C] transition-all duration-300" style="width: ${pct}%;"></div>
+        </div>
+      </div>
+
+      <!-- Question Prompt Box -->
+      <div class="rounded-2xl p-5 border text-center space-y-1.5" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">
+        <h3 class="font-editorial text-xl sm:text-2xl font-bold leading-snug" style="color: var(--ink-primary);">
+          ${escapeHtml(q.title)}
+        </h3>
+        <p class="text-xs sm:text-sm font-medium" style="color: var(--ink-secondary);">
+          ${escapeHtml(q.subtitle)}
+        </p>
+      </div>
+
+      <!-- 4 MCQ Options -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="vw-warmup-options-container">
+        ${q.choices.map((c, idx) => `
+          <button
+            type="button"
+            id="vw-warmup-opt-${idx}"
+            onclick="WarmupExam.submitAnswer(${idx})"
+            class="vw-warmup-option-btn text-left p-4 rounded-2xl border font-bengali text-sm font-semibold transition-all cursor-pointer flex items-center justify-between gap-2"
+            style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-primary);"
+          >
+            <span>${escapeHtml(c.text)}</span>
+            <span class="vw-opt-badge w-5 h-5 rounded-full border flex items-center justify-center text-xs shrink-0" style="border-color: var(--border-subtle);">
+              ${String.fromCharCode(65 + idx)}
+            </span>
+          </button>
+        `).join('')}
+      </div>
+
+      <!-- Feedback Reveal & Next Button -->
+      <div id="vw-warmup-feedback" class="hidden rounded-2xl p-4 border space-y-3 transition-all" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+        <div id="vw-warmup-feedback-msg" class="font-bengali text-xs sm:text-sm font-bold"></div>
+        <div class="flex items-center justify-between gap-2 pt-1 border-t" style="border-color: var(--border-subtle);">
+          <span class="text-xs font-semibold" style="color: var(--ink-muted);">
+            Score: ${this.state.score} / ${currentNum}
+          </span>
+          <button
+            type="button"
+            onclick="WarmupExam.nextQuestion()"
+            class="vw-btn-primary font-bengali px-5 py-2 rounded-xl text-xs sm:text-sm font-bold inline-flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>${currentNum === total ? 'ফলাফল দেখুন (See Results) →' : 'পরবর্তী প্রশ্ন (Next Question) →'}</span>
+          </button>
+        </div>
+      </div>
+    `;
+  },
+
+  submitAnswer: function(choiceIdx) {
+    if (this.state.answered) return;
+    this.state.answered = true;
+
+    const q = this.state.questions[this.state.currentIdx];
+    const chosen = q.choices[choiceIdx];
+    const isCorrect = !!(chosen && chosen.isCorrect);
+
+    if (isCorrect) {
+      this.state.score += 1;
+    }
+
+    // Record revision update to target word in localStorage
+    this.recordWordRevision(q.targetWord, isCorrect);
+
+    // Disable all option buttons
+    q.choices.forEach((c, idx) => {
+      const btn = document.getElementById(`vw-warmup-opt-${idx}`);
+      if (!btn) return;
+      btn.disabled = true;
+      btn.style.cursor = 'default';
+
+      if (c.isCorrect) {
+        btn.classList.add('is-correct');
+        btn.style.backgroundColor = 'var(--accent-sage-soft)';
+        btn.style.borderColor = 'var(--accent-sage)';
+        btn.style.color = 'var(--accent-sage)';
+        const badge = btn.querySelector('.vw-opt-badge');
+        if (badge) {
+          badge.textContent = '✓';
+          badge.style.backgroundColor = 'var(--accent-sage)';
+          badge.style.color = '#FFFFFF';
+          badge.style.borderColor = 'var(--accent-sage)';
+        }
+      } else if (idx === choiceIdx && !isCorrect) {
+        btn.classList.add('is-wrong');
+        btn.style.backgroundColor = 'var(--accent-terracotta-soft)';
+        btn.style.borderColor = 'var(--accent-terracotta)';
+        btn.style.color = 'var(--accent-terracotta)';
+        const badge = btn.querySelector('.vw-opt-badge');
+        if (badge) {
+          badge.textContent = '✕';
+          badge.style.backgroundColor = 'var(--accent-terracotta)';
+          badge.style.color = '#FFFFFF';
+          badge.style.borderColor = 'var(--accent-terracotta)';
+        }
+      } else {
+        btn.style.opacity = '0.5';
+      }
+    });
+
+    // Show Feedback Box
+    const feedbackEl = document.getElementById('vw-warmup-feedback');
+    const msgEl = document.getElementById('vw-warmup-feedback-msg');
+    if (feedbackEl && msgEl) {
+      feedbackEl.classList.remove('hidden');
+      if (isCorrect) {
+        msgEl.innerHTML = `<span style="color: var(--accent-sage);">✅ চমৎকার! সঠিক উত্তর।</span> <span class="font-normal font-sans text-xs block mt-0.5" style="color: var(--ink-secondary);">${escapeHtml(q.explanation)}</span>`;
+      } else {
+        msgEl.innerHTML = `<span style="color: var(--accent-terracotta);">❌ ভুল উত্তর। সঠিক উত্তরটি দেখে নিন:</span> <span class="font-normal font-sans text-xs block mt-0.5" style="color: var(--ink-secondary);">${escapeHtml(q.explanation)}</span>`;
+      }
+    }
+  },
+
+  recordWordRevision: function(targetWord, isCorrect) {
+    try {
+      const list = getMyVocabList();
+      const today = getTodayDateString();
+      const item = list.find(w => w && (w.id === targetWord.id || String(w.word).toLowerCase() === String(targetWord.word).toLowerCase()));
+      if (item) {
+        item.revisionCount = (item.revisionCount || 0) + 1;
+        item.lastRevisedDate = today;
+        saveMyVocabList(list);
+      }
+    } catch (e) {
+      console.error('Error recording word revision:', e);
+    }
+  },
+
+  nextQuestion: function() {
+    if (this.state.currentIdx + 1 < this.state.questions.length) {
+      this.state.currentIdx += 1;
+      this.renderQuestion();
+    } else {
+      this.finish();
+    }
+  },
+
+  finish: function() {
+    this.state.isExamComplete = true;
+    const today = getTodayDateString();
+
+    // Mark today's warmup as completed
+    try {
+      localStorage.setItem(STORAGE_KEYS.LAST_WARMUP_DATE, today);
+    } catch (e) {}
+
+    const body = document.getElementById('vw-warmup-body');
+    if (!body) return;
+
+    const total = this.state.questions.length;
+    const score = this.state.score;
+    const pct = Math.round((score / total) * 100);
+
+    body.innerHTML = `
+      <div class="text-center space-y-5 py-4">
+        <div class="w-16 h-16 mx-auto rounded-3xl flex items-center justify-center text-3xl shadow-sm" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+          🎉
+        </div>
+
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25); color: var(--accent-sage);">
+            REVISION COMPLETE &bull; দৈনিক প্রস্তুতি সম্পন্ন!
+          </span>
+          <h2 class="font-editorial text-2xl sm:text-3xl font-bold mt-2" style="color: var(--ink-primary);">
+            ${score}/${total} Revised! Ready for Today&rsquo;s Words
+          </h2>
+          <p class="font-bengali text-xs sm:text-sm max-w-md mx-auto mt-1 leading-relaxed" style="color: var(--ink-secondary);">
+            অসাধারণ! আপনি পূর্ববর্তী পড়া শব্দগুলো চমৎকারভাবে রিভিশন করেছেন (${pct}% সঠিক)। আজকের নতুন শব্দগুলো শেখার জন্য আপনি এখন সম্পূর্ণ প্রস্তুত!
+          </p>
+        </div>
+
+        <div class="rounded-2xl p-4 border max-w-sm mx-auto flex items-center justify-around" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">
+          <div>
+            <span class="text-xs font-semibold block" style="color: var(--ink-secondary);">Total Questions</span>
+            <strong class="font-editorial text-2xl font-bold" style="color: var(--ink-primary);">${total}</strong>
+          </div>
+          <div class="h-8 w-px" style="background-color: var(--border-subtle);"></div>
+          <div>
+            <span class="text-xs font-semibold block" style="color: var(--ink-secondary);">Correct Answers</span>
+            <strong class="font-editorial text-2xl font-bold" style="color: var(--accent-sage);">${score}</strong>
+          </div>
+          <div class="h-8 w-px" style="background-color: var(--border-subtle);"></div>
+          <div>
+            <span class="text-xs font-semibold block" style="color: var(--ink-secondary);">Score</span>
+            <strong class="font-editorial text-2xl font-bold" style="color: var(--accent-terracotta);">${pct}%</strong>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <button
+            type="button"
+            onclick="WarmupExam.close()"
+            class="vw-btn-primary font-bengali w-full sm:w-auto px-7 py-3 rounded-2xl text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+          >
+            <span>আজকের নতুন শব্দ শিখুন (Start Learning) →</span>
+          </button>
+          <button
+            type="button"
+            onclick="WarmupExam.open(true)"
+            class="font-bengali w-full sm:w-auto px-5 py-3 rounded-2xl border text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 hover:border-[#2D5A4C] cursor-pointer"
+            style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+          >
+            <span>পুনরায় অনুশীলন করুন (Practice Again) ⚡</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+};
+
+// Global window registrations for My Vocab & WarmupExam
+if (typeof window !== 'undefined') {
+  window.getTodayDateString = getTodayDateString;
+  window.getYesterdayDateString = getYesterdayDateString;
+  window.formatVocabDateDisplay = formatVocabDateDisplay;
+  window.findWordAnywhere = findWordAnywhere;
+  window.getMyVocabList = getMyVocabList;
+  window.saveMyVocabList = saveMyVocabList;
+  window.isInMyVocabList = isInMyVocabList;
+  window.addToMyVocabList = addToMyVocabList;
+  window.removeFromMyVocabList = removeFromMyVocabList;
+  window.toggleMyVocabWord = toggleMyVocabWord;
+  window.renderMyVocabCardButtonHTML = renderMyVocabCardButtonHTML;
+  window.updateMyVocabCardButton = updateMyVocabCardButton;
+  window.updateMyVocabPillCounters = updateMyVocabPillCounters;
+  window.renderMyVocabListMarkup = renderMyVocabListMarkup;
+  window.groupMyVocabByDate = groupMyVocabByDate;
+  window.WarmupExam = WarmupExam;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    STORAGE_KEYS,
+    AppState,
+    getTodayDateString,
+    getYesterdayDateString,
+    formatVocabDateDisplay,
+    findWordAnywhere,
+    getMyVocabList,
+    saveMyVocabList,
+    isInMyVocabList,
+    addToMyVocabList,
+    removeFromMyVocabList,
+    toggleMyVocabWord,
+    renderMyVocabCardButtonHTML,
+    updateMyVocabCardButton,
+    updateMyVocabPillCounters,
+    renderMyVocabListMarkup,
+    groupMyVocabByDate,
+    WarmupExam,
+    trackWordExplored
+  };
+}
+
+
 /* =====================================================================
    9. AUTO-INITIALIZATION HOOK
 ====================================================================== */
@@ -4193,4 +5254,5 @@ document.addEventListener('DOMContentLoaded', () => {
   ensureToastElement();
   ensureFeedbackWidget();
   updateTrackerDisplay();
+  updateMyVocabPillCounters();
 });
