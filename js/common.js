@@ -1421,12 +1421,6 @@ function renderAppHeader(activePage = 'home') {
 
   const navLinks = [
     {
-      id: 'home',
-      label: 'Levels',
-      href: 'index.html',
-      icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
-    },
-    {
       id: 'learn',
       label: 'Learn',
       href: 'learn.html',
@@ -1492,7 +1486,7 @@ function renderAppHeader(activePage = 'home') {
           <!-- Floating Background Horizontal Sliding Pill -->
           <div id="vw-top-sliding-pill" class="vw-top-sliding-pill" aria-hidden="true"></div>
 
-          <!-- 6 Single-Line Horizontal Menu Items (Icon + English Title Only) -->
+          <!-- 5 Single-Line Horizontal Menu Items (Icon + English Title Only) -->
           ${navLinks
             .map((item) => {
               const isActive = activePage === item.id;
@@ -1562,6 +1556,22 @@ function renderAppHeader(activePage = 'home') {
                   `;
                 })
                 .join('')}
+
+              <!-- Return to Level Selection Gateway Option -->
+              <div class="pt-1 mt-1 border-t" style="border-color: var(--border-subtle);">
+                <a
+                  href="index.html"
+                  class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-colors hover:bg-black/5"
+                  style="color: var(--accent-sage);"
+                  title="Return to Level Selection Screen &bull; লেভেল নির্বাচন পেজ"
+                >
+                  <div class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                    <span>All Levels</span>
+                  </div>
+                  <span class="font-bengali text-[10px] font-semibold">&larr; সকল লেভেল</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -1637,7 +1647,7 @@ function renderAppHeader(activePage = 'home') {
           `}
         </div>
 
-        <!-- 6 Main Navigation Links -->
+        <!-- 5 Main Navigation Links -->
         ${navLinks
           .map((item) => {
             const isActive = activePage === item.id;
@@ -1803,8 +1813,19 @@ function initTopNavSlidingPill() {
     const rawLeft = sessionStorage.getItem(TOP_NAV_LEFT_KEY);
     const rawWidth = sessionStorage.getItem(TOP_NAV_WIDTH_KEY);
     prevPage = sessionStorage.getItem(TOP_NAV_PAGE_KEY);
-    if (rawLeft !== null) prevLeft = parseFloat(rawLeft);
-    if (rawWidth !== null) prevWidth = parseFloat(rawWidth);
+    const hasPrevTab = items.some((it) => it.dataset.page === prevPage);
+    if (!hasPrevTab || prevPage === 'home') {
+      prevLeft = null;
+      prevWidth = null;
+      try {
+        sessionStorage.removeItem(TOP_NAV_LEFT_KEY);
+        sessionStorage.removeItem(TOP_NAV_WIDTH_KEY);
+        sessionStorage.removeItem(TOP_NAV_PAGE_KEY);
+      } catch (e) {}
+    } else {
+      if (rawLeft !== null) prevLeft = parseFloat(rawLeft);
+      if (rawWidth !== null) prevWidth = parseFloat(rawWidth);
+    }
   } catch (e) {}
 
   const curPage = activeItem ? activeItem.dataset.page : null;
@@ -1922,7 +1943,6 @@ function renderAppFooter() {
           showNavLinks
             ? `
           <div class="flex items-center gap-4 text-xs font-semibold flex-wrap">
-            <a href="index.html" class="hover:underline">Levels</a>
             <a href="learn.html" class="hover:underline">Learn</a>
             <a href="flashcards.html" class="hover:underline">Flashcards</a>
             <a href="games.html" class="hover:underline">Games</a>

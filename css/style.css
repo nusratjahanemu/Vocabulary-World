@@ -741,21 +741,10 @@ button:active:not(:disabled),
 
 /* =====================================================================
    Tailored Keyframe Micro-Motions on Inner SVG when .is-pill-target
+   (5 Active Navigation Items: Learn, Flashcards, Games, Tracker, Add Words)
    ===================================================================== */
 
-/* 1. Levels (Home icon): Roof bounce */
-@keyframes vwRoofBounce {
-  0% { transform: translateY(0) scale(1); }
-  35% { transform: translateY(-3.5px) scale(1.18); }
-  65% { transform: translateY(1px) scale(0.96); }
-  100% { transform: translateY(0) scale(1.12); }
-}
-.vw-top-nav-item[data-page="home"].is-pill-target .vw-nav-icon svg,
-.nav-item[data-page="home"].is-pill-target .vw-nav-icon svg {
-  animation: vwRoofBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-/* 2. Learn (Book icon): Book tilt */
+/* 1. Learn (Book icon): Book tilt */
 @keyframes vwBookTilt {
   0% { transform: rotate(0deg) scale(1); }
   40% { transform: rotate(-14deg) scale(1.22); }
