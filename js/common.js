@@ -523,8 +523,12 @@ const STORAGE_KEYS = {
   SETUP: 'vw_user_setup_v1',
   TRACKER: 'vw_daily_tracker_v1',
   WORD_IMAGES: 'vw_word_images_v1',
-  CUSTOM_WORDS: 'vw_custom_words_v1'
+  CUSTOM_WORDS: 'vw_custom_words_v1',
+  FEEDBACKS: 'vw_user_feedbacks_v1'
 };
+if (typeof window !== 'undefined') {
+  window.STORAGE_KEYS = STORAGE_KEYS;
+}
 
 /* ---------------------------------------------------------------------
    CUSTOM WORDS PERSISTENCE & CURRICULUM SYNC
@@ -1266,6 +1270,22 @@ function renderAppHeader(activePage = 'home') {
     </button>
   `;
 
+  // Helper 3b: Feedback Navigation Button (For Inner Pages)
+  const feedbackNavBtnHTML = `
+    <button
+      type="button"
+      id="vw-feedback-nav-btn"
+      onclick="openFeedbackModal()"
+      class="vw-feedback-nav-btn"
+      title="Share Feedback &bull; আপনার মতামত বা পরামর্শ দিন"
+      aria-label="Give feedback"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
+  `;
+
   // Helper 4: Global Auth Modal HTML
   const authModalHTML = `
     <!-- Global Sign In / Authentication Modal -->
@@ -1575,6 +1595,7 @@ function renderAppHeader(activePage = 'home') {
             </div>
           </div>
 
+          ${feedbackNavBtnHTML}
           ${themeToggleBtnHTML}
           ${countrySelectorHTML}
           ${authBtnHTML}
@@ -1625,6 +1646,19 @@ function renderAppHeader(activePage = 'home') {
             >
               <span>${selectedCountry.flag}</span>
               <span class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
+            </button>
+
+            <!-- Mobile Feedback Button -->
+            <button
+              type="button"
+              onclick="openFeedbackModal(); if (typeof toggleMobileNavMenu === 'function') toggleMobileNavMenu();"
+              class="vw-feedback-nav-btn w-8 h-8 text-xs"
+              title="Share Feedback &bull; মতামত দিন"
+              aria-label="Give feedback"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
             </button>
           </div>
 
@@ -1939,31 +1973,53 @@ function renderAppFooter() {
         <p class="font-editorial font-semibold" style="color: var(--ink-primary);">
           Vocabulary World &copy; <span>${new Date().getFullYear()}</span> &bull; Bengali-English Vocabulary Platform
         </p>
-        ${
-          showNavLinks
-            ? `
-          <div class="flex items-center gap-4 text-xs font-semibold flex-wrap">
+        <div class="flex items-center gap-4 text-xs font-semibold flex-wrap">
+          ${
+            showNavLinks
+              ? `
             <a href="learn.html" class="hover:underline">Learn</a>
             <a href="flashcards.html" class="hover:underline">Flashcards</a>
             <a href="games.html" class="hover:underline">Games</a>
             <a href="tracker.html" class="hover:underline">Tracker</a>
             <a href="add-words.html" class="hover:underline text-[#2D5A4C] font-bold">+ Add Words</a>
-          </div>
-        `
-            : ''
-        }
+          `
+              : ''
+          }
+          <button
+            type="button"
+            onclick="openFeedbackModal()"
+            class="hover:underline font-semibold flex items-center gap-1 transition-colors"
+            style="color: var(--accent-sage);"
+            title="Share Feedback &bull; আপনার মতামত বা পরামর্শ দিন"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Feedback &bull; মতামত</span>
+          </button>
+        </div>
       </div>
     </footer>
   `;
 }
 
+if (typeof window !== 'undefined') {
+  window.renderAppHeader = renderAppHeader;
+  window.renderAppFooter = renderAppFooter;
+}
+
 function ensureToastElement() {
-  if (document.getElementById('vw-toast')) return;
-  const toastDiv = document.createElement('div');
+  if (typeof document === 'undefined') return;
+  let toastDiv = document.getElementById('vw-toast');
+  if (toastDiv) {
+    toastDiv.className = 'hidden fixed bottom-20 right-5 z-50 max-w-sm items-center gap-3 px-4 py-3 rounded-2xl border shadow-lg';
+    return;
+  }
+  toastDiv = document.createElement('div');
   toastDiv.id = 'vw-toast';
   toastDiv.setAttribute('role', 'status');
   toastDiv.setAttribute('aria-live', 'polite');
-  toastDiv.className = 'hidden fixed bottom-5 right-5 z-50 max-w-sm items-center gap-3 px-4 py-3 rounded-2xl border shadow-lg';
+  toastDiv.className = 'hidden fixed bottom-20 right-5 z-50 max-w-sm items-center gap-3 px-4 py-3 rounded-2xl border shadow-lg';
   toastDiv.style = 'background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-primary);';
   toastDiv.innerHTML = `
     <span id="vw-toast-text" class="font-bengali text-xs font-semibold"></span>
@@ -3304,12 +3360,837 @@ function closeCartoonVideoModal() {
 
 
 /* =====================================================================
-   7. AUTO-INITIALIZATION HOOK
+   8. INTERACTIVE FEEDBACK SYSTEM (Floating Button, Modal, Category,
+      Emoji Ratings, Context Capture, History & Storage)
+   ===================================================================== */
+const FEEDBACK_CATEGORIES = {
+  general: {
+    id: 'general',
+    label: 'General',
+    bengali: 'সাধারণ মতামত',
+    icon: '🌟',
+    placeholder: 'Vocabulary World সম্পর্কে আপনার সাধারণ মতামত বা অভিজ্ঞতা শেয়ার করুন... (Share your general thoughts or impressions)'
+  },
+  feature: {
+    id: 'feature',
+    label: 'Feature Request',
+    bengali: 'নতুন ফিচার প্রস্তাব',
+    icon: '💡',
+    placeholder: 'আপনি Vocabulary World এ কোন নতুন ফিচার, স্টাডি মোড বা গেম দেখতে চান? (What new feature, study mode, or game would you like to see?)'
+  },
+  bug: {
+    id: 'bug',
+    label: 'Bug / Issue',
+    bengali: 'সমস্যা / বাগ রিপোর্ট',
+    icon: '🐛',
+    placeholder: 'কোন পেজে কী সমস্যা হচ্ছে বিস্তারিত লিখুন। যেমন: কোনো বাটন কাজ না করা, সাউন্ড না আসা ইত্যাদি... (Please describe the bug or issue)'
+  },
+  correction: {
+    id: 'correction',
+    label: 'Word Correction',
+    bengali: 'শব্দ বা অর্থ সংশোধন',
+    icon: '📚',
+    placeholder: 'কোন শব্দের বানান, বাংলা অর্থ, উচ্চারণ বা উদাহরণ বাক্যে সংশোধন প্রয়োজন তা উল্লেখ করুন... (Which word, meaning, or sentence needs fixing?)'
+  }
+};
+
+const FEEDBACK_RATINGS = [
+  { score: 1, emoji: '😡', label: 'Poor', bn: 'খারাপ' },
+  { score: 2, emoji: '😕', label: 'Fair', bn: 'চলনসই' },
+  { score: 3, emoji: '😐', label: 'Good', bn: 'মোটামুটি' },
+  { score: 4, emoji: '😊', label: 'Very Good', bn: 'ভালো' },
+  { score: 5, emoji: '🤩', label: 'Excellent', bn: 'দারুণ!' }
+];
+
+let currentFeedbackCategory = 'general';
+let currentFeedbackRating = 5;
+let currentFeedbackTab = 'form'; // 'form' or 'history'
+
+function getCurrentAppContext() {
+  let file = 'index.html';
+  if (typeof window !== 'undefined' && window.location) {
+    const path = (window.location.pathname || '').toLowerCase();
+    file = path.split('/').pop().split('\\').pop() || 'index.html';
+  }
+
+  let pageTitle = 'Home (লেভেল নির্বাচন)';
+  if (file === 'learn.html') pageTitle = 'Learn (শব্দ শিক্ষা)';
+  else if (file === 'flashcards.html') pageTitle = 'Flashcards (ফ্ল্যাশকার্ড)';
+  else if (file === 'games.html') pageTitle = 'Games (গেমস)';
+  else if (file === 'tracker.html') pageTitle = 'Tracker (ট্র্যাকার)';
+  else if (file === 'add-words.html') pageTitle = '+ Add Words (শব্দ যোগ)';
+  else if (file === 'assessment.html') pageTitle = 'Assessment (যাচাই)';
+
+  let level = 'beginner';
+  if (typeof AppState !== 'undefined' && AppState.selectedLevel) {
+    level = AppState.selectedLevel;
+  } else if (typeof localStorage !== 'undefined') {
+    level = localStorage.getItem('vw_selected_level') || 'beginner';
+  }
+
+  let accent = 'en-GB';
+  if (typeof getActiveAccent === 'function') {
+    try {
+      accent = getActiveAccent().code;
+    } catch (e) {}
+  }
+
+  let theme = 'Light';
+  if (typeof document !== 'undefined' && document.documentElement) {
+    theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light';
+  }
+
+  return {
+    file,
+    pageTitle,
+    level,
+    accent,
+    theme
+  };
+}
+
+function getStoredFeedbacks() {
+  if (typeof localStorage === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.FEEDBACKS);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveStoredFeedbacks(feedbacks) {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    localStorage.setItem(STORAGE_KEYS.FEEDBACKS, JSON.stringify(feedbacks));
+  } catch (e) {}
+}
+
+function selectFeedbackCategory(catId) {
+  if (!FEEDBACK_CATEGORIES[catId]) catId = 'general';
+  currentFeedbackCategory = catId;
+
+  if (typeof document !== 'undefined') {
+    const catBtns = document.querySelectorAll('.vw-fb-cat-btn');
+    catBtns.forEach(btn => {
+      if (btn.getAttribute('data-category') === catId) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    const textarea = document.getElementById('vw-fb-message');
+    if (textarea) {
+      textarea.placeholder = FEEDBACK_CATEGORIES[catId].placeholder;
+    }
+  }
+}
+
+function setFeedbackRating(score) {
+  score = parseInt(score, 10);
+  if (isNaN(score) || score < 1 || score > 5) score = 5;
+  currentFeedbackRating = score;
+
+  if (typeof document !== 'undefined') {
+    const ratingBtns = document.querySelectorAll('.vw-fb-rating-btn');
+    ratingBtns.forEach(btn => {
+      const s = parseInt(btn.getAttribute('data-score'), 10);
+      if (s === score) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    const meta = FEEDBACK_RATINGS.find(r => r.score === score) || FEEDBACK_RATINGS[4];
+    const labelEl = document.getElementById('vw-fb-rating-label');
+    if (labelEl) {
+      labelEl.innerHTML = `${meta.emoji} ${meta.label} &bull; ${meta.bn}`;
+    }
+  }
+}
+
+function updateFeedbackCharCount() {
+  if (typeof document === 'undefined') return;
+  const textarea = document.getElementById('vw-fb-message');
+  const countEl = document.getElementById('vw-fb-char-count');
+  const counterWrapper = document.getElementById('vw-fb-char-counter');
+  if (!textarea || !countEl) return;
+
+  const len = textarea.value.length;
+  countEl.textContent = len;
+
+  if (len >= 500) {
+    if (counterWrapper) counterWrapper.style.color = '#DC2626';
+  } else {
+    if (counterWrapper) counterWrapper.style.color = 'var(--ink-muted)';
+  }
+}
+
+function switchFeedbackTab(tabId) {
+  currentFeedbackTab = tabId;
+  if (typeof document === 'undefined') return;
+
+  const writeBtn = document.getElementById('vw-fb-tab-write-btn');
+  const historyBtn = document.getElementById('vw-fb-tab-history-btn');
+  const formView = document.getElementById('vw-fb-form-view');
+  const historyView = document.getElementById('vw-fb-history-view');
+
+  if (tabId === 'history') {
+    if (formView) formView.classList.add('hidden');
+    if (historyView) historyView.classList.remove('hidden');
+
+    if (writeBtn) {
+      writeBtn.style.backgroundColor = 'transparent';
+      writeBtn.style.color = 'var(--ink-muted)';
+      writeBtn.style.boxShadow = 'none';
+    }
+    if (historyBtn) {
+      historyBtn.style.backgroundColor = 'var(--surface-white)';
+      historyBtn.style.color = 'var(--accent-sage)';
+      historyBtn.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+    }
+
+    renderFeedbackHistoryList();
+  } else {
+    if (formView) formView.classList.remove('hidden');
+    if (historyView) historyView.classList.add('hidden');
+
+    if (writeBtn) {
+      writeBtn.style.backgroundColor = 'var(--surface-white)';
+      writeBtn.style.color = 'var(--accent-sage)';
+      writeBtn.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+    }
+    if (historyBtn) {
+      historyBtn.style.backgroundColor = 'transparent';
+      historyBtn.style.color = 'var(--ink-muted)';
+      historyBtn.style.boxShadow = 'none';
+    }
+  }
+}
+
+function renderFeedbackHistoryList() {
+  if (typeof document === 'undefined') return;
+  const container = document.getElementById('vw-fb-history-list');
+  const clearBtn = document.getElementById('vw-fb-clear-all-btn');
+  if (!container) return;
+
+  const feedbacks = getStoredFeedbacks();
+  if (clearBtn) {
+    clearBtn.style.display = feedbacks.length > 0 ? 'inline-flex' : 'none';
+  }
+
+  if (feedbacks.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-10 px-4">
+        <div class="w-12 h-12 rounded-full mx-auto flex items-center justify-center mb-3" style="background-color: var(--surface-sand); color: var(--ink-muted);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </div>
+        <p class="font-bengali text-sm font-bold" style="color: var(--ink-primary);">কোনো পূর্ববর্তী মতামত পাওয়া যায়নি</p>
+        <p class="text-xs mt-1" style="color: var(--ink-muted);">You have not submitted any feedback yet.</p>
+        <button
+          type="button"
+          onclick="switchFeedbackTab('form')"
+          class="mt-4 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-xs transition-opacity hover:opacity-90 cursor-pointer"
+          style="background-color: var(--accent-sage);"
+        >
+          Write Feedback &bull; প্রথম মতামত দিন
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = feedbacks
+    .map(item => {
+      const cat = FEEDBACK_CATEGORIES[item.category] || FEEDBACK_CATEGORIES.general;
+      const rating = FEEDBACK_RATINGS.find(r => r.score === item.rating) || FEEDBACK_RATINGS[4];
+      const dateStr = item.timestamp
+        ? new Date(item.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : 'Recently';
+
+      return `
+        <div class="vw-fb-history-item" id="fb-item-${item.id}">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold flex items-center gap-1 border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--accent-sage);">
+                <span>${cat.icon}</span>
+                <span>${cat.label}</span>
+              </span>
+              <span class="text-xs font-bold flex items-center gap-1" title="Rating: ${rating.label}">
+                <span>${rating.emoji}</span>
+                <span class="text-[11px] font-mono" style="color: var(--ink-muted);">${item.rating}/5</span>
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold" style="background-color: var(--surface-sand); color: var(--ink-muted);">
+                ${item.refId || '#FB'}
+              </span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="text-[10px]" style="color: var(--ink-muted);">${dateStr}</span>
+              <button
+                type="button"
+                onclick="deleteFeedbackItem('${item.id}')"
+                class="w-6 h-6 rounded-full flex items-center justify-center text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
+                title="Delete this feedback &bull; মুছে ফেলুন"
+                aria-label="Delete feedback"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+          <p class="text-xs leading-relaxed font-medium whitespace-pre-wrap break-words" style="color: var(--ink-primary);">
+            ${escapeHtml(item.message || '')}
+          </p>
+          <div class="mt-2.5 pt-2 border-t flex items-center justify-between text-[10px] flex-wrap gap-1" style="border-color: var(--border-subtle); color: var(--ink-muted);">
+            <span>${item.name ? `By: <strong>${escapeHtml(item.name)}</strong>` : 'By: Guest Learner'}</span>
+            <span class="font-mono">📍 ${escapeHtml(item.pageTitle || item.page || 'Home')} &bull; ${escapeHtml(item.level || '')}</span>
+          </div>
+        </div>
+      `;
+    })
+    .join('');
+}
+
+function deleteFeedbackItem(id) {
+  let feedbacks = getStoredFeedbacks();
+  feedbacks = feedbacks.filter(f => f.id !== id);
+  saveStoredFeedbacks(feedbacks);
+  renderFeedbackHistoryList();
+  updateFeedbackFloatingBadge();
+  if (typeof showToast === 'function') {
+    showToast('মতামত মুছে ফেলা হয়েছে।');
+  }
+}
+
+function clearAllFeedbacks() {
+  if (typeof confirm === 'function' && !confirm('আপনি কি আপনার সকল পূর্ববর্তী মতামত মুছে ফেলতে চান? (Clear all feedbacks?)')) {
+    return;
+  }
+  saveStoredFeedbacks([]);
+  renderFeedbackHistoryList();
+  updateFeedbackFloatingBadge();
+  if (typeof showToast === 'function') {
+    showToast('সকল মতামত সফলভাবে মুছে ফেলা হয়েছে।');
+  }
+}
+
+function handleFeedbackSubmit(event) {
+  if (event && event.preventDefault) event.preventDefault();
+  if (typeof document === 'undefined') return;
+
+  const messageInput = document.getElementById('vw-fb-message');
+  if (!messageInput) return;
+  const message = messageInput.value.trim();
+  if (!message) {
+    if (typeof showToast === 'function') showToast('অনুগ্রহ করে আপনার মতামত বা বার্তা লিখুন।');
+    messageInput.focus();
+    return;
+  }
+
+  const nameInput = document.getElementById('vw-fb-name');
+  const emailInput = document.getElementById('vw-fb-email');
+  const name = nameInput ? nameInput.value.trim() : '';
+  const email = emailInput ? emailInput.value.trim() : '';
+  const ctx = getCurrentAppContext();
+  const refId = '#FB-' + Math.floor(1000 + Math.random() * 9000);
+
+  const feedbackObj = {
+    id: 'fb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+    refId: refId,
+    category: currentFeedbackCategory || 'general',
+    rating: currentFeedbackRating || 5,
+    message: message,
+    name: name,
+    email: email,
+    page: ctx.file,
+    pageTitle: ctx.pageTitle,
+    level: ctx.level,
+    accent: ctx.accent,
+    theme: ctx.theme,
+    timestamp: Date.now()
+  };
+
+  const feedbacks = getStoredFeedbacks();
+  feedbacks.unshift(feedbackObj);
+  saveStoredFeedbacks(feedbacks);
+
+  updateFeedbackFloatingBadge();
+
+  // Show Success View
+  const formEl = document.getElementById('vw-feedback-form');
+  const successPane = document.getElementById('vw-fb-success-pane');
+  const successRef = document.getElementById('vw-fb-success-ref');
+  if (formEl) formEl.classList.add('hidden');
+  if (successPane) successPane.classList.remove('hidden');
+  if (successRef) successRef.textContent = refId;
+
+  if (typeof showToast === 'function') {
+    showToast('ধন্যবাদ! আপনার মতামত সফলভাবে জমা হয়েছে।');
+  }
+}
+
+function resetFeedbackForm() {
+  if (typeof document === 'undefined') return;
+  const formEl = document.getElementById('vw-feedback-form');
+  const successPane = document.getElementById('vw-fb-success-pane');
+  if (formEl) {
+    formEl.reset();
+    formEl.classList.remove('hidden');
+  }
+  if (successPane) successPane.classList.add('hidden');
+
+  selectFeedbackCategory('general');
+  setFeedbackRating(5);
+  updateFeedbackCharCount();
+
+  // Re-autofill profile if available
+  if (typeof getStoredUserProfile === 'function') {
+    const profile = getStoredUserProfile();
+    const nameInput = document.getElementById('vw-fb-name');
+    const emailInput = document.getElementById('vw-fb-email');
+    if (profile) {
+      if (nameInput && !nameInput.value) nameInput.value = profile.name || '';
+      if (emailInput && !emailInput.value) emailInput.value = profile.email || '';
+    }
+  }
+
+  const textarea = document.getElementById('vw-fb-message');
+  if (textarea) textarea.focus();
+}
+
+function updateFeedbackFloatingBadge() {
+  if (typeof document === 'undefined') return;
+  const feedbacks = getStoredFeedbacks();
+  const count = feedbacks.length;
+  const floatingCountEl = document.getElementById('vw-fb-floating-count');
+  const tabCountEl = document.getElementById('vw-fb-tab-count');
+
+  if (tabCountEl) {
+    tabCountEl.textContent = count;
+  }
+
+  if (floatingCountEl) {
+    if (count > 0) {
+      floatingCountEl.textContent = count > 99 ? '99+' : count;
+      floatingCountEl.classList.remove('hidden');
+    } else {
+      floatingCountEl.classList.add('hidden');
+    }
+  }
+}
+
+function openFeedbackModal(category = 'general') {
+  ensureFeedbackWidget();
+  if (typeof document === 'undefined') return;
+
+  switchFeedbackTab('form');
+  if (category) {
+    selectFeedbackCategory(category);
+  }
+
+  const ctx = getCurrentAppContext();
+  const summaryEl = document.getElementById('vw-fb-context-summary');
+  if (summaryEl) {
+    summaryEl.textContent = `Page: ${ctx.pageTitle} • Level: ${ctx.level} • Accent: ${ctx.accent} • Theme: ${ctx.theme}`;
+  }
+
+  if (typeof getStoredUserProfile === 'function') {
+    const profile = getStoredUserProfile();
+    const nameInput = document.getElementById('vw-fb-name');
+    const emailInput = document.getElementById('vw-fb-email');
+    if (profile) {
+      if (nameInput && !nameInput.value) nameInput.value = profile.name || '';
+      if (emailInput && !emailInput.value) emailInput.value = profile.email || '';
+    }
+  }
+
+  const modal = document.getElementById('vw-feedback-modal');
+  if (modal) modal.classList.remove('hidden');
+
+  updateFeedbackFloatingBadge();
+
+  setTimeout(() => {
+    const textarea = document.getElementById('vw-fb-message');
+    if (textarea) textarea.focus();
+  }, 100);
+}
+
+function closeFeedbackModal() {
+  if (typeof document === 'undefined') return;
+  const modal = document.getElementById('vw-feedback-modal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function ensureFeedbackWidget() {
+  if (typeof document === 'undefined' || !document.body) return;
+
+  // 1. Floating Trigger Button
+  if (!document.getElementById('vw-feedback-floating-btn')) {
+    const floatingBtn = document.createElement('button');
+    floatingBtn.type = 'button';
+    floatingBtn.id = 'vw-feedback-floating-btn';
+    floatingBtn.onclick = () => openFeedbackModal();
+    floatingBtn.className = 'vw-feedback-floating-btn';
+    floatingBtn.title = 'Share Feedback &bull; আপনার মতামত বা পরামর্শ দিন';
+    floatingBtn.setAttribute('aria-label', 'Give feedback');
+    floatingBtn.innerHTML = `
+      <span class="feedback-icon">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </span>
+      <span class="font-bengali text-xs">মতামত</span>
+      <span id="vw-fb-floating-count" class="hidden px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-[#2D5A4C] text-white">0</span>
+    `;
+    document.body.appendChild(floatingBtn);
+  }
+
+  // 2. Interactive Feedback Modal
+  if (!document.getElementById('vw-feedback-modal')) {
+    const modalDiv = document.createElement('div');
+    modalDiv.id = 'vw-feedback-modal';
+    modalDiv.className = 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/70 backdrop-blur-sm hidden';
+    modalDiv.setAttribute('role', 'dialog');
+    modalDiv.setAttribute('aria-modal', 'true');
+    modalDiv.setAttribute('aria-labelledby', 'vw-fb-modal-title');
+    modalDiv.innerHTML = `
+      <!-- Backdrop Clickable Overlay -->
+      <div class="fixed inset-0" onclick="closeFeedbackModal()"></div>
+
+      <!-- Modal Container Card -->
+      <div
+        class="relative w-full max-w-xl rounded-3xl border shadow-2xl z-10 flex flex-col overflow-hidden max-h-[92vh] vw-view-enter"
+        style="background-color: var(--surface-white); border-color: var(--border-subtle);"
+      >
+        <!-- 1. Modal Top Bar (Brand Icon, Title, Tabs, Close Button) -->
+        <div class="px-5 sm:px-6 pt-5 pb-3 border-b shrink-0" style="border-color: var(--border-subtle); background-color: var(--bg-ivory);">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 font-editorial font-bold text-white shadow-xs"
+                style="background-color: var(--accent-sage);"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h6m-8 7h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v16l4-4z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 id="vw-fb-modal-title" class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+                  Share Your Feedback &bull; মতামত
+                </h3>
+                <p class="font-bengali text-xs mt-0.5" style="color: var(--ink-muted);">
+                  আপনার অভিজ্ঞতা ও পরামর্শ দিয়ে আমাদের সহযোগিতা করুন
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onclick="closeFeedbackModal()"
+              class="w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#2D5A4C] shrink-0 cursor-pointer"
+              style="border-color: var(--border-subtle); color: var(--ink-muted);"
+              title="Close (Esc)"
+              aria-label="Close"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Segmented Tab Navigation: [ Write Feedback | My Feedbacks (count) ] -->
+          <div class="flex items-center gap-2 p-1 rounded-2xl border" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+            <button
+              type="button"
+              id="vw-fb-tab-write-btn"
+              onclick="switchFeedbackTab('form')"
+              class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              style="background-color: var(--surface-white); color: var(--accent-sage); box-shadow: 0 2px 6px rgba(0,0,0,0.06);"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <span>Write Feedback &bull; নতুন মতামত</span>
+            </button>
+            <button
+              type="button"
+              id="vw-fb-tab-history-btn"
+              onclick="switchFeedbackTab('history')"
+              class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              style="background-color: transparent; color: var(--ink-muted);"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>My Feedbacks &bull; পূর্ববর্তী (<span id="vw-fb-tab-count">0</span>)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Modal Body (Scrollable) -->
+        <div class="p-5 sm:p-6 overflow-y-auto flex-1 space-y-5">
+          
+          <!-- TAB 1: FORM PANE -->
+          <div id="vw-fb-form-view" class="space-y-5">
+            
+            <!-- Sub-pane 1a: Actual Form -->
+            <form id="vw-feedback-form" onsubmit="handleFeedbackSubmit(event)" class="space-y-4">
+              
+              <!-- Category Selector -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--ink-secondary);">
+                  Category &bull; মতামতের ধরন
+                </label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <button
+                    type="button"
+                    onclick="selectFeedbackCategory('general')"
+                    class="vw-fb-cat-btn active"
+                    data-category="general"
+                  >
+                    <span>🌟</span>
+                    <span>General</span>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="selectFeedbackCategory('feature')"
+                    class="vw-fb-cat-btn"
+                    data-category="feature"
+                  >
+                    <span>💡</span>
+                    <span>Feature</span>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="selectFeedbackCategory('bug')"
+                    class="vw-fb-cat-btn"
+                    data-category="bug"
+                  >
+                    <span>🐛</span>
+                    <span>Bug Report</span>
+                  </button>
+                  <button
+                    type="button"
+                    onclick="selectFeedbackCategory('correction')"
+                    class="vw-fb-cat-btn"
+                    data-category="correction"
+                  >
+                    <span>📚</span>
+                    <span>Word Fix</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Experience Rating (1-5 Emojis) -->
+              <div class="p-3 rounded-2xl border" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
+                    Experience Rating &bull; আপনার অভিজ্ঞতা
+                  </span>
+                  <span id="vw-fb-rating-label" class="text-xs font-bold" style="color: var(--accent-sage);">
+                    🤩 Excellent &bull; দারুণ!
+                  </span>
+                </div>
+                <div class="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  <button type="button" onclick="setFeedbackRating(1)" class="vw-fb-rating-btn" data-score="1" title="Poor (খারাপ)">
+                    <span class="text-2xl leading-none">😡</span>
+                    <span class="text-[10px] font-bold" style="color: var(--ink-muted);">1</span>
+                  </button>
+                  <button type="button" onclick="setFeedbackRating(2)" class="vw-fb-rating-btn" data-score="2" title="Fair (চলনসই)">
+                    <span class="text-2xl leading-none">😕</span>
+                    <span class="text-[10px] font-bold" style="color: var(--ink-muted);">2</span>
+                  </button>
+                  <button type="button" onclick="setFeedbackRating(3)" class="vw-fb-rating-btn" data-score="3" title="Good (মোটামুটি)">
+                    <span class="text-2xl leading-none">😐</span>
+                    <span class="text-[10px] font-bold" style="color: var(--ink-muted);">3</span>
+                  </button>
+                  <button type="button" onclick="setFeedbackRating(4)" class="vw-fb-rating-btn" data-score="4" title="Very Good (ভালো)">
+                    <span class="text-2xl leading-none">😊</span>
+                    <span class="text-[10px] font-bold" style="color: var(--ink-muted);">4</span>
+                  </button>
+                  <button type="button" onclick="setFeedbackRating(5)" class="vw-fb-rating-btn active" data-score="5" title="Excellent (দারুণ!)">
+                    <span class="text-2xl leading-none">🤩</span>
+                    <span class="text-[10px] font-bold" style="color: var(--ink-muted);">5</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Feedback Message Textarea -->
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <label for="vw-fb-message" class="block text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
+                    Your Message &bull; বিস্তারিত লিখুন <span class="text-red-500">*</span>
+                  </label>
+                  <span id="vw-fb-char-counter" class="text-[11px] font-mono font-medium" style="color: var(--ink-muted);">
+                    <span id="vw-fb-char-count">0</span> / 500
+                  </span>
+                </div>
+                <textarea
+                  id="vw-fb-message"
+                  required
+                  rows="4"
+                  maxlength="500"
+                  oninput="updateFeedbackCharCount()"
+                  placeholder="Vocabulary World সম্পর্কে আপনার সাধারণ মতামত বা অভিজ্ঞতা শেয়ার করুন..."
+                  class="w-full px-4 py-3 rounded-2xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all resize-none"
+                  style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+                ></textarea>
+              </div>
+
+              <!-- User Contact & Details (Optional / Auto-filled) -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="vw-fb-name" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--ink-secondary);">
+                    Your Name &bull; নাম <span class="text-[10px] font-normal lowercase opacity-75">(ঐচ্ছিক)</span>
+                  </label>
+                  <input
+                    id="vw-fb-name"
+                    type="text"
+                    placeholder="e.g. John Doe / আপনার নাম"
+                    class="w-full px-3.5 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
+                    style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+                  />
+                </div>
+                <div>
+                  <label for="vw-fb-email" class="block text-xs font-bold uppercase tracking-wider mb-1" style="color: var(--ink-secondary);">
+                    Email &bull; ইমেইল <span class="text-[10px] font-normal lowercase opacity-75">(ঐচ্ছিক)</span>
+                  </label>
+                  <input
+                    id="vw-fb-email"
+                    type="email"
+                    placeholder="you@example.com"
+                    class="w-full px-3.5 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
+                    style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+                  />
+                </div>
+              </div>
+
+              <!-- Captured Context Tag Pill -->
+              <div class="flex items-center justify-between px-3 py-2 rounded-xl border text-[11px]" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-muted);">
+                <div class="flex items-center gap-1.5 truncate">
+                  <span class="text-xs">📍</span>
+                  <span id="vw-fb-context-summary">Page: Learn &bull; Level: Beginner &bull; Accent: UK</span>
+                </div>
+                <span class="text-[10px] font-mono uppercase shrink-0 opacity-70">Auto-captured</span>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                id="vw-fb-submit-btn"
+                class="w-full py-3 px-5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2 shadow-md transition-all hover:opacity-95 hover:shadow-lg active:scale-[0.99] cursor-pointer"
+                style="background-color: var(--accent-sage);"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                <span>Submit Feedback &bull; মতামত জমা দিন</span>
+              </button>
+            </form>
+
+            <!-- Sub-pane 1b: Success State (Celebratory View) -->
+            <div id="vw-fb-success-pane" class="hidden text-center py-6 px-4 space-y-4 vw-view-enter">
+              <div class="w-16 h-16 rounded-full mx-auto flex items-center justify-center shadow-lg" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <h4 class="font-editorial text-xl font-bold" style="color: var(--ink-primary);">
+                  Thank You! &bull; ধন্যবাদ!
+                </h4>
+                <p class="font-bengali text-xs sm:text-sm mt-1 max-w-sm mx-auto" style="color: var(--ink-muted);">
+                  আপনার মূল্যবান মতামত সফলভাবে সংরক্ষিত হয়েছে। আমরা এটি গুরুত্ব সহকারে বিবেচনা করব।
+                </p>
+              </div>
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-mono font-bold" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--accent-sage);">
+                <span>Reference ID:</span>
+                <span id="vw-fb-success-ref">#FB-0000</span>
+              </div>
+              <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                <button
+                  type="button"
+                  onclick="resetFeedbackForm()"
+                  class="w-full sm:w-auto px-5 py-2.5 rounded-xl border text-xs font-bold transition-colors hover:border-[#2D5A4C] cursor-pointer"
+                  style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-primary);"
+                >
+                  &larr; Write Another Feedback
+                </button>
+                <button
+                  type="button"
+                  onclick="switchFeedbackTab('history')"
+                  class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-white transition-opacity hover:opacity-90 cursor-pointer"
+                  style="background-color: var(--accent-sage);"
+                >
+                  View My Feedbacks &rarr;
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TAB 2: HISTORY PANE -->
+          <div id="vw-fb-history-view" class="hidden space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b" style="border-color: var(--border-subtle);">
+              <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
+                Submitted Feedbacks &bull; পূর্ববর্তী মতামত
+              </span>
+              <button
+                type="button"
+                id="vw-fb-clear-all-btn"
+                onclick="clearAllFeedbacks()"
+                class="text-[11px] font-bold text-red-600 hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                <span>Clear All &bull; সকল মুছুন</span>
+              </button>
+            </div>
+
+            <!-- History List Container -->
+            <div id="vw-fb-history-list" class="space-y-3 max-h-[55vh] overflow-y-auto pr-1">
+              <!-- Dynamically populated by renderFeedbackHistoryList() -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalDiv);
+  }
+
+  // Bind Escape key listener once
+  if (!window.__vwFeedbackEscBound) {
+    window.__vwFeedbackEscBound = true;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('vw-feedback-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+          closeFeedbackModal();
+        }
+      }
+    });
+  }
+
+  updateFeedbackFloatingBadge();
+}
+
+// Global window registrations
+if (typeof window !== 'undefined') {
+  window.openFeedbackModal = openFeedbackModal;
+  window.closeFeedbackModal = closeFeedbackModal;
+  window.switchFeedbackTab = switchFeedbackTab;
+  window.selectFeedbackCategory = selectFeedbackCategory;
+  window.setFeedbackRating = setFeedbackRating;
+  window.updateFeedbackCharCount = updateFeedbackCharCount;
+  window.handleFeedbackSubmit = handleFeedbackSubmit;
+  window.resetFeedbackForm = resetFeedbackForm;
+  window.deleteFeedbackItem = deleteFeedbackItem;
+  window.clearAllFeedbacks = clearAllFeedbacks;
+  window.ensureFeedbackWidget = ensureFeedbackWidget;
+  window.getStoredFeedbacks = getStoredFeedbacks;
+  window.saveStoredFeedbacks = saveStoredFeedbacks;
+}
+
+
+/* =====================================================================
+   9. AUTO-INITIALIZATION HOOK
 ====================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     PronunciationEngine.init();
   loadPersistedState();
   WordImageLoader.init();
   ensureToastElement();
+  ensureFeedbackWidget();
   updateTrackerDisplay();
 });
