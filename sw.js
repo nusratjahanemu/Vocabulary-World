@@ -1,9 +1,9 @@
 /* =====================================================================
    VOCABULARY WORLD — SERVICE WORKER (PWA)
-   Cache Version: vw-cache-v2
+   Cache Version: vw-cache-v3
 ====================================================================== */
 
-const CACHE_NAME = 'vw-cache-v2';
+const CACHE_NAME = 'vw-cache-v3';
 
 const PRECACHE_ASSETS = [
   './',
@@ -18,6 +18,8 @@ const PRECACHE_ASSETS = [
   './css/style.css',
   './common.js',
   './js/common.js',
+  './words-data.js',
+  './js/words-data.js',
   './js/data.js',
   './manifest.json',
   './icon.svg',
