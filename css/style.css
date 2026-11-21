@@ -1458,3 +1458,45 @@ button:active:not(:disabled),
   border-color: var(--accent-sage);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+/* =====================================================================
+   BIG STORIES & NEWSPAPER SENTENCES (Editorial Journalistic Styling)
+   ===================================================================== */
+.vw-story-card {
+  transition: transform 0.25s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.vw-story-card:hover {
+  border-color: var(--accent-sage);
+  box-shadow: 0 8px 24px -4px rgba(45, 90, 76, 0.12);
+}
+
+.vw-newspaper-card {
+  position: relative;
+  transition: transform 0.22s ease, border-color 0.2s ease, box-shadow 0.22s ease;
+}
+
+.vw-newspaper-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-sage);
+  box-shadow: 0 10px 28px -4px rgba(45, 90, 76, 0.15);
+}
+
+.vw-news-quote-box {
+  position: relative;
+  border-left: 3.5px solid var(--accent-sage);
+  background-color: var(--surface-white);
+}
+
+.vw-news-keyword {
+  color: var(--accent-sage);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.vw-news-keyword:hover {
+  color: var(--accent-terracotta);
+}

@@ -726,56 +726,237 @@
       return sectionsHTML;
     }
 
+    function escapeRegex(string) {
+      return (string || '').replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
+    }
+
+    function highlightKeyword(sentence, keyWord) {
+      if (!keyWord || !sentence) return escapeHtml(sentence || '');
+      const escaped = escapeHtml(sentence);
+      const safeKey = (keyWord || '').replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
+      const regex = new RegExp('(' + safeKey + ')', 'gi');
+      return escaped.replace(regex, '<span class="font-bold underline decoration-2 decoration-[#2D5A4C] text-[#2D5A4C]">$1</span>');
+    }
+
     function buildStoriesHTML(lvl) {
-      if (!lvl.stories) return '';
+      if (!lvl.stories || !lvl.stories.length) return '';
 
       const storyHeaders = {
-        beginner: { en: '2 Short Moral Stories', bn: '(ছোটদের শিক্ষণীয় ইংরেজি গল্প ও পাঠ)' },
-        intermediate: { en: '2 Intermediate Reading Stories', bn: '(মধ্যম স্তরের ইংরেজি গল্প ও পাঠ)' },
-        advanced: { en: '2 Analytical Passages', bn: '(উচ্চতর বিশ্লেষণধর্মী পাঠ ও প্রবন্ধ)' },
-        pro: { en: '2 Executive Readings', bn: '(পেশাদার কেস স্টাডি ও পাঠ)' }
+        beginner: { en: 'Comprehensive Moral Stories & Reading', bn: '(ছোটদের আকর্ষণীয় শিক্ষণীয় বড় গল্প ও পাঠ)' },
+        intermediate: { en: 'Rich Narrative Stories & Real-Life Journeys', bn: '(মাধ্যমিক স্তরের আকর্ষণীয় বড় গল্প ও প্রেক্ষাপট)' },
+        advanced: { en: 'Analytical Narratives & Scholarly Essays', bn: '(উচ্চতর বিশ্লেষণধর্মী বড় পাঠ ও প্রবন্ধ)' },
+        pro: { en: 'Executive Case Narratives & Leadership Journeys', bn: '(পেশাদার কেস স্টাডি ও কৌশলগত বড় গল্প)' }
       };
       const sh = storyHeaders[lvl.id] || { en: 'Reading Passages', bn: '(গল্প ও পাঠ অনুশীলন)' };
 
       return `
-        <div class="rounded-3xl p-5 sm:p-7 border space-y-5" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
-          <div>
-            <h3 class="font-editorial text-xl sm:text-2xl font-bold" style="color: var(--ink-primary);">
-              ${sh.en} <span class="font-bengali text-sm font-semibold" style="color: var(--accent-sage);">${sh.bn}</span>
-            </h3>
-            <p class="font-bengali text-xs mt-0.5" style="color: var(--ink-secondary);">প্রতিটি বাক্যের পাশে Listen বাটনে ক্লিক করে ইংরেজি উচ্চারণ শুনুন এবং নিচে বাংলা অনুবাদ পড়ুন:</p>
+        <div class="rounded-3xl p-5 sm:p-7 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b" style="border-color: var(--border-subtle);">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                  📖
+                </span>
+                <span class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--accent-sage);">
+                  IMMERSIVE STORY READING &bull; দীর্ঘ পাঠ্যাংশ ও গল্প
+                </span>
+              </div>
+              <h3 class="font-editorial text-xl sm:text-2xl font-bold" style="color: var(--ink-primary);">
+                ${sh.en} <span class="font-bengali text-sm font-semibold" style="color: var(--accent-sage);">${sh.bn}</span>
+              </h3>
+              <p class="font-bengali text-xs mt-0.5" style="color: var(--ink-secondary);">প্রতিটি বাক্যের পাশে Listen বাটনে ক্লিক করে ইংরেজি উচ্চারণ শুনুন এবং নিচে বাংলা অনুবাদ পড়ুন:</p>
+            </div>
+            <div class="shrink-0 flex items-center gap-2">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-secondary);">
+                ${lvl.stories.length}টি বড় গল্প (${lvl.stories.reduce((acc, st) => acc + (st.sentences ? st.sentences.length : 0), 0)}টি বাক্য)
+              </span>
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             ${lvl.stories
               .map(
                 (story) => `
-                  <div class="rounded-2xl p-5 border space-y-3" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">
-                    <h4 class="font-editorial text-lg font-bold" style="color: var(--accent-terracotta);">${escapeHtml(story.title)}</h4>
-                    ${story.sentences
-                      .map((s) => {
-                        const sid = registerSpeakText(s.en);
-                        return `
-                          <div class="rounded-xl p-3.5 border flex items-start justify-between gap-3" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
-                            <div>
-                              <p class="text-xs sm:text-sm font-medium leading-relaxed" style="color: var(--ink-primary);">${escapeHtml(s.en)}</p>
-                              <p class="font-bengali text-xs mt-1 leading-relaxed" style="color: var(--ink-secondary);">(${escapeHtml(s.bn)})</p>
-                            </div>
-                            <button
-                              type="button"
-                              onclick="speakById(${sid}, this)"
-                              class="vw-speak-btn vw-speak-main px-2.5 py-1 rounded-full text-xs font-bold gap-1 shrink-0"
-                            >
-                              ${speakerIconSvg('w-3 h-3')}
-                              <span>Listen</span>
-                            </button>
+                  <div class="rounded-2xl p-5 sm:p-6 border space-y-4 flex flex-col justify-between" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">
+                    <div class="space-y-3">
+                      <!-- Story Header with Title, Read Time & Theme -->
+                      <div class="space-y-2 border-b pb-3" style="border-color: var(--border-subtle);">
+                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                          ${story.readTime ? `<span class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full" style="background-color: var(--surface-sand); color: var(--ink-secondary);">⏱️ ${escapeHtml(story.readTime)}</span>` : ''}
+                          ${story.theme ? `<span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">🌱 ${escapeHtml(story.theme)}</span>` : ''}
+                        </div>
+                        <h4 class="font-editorial text-lg sm:text-xl font-bold leading-snug" style="color: var(--accent-terracotta);">${escapeHtml(story.title)}</h4>
+                        ${story.vocabularyFocus && story.vocabularyFocus.length ? `
+                          <div class="flex items-center gap-1.5 flex-wrap pt-1">
+                            <span class="text-[10px] font-bold uppercase" style="color: var(--ink-muted);">Key Words:</span>
+                            ${story.vocabularyFocus.map(w => `<span class="text-[10px] font-editorial font-bold px-2 py-0.5 rounded shadow-2xs" style="background-color: var(--surface-white); border: 1px solid var(--border-subtle); color: var(--accent-sage);">${escapeHtml(w)}</span>`).join('')}
                           </div>
-                        `;
-                      })
-                      .join('')}
+                        ` : ''}
+                      </div>
+
+                      <!-- Sentence by Sentence Cards -->
+                      <div class="space-y-2.5">
+                        ${story.sentences
+                          .map((s, sIdx) => {
+                            const sid = registerSpeakText(s.en);
+                            return `
+                              <div class="rounded-xl p-3 sm:p-3.5 border flex items-start justify-between gap-3 transition-colors hover:border-[#2D5A4C]" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+                                <div class="min-w-0 flex-1">
+                                  <div class="flex items-center gap-1.5 mb-1">
+                                    <span class="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold text-white shrink-0" style="background-color: var(--accent-sage);">${sIdx + 1}</span>
+                                    <p class="text-xs sm:text-sm font-medium leading-relaxed" style="color: var(--ink-primary);">${escapeHtml(s.en)}</p>
+                                  </div>
+                                  <p class="font-bengali text-xs mt-1 leading-relaxed pl-5.5" style="color: var(--ink-secondary);">(${escapeHtml(s.bn)})</p>
+                                </div>
+                                <button
+                                  type="button"
+                                  onclick="speakById(${sid}, this)"
+                                  class="vw-speak-btn vw-speak-main px-2.5 py-1 rounded-full text-xs font-bold gap-1 shrink-0 cursor-pointer"
+                                  title="Pronounce sentence"
+                                >
+                                  ${speakerIconSvg('w-3 h-3')}
+                                  <span>Listen</span>
+                                </button>
+                              </div>
+                            `;
+                          })
+                          .join('')}
+                      </div>
+                    </div>
+
+                    <!-- Moral Takeaway / Executive Note -->
+                    ${story.moralBn ? `
+                      <div class="rounded-xl p-3.5 border text-xs leading-relaxed font-bengali mt-2" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25);">
+                        <strong class="block text-[10px] uppercase font-bold mb-1" style="color: var(--accent-sage);">💡 মূলভাব ও শিক্ষণীয় বার্তা (Key Takeaway):</strong>
+                        <span style="color: var(--ink-primary);">${escapeHtml(story.moralBn)}</span>
+                      </div>
+                    ` : ''}
                   </div>
                 `
               )
+              .join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function buildNewspaperSentencesHTML(lvl) {
+      if (!lvl || lvl.id === 'beginner' || !lvl.newspaperSentences || !lvl.newspaperSentences.length) {
+        return '';
+      }
+
+      const newsHeaders = {
+        intermediate: {
+          en: 'Real Newspaper Sentences & Editorial English',
+          bn: '(আন্তর্জাতিক ও জাতীয় শীর্ষ সংবাদপত্রের বাস্তব বাক্য ও ব্যবহার)',
+          desc: 'The Daily Star, BBC News, The Guardian ও Reuters থেকে সংগৃহীত বাস্তব বাক্যের মাধ্যমে সংবাদপত্রের ইংরেজি ও শব্দের গভীর প্রয়োগ শিখুন:'
+        },
+        advanced: {
+          en: 'International Journalistic Sentences & Editorial Analysis',
+          bn: '(আন্তর্জাতিক পত্রিকার সম্পাদকীয় বাক্য ও গভীর শব্দশৈলী)',
+          desc: 'The New York Times, The Economist, The Guardian ও The Washington Post-এর সম্পাদকীয় থেকে নির্বাচিত বিশ্লেষণধর্মী বাক্য:'
+        },
+        pro: {
+          en: 'Global Business & Financial Press Sentences',
+          bn: '(ফিনান্সিয়াল টাইমস ও বৈশ্বিক বিজনেস প্রেসের পেশাদার বাক্য)',
+          desc: 'Financial Times, Bloomberg, The Wall Street Journal ও Harvard Business Review থেকে নির্বাহী পর্যায়ের বিশ্লেষণধর্মী বাক্য:'
+        }
+      };
+
+      const nh = newsHeaders[lvl.id] || {
+        en: 'Real Newspaper Sentences',
+        bn: '(পত্রিকার বাক্য ও সম্পাদকীয় ভাষা)',
+        desc: 'শীর্ষ সংবাদপত্রের নির্বাচিত বাক্য থেকে বাস্তব ইংরেজি চর্চা করুন:'
+      };
+
+      return `
+        <div class="rounded-3xl p-5 sm:p-7 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b" style="border-color: var(--border-subtle);">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                  📰
+                </span>
+                <span class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--accent-sage);">
+                  AUTHENTIC JOURNALISTIC ENGLISH &bull; সংবাদপত্রের ভাষা ও সম্পাদকীয় বাক্য
+                </span>
+              </div>
+              <h3 class="font-editorial text-xl sm:text-2xl font-bold" style="color: var(--ink-primary);">
+                ${nh.en} <span class="font-bengali text-sm font-semibold" style="color: var(--accent-sage);">${nh.bn}</span>
+              </h3>
+              <p class="font-bengali text-xs" style="color: var(--ink-secondary);">
+                ${nh.desc}
+              </p>
+            </div>
+            <div class="shrink-0 flex items-center gap-2">
+              <span class="text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-secondary);">
+                ${lvl.newspaperSentences.length}টি বাস্তব পত্রিকার বাক্য
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            ${lvl.newspaperSentences
+              .map((item) => {
+                const sid = registerSpeakText(item.sentence);
+                return `
+                  <div class="rounded-2xl p-5 border space-y-3.5 flex flex-col justify-between transition-all hover:border-[#2D5A4C] hover:shadow-sm" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">
+                    <div>
+                      <!-- Source Banner & Category Tag -->
+                      <div class="flex items-center justify-between gap-2 mb-2.5 flex-wrap">
+                        <div class="flex items-center gap-2">
+                          <span class="text-xs font-bold px-2.5 py-1 rounded-full border shadow-2xs font-editorial flex items-center gap-1.5" style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--accent-sage);">
+                            <span>🗞️</span>
+                            <span>${escapeHtml(item.source)}</span>
+                          </span>
+                          <span class="text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                            ${escapeHtml(item.category)}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onclick="speakById(${sid}, this)"
+                          class="vw-speak-btn vw-speak-main px-2.5 py-1 rounded-full text-xs font-bold gap-1 shrink-0 cursor-pointer"
+                          title="Listen to native pronunciation"
+                        >
+                          ${speakerIconSvg('w-3 h-3')}
+                          <span>Listen</span>
+                        </button>
+                      </div>
+
+                      <!-- Headline Context -->
+                      <div class="text-[11px] font-semibold italic mb-2 line-clamp-1" style="color: var(--ink-muted);">
+                        &bull; Context: &ldquo;${escapeHtml(item.headline)}&rdquo;
+                      </div>
+
+                      <!-- The Journalistic Sentence -->
+                      <div class="rounded-xl p-3.5 border relative" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+                        <p class="font-editorial text-sm sm:text-base font-semibold leading-relaxed" style="color: var(--ink-primary);">
+                          &ldquo;${highlightKeyword(item.sentence, item.keyWord)}&rdquo;
+                        </p>
+                      </div>
+
+                      <!-- Bengali Translation -->
+                      <div class="mt-2.5 px-3 py-2 rounded-xl border text-xs leading-relaxed font-bengali" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-secondary);">
+                        <span class="font-bold text-[10px] uppercase block mb-0.5" style="color: var(--accent-terracotta);">বাংলা অনুবাদ:</span>
+                        ${escapeHtml(item.sentenceBn)}
+                      </div>
+                    </div>
+
+                    <!-- Vocabulary & Journalistic Usage Note -->
+                    <div class="pt-2 border-t flex flex-col gap-1 text-[11px]" style="border-color: var(--border-subtle);">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="font-bold" style="color: var(--accent-sage);">🎯 Key Word:</span>
+                        <strong class="font-editorial font-bold px-1.5 py-0.2 rounded" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">${escapeHtml(item.keyWord)}</strong>
+                        <span class="font-bengali" style="color: var(--ink-muted);">(${escapeHtml(item.keyWordMeaningBn)})</span>
+                      </div>
+                      <p class="font-bengali text-[11px] leading-relaxed" style="color: var(--ink-muted);">
+                        <strong style="color: var(--ink-secondary);">ব্যবহার নোট:</strong> ${escapeHtml(item.editorialNote)}
+                      </p>
+                    </div>
+                  </div>
+                `;
+              })
               .join('')}
           </div>
         </div>
@@ -856,12 +1037,20 @@
         { id: 'all', label: 'All Sections (সবগুলো)' },
         { id: 'vocab', label: `Vocabulary Cards (${lvl.words.length}টি শব্দ)` },
         { id: 'curriculum', label: 'Curriculum (পাঠ্যক্রম)' },
-        { id: 'stories', label: 'Stories & Passages (গল্প)' }
+        { id: 'stories', label: `Big Stories (${lvl.stories ? lvl.stories.length : 0}টি বড় গল্প)` }
       ];
+
+      if (lvl.id !== 'beginner' && lvl.newspaperSentences && lvl.newspaperSentences.length) {
+        tabItems.push({
+          id: 'newspaper',
+          label: `Newspaper Sentences (${lvl.newspaperSentences.length}টি পত্রিকার বাক্য)`
+        });
+      }
 
       const showVocab = activeTab === 'all' || activeTab === 'vocab';
       const showCurriculum = activeTab === 'all' || activeTab === 'curriculum';
       const showStories = activeTab === 'all' || activeTab === 'stories';
+      const showNewspaper = (activeTab === 'all' || activeTab === 'newspaper') && lvl.id !== 'beginner';
 
       const exploredLevelCount = lvl.words.filter((w) => AppState.tracker.exploredWordIds.includes(w.id)).length;
       const levelProgressPct = Math.round((exploredLevelCount / lvl.words.length) * 100);
@@ -1010,12 +1199,23 @@
               : ''
           }
 
-          <!-- 3. STORIES & READING PASSAGES -->
+          <!-- 3. STORIES & READING PASSAGES (ALL 4 LEVELS) -->
           ${
             showStories
               ? `
                 <section aria-label="${lvl.title} Stories & Reading" class="space-y-6">
                   ${buildStoriesHTML(lvl)}
+                </section>
+              `
+              : ''
+          }
+
+          <!-- 4. REAL NEWSPAPER SENTENCES & EDITORIAL ENGLISH (EXCEPT BEGINNER) -->
+          ${
+            showNewspaper && lvl.newspaperSentences && lvl.newspaperSentences.length
+              ? `
+                <section aria-label="${lvl.title} Newspaper Sentences" class="space-y-6">
+                  ${buildNewspaperSentencesHTML(lvl)}
                 </section>
               `
               : ''

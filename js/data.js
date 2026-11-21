@@ -301,21 +301,41 @@
         ],
         stories: [
           {
-            title: 'Story 1: The Little Sparrow and the Kind Boy (ছোট্ট চড়ুই ও দয়ালু বালক)',
+            id: 'beg-story-1',
+            title: 'Story 1: The Whispering Banyan and the Thirsty Bird (বিশাল বটবৃক্ষ ও তৃষ্ণার্ত পাখির গল্প)',
+            theme: 'Kindness, Diligence & Compassion (দয়া ও নিয়মিত প্রচেষ্টা)',
+            readTime: '3 min read',
+            moralBn: 'দয়া ও সহানুভূতির একটি ছোট্ট কাজও পৃথিবীর যেকোনো প্রাণীর জীবনে আনন্দ এনে দিতে পারে এবং গভীর বন্ধুত্বের সৃষ্টি করে।',
+            vocabularyFocus: ['Serene', 'Diligent', 'Grateful', 'Generous', 'Vibrant'],
             sentences: [
-              { en: 'One sunny morning, a little boy named Ayaan found a thirsty sparrow in his garden.', bn: 'এক রৌদ্রোজ্জ্বল সকালে, আয়ান নামের একটি ছোট্ট ছেলে তার বাগানে একটি তৃষ্ণার্ত চড়ুই পাখি দেখতে পেল।' },
-              { en: 'He gently placed a small bowl of cool water near the shade of a mango tree.', bn: 'সে একটি আমগাছের ছায়ার কাছে আলতো করে ঠান্ডা পানির একটি ছোট বাটি রাখল।' },
-              { en: 'The little sparrow drank the water happily and chirped a sweet song of thanks.', bn: 'ছোট্ট চড়ুইটি আনন্দের সাথে পানি পান করল এবং ধন্যবাদের মিষ্টি সুরে কিচিরমিচির করে উঠল।' },
-              { en: 'From that day on, the bird visited Ayaan’s window every morning.', bn: 'সেই দিন থেকে পাখিটি প্রতিদিন সকালে আয়ানের জানালার কাছে আসত।' }
+              { en: 'In a quiet and serene village, an old banyan tree stood peacefully beside a winding river.', bn: 'একটি শান্ত ও নির্মল গ্রামে, একটি আঁকাবাঁকা নদীর পাশে একটি প্রাচীন বটবৃক্ষ প্রশান্তভাবে দাঁড়িয়ে ছিল।' },
+              { en: 'A diligent boy named Ayaan loved to read his English storybooks under its cool green shade every afternoon.', bn: 'আয়ান নামের এক পরিশ্রমী বালক প্রতিদিন বিকেলে গাছটির শীতল সবুজ ছায়ায় বসে তার ইংরেজি গল্পের বই পড়তে ভালোবাসত।' },
+              { en: 'One hot afternoon, he noticed a tiny sparrow panting on a dusty branch, too weak to fly in the scorching heat.', bn: 'এক গরম দুপুরে, সে লক্ষ্য করল একটি ছোট চড়ুই পাখি ধূলিমলিন ডালে হাঁপাচ্ছে, প্রচণ্ড গরমে ওড়ার মতো শক্তিটুকুও তার নেই।' },
+              { en: 'Ayaan felt gentle compassion and immediately placed a shallow clay bowl filled with cool, clean water under the tree.', bn: 'আয়ান মনে গভীর মমতা অনুভব করল এবং তৎক্ষণাৎ একটি মাটির অগভীর পাত্র পরিষ্কার ঠান্ডা পানিতে ভরে গাছের নিচে রাখল।' },
+              { en: 'The little bird hopped down carefully, took several grateful sips, and splashed happily in the soothing water.', bn: 'ক্ষুদে পাখিটি সাবধানে নিচে নেমে এলো, কৃতজ্ঞচিত্তে কয়েক চুমুক পানি পান করল এবং আরামদায়ক পানিতে আনন্দের সাথে ডানা ঝাপটালো।' },
+              { en: 'Soon after, Ayaan scattered generous handfuls of breadcrumbs and grain across the soft green grass.', bn: 'কিছুক্ষণ পর, আয়ান নরম সবুজ ঘাসের ওপর উদারহস্তে কিছু রুটির টুকরো ও শস্যদানা ছড়িয়ে দিল।' },
+              { en: 'The sparrow chirped a cheerful melody that echoed vibrantly through the warm afternoon breeze.', bn: 'চড়ুইটি একটি মধুর সুরে কিচিরমিচির করে উঠল যা দুপুরের মিষ্টি বাতাসে প্রাণবন্তভাবে প্রতিধ্বনিত হলো।' },
+              { en: 'From that unforgettable day, the little bird returned faithfully every morning to greet Ayaan at his bedroom window.', bn: 'সেই অবিস্মরণীয় দিন থেকে, ছোট্ট পাখিটি প্রতিদিন সকালে আয়ানের শোবার ঘরের জানালার কাছে এসে তাকে অভিবাদন জানাত।' },
+              { en: 'Ayaan learned that a simple act of kindness creates a lasting bond of genuine friendship and pure joy.', bn: 'আয়ান শিখল যে দয়ার একটি ছোট্ট কাজও প্রকৃত বন্ধুত্বের এক চিরস্থায়ী বন্ধন এবং অনাবিল আনন্দ তৈরি করতে পারে।' }
             ]
           },
           {
-            title: 'Story 2: The Magic of One Word a Day (প্রতিদিন একটি শব্দের জাদু)',
+            id: 'beg-story-2',
+            title: 'Story 2: The Riverboat That Carried Dreams (নৌকাভর্তি বই ও নতুন স্বপ্নের আলো)',
+            theme: 'Curiosity, Regular Practice & Friendship (কৌতূহল ও নিয়মিত শব্দ চর্চা)',
+            readTime: '3 min read',
+            moralBn: 'প্রতিদিন অল্প অল্প করে নতুন কিছু শেখার আগ্রহ মানুষকে যেকোনো প্রতিকূলতা পেরিয়ে নতুন উচ্চতায় নিয়ে যায়।',
+            vocabularyFocus: ['Curious', 'Patient', 'Grateful', 'Friendly', 'Bright'],
             sentences: [
-              { en: 'Mina wanted to speak English fluently, but she felt shy at first.', bn: 'মিনা সাবলীলভাবে ইংরেজি বলতে চাইত, কিন্তু শুরুতে সে লজ্জা পেত।' },
-              { en: 'Her grandmother gave her a small notebook and said, "Learn just three new words every day."', bn: 'তার দাদি তাকে একটি ছোট নোটবুক দিয়ে বললেন, "প্রতিদিন মাত্র তিনটি করে নতুন শব্দ শেখো।"' },
-              { en: 'Mina practiced with patience and used those words while talking with her friends.', bn: 'মিনা ধৈর্য ধরে অনুশীলন করল এবং বন্ধুদের সাথে কথা বলার সময় সেই শব্দগুলো ব্যবহার করল।' },
-              { en: 'Within a few months, she could tell entire stories with confidence and joy.', bn: 'কয়েক মাসের মধ্যেই সে আত্মবিশ্বাস ও আনন্দের সাথে পুরো গল্প বলতে পারত।' }
+              { en: 'Deep in the riverlands of Bangladesh, young Mina dreamed of speaking English with visitors from faraway lands.', bn: 'বাংলাদেশের এক নদীমাতৃক প্রত্যন্ত অঞ্চলে, তরুণী মিনা দূরদেশের পর্যটকদের সাথে সাবলীলভাবে ইংরেজি বলার স্বপ্ন দেখত।' },
+              { en: 'Her village had no paved roads, but a colorful wooden boat arrived at the rustic dock every Monday morning.', bn: 'তার গ্রামে কোনো পাকা রাস্তা ছিল না, কিন্তু প্রতি সোমবার সকালে কাঠের ঘাটে একটি রঙিন কাঠের নৌকা এসে ভিড়ত।' },
+              { en: 'It was a floating library equipped with vibrant picture books and cheerful audio stories.', bn: 'এটি ছিল একটি ভ্রাম্যমাণ ভাসমান লাইব্রেরি, যাতে ছিল প্রাণবন্ত ছবির বই এবং আনন্দময় অডিও গল্প।' },
+              { en: 'The kind boat captain, Uncle Rahim, was always generous with his time and encouraged every curious learner.', bn: 'দয়ালু নৌকার মাঝি রহিম চাচা সবসময় হাসিমুখে সময় দিতেন এবং প্রতিটি কৌতূহলী শিক্ষার্থীকে উৎসাহ জোগাতেন।' },
+              { en: 'He handed Mina a small notebook and said, "If you learn three new words each day, a whole new world will open."', bn: 'তিনি মিনার হাতে একটি ছোট নোটবুক তুলে দিয়ে বললেন, "তুমি যদি প্রতিদিন তিনটি করে নতুন শব্দ শেখো, তবে তোমার সামনে এক নতুন জগৎ উন্মোচিত হবে।"' },
+              { en: 'Mina was diligent and practiced her pronunciation out loud while walking along the calm riverbank.', bn: 'মিনা ছিল অত্যন্ত পরিশ্রমী এবং শান্ত নদীর পাড় ধরে হাঁটার সময় সে উচ্চস্বরে প্রতিটি শব্দের উচ্চারণ অনুশীলন করত।' },
+              { en: 'She felt deeply grateful whenever she mastered a tricky phrase and shared the meaning with her younger brother.', bn: 'যখনই সে কোনো কঠিন বাক্য শিখে ফেলত, তখন সে মনে গভীর কৃতজ্ঞতা অনুভব করত এবং ছোট ভাইকে তার অর্থ বুঝিয়ে দিত।' },
+              { en: 'By winter, Mina was confident enough to translate English nature stories for elderly villagers who could not read.', bn: 'শীতকাল আসতে না আসতেই মিনা এতটাই আত্মবিশ্বাসী হয়ে উঠল যে সে নিরক্ষর প্রবীণ গ্রামবাসীদের ইংরেজি গল্প বাংলায় অনুবাদ করে শোনাত।' },
+              { en: 'She proved that curiosity and steady daily practice can build bridges across any distance.', bn: 'সে প্রমাণ করল যে অদম্য কৌতূহল এবং প্রতিদিনের নিয়মতান্ত্রিক চর্চা যেকোনো দূরত্বের মধ্যেও সেতুবন্ধন রচনা করতে পারে।' }
             ]
           }
         ]
@@ -528,22 +548,110 @@
         ],
         stories: [
           {
-            title: 'Story 1: The Bridge Across the Valley (উপত্যকার ওপর সেতু)',
+            id: 'int-story-1',
+            title: 'Story 1: The Architect of the Rooftop Forest (সবুজ ছাদ ও এক স্বপ্নদর্শী স্থপতির গল্প)',
+            theme: 'Resilience, Sustainability & Meticulous Planning (স্থায়িত্ব ও বাস্তবমুখী প্রচেষ্টা)',
+            readTime: '4 min read',
+            moralBn: 'নিষ্ঠা ও বাস্তবমুখী চিন্তাভাবনার মাধ্যমে মানুষের সম্মিলিত উদ্যোগ যেকোনো শুষ্ক পরিবেশকে ফুলে-ফলে ভরিয়ে তুলতে পারে।',
+            vocabularyFocus: ['Meticulous', 'Resilient', 'Pragmatic', 'Versatile', 'Flourish', 'Inevitable'],
             sentences: [
-              { en: 'Two neighboring villages were separated by a wide river that flooded every monsoon.', bn: 'দুটি প্রতিবেশী গ্রাম একটি প্রশস্ত নদী দ্বারা বিচ্ছিন্ন ছিল যা প্রতি বর্ষায় প্লাবিত হতো।' },
-              { en: 'Instead of complaining, the villagers decided to collaborate and build a wooden bridge.', bn: 'অভিযোগ করার পরিবর্তে গ্রামবাসীরা একসাথে কাজ করে একটি কাঠের সেতু নির্মাণের সিদ্ধান্ত নিল।' },
-              { en: 'The elders shared meticulous plans while the youth carried timber with resilient energy.', bn: 'প্রবীণরা নিখুঁত পরিকল্পনা ভাগ করে নিলেন আর তরুণরা অদম্য শক্তিতে কাঠ বয়ে আনল।' },
-              { en: 'When the bridge opened, trade and friendship flourished between both communities.', bn: 'সেতুটি চালু হওয়ার পর উভয় জনগোষ্ঠীর মধ্যে বাণিজ্য ও বন্ধুত্ব সমৃদ্ধ হয়ে উঠল।' }
+              { en: 'Living in a congested metropolis, architect Tanvir grew weary of the endless concrete and oppressive summer heat.', bn: 'এক যানজটপূর্ণ মহানগরীতে বাস করতে করতে স্থপতি তানভীর অন্তহীন কংক্রিট এবং অসহনীয় গ্রীষ্মের গরমে ক্লান্ত হয়ে পড়েছিলেন।' },
+              { en: 'He conceived a bold plan to transform an abandoned communal rooftop into a lush, edible terrace garden.', bn: 'তিনি একটি পরিত্যক্ত যৌথ ছাদকে একটি সবুজ, ফলদ ও ওষধি উদ্ভিদের সতেজ উদ্যানে রূপান্তর করার একটি সাহসী পরিকল্পনা গ্রহণ করলেন।' },
+              { en: 'Many cynical neighbors dismissed the idea, arguing that tropical storms would inevitably destroy the soil beds.', bn: 'অনেক হতাশাবাদী প্রতিবেশী এই ধারণাকে বাতিল করে দিয়ে দাবি করেছিল যে গ্রীষ্মমণ্ডলীয় ঝড় মাটির বেডগুলো অনিবার্যভাবেই ধ্বংস করে দেবে।' },
+              { en: 'Undeterred, Tanvir relied on his meticulous research and designed lightweight planters with recycled rainwater reservoirs.', bn: 'নিরুৎসাহিত না হয়ে, তানভীর তার নিখুঁত গবেষণার ওপর নির্ভর করলেন এবং বৃষ্টির পানি সংরক্ষণের সুবিধাযুক্ত হালকা প্ল্যান্টার ডিজাইন করলেন।' },
+              { en: 'He remained remarkably resilient even when a sudden monsoon gale knocked down their initial bamboo trellises.', bn: 'হঠাৎ বর্ষার ঝড়ো হাওয়া যখন তাদের প্রাথমিক বাঁশের মাচাগুলো ভেঙে দিল, তখনও তিনি অসাধারণভাবে অটল ও দৃঢ়প্রতিজ্ঞ রইলেন।' },
+              { en: 'He adopted a pragmatic approach by consulting local farmers and substituting fragile vines with hardy medicinal plants.', bn: 'তিনি স্থানীয় কৃষকদের সাথে পরামর্শ করে এবং ভঙ্গুর লতার বদলে সহনশীল ওষধি গাছ লাগিয়ে একটি বাস্তবসম্মত কৌশল অবলম্বন করলেন।' },
+              { en: 'Within six months, vibrant tomatoes, fresh mint, and sweet jasmine flourished across the rooftop.', bn: 'ছয় মাসের মধ্যে ছাদজুড়ে লাল টমেটো, তাজা পুদিনা এবং মিষ্টি বেলী ফুলের চমৎকার ফলন শুরু হলো।' },
+              { en: 'The once-skeptical residents now gathered there every evening to sip tea and breathe clean, fragrant air.', bn: 'যে বাসিন্দারা একসময় সন্দেহ পোষণ করতেন, তারাই এখন প্রতিদিন সন্ধ্যায় চা পান করতে এবং নির্মল সুবাসিত বাতাস নিতে সেখানে সমবেত হন।' },
+              { en: 'Tanvir showed that sustainable urban living begins when creative vision embraces patient craftsmanship.', bn: 'তানভীর দেখালেন যে টেকসই নগরজীবন তখনই শুরু হয় যখন সৃজনশীল দূরদৃষ্টির সাথে ধৈর্যশীল কাজের মেলবন্ধন ঘটে।' }
             ]
           },
           {
-            title: 'Story 2: The Lighthouse Keeper’s Journal (বাতিঘর রক্ষকের দিনলিপি)',
+            id: 'int-story-2',
+            title: 'Story 2: The Compass of the Deep Delta (মোহনার অভিযাত্রী ও প্রাচীন বাতিঘরের সন্ধান)',
+            theme: 'Perseverance, Collaboration & Discovery (অধ্যবসায় ও সম্মিলিত গবেষণা)',
+            readTime: '4 min read',
+            moralBn: 'প্রযুক্তি যতই উন্নত হোক না কেন, উপস্থিত বুদ্ধি ও স্থানীয় অভিজ্ঞতার সম্মিলনই বড় বড় সংকট কাটিয়ে ওঠার শ্রেষ্ঠ হাতিয়ার।',
+            vocabularyFocus: ['Navigate', 'Turbulent', 'Comprehensive', 'Collaborate', 'Perseverance'],
             sentences: [
-              { en: 'Every evening, Kabir climbed the spiral stairs of the coastal lighthouse before sunset.', bn: 'প্রতিদিন সন্ধ্যায় সূর্যাস্তের আগে কবির উপকূলীয় বাতিঘরের প্যাঁচানো সিঁড়ি বেয়ে ওপরে উঠতেন।' },
-              { en: 'He polished the glass lens so sailors could navigate safely through stormy nights.', bn: 'তিনি কাঁচের লেন্সটি ঘষে পরিষ্কার করতেন যাতে নাবিকরা ঝড়ো রাতে নিরাপদে পথ চলতে পারেন।' },
-              { en: 'Though his work was quiet, its impact on passing ships was inevitable and life-saving.', bn: 'যদিও তার কাজটি ছিল নীরব, তবুও অতিক্রমকারী জাহাজগুলোর ওপর এর প্রভাব ছিল অনিবার্য ও জীবনরক্ষাকারী।' },
-              { en: 'His journal reminded young visitors that small daily duties create lasting safety.', bn: 'তার দিনলিপি তরুণ দর্শনার্থীদের মনে করিয়ে দিত যে প্রতিদিনের ছোট দায়িত্বগুলোই দীর্ঘস্থায়ী নিরাপত্তা তৈরি করে।' }
+              { en: 'A young team of marine biologists set sail into the southern delta to monitor endangered river dolphins.', bn: 'বিলুপ্তপ্রায় ডলফিন পর্যবেক্ষণের জন্য সামুদ্রিক জীববিজ্ঞানীদের একটি তরুণ দল দক্ষিণের মোহনায় যাত্রা শুরু করেছিল।' },
+              { en: 'They carried sophisticated sensors to track salinity fluctuations across the vast mangrove tributaries.', bn: 'বিশাল সুন্দরবনের শাখা নদীগুলোতে লবণাক্ততার ওঠানামা ট্র্যাক করতে তারা অত্যাধুনিক সেন্সর বহন করছিলেন।' },
+              { en: 'Midway through the expedition, their main navigation monitor malfunctioned under a sudden deluge.', bn: 'অভিযানের মাঝামাঝি সময়ে, আকস্মিক মুষলধারে বৃষ্টির কারণে তাদের মূল নেভিগেশন মনিটরটি বিকল হয়ে যায়।' },
+              { en: 'Rather than succumbing to panic, the lead researcher navigated using traditional tidal charts and celestial cues.', bn: 'আতঙ্কিত না হয়ে, প্রধান গবেষক ঐতিহ্যবাহী জোয়ার-ভাটার চার্ট এবং আকাশের তারার সংকেত ব্যবহার করে জাহাজ পরিচালনা করলেন।' },
+              { en: 'They sought temporary refuge near a historic coastal lighthouse that had guided merchant vessels for a century.', bn: 'তারা একটি ঐতিহাসিক উপকূলীয় বাতিঘরের কাছে অস্থায়ী আশ্রয় নিয়েছিল, যা এক শতাব্দী ধরে বাণিজ্যিক জাহাজগুলোকে পথ দেখিয়ে আসছে।' },
+              { en: 'The elderly lighthouse keeper shared valuable oral history regarding the changing patterns of coastal siltation.', bn: 'প্রবীণ বাতিঘর রক্ষক উপকূলীয় পলি জমার পরিবর্তনশীল গতিপ্রকৃতি সম্পর্কে অত্যন্ত মূল্যবান মৌখিক অভিজ্ঞতা শেয়ার করলেন।' },
+              { en: 'This unexpected encounter enriched the team’s scientific paper with invaluable contextual depth.', bn: 'এই অপ্রত্যাশিত সাক্ষাৎকারটি গবেষক দলের বৈজ্ঞানিক গবেষণাপত্রকে অমূল্য বাস্তব গভীরতা প্রদান করল।' },
+              { en: 'When the expedition safely concluded, the researchers published a groundbreaking report on delta conservation.', bn: 'অভিযানটি সফলভাবে শেষ হওয়ার পর গবেষকরা বদ্বীপ সংরক্ষণের ওপর একটি যুগান্তকারী প্রতিবেদন প্রকাশ করেন।' },
+              { en: 'Their journey proved that modern science flourishes best when coupled with the humble wisdom of local tradition.', bn: 'তাদের এই যাত্রা প্রমাণ করল যে আধুনিক বিজ্ঞান তখনই সবচেয়ে বেশি সমৃদ্ধ হয় যখন তা স্থানীয় ঐতিহ্যের প্রজ্ঞার সাথে যুক্ত হয়।' }
             ]
+          }
+        ],
+        newspaperSentences: [
+          {
+            id: 'news-int-1',
+            source: 'The Daily Star',
+            category: 'Environment & Climate',
+            headline: 'Urban greening vital to counter rising heat island effect in Dhaka',
+            sentence: 'Urban environmental experts emphasized that restoring lost canals and expanding the tree canopy across the capital is indispensable to combatting severe heat stress.',
+            sentenceBn: 'নগর পরিবেশ বিশেষজ্ঞরা জোর দিয়ে বলেন যে, হারিয়ে যাওয়া খালগুলো পুনরুদ্ধার এবং রাজধানীজুড়ে গাছের আচ্ছাদন সম্প্রসারণ করা তীব্র তাপদাহ মোকাবেলায় অপরিহার্য।',
+            keyWord: 'Indispensable',
+            keyWordMeaningBn: 'অপরিহার্য বা অত্যন্ত প্রয়োজনীয়',
+            editorialNote: 'পত্রিকার পরিবেশ ও নগর উন্নয়ন বিষয়ক প্রতিবেদনে কোনো সমাধানের চরম প্রয়োজনীয়তা বোঝাতে "indispensable" শব্দটি বহুল ব্যবহৃত।'
+          },
+          {
+            id: 'news-int-2',
+            source: 'The Guardian',
+            category: 'Global Education',
+            headline: 'Community libraries transform literacy rates in rural river deltas',
+            sentence: 'The educational initiative demonstrated that community-led mobile libraries can successfully foster independent reading habits among young students.',
+            sentenceBn: 'এই শিক্ষামূলক উদ্যোগটি প্রদর্শন করেছে যে সমাজের নেতৃত্বে পরিচালিত ভ্রাম্যমাণ লাইব্রেরিগুলো তরুণ শিক্ষার্থীদের মধ্যে স্বাধীনভাবে পড়ার অভ্যাস সফলভাবে গড়ে তুলতে ও লালন করতে পারে।',
+            keyWord: 'Foster',
+            keyWordMeaningBn: 'লালন করা, গড়ে তোলা বা উৎসাহিত করা',
+            editorialNote: 'সংবাদপত্রের শিরোনাম ও সম্পাদকীয়তে ইতিবাচক অভ্যাস বা সম্পর্ককে উৎসাহিত করা অর্থে "foster" শব্দটি একটি প্রিয় পছন্দ।'
+          },
+          {
+            id: 'news-int-3',
+            source: 'BBC News',
+            category: 'Renewable Energy',
+            headline: 'Offshore wind expansion hits record capacity across coastal regions',
+            sentence: 'Energy analysts observed that modern turbine efficiency has made renewable generation far more viable and economically competitive than fossil fuels.',
+            sentenceBn: 'জ্বালানি বিশ্লেষকরা লক্ষ্য করেছেন যে আধুনিক টারবাইনের কার্যক্ষমতা নবায়নযোগ্য বিদ্যুৎ উৎপাদনকে জীবাশ্ম জ্বালানির তুলনায় অনেক বেশি টেকসই ও লাভজনক করেছে।',
+            keyWord: 'Viable',
+            keyWordMeaningBn: 'কার্যকর, টেকসই বা বাস্তবসম্মত',
+            editorialNote: 'অর্থনৈতিক বা প্রযুক্তিগত সম্ভাব্যতা বোঝাতে সংবাদমাধ্যমে "commercially viable" বা "economically viable" কলোকেশন অত্যন্ত জনপ্রিয়।'
+          },
+          {
+            id: 'news-int-4',
+            source: 'Reuters',
+            category: 'Economy & Agriculture',
+            headline: 'Smallholder farmers adopt drought-tolerant seeds amid erratic monsoons',
+            sentence: 'Agricultural economists noted that smallholder farmers showed remarkable resilience by switching to flood-tolerant hybrid crops during the unpredictable monsoon.',
+            sentenceBn: 'কৃষি অর্থনীতিবিদরা উল্লেখ করেছেন যে অনাকাঙ্ক্ষিত বর্ষার মৌসুমে বন্যা-সহনশীল হাইব্রিড ফসলে স্থানান্তরিত হয়ে ক্ষুদ্র কৃষকরা অসাধারণ স্থিতিস্থাপকতা ও ঘুরে দাঁড়ানোর ক্ষমতা দেখিয়েছেন।',
+            keyWord: 'Resilience',
+            keyWordMeaningBn: 'স্থিতিস্থাপকতা, ঘুরে দাঁড়ানোর অদম্য ক্ষমতা',
+            editorialNote: 'অর্থনৈতিক মন্দা, জলবায়ু সংকট বা দুর্বিপাক থেকে দ্রুত সেরে ওঠার ক্ষমতা বোঝাতে সংবাদপত্রে "resilience" শব্দটি সর্বাধিক ব্যবহৃত।'
+          },
+          {
+            id: 'news-int-5',
+            source: 'The Daily Star',
+            category: 'Public Health',
+            headline: 'Mobile health clinics bring specialized care to remote char communities',
+            sentence: 'Healthcare administrators confirmed that mobile telemedicine units provide a comprehensive network of diagnostic screening for families living in isolated river islands.',
+            sentenceBn: 'স্বাস্থ্য প্রশাসকরা নিশ্চিত করেছেন যে ভ্রাম্যমাণ টেলিমেডিসিন ইউনিটগুলো দুর্গম চরাঞ্চলে বসবাসকারী পরিবারগুলোর জন্য রোগ নির্ণয়ের একটি সমন্বিত ও ব্যাপক নেটওয়ার্ক প্রদান করছে।',
+            keyWord: 'Comprehensive',
+            keyWordMeaningBn: 'ব্যাপক, সমন্বিত ও পূর্ণাঙ্গ',
+            editorialNote: 'পত্রিকায় কোনো সরকারি পরিকল্পনা, নীতি বা সেবার পূর্ণাঙ্গ রূপ প্রকাশ করতে "comprehensive plan/strategy" বহুল ব্যবহৃত।'
+          },
+          {
+            id: 'news-int-6',
+            source: 'The Independent',
+            category: 'Technology & Skills',
+            headline: 'Youth coding bootcamps bridge digital divide in developing districts',
+            sentence: 'Industry mentors highlighted that mastering software fundamentals enables young graduates to adapt quickly to fast-evolving global workplace demands.',
+            sentenceBn: 'শিল্প মেন্টররা গুরুত্ব সহকারে বলেন যে সফটওয়্যার তৈরির মূল বিষয়গুলো আয়ত্ত করা তরুণ গ্র্যাজুয়েটদের দ্রুত পরিবর্তনশীল বৈশ্বিক কর্মক্ষেত্রের চাহিদার সাথে খাপ খাইয়ে নিতে সহায়তা করে।',
+            keyWord: 'Adapt',
+            keyWordMeaningBn: 'খাপ খাওয়ানো, মানিয়ে নেওয়া',
+            editorialNote: 'কর্মক্ষেত্রের পরিবর্তন এবং আধুনিক প্রযুক্তির সাথে মানিয়ে নেওয়া প্রসঙ্গে পত্রিকায় "adaptability" ও "adapt to" ব্যাপকভাবে ব্যবহৃত হয়।'
           }
         ]
       },
@@ -749,22 +857,110 @@
         ],
         stories: [
           {
-            title: 'Passage 1: The Architecture of Human Memory (মানব স্মৃতির গঠনশৈলী)',
+            id: 'adv-story-1',
+            title: 'Passage 1: The Symphony of Forgotten Scripts (লুপ্ত লিপির সুর ও ভাষাতাত্ত্বিক আবিষ্কারের কাহিনী)',
+            theme: 'Linguistics, Cultural Heritage & Intellectual Discovery (ভাষাতত্ত্ব ও সাংস্কৃতিক ঐতিহ্য)',
+            readTime: '5 min read',
+            moralBn: 'ইতিহাস ও হারিয়ে যাওয়া ভাষার পুনরুদ্ধার কেবল অতীতকে জানা নয়, বরং মানব সভ্যতার শিকড়কে সম্মান জানিয়ে ভবিষ্যতের পথকে সমৃদ্ধ করা।',
+            vocabularyFocus: ['Ubiquitous', 'Eloquent', 'Paradigm', 'Profound', 'Articulate', 'Empirical'],
             sentences: [
-              { en: 'Cognitive scientists have long scrutinized how fleeting impressions transform into enduring knowledge.', bn: 'জ্ঞানীয় বিজ্ঞানীরা দীর্ঘদিন ধরে খুঁটিয়ে পরীক্ষা করেছেন কীভাবে ক্ষণস্থায়ী ছাপগুলো দীর্ঘস্থায়ী জ্ঞানে রূপান্তরিত হয়।' },
-              { en: 'Passive repetition rarely produces deep retention unless learners actively retrieve ideas in context.', bn: 'শিক্ষার্থীরা প্রেক্ষাপট অনুযায়ী সক্রিয়ভাবে ধারণাগুলো পুনরুদ্ধার না করলে নিষ্ক্রিয় পুনরাবৃত্তি খুব কমই গভীর স্মৃতি তৈরি করে।' },
-              { en: 'Connecting unfamiliar terms to vivid personal examples builds pragmatic neural pathways.', bn: 'অপরিচিত শব্দগুলোকে জীবন্ত ব্যক্তিগত উদাহরণের সাথে যুক্ত করলে বাস্তবসম্মত স্নায়বিক সংযোগ তৈরি হয়।' },
-              { en: 'Consequently, thoughtful reflection turns isolated vocabulary into an articulate voice.', bn: 'ফলস্বরূপ, সুচিন্তিত অনুধ্যান বিচ্ছিন্ন শব্দভান্ডারকে একটি প্রাঞ্জল কণ্ঠস্বরে পরিণত করে।' }
+              { en: 'High in a mist-shrouded monastery in the eastern highlands, Dr. Aranya discovered a brittle manuscript dating back eight centuries.', bn: 'পূর্বের পাহাড়ি অঞ্চলের কুয়াশাচ্ছন্ন এক প্রাচীন মঠে ড. অরণ্য আট শতাব্দী আগের একটি ভঙ্গুর প্রাচীন পাণ্ডুলিপি আবিষ্কার করেন।' },
+              { en: 'The parchment was inscribed in an obsolete dialect that previous philologists had deemed virtually indecipherable.', bn: 'চামড়ার পাণ্ডুলিপিটিতে এমন একটি বিলুপ্ত উপভাষায় লেখা ছিল যা পূর্ববর্তী ভাষাতাত্ত্বিকরা প্রায় দুর্বোধ্য বলে বিবেচনা করেছিলেন।' },
+              { en: 'Rather than relying solely on conventional methods, she employed an innovative linguistic paradigm combining morphology and computational archaeology.', bn: 'কেবলমাত্র প্রথাগত পদ্ধতির ওপর নির্ভর না করে, তিনি রূপমূলতত্ত্ব এবং কম্পিউটেশনাল প্রত্নতত্ত্বের সমন্বয়ে একটি উদ্ভাবনী ভাষাগত প্যারাডাইম প্রয়োগ করলেন।' },
+              { en: 'She recognized that the text articulated profound metaphysical insights concerning ecological harmony and agricultural cycles.', bn: 'তিনি বুঝতে পেরেছিলেন যে এই পাঠ্যাংশটিতে পরিবেশগত ভারসাম্য এবং কৃষিচক্র সম্পর্কিত গভীর আত্মতাত্ত্বিক উপলব্ধি তুলে ধরা হয়েছে।' },
+              { en: 'Each meticulously reconstructed stanza revealed eloquent metaphors comparing human sorrow to the seasonal recession of floodwaters.', bn: 'নিখুঁতভাবে পুনর্গঠিত প্রতিটি শ্লোকে এমন প্রাঞ্জল রূপক প্রকাশ পেল যা মানুষের দুঃখকষ্টকে বন্যার পানির মৌসুমী নেমে যাওয়ার সাথে তুলনা করেছে।' },
+              { en: 'Her research demonstrated that seemingly archaic vocabularies preserve quintessential cultural wisdom essential for modern sustainability.', bn: 'তার গবেষণা প্রদর্শন করেছে যে আপাতদৃষ্টিতে প্রাচীন শব্দভান্ডারও আধুনিক টেকসই জীবনের জন্য প্রয়োজনীয় মৌলিক সাংস্কৃতিক প্রজ্ঞা সংরক্ষণ করে।' },
+              { en: 'When she presented her empirical findings at the international symposium, fellow linguists gave her a standing ovation.', bn: 'যখন তিনি আন্তর্জাতিক সিম্পোজিয়ামে তার গবেষণালব্ধ প্রমাণ উপস্থাপন করলেন, তখন উপস্থিত ভাষাতাত্ত্বিকরা দাঁড়িয়ে তাকে আন্তরিক অভিবাদন জানালেন।' },
+              { en: 'The translation bridged an eight-hundred-year intellectual chasm, restoring a silenced voice to global cultural heritage.', bn: 'এই অনুবাদটি আটশত বছরের বুদ্ধিবৃত্তিক ব্যবধান দূর করে বৈশ্বিক সাংস্কৃতিক ঐতিহ্যে একটি নীরব হয়ে যাওয়া কণ্ঠস্বরকে পুনরুজ্জীবিত করল।' },
+              { en: 'Ultimately, her scholarship underscored that deciphering the past is an indispensable act of honoring our collective human consciousness.', bn: 'পরিশেষে, তার পাণ্ডিত্য স্পষ্ট করল যে অতীতকে পাঠ করা আমাদের সমষ্টিগত মানবিক চেতনাকে সম্মান জানানোরই এক অপরিহার্য প্রয়াস।' }
             ]
           },
           {
-            title: 'Passage 2: Preserving Vanishing Languages (বিলুপ্তপ্রায় ভাষা সংরক্ষণ)',
+            id: 'adv-story-2',
+            title: 'Passage 2: The Architecture of Memory and Light (স্মৃতি, আলো ও নিউরোসায়েন্সের গভীর পাঠ)',
+            theme: 'Cognitive Neuroscience, Environmental Design & Empirical Rigor (জ্ঞানীয় স্নায়ুবিজ্ঞান ও পরিবেশগত স্থাপত্য)',
+            readTime: '5 min read',
+            moralBn: 'বিজ্ঞান ও শিল্প যখন মানবকল্যাণে একাত্ম হয়, তখন তা আমাদের মানসিক স্বাস্থ্য ও কর্মক্ষমতায় বৈপ্লবিক পরিবর্তন নিয়ে আসে।',
+            vocabularyFocus: ['Cognitive', 'Empirical', 'Plasticity', 'Ubiquitous', 'Articulate', 'Dichotomy'],
             sentences: [
-              { en: 'In an increasingly interconnected world, dominant global languages have become nearly ubiquitous.', bn: 'ক্রমবর্ধমান আন্তঃসংযুক্ত বিশ্বে প্রভাবশালী বৈশ্বিক ভাষাগুলো প্রায় সর্বব্যাপী হয়ে উঠেছে।' },
-              { en: 'Yet every indigenous dialect carries quintessential wisdom about local ecology and human history.', bn: 'তবুও প্রতিটি স্থানীয় উপভাষা আঞ্চলিক বাস্তুসংস্থান এবং মানব ইতিহাসের সর্বোৎকৃষ্ট প্রজ্ঞা বহন করে।' },
-              { en: 'Linguists now collaborate with elder storytellers to archive oral traditions before they fade.', bn: 'ভাষাবিদরা এখন প্রবীণ গল্পকারদের সাথে একসাথে কাজ করছেন যাতে মৌখিক ঐতিহ্য হারিয়ে যাওয়ার আগেই তা সংরক্ষণ করা যায়।' },
-              { en: 'Such archival efforts ensure that cultural diversity remains vibrant for future generations.', bn: 'এই ধরনের সংরক্ষণ প্রচেষ্টা নিশ্চিত করে যে সাংস্কৃতিক বৈচিত্র্য ভবিষ্যৎ প্রজন্মের জন্য প্রাণবন্ত থাকে।' }
+              { en: 'In her cognitive neuroscience laboratory, Dr. Nafisa investigated how physical architecture influences spatial memory and creativity.', bn: 'তার কগনিটিভ নিউরোসায়েন্স ল্যাবরেটরিতে, ড. নাফিসা গবেষণা করছিলেন যে বাস্তব স্থাপত্যকলা কীভাবে মানুষের স্থানিক স্মৃতি এবং সৃজনশীলতাকে প্রভাবিত করে।' },
+              { en: 'She hypothesized that daylight exposure and harmonious geometry profoundly enhance synaptic plasticity during problem-solving tasks.', bn: 'তিনি হাইপোথিসিস দাঁড় করালেন যে দিনের আলো এবং সুষম জ্যামিতি জটিল সমস্যা সমাধানের সময় সিন্যাপটিক প্লাস্টিসিটি ব্যাপকভাবে বৃদ্ধি করে।' },
+              { en: 'Over three rigorous years, she gathered empirical neuroimaging data from diverse cohorts of designers, mathematicians, and writers.', bn: 'তিন বছরের কঠোর গবেষণায় তিনি ডিজাইনার, গণিতবিদ ও লেখকদের বিভিন্ন দল থেকে প্রামাণিক নিউরো-ইমেজিং ডেটা সংগ্রহ করলেন।' },
+              { en: 'Her analysis revealed a ubiquitous correlation between structured natural environments and heightened alpha-wave coherence.', bn: 'তার বিশ্লেষণ দেখাল যে সুশৃঙ্খল প্রাকৃতিক পরিবেশের সাথে উচ্চমানের আলফা-তরঙ্গ সুসংগতির একটি সর্বব্যাপী সম্পর্ক রয়েছে।' },
+              { en: 'Conversely, claustrophobic and dimly lit cubicles triggered chronic cortisol spikes, severely impairing divergent cognitive faculties.', bn: 'বিপরীতভাবে, সংকীর্ণ ও অনুজ্জ্বল আলোহীন ছোট ঘর দীর্ঘস্থায়ী কর্টিসলের মাত্রা বাড়িয়ে সৃজনশীল চিন্তাভাবনার ক্ষমতাকে মারাত্মকভাবে বাধাগ্রস্ত করে।' },
+              { en: 'She articulated her groundbreaking conclusions in a peer-reviewed treatise that captivated both medical faculties and urban planners.', bn: 'তিনি একটি মর্যাদাপূর্ণ গবেষণাপত্রে তার যুগান্তকারী সিদ্ধান্তগুলো তুলে ধরেন, যা চিকিৎসা অনুষদ এবং নগর পরিকল্পনাবিদ উভয়কেই মুগ্ধ করে।' },
+              { en: 'Renowned hospital networks subsequently redesigned their pediatric wings to incorporate restorative skylights and botanical atriums.', bn: 'খ্যাতনামা হাসপাতাল নেটওয়ার্কগুলো পরবর্তীতে তাদের শিশু বিভাগগুলোকে প্রশান্তিদায়ক স্কাইলাইট এবং উদ্ভিদময় প্রাঙ্গণ সহকারে নতুনভাবে ডিজাইন করে।' },
+              { en: 'Her multidisciplinary work dismantled the false dichotomy between artistic intuition and rigorous scientific inquiry.', bn: 'তার বহুমাত্রিক গবেষণা শিল্পকলার অন্তর্জ্ঞান এবং কঠোর বৈজ্ঞানিক অনুসন্ধানের মধ্যকার কৃত্রিম বিভাজনকে ভেঙে চুরমার করে দিল।' },
+              { en: 'She proved that thoughtful structural design does not merely shelter our bodies—it actively sculpts how we think and feel.', bn: 'তিনি প্রমাণ করলেন যে সুচিন্তিত অবকাঠামো কেবল শরীরকেই আশ্রয় দেয় না—বরং আমরা কেমন ভাবি এবং অনুভব করি তাও সুচারুভাবে গড়ে তোলে।' }
             ]
+          }
+        ],
+        newspaperSentences: [
+          {
+            id: 'news-adv-1',
+            source: 'The New York Times',
+            category: 'Science & Climate',
+            headline: 'Glacial melt accelerates polar sea rise beyond earlier computer models',
+            sentence: 'Atmospheric scientists warned that current emissions trends will trigger an irreversible shift in oceanic currents, fundamentally altering continental weather patterns.',
+            sentenceBn: 'বায়ুমণ্ডলীয় বিজ্ঞানীরা সতর্ক করেছেন যে বর্তমান কার্বন নিঃসরণের প্রবণতা মহাসাগরীয় স্রোতে এক অপ্রত্যাবর্তনীয় পরিবর্তনের সূচনা করবে, যা মহাদেশীয় আবহাওয়ার রূপরেখাকে মৌলিকভাবে বদলে দেবে।',
+            keyWord: 'Irreversible',
+            keyWordMeaningBn: 'অপ্রত্যাবর্তনীয় বা যা আগের অবস্থায় ফিরিয়ে আনা অসম্ভব',
+            editorialNote: 'জলবায়ু ও জীববৈচিত্র্য বিষয়ক গভীর সম্পাদকীয়তে অপরিবর্তনীয় ক্ষতি বা প্রভাব বর্ণনা করতে "irreversible damage/shift" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-adv-2',
+            source: 'The Economist',
+            category: 'Global Governance',
+            headline: 'The shifting architecture of multilateral trade alliances',
+            sentence: 'The delicate compromise required diplomatic representatives to navigate conflicting regional mandates without compromising fundamental human rights benchmarks.',
+            sentenceBn: 'এই সূক্ষ্ম সমঝোতার জন্য কূটনীতিকদের মৌলিক মানবাধিকারের মানদণ্ড অক্ষুণ্ণ রেখে বিভিন্ন আঞ্চলিক স্বার্থের সংঘাতপূর্ণ অবস্থানগুলো দক্ষতার সাথে সমন্বয় করতে হয়েছিল।',
+            keyWord: 'Conflicting',
+            keyWordMeaningBn: 'পরস্পরবিরোধী বা সংঘাতময়',
+            editorialNote: 'কূটনৈতিক ও আন্তর্জাতিক সম্পর্কের বিশ্লেষণে জটিল স্বার্থ ও নীতিগত টানাপোড়েন বোঝাতে "conflicting mandates/interests" বহুল ব্যবহৃত।'
+          },
+          {
+            id: 'news-adv-3',
+            source: 'The Guardian Editorial',
+            category: 'Artificial Intelligence',
+            headline: 'Autonomous algorithms must not replace human accountability in justice',
+            sentence: 'Legal scholars contend that judicial sentencing algorithms, while mathematically fast, fail to perceive the subtle nuances of socio-economic context.',
+            sentenceBn: 'আইন পণ্ডিতরা যুক্তি দেন যে বিচারিক রায় দেওয়ার অ্যালগরিদমগুলো গাণিতিকভাবে দ্রুত হলেও আর্থ-সামাজিক প্রেক্ষাপটের সূক্ষ্ম তারতম্য ও জটিলতা উপলব্ধি করতে ব্যর্থ হয়।',
+            keyWord: 'Nuances',
+            keyWordMeaningBn: 'সূক্ষ্ম তারতম্য বা গভীর পার্থক্য',
+            editorialNote: 'বুদ্ধিবৃত্তিক কলাম ও দর্শনে স্থূল দৃষ্টিভঙ্গির বিপরীতে সূক্ষ্ম বিষয় উপলব্ধি করা বোঝাতে "nuance" এবং "subtle nuances" বহুল ব্যবহৃত।'
+          },
+          {
+            id: 'news-adv-4',
+            source: 'The Washington Post',
+            category: 'Economic Policy',
+            headline: 'Central banks struggle to maintain equilibrium amid supply chain shocks',
+            sentence: 'Fiscal policy makers acknowledged that sustaining monetary stability is increasingly precarious when geopolitical disruptions rattle commodity supply lines.',
+            sentenceBn: 'রাজস্ব নীতি প্রণেতারা স্বীকার করেছেন যে ভূ-রাজনৈতিক অস্থিতিশীলতা যখন কাঁচামালের সরবরাহ ব্যবস্থাকে এলোমেলো করে দেয়, তখন আর্থিক স্থিতিশীলতা বজায় রাখা অত্যন্ত ঝুঁকিপূর্ণ ও অনিশ্চিত হয়ে পড়ে।',
+            keyWord: 'Precarious',
+            keyWordMeaningBn: 'অনিশ্চিত, ঝুঁকিপূর্ণ বা নড়বড়ে',
+            editorialNote: 'অর্থনৈতিক অনিশ্চয়তা, ভঙ্গুর কর্মসংস্থান বা দুর্বল নিরাপত্তা পরিস্থিতি তুলে ধরতে সম্পাদকীয়তে "precarious position/balance" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-adv-5',
+            source: 'National Geographic',
+            category: 'Ecology & Biodiversity',
+            headline: 'Ancient peatlands store twice as much carbon as all the world forests',
+            sentence: 'Protecting intact peatland ecosystems is paramount to maintaining global biospheric equilibrium and mitigating atmospheric carbon concentrations.',
+            sentenceBn: 'বৈশ্বিক জীবমণ্ডলের ভারসাম্য বজায় রাখা এবং বায়ুমণ্ডলে কার্বনের ঘনত্ব কমাতে অক্ষত পিটল্যান্ড বাস্তুতন্ত্র রক্ষা করা সর্বোচ্চ অগ্রাধিকার ও অপরিহার্য।',
+            keyWord: 'Paramount',
+            keyWordMeaningBn: 'সর্বোচ্চ গুরুত্বপূর্ণ, সর্বপ্রধান',
+            editorialNote: 'জরুরি জাতীয় স্বার্থ বা বৈশ্বিক অস্তিত্বের প্রশ্ন সংশ্লিষ্ট বিষয়ে সর্বাধিক গুরুত্ব বোঝাতে "paramount importance" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-adv-6',
+            source: 'Financial Times',
+            category: 'Digital Infrastructure',
+            headline: 'Antitrust regulators scrutinize cloud infrastructure consolidation',
+            sentence: 'Regulatory watchdogs argued that three multinational tech conglomerates now exert a ubiquitous influence over the sovereign digital infrastructure of dozens of nations.',
+            sentenceBn: 'নিয়ন্ত্রণকারী কর্তৃপক্ষ যুক্তি দেখিয়েছে যে তিনটি বহুজাতিক প্রযুক্তি জায়ান্ট এখন বিশ্বের বহু দেশের সার্বভৌম ডিজিটাল অবকাঠামোর ওপর সর্বব্যাপী ও অপ্রতিরোধ্য প্রভাব বিস্তার করছে।',
+            keyWord: 'Ubiquitous',
+            keyWordMeaningBn: 'সর্বব্যাপী বা সর্বত্র বিদ্যমান',
+            editorialNote: 'প্রযুক্তির সর্বগ্রাসী বিস্তৃতি বা ডিজিটাল সেবার আধিপত্য বর্ণনা করতে আন্তর্জাতিক বাণিজ্য সাংবাদিকতায় "ubiquitous presence" প্রিয় শব্দ।'
           }
         ]
       },
@@ -970,22 +1166,110 @@
         ],
         stories: [
           {
-            title: 'Executive Case 1: Navigating Strategic Transformation (কৌশলগত রূপান্তর পরিচালনা)',
+            id: 'pro-story-1',
+            title: 'Executive Case 1: The Sovereign Grid Turnaround (জাতীয় পাওয়ার গ্রিড রূপান্তর ও কৌশলগত নেতৃত্ব)',
+            theme: 'Executive Leadership, Infrastructure & Risk Mitigation (কৌশলগত নেতৃত্ব ও সংকট নিরসন)',
+            readTime: '5 min read',
+            moralBn: 'দূরদর্শী পরিকল্পনা, ঝুঁকি ব্যবস্থাপনা এবং অংশীজনদের কার্যকর সমন্বয়ের মাধ্যমে যেকোনো ভঙ্গুর প্রতিষ্ঠানকে সাফল্যের মডেলে পরিণত করা সম্ভব।',
+            vocabularyFocus: ['Mitigate', 'Leverage', 'Benchmark', 'Stakeholder', 'Telemetry', 'Governance'],
             sentences: [
-              { en: 'When a legacy logistics enterprise faced unprecedented competition, its leadership refused to react impulsively.', bn: 'যখন একটি ঐতিহ্যবাহী লজিস্টিক প্রতিষ্ঠান নজিরবিহীন প্রতিযোগিতার মুখোমুখি হলো, তখন এর নেতৃত্ব আবেগতাড়িত প্রতিক্রিয়া দেখাতে অস্বীকৃতি জানাল।' },
-              { en: 'Instead, an astute task force scrutinized operational bottlenecks across forty regional hubs.', bn: 'পরিবর্তে, একটি বিচক্ষণ টাস্ক ফোর্স চল্লিশটি আঞ্চলিক কেন্দ্রের পরিচালনগত প্রতিবন্ধকতাগুলো খুঁটিয়ে পরীক্ষা করল।' },
-              { en: 'By building consensus among engineers and field managers, they expedited digital route optimization.', bn: 'প্রকৌশলী এবং মাঠ পর্যায়ের ব্যবস্থাপকদের মধ্যে ঐকমত্য গড়ে তুলে তারা ডিজিটাল রুট অপ্টিমাইজেশন ত্বরান্বিত করল।' },
-              { en: 'Within two quarters, transit delays dropped by half, exemplifying disciplined executive execution.', bn: 'দুই প্রান্তিকের মধ্যেই পরিবহন বিলম্ব অর্ধেকে নেমে আসে, যা সুশৃঙ্খল নির্বাহী বাস্তবায়নের আদর্শ দৃষ্টান্ত স্থাপন করে।' }
+              { en: 'When Chief Operations Officer Sarah assumed stewardship of the national energy grid, the utility was crippled by cascading blackouts and volatile fuel costs.', bn: 'চিফ অপারেশনস অফিসার সারাহ যখন জাতীয় পাওয়ার গ্রিডের দায়িত্বভার গ্রহণ করেন, তখন প্রতিষ্ঠানটি ঘনঘন লোডশেডিং এবং জ্বালানির অস্থিতিশীল মূল্যের চাপে বিধ্বস্ত ছিল।' },
+              { en: 'Immediate analysis revealed an antiquated transmission topology that leaked over twenty percent of generated electricity through sheer technical inefficiency.', bn: 'তাৎক্ষণিক বিশ্লেষণে একটি সেকেলে সঞ্চালন পরিকাঠামো ধরা পড়ে, যা নিছক প্রযুক্তিগত অদক্ষতার কারণে উৎপন্ন বিদ্যুতের বিশ শতাংশেরও বেশি অপচয় করছিল।' },
+              { en: 'Rather than seeking another short-term government bailout, Sarah designed a comprehensive, multi-phase modernization blueprint.', bn: 'সরকারের কাছ থেকে আরেকটি স্বল্পমেয়াদী আর্থিক সহায়তার আবেদন না করে, সারাহ একটি সমন্বিত, বহুমুখী আধুনিকীকরণ রূপরেখা প্রণয়ন করলেন।' },
+              { en: 'She engaged a diverse coalition of institutional stakeholders, securing long-term infrastructure funding from international climate bond consortia.', bn: 'তিনি বিভিন্ন প্রাতিষ্ঠানিক অংশীজনদের সাথে আলোচনা চালিয়ে আন্তর্জাতিক ক্লাইমেট বন্ড কনসোর্টিয়াম থেকে দীর্ঘমেয়াদী অবকাঠামোগত অর্থায়ন নিশ্চিত করলেন।' },
+              { en: 'Her engineering teams leveraged machine-learning telemetry to balance fluctuating renewable inputs from offshore wind and solar farms in real time.', bn: 'তার প্রকৌশল দলগুলো উপকূলীয় বায়ু ও সৌরবিদ্যুৎ কেন্দ্র থেকে প্রাপ্ত পরিবর্তনশীল বিদ্যুৎ রিয়েল-টাইমে ভারসাম্যপূর্ণ করতে মেশিন-লার্নিং ডেটা কাজে লাগাল।' },
+              { en: 'To mitigate supply disruption during the overhaul, Sarah negotiated stringent performance milestones with regional equipment manufacturers.', bn: 'সংস্কার চলাকালীন সরবরাহ বিঘ্নিত হওয়ার ঝুঁকি কমাতে, সারাহ আঞ্চলিক যন্ত্রপাতি নির্মাতাদের সাথে কঠোর পারফরম্যান্স চুক্তি সম্পাদন করলেন।' },
+              { en: 'Within thirty months, the overhauled network curtailed transmission losses by sixty percent and achieved unprecedented reliability ratings.', bn: 'ত্রিশ মাসের মধ্যে এই আধুনিকীকৃত নেটওয়ার্ক সিস্টেম লস ৬০ শতাংশ হ্রাস করল এবং অভূতপূর্ব নির্ভরযোগ্যতার রেটিং অর্জন করল।' },
+              { en: 'The initiative established a recognized benchmark for public sector infrastructure transformation across emerging economies.', bn: 'এই উদ্যোগটি উন্নয়নশীল অর্থনীতির দেশগুলোর পাবলিক সেক্টর অবকাঠামো রূপান্তরের জন্য একটি স্বীকৃত মানদণ্ড প্রতিষ্ঠা করল।' },
+              { en: 'Her decisive tenure demonstrated that visionary governance and technological precision can resolve seemingly insurmountable crises.', bn: 'তার দৃঢ় নেতৃত্ব প্রমাণ করল যে দূরদর্শী সুশাসন এবং প্রযুক্তির নিখুঁত প্রয়োগ আপাতদৃষ্টিতে অসম্ভব সংকটও জয় করতে পারে।' }
             ]
           },
           {
-            title: 'Executive Case 2: Ethics in Algorithmic Governance (অ্যালগরিদমিক সুশাসনে নৈতিকতা)',
+            id: 'pro-story-2',
+            title: 'Executive Case 2: The Algorithmic Vanguard: Fiduciary Ethics in FinTech (ফিনটেক সুশাসন ও কৃত্রিম বুদ্ধিমত্তার নৈতিক মানদণ্ড)',
+            theme: 'Corporate Governance, AI Ethics & Fiduciary Duty (কর্পোরেট সুশাসন ও এআই নৈতিকতা)',
+            readTime: '5 min read',
+            moralBn: 'প্রযুক্তির গতি তখনই টেকসই সফলতা এনে দেয়, যখন তা নৈতিকতা, স্বচ্ছতা এবং সকল অংশীজনের ন্যায্যতার মানদণ্ডে পরিচালিত হয়।',
+            vocabularyFocus: ['Fiduciary', 'Governance', 'Audit', 'Mitigate', 'Benchmark', 'Equity'],
             sentences: [
-              { en: 'Modern financial institutions rely heavily on predictive models to allocate credit and assess risk.', bn: 'আধুনিক আর্থিক প্রতিষ্ঠানগুলো ঋণ বরাদ্দ এবং ঝুঁকি মূল্যায়নের জন্য ভবিষ্যদ্বাণীমূলক মডেলের ওপর ব্যাপকভাবে নির্ভর করে।' },
-              { en: 'However, unexamined datasets can inadvertently perpetuate historical bias unless audited rigorously.', bn: 'তবে কঠোরভাবে নিরীক্ষা না করা হলে অপরীক্ষিত ডেটাসেটগুলো অজান্তেই ঐতিহাসিক পক্ষপাত বজায় রাখতে পারে।' },
-              { en: 'Forward-looking boards now mandate transparent fairness benchmarks to mitigate reputational and legal exposure.', bn: 'দূরদর্শী পরিচালনা পর্ষদ এখন সুনাম ও আইনি ঝুঁকি প্রশমিত করতে স্বচ্ছ ন্যায্যতার মানদণ্ড বাধ্যতামূলক করছে।' },
-              { en: 'Ultimately, technological speed creates lasting value only when anchored in human accountability.', bn: 'পরিশেষে, প্রযুক্তিগত গতি কেবল তখনই দীর্ঘস্থায়ী মূল্য তৈরি করে যখন তা মানবিক জবাবদিহিতার ওপর প্রতিষ্ঠিত থাকে।' }
+              { en: 'As an international digital lender expanded across three continents, its proprietary credit-scoring engine processed millions of loan decisions daily.', bn: 'একটি আন্তর্জাতিক ডিজিটাল ঋণদানকারী প্রতিষ্ঠান যখন তিনটি মহাদেশে তাদের কার্যক্রম বিস্তার করল, তখন তাদের নিজস্ব ক্রেডিট-স্কোরিং ইঞ্জিন প্রতিদিন লাখ লাখ ঋণের সিদ্ধান্ত প্রক্রিয়াকরণ করছিল।' },
+              { en: 'However, external audits detected subtle algorithmic discrepancies that systematically disadvantaged female entrepreneurs in developing markets.', bn: 'তবে বহিঃনিরীক্ষায় কিছু সূক্ষ্ম অ্যালগরিদমিক অসঙ্গতি ধরা পড়ে, যা উন্নয়নশীল দেশের নারী উদ্যোক্তাদের নিয়মতান্ত্রিকভাবে সুবিধাবঞ্চিত করছিল।' },
+              { en: 'Recognizing the catastrophic ethical and regulatory liability, Chief Risk Officer Tariq intervened immediately before an impending global audit.', bn: 'আসন্ন বৈশ্বিক অডিটের আগেই মারাত্মক নৈতিক ও আইনি ঝুঁকির বিষয়টি অনুধাবন করে চিফ রিস্ক অফিসার তারিক তাৎক্ষণিকভাবে হস্তক্ষেপ করলেন।' },
+              { en: 'He confronted stiff resistance from executive directors who prioritized rapid quarterly loan volume over algorithmic governance.', bn: 'তিনি পরিচালনা পর্ষদের পরিচালকদের পক্ষ থেকে তীব্র বাধার মুখে পড়েন, যারা সুশাসনের চেয়ে ত্রৈমাসিক ঋণের প্রবৃদ্ধিকেই বেশি অগ্রাধিকার দিচ্ছিলেন।' },
+              { en: 'Tariq demonstrated with unassailable data that discriminatory lending exposed the enterprise to multi-million-dollar sanctions and brand erosion.', bn: 'তারিক অকাট্য তথ্য-উপাত্ত দিয়ে তুলে ধরেন যে এই বৈষম্যমূলক ঋণব্যবস্থা প্রতিষ্ঠানটিকে কোটি কোটি ডলারের জরিমানা ও ব্র্যান্ড ইমেজ ধ্বংসের ঝুঁকিতে ফেলবে।' },
+              { en: 'He mandated an open-source bias audit framework, retraining the neural networks to eliminate historical socioeconomic prejudices.', bn: 'তিনি একটি ওপেন-সোর্স বায়াস অডিট ফ্রেমওয়ার্ক বাধ্যতামূলক করেন এবং ঐতিহাসিক আর্থ-সামাজিক পক্ষপাতিত্ব দূর করতে নিউরাল নেটওয়ার্ককে পুনর্প্রশিক্ষিত করেন।' },
+              { en: 'Additionally, he instituted an independent algorithmic governance committee empowered to veto flawed automation protocols.', bn: 'পাশাপাশি, ত্রুটিপূর্ণ স্বয়ংক্রিয় প্রোটোকলে ভেটো দেওয়ার ক্ষমতা দিয়ে তিনি একটি স্বাধীন অ্যালগরিদমিক সুশাসন কমিটি গঠন করলেন।' },
+              { en: 'The reformed model subsequently approved forty percent more creditworthy small businesses with zero increase in default rates.', bn: 'সংস্কারকৃত এই মডেলটি পরবর্তীতে খেলাপি ঋণের কোনো বৃদ্ধি ছাড়াই ৪০ শতাংশ বেশি যোগ্য ক্ষুদ্র ব্যবসায়ীদের ঋণ অনুমোদন করতে সক্ষম হয়।' },
+              { en: 'Tariq proved that fiduciary responsibility demands moral courage, and that sustainable profit must always be anchored in human equity.', bn: 'তারিক প্রমাণ করলেন যে প্রাতিষ্ঠানিক আস্থার দায়িত্বে নৈতিক সাহসের প্রয়োজন, এবং টেকসই মুনাফা সবসময় মানবিক ন্যায্যতার ওপর প্রতিষ্ঠিত হতে হয়।' }
             ]
+          }
+        ],
+        newspaperSentences: [
+          {
+            id: 'news-pro-1',
+            source: 'Financial Times',
+            category: 'Mergers & Acquisitions',
+            headline: 'Cross-border mega-mergers confront stringent sovereign scrutiny',
+            sentence: 'The investment consortium agreed to divest non-core semiconductor assets in order to mitigate national security concerns raised by European antitrust authorities.',
+            sentenceBn: 'ইউরোপীয় অ্যান্টিট্রাস্ট কর্তৃপক্ষের উত্থাপিত জাতীয় নিরাপত্তা সংক্রান্ত উদ্বেগ প্রশমিত করতে বিনিয়োগ কনসোর্টিয়ামটি তাদের অপ্রধান সেমিকন্ডাক্টর সম্পদ বিক্রি করে দিতে সম্মত হয়েছে।',
+            keyWord: 'Mitigate',
+            keyWordMeaningBn: 'প্রশমিত করা, হ্রাস করা বা ঝুঁকি কমানো',
+            editorialNote: 'বিজনেস সাংবাদিকতা, ব্যাংকিং এবং ঝুঁকি ব্যবস্থাপনায় "mitigate risk/exposure" একটি অবিসংবাদিত করপোরেট বাক্যগঠন।'
+          },
+          {
+            id: 'news-pro-2',
+            source: 'Bloomberg',
+            category: 'Venture Capital & AI',
+            headline: 'Early-stage climate tech startups secure record private equity inflows',
+            sentence: 'Venture partners emphasized their intent to leverage proprietary artificial intelligence models to accelerate drug discovery pipelines and lower preclinical trial overheads.',
+            sentenceBn: 'ভেঞ্চার পার্টনাররা জোর দিয়ে বলেন যে ওষুধের আবিষ্কার প্রক্রিয়াকে ত্বরান্বিত করতে এবং ক্লিনিকাল ট্রায়ালের পূর্ববর্তী খরচ কমাতে তারা নিজস্ব কৃত্রিম বুদ্ধিমত্তা মডেলের সুবিধা পুরোপুরি কাজে লাগাবেন।',
+            keyWord: 'Leverage',
+            keyWordMeaningBn: 'সর্বোচ্চ সুবিধাজনকভাবে কাজে লাগানো বা লিভারেজ করা',
+            editorialNote: 'কর্পোরেট কৌশল এবং মূলধনী বাজারে সম্পদ, ব্র্যান্ড বা প্রযুক্তিকে কাজে লাগিয়ে অতিরিক্ত সুবিধা অর্জন বোঝাতে "leverage" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-pro-3',
+            source: 'The Wall Street Journal',
+            category: 'Capital Markets',
+            headline: 'Federal Reserve holds benchmark rate steady amid resilient labor market',
+            sentence: 'Central bank governors signaled that borrowing costs would remain elevated until core inflation trajectory demonstrates an unambiguous convergence toward the two percent target.',
+            sentenceBn: 'সেন্ট্রাল ব্যাংকের গভর্নররা সংকেত দিয়েছেন যে মূল মূল্যস্ফীতি দুই শতাংশের লক্ষ্যের দিকে সুস্পষ্ট ও নিশ্চিতভাবে নেমে না আসা পর্যন্ত ঋণের সুদের হার উচ্চমাত্রায় রাখা হবে।',
+            keyWord: 'Unambiguous',
+            keyWordMeaningBn: 'স্পষ্ট, দ্ব্যর্থহীন ও নিশ্চিত',
+            editorialNote: 'আর্থিক নীতি এবং বোর্ড মিটিংয়ের আনুষ্ঠানিক বিবৃতিতে কোনো প্রকার অস্পষ্টতা না থাকা বোঝাতে "unambiguous signal/evidence" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-pro-4',
+            source: 'Harvard Business Review',
+            category: 'Organizational Leadership',
+            headline: 'Why enterprise agile transformations falter without psychological safety',
+            sentence: 'Organizational sociologists found that senior leadership teams must establish clear performance benchmarks while fostering a culture that does not penalize transparent failure.',
+            sentenceBn: 'সাংগঠনিক সমাজবিজ্ঞানীরা দেখেছেন যে উর্ধ্বতন নেতৃত্বকে স্বচ্ছ ব্যর্থতার জন্য কাউকে শাস্তি না দিয়ে স্পষ্ট পারফরম্যান্স বেঞ্চমার্ক নির্ধারণ এবং মনস্তাত্ত্বিক নিরাপত্তার সংস্কৃতি গড়ে তুলতে হবে।',
+            keyWord: 'Benchmarks',
+            keyWordMeaningBn: 'মানদণ্ড বা মান যাচাইয়ের আদর্শ ভিত্তি',
+            editorialNote: 'ম্যানেজমেন্ট জার্নাল ও কর্পোরেট বিশ্লেষণে সেরা পারফরম্যান্স বা আন্তর্জাতিক মানের সাথে তুলনা করতে "benchmark against" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-pro-5',
+            source: 'Forbes',
+            category: 'ESG & Governance',
+            headline: 'Institutional asset managers demand auditable carbon transition plans',
+            sentence: 'Institutional shareholders warned corporate boards that failure to disclose auditable supply chain emissions exposes the enterprise to unprecedented fiduciary litigation.',
+            sentenceBn: 'প্রাতিষ্ঠানিক শেয়ারহোল্ডাররা করপোরেট বোর্ডকে সতর্ক করেছেন যে সাপ্লাই চেইনের নিরীক্ষাযোগ্য কার্বন নিঃসরণ প্রকাশ করতে ব্যর্থ হলে প্রতিষ্ঠানটি নজিরবিহীন ট্রাস্টি বা আমানত সংক্রান্ত মামলার মুখে পড়বে।',
+            keyWord: 'Fiduciary',
+            keyWordMeaningBn: 'আমানত সংক্রান্ত, বিশ্বস্ততামূলক বা আইনি জিম্মাদারি দায়িত্ব',
+            editorialNote: 'কর্পোরেট গভর্নেন্স ও বিনিয়োগকারী সম্পর্কের ক্ষেত্রে শেয়ারহোল্ডারদের স্বার্থ সুরক্ষার আইনি বাধ্যবাধকতা বোঝাতে "fiduciary duty/liability" ব্যবহৃত হয়।'
+          },
+          {
+            id: 'news-pro-6',
+            source: 'Reuters Business',
+            category: 'Global Supply Chains',
+            headline: 'Global shipping corridors navigate geopolitical choke points and tariff volatility',
+            sentence: 'Logistics conglomerates moved swiftly to streamline overland freight corridors to bypass maritime chokepoints and safeguard just-in-time delivery commitments.',
+            sentenceBn: 'লজিস্টিকস জায়ান্টগুলো সমুদ্রপথের সংকটপূর্ণ রুটগুলো এড়িয়ে সঠিক সময়ে পণ্য ডেলিভারির প্রতিশ্রুতি রক্ষা করতে স্থলপথের মালবাহী করিডোরগুলোকে দ্রুতগতিতে সুবিন্যস্ত ও সহজতর করেছে।',
+            keyWord: 'Streamline',
+            keyWordMeaningBn: 'সুবিন্যস্ত করা, গতিশীল ও সহজসাধ্য করা',
+            editorialNote: 'অপ্রয়োজনীয় জটিলতা বাদ দিয়ে কোনো ব্যবসায়িক প্রক্রিয়াকে দ্রুত ও সাশ্রয়ী করার প্রসঙ্গে "streamline operations" করপোরেট প্রেসের অন্যতম প্রিয় অভিব্যক্তি।'
           }
         ]
       }
@@ -3494,3 +3778,18 @@ const WORD_CARTOON_CONVERSATIONS = {
     ]
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.LEVEL_META = LEVEL_META;
+  window.ASSESSMENT_OPTIONS = ASSESSMENT_OPTIONS;
+  window.CURRICULUM_DATA = CURRICULUM_DATA;
+  window.WORD_CARTOON_CONVERSATIONS = WORD_CARTOON_CONVERSATIONS;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    LEVEL_META,
+    ASSESSMENT_OPTIONS,
+    CURRICULUM_DATA,
+    WORD_CARTOON_CONVERSATIONS
+  };
+}
