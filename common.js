@@ -3256,7 +3256,7 @@ function renderMayaCharacter(pose = 'neutral', isSpeaking = false) {
   }
 
   return `
-    <g id="char-maya" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(235, 290) scale(0.95)">
+    <g id="char-maya" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(210, 290) scale(0.95)">
       <g transform="translate(0, -145)">
         <g class="cartoon-breathe">
         ${extraEffectSvg}
@@ -3470,7 +3470,7 @@ function renderLeoCharacter(pose = 'neutral', isSpeaking = false) {
   }
 
   return `
-    <g id="char-leo" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(665, 290) scale(0.95)">
+    <g id="char-leo" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(650, 290) scale(0.95)">
       <g transform="translate(0, -145)">
         <g class="cartoon-breathe">
         ${extraEffectSvg}
@@ -3542,7 +3542,7 @@ function renderCartoonSceneSvg(theme = 'living_room', speaker = 'Maya', pose = '
   let speechBubbleSvg = '';
   if (mayaSpeaking) {
     speechBubbleSvg = `
-      <g id="speech-bubble-maya" class="cartoon-speech-bubble" transform="translate(185, 75)">
+      <g id="speech-bubble-maya" class="cartoon-speech-bubble" transform="translate(180, 75)">
         <path d="M 10 10 L 140 10 Q 150 10 150 20 L 150 65 Q 150 75 140 75 L 75 75 L 60 95 L 55 75 L 10 75 Q 0 75 0 65 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.15))"/>
         <circle cx="26" cy="42" r="13" fill="#EEF4F1"/>
         <text x="26" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#2D5A4C" text-anchor="middle">M</text>
@@ -3554,7 +3554,7 @@ function renderCartoonSceneSvg(theme = 'living_room', speaker = 'Maya', pose = '
     `;
   } else if (leoSpeaking) {
     speechBubbleSvg = `
-      <g id="speech-bubble-leo" class="cartoon-speech-bubble" transform="translate(570, 75)">
+      <g id="speech-bubble-leo" class="cartoon-speech-bubble" transform="translate(560, 75)">
         <path d="M 10 10 L 140 10 Q 150 10 150 20 L 150 65 Q 150 75 140 75 L 95 75 L 90 95 L 75 75 L 10 75 Q 0 75 0 65 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.15))"/>
         <circle cx="26" cy="42" r="13" fill="#ECFDF5"/>
         <text x="26" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#1CA65A" text-anchor="middle">L</text>
@@ -3976,73 +3976,6 @@ function renderCartoonThumbnailCardHTML(wordItem) {
   const envObj = SCENE_ENVIRONMENTS[theme] || SCENE_ENVIRONMENTS.living_room;
   const themeLabel = envObj.label || '🏠 Living Room • বসার ঘর';
 
-  // Group lines into 4 Acts for the interactive dialogue transcript
-  const actIcons = { 1: '🌱', 2: '⚡', 3: '💡', 4: '🎉' };
-
-  let currentActNumber = 0;
-  const dialogueRowsHTML = lines.map((line, idx) => {
-    const isMaya = line.avatar === 'maya' || line.speaker === 'Maya';
-    const speakerName = escapeHtml(line.speaker || (isMaya ? 'Maya' : 'Leo'));
-    const speakerInitial = isMaya ? 'M' : 'L';
-    const speakerBg = isMaya ? 'var(--accent-sage-soft)' : 'var(--accent-terracotta-soft)';
-    const speakerColor = isMaya ? 'var(--accent-sage)' : 'var(--accent-terracotta)';
-    const highlightedEn = typeof highlightTargetWordInSubtitle === 'function'
-      ? highlightTargetWordInSubtitle(line.en, line.targetWord || wordItem.word)
-      : escapeHtml(line.en);
-    const isActive = idx === 0;
-    const estSec = Math.round(idx * 4.5);
-    const timeStr = `0:${String(estSec).padStart(2, '0')}`;
-
-    let actHeaderHtml = '';
-    if (line.act && line.act !== currentActNumber) {
-      currentActNumber = line.act;
-      const icon = actIcons[line.act] || '📖';
-      actHeaderHtml = `
-        <div class="flex items-center gap-2 pt-2.5 pb-1 px-1">
-          <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-2xs font-mono" style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-secondary);">
-            ${icon} ${escapeHtml(line.actTitle || `Act ${line.act}`)}
-          </span>
-          <span class="font-bengali text-[10px] opacity-75 truncate" style="color: var(--ink-muted);">
-            ${escapeHtml(line.actTitleBn || '')}
-          </span>
-        </div>
-      `;
-    }
-
-    return `
-      ${actHeaderHtml}
-      <div
-        class="vw-card-dialogue-row flex items-start gap-2.5 p-2 rounded-xl border transition-all cursor-pointer ${isActive ? 'is-first-line' : ''}"
-        onclick="openCartoonVideoModal('${wordId}', ${idx})"
-        title="Click to play dialogue from line ${idx + 1}"
-        style="border-color: var(--border-subtle); background-color: var(--surface-white);"
-      >
-        <span
-          class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 shadow-2xs"
-          style="background-color: ${speakerBg}; color: ${speakerColor};"
-        >
-          ${speakerInitial}
-        </span>
-        <div class="min-w-0 flex-1">
-          <div class="flex items-center justify-between gap-1 mb-0.5">
-            <span class="text-[10px] font-bold uppercase tracking-wider" style="color: ${speakerColor};">
-              ${speakerName}
-            </span>
-            <span class="text-[9px] font-mono opacity-60" style="color: var(--ink-muted);">
-              ${timeStr}
-            </span>
-          </div>
-          <p class="text-xs font-semibold leading-snug" style="color: var(--ink-primary);">
-            ${highlightedEn}
-          </p>
-          <p class="font-bengali text-[11px] mt-0.5 leading-snug" style="color: var(--ink-secondary);">
-            (${escapeHtml(line.bn)})
-          </p>
-        </div>
-      </div>
-    `;
-  }).join('');
-
   return `
     <div class="vw-card-video-section w-full">
       <!-- Section Title & Topic Location Pill -->
@@ -4070,21 +4003,20 @@ function renderCartoonThumbnailCardHTML(wordItem) {
         </div>
       </div>
 
-      <!-- Spacious 2-Part Widescreen Grid (1.35fr : 1fr) -->
-      <div class="vw-video-widescreen-grid">
-        <!-- Left Side: 2D Flat-Vector Cartoon Stage (16:9) -->
+      <!-- 100% Full-Width Widescreen Video Stage (Eliminated right-side & bottom script boxes) -->
+      <div class="vw-video-widescreen-grid w-full" style="grid-template-columns: 1fr; width: 100%;">
         <div
-          class="vw-cartoon-stage-card group rounded-2xl overflow-hidden border cursor-pointer relative shadow-xs flex flex-col justify-center"
+          class="vw-cartoon-stage-card group rounded-2xl overflow-hidden border cursor-pointer relative shadow-md flex flex-col justify-center w-full"
           onclick="openCartoonVideoModal('${wordId}', 0)"
           title="Watch Maya & Leo in AI Cartoon Short Story for ${escapeHtml(wordItem.word)}"
-          style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
+          style="background-color: var(--surface-sand); border-color: var(--border-subtle); min-height: 360px;"
         >
-          <div class="relative w-full aspect-video overflow-hidden">
+          <div class="relative w-full aspect-video min-h-[220px] sm:min-h-[360px] overflow-hidden">
             ${renderCartoonSceneSvg(theme, 'Maya', 'explaining', false)}
 
             <!-- Centered Play Button Overlay -->
-            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-              <div class="vw-cartoon-play-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white/95 shadow-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors pointer-events-none">
+              <div class="vw-cartoon-play-btn w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/95 shadow-2xl flex items-center justify-center transition-transform group-hover:scale-110">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7 ml-0.5" style="color: var(--accent-sage);" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z"/>
                 </svg>
@@ -4092,89 +4024,63 @@ function renderCartoonThumbnailCardHTML(wordItem) {
             </div>
 
             <!-- Top-Left Badge: Watch Cartoon Conversation + pulsing dot -->
-            <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs shadow-xs text-[#2D5A4C] text-[10px] sm:text-[11px] font-bold">
+            <div class="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs shadow-xs text-[#2D5A4C] text-[11px] sm:text-xs font-bold pointer-events-none z-20">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>Watch Cartoon Conversation</span>
             </div>
 
             <!-- Top-Right: Location Badge & Timer Pill -->
-            <div class="absolute top-2.5 right-2.5 flex items-center gap-1.5">
-              <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-white/90 text-[10px] font-medium font-bengali">
+            <div class="absolute top-3 right-3 flex items-center gap-1.5 pointer-events-none z-20">
+              <span class="hidden sm:inline-flex px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-white/90 text-[10px] sm:text-[11px] font-medium font-bengali">
                 ${themeLabel}
               </span>
-              <span class="px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-xs text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-wider">
-                ${duration}<span class="sr-only hidden">0:18</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-xs text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-wider">
+                ${duration}
               </span>
             </div>
 
-            <!-- Bottom Subtitle / Caption Bar Overlay -->
-            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-2.5 sm:p-3 pt-6 text-white flex items-center justify-between gap-2">
-              <div class="min-w-0 flex-1">
-                <p class="text-[11px] sm:text-xs truncate font-medium">
+            <!-- Compact Subtitle Bar ONLY Inside Bottom of Video Frame (Just above player control bar) -->
+            <div class="absolute bottom-12 inset-x-3 sm:inset-x-8 flex justify-center pointer-events-none z-20">
+              <div class="vw-cv-subtitles-box rounded-xl px-3.5 py-2 text-center max-w-[88%] pointer-events-auto shadow-lg">
+                <p class="vw-cv-sub-en font-semibold leading-snug line-clamp-2">
                   <span class="font-bold text-[#FDE68A]">${firstSpeaker}:</span> &ldquo;${previewSnippet}&rdquo;
                 </p>
-                ${previewBn ? `<p class="font-bengali text-[10px] sm:text-[11px] truncate text-gray-300 mt-0.5">(${previewBn})</p>` : ''}
+                ${previewBn ? `<p class="vw-cv-sub-bn font-bengali font-medium mt-0.5 leading-snug line-clamp-1">(${previewBn})</p>` : ''}
               </div>
-              <span class="text-[10px] sm:text-xs font-bold text-emerald-300 shrink-0 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                <span>Play Scene</span> &rarr;
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Side: Synchronized Dialogue Script List + Controls Bar -->
-        <div
-          class="vw-card-dialogue-panel rounded-2xl border p-3 sm:p-3.5 flex flex-col justify-between shadow-2xs"
-          style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
-        >
-          <div class="mb-2 flex items-center justify-between gap-2">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
-              Dialogue Script &bull; 4-Act Story (14 Lines)
-            </span>
-            <span class="font-bengali text-[10px] text-gray-500">
-              ক্লিক করে সরাসরি শুনুন
-            </span>
-          </div>
-
-          <!-- Dialogue Rows Container -->
-          <div class="space-y-1.5 overflow-y-auto max-h-[220px] sm:max-h-[260px] pr-1">
-            ${dialogueRowsHTML}
-          </div>
-
-          <!-- Controls Bar Alongside / Below -->
-          <div class="flex items-center justify-between pt-2.5 px-0.5 border-t mt-2" style="border-color: var(--border-subtle);">
-            <div class="flex items-center gap-1.5">
-              <button
-                type="button"
-                onclick="openCartoonVideoModal('${wordId}', 0)"
-                class="vw-btn-primary px-3 py-1 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer whitespace-nowrap"
-                title="Play Video Conversation"
-              >
-                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                <span>Play</span>
-              </button>
-
-              <button
-                type="button"
-                onclick="openCartoonVideoModal('${wordId}', 0)"
-                class="px-2.5 py-1 rounded-xl text-xs font-bold flex items-center gap-1 border transition-all cursor-pointer hover:bg-black/5 whitespace-nowrap"
-                style="border-color: var(--border-subtle); color: var(--ink-secondary); background-color: var(--surface-white);"
-                title="Replay from start"
-              >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                <span>Replay</span>
-              </button>
             </div>
 
-            <button
-              type="button"
-              onclick="openCartoonVideoModal('${wordId}', 0)"
-              class="px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-mono font-bold border transition-colors hover:border-[#2D5A4C] cursor-pointer whitespace-nowrap"
-              style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-secondary);"
-              title="Playback Speed"
-            >
-              Speed: 1.0x / 0.8x
-            </button>
+            <!-- Slim Bottom Controls Bar Inside Video Frame -->
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/75 to-transparent px-3 py-2 pt-6 text-white flex items-center justify-between gap-2 z-20 pointer-events-auto">
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); openCartoonVideoModal('${wordId}', 0);"
+                  class="vw-btn-primary px-3 py-1 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer whitespace-nowrap"
+                  title="Play Video Conversation"
+                >
+                  <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <span>Play</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); openCartoonVideoModal('${wordId}', 0);"
+                  class="px-2.5 py-1 rounded-xl text-xs font-bold flex items-center gap-1 border border-white/20 hover:bg-white/15 transition-all cursor-pointer whitespace-nowrap text-white/90"
+                  title="Replay from start"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                  <span>Replay</span>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/20 text-white/80">
+                  BN: ON
+                </span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border border-white/20 text-white/80">
+                  1.0x / 0.8x
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -4400,19 +4306,7 @@ const CartoonPlayer = {
               </div>
             </div>
 
-            <!-- 3. Dialogue Transcript (14 Clickable Interactive Lines across 4 Acts) -->
-            <div class="rounded-2xl border p-4 space-y-2.5" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
-                  Interactive Short Story Transcript &bull; ১৪-লাইন ৪-অঙ্ক স্ক্রিপ্ট
-                </span>
-                <span class="font-bengali text-[11px]" style="color: var(--ink-muted);">
-                  যেকোনো লাইনে ক্লিক করে সরাসরি শুনুন
-                </span>
-              </div>
 
-              <div id="vw-cv-transcript-list" class="space-y-2 max-h-[320px] overflow-y-auto pr-1"></div>
-            </div>
           </div>
         </div>
       `;

@@ -1089,13 +1089,40 @@ button:active:not(:disabled),
 }
 
 /* Subtitle Container Overlay (White rounded pill box) */
+/* Compact Subtitle Strip ONLY Inside Video Frame (font 13px / 11.5px, padding 8px 14px) */
 .vw-cv-subtitles-box {
-  background: rgba(255, 255, 255, 0.96) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1.5px solid rgba(45, 90, 76, 0.25) !important;
-  border-radius: 1.25rem !important;
-  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.25) !important;
+  background: rgba(18, 24, 21, 0.78) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 0.85rem !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35) !important;
+  padding: 8px 14px !important;
+  max-width: 88% !important;
+}
+
+.vw-cv-sub-en,
+#vw-cv-sub-en {
+  font-size: 13px !important;
+  color: #FAF8F5 !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vw-cv-sub-bn,
+#vw-cv-sub-bn {
+  font-size: 11.5px !important;
+  color: #6EE7B7 !important;
+  line-height: 1.3 !important;
+  margin-top: 2px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 [data-theme="dark"] .vw-cv-subtitles-box {
@@ -1199,14 +1226,14 @@ button:active:not(:disabled),
 /* Maya (Left Side, x = 26%, facing slightly right toward Leo) */
 #char-maya,
 .char-maya {
-  transform: translate(235px, 290px) scale(0.95);
+  transform: translate(210px, 290px) scale(0.95);
   transform-origin: center bottom;
   z-index: 10;
 }
 
 #char-maya.is-active-speaker,
 .char-maya.is-active-speaker {
-  transform: translate(235px, 290px) scale(1.02) !important;
+  transform: translate(210px, 290px) scale(1.02) !important;
   opacity: 1 !important;
   filter: drop-shadow(0 6px 16px rgba(45, 90, 76, 0.35));
   z-index: 15;
@@ -1214,21 +1241,21 @@ button:active:not(:disabled),
 
 #char-maya:not(.is-active-speaker),
 .char-maya:not(.is-active-speaker) {
-  transform: translate(235px, 290px) scale(0.95);
+  transform: translate(210px, 290px) scale(0.95);
   opacity: 0.88;
 }
 
 /* Leo (Right Side, x = 72%, facing slightly left toward Maya) */
 #char-leo,
 .char-leo {
-  transform: translate(665px, 290px) scale(0.95);
+  transform: translate(650px, 290px) scale(0.95);
   transform-origin: center bottom;
   z-index: 10;
 }
 
 #char-leo.is-active-speaker,
 .char-leo.is-active-speaker {
-  transform: translate(665px, 290px) scale(1.02) !important;
+  transform: translate(650px, 290px) scale(1.02) !important;
   opacity: 1 !important;
   filter: drop-shadow(0 6px 16px rgba(28, 166, 90, 0.35));
   z-index: 15;
@@ -1236,7 +1263,7 @@ button:active:not(:disabled),
 
 #char-leo:not(.is-active-speaker),
 .char-leo:not(.is-active-speaker) {
-  transform: translate(665px, 290px) scale(0.95);
+  transform: translate(650px, 290px) scale(0.95);
   opacity: 0.88;
 }
 
@@ -2136,16 +2163,26 @@ button:active:not(:disabled),
 
 .vw-video-widescreen-grid {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 1.25rem;
-  align-items: stretch;
-  width: 100%;
+  grid-template-columns: 1fr !important;
+  width: 100% !important;
+  gap: 0 !important;
 }
 
 @media (max-width: 1023px) {
   .vw-video-widescreen-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+}
+
+.vw-cartoon-stage-card {
+  width: 100% !important;
+  min-height: 360px;
+}
+
+@media (max-width: 767px) {
+  .vw-cartoon-stage-card {
+    min-height: 220px;
   }
 }
 
