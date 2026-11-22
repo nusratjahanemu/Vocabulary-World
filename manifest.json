@@ -18,6 +18,18 @@
   ],
   "icons": [
     {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
@@ -56,9 +68,9 @@
       "url": "./learn.html",
       "icons": [
         {
-          "src": "./icon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "./icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -69,9 +81,9 @@
       "url": "./flashcards.html",
       "icons": [
         {
-          "src": "./icon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "./icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -82,9 +94,9 @@
       "url": "./games.html",
       "icons": [
         {
-          "src": "./icon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "./icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -95,9 +107,9 @@
       "url": "./tracker.html",
       "icons": [
         {
-          "src": "./icon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "./icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     }
