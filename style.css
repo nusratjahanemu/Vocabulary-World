@@ -1088,16 +1088,60 @@ button:active:not(:disabled),
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Subtitle Target Vocabulary Word Highlight */
+/* Subtitle Container Overlay (White rounded pill box) */
+.vw-cv-subtitles-box {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1.5px solid rgba(45, 90, 76, 0.25) !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-theme="dark"] .vw-cv-subtitles-box {
+  background: rgba(26, 33, 30, 0.96) !important;
+  border-color: rgba(78, 141, 120, 0.35) !important;
+}
+
+[data-theme="dark"] #vw-cv-sub-en {
+  color: #FAF8F5 !important;
+}
+
+[data-theme="dark"] #vw-cv-sub-bn {
+  color: #6EE7B7 !important;
+}
+
+/* Subtitle Target Vocabulary Word Highlight (Bold Botanical Sage #2D5A4C) */
 .vw-sub-highlight {
-  color: #FBBF24 !important;
+  color: #2D5A4C !important;
   font-weight: 800 !important;
-  background: rgba(251, 191, 36, 0.18);
+  background: rgba(45, 90, 76, 0.12);
   padding: 0.08rem 0.45rem;
   border-radius: 0.35rem;
-  border-bottom: 2px solid #FBBF24;
+  border-bottom: 2px solid #2D5A4C;
   display: inline-block;
   line-height: 1.25;
+}
+
+[data-theme="dark"] .vw-sub-highlight {
+  color: #A7F3D0 !important;
+  background: rgba(45, 90, 76, 0.35);
+  border-bottom-color: #34D399;
+}
+
+/* Thought bubble floating animation */
+@keyframes thoughtFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.thought-bubble {
+  animation: thoughtFloat 3s ease-in-out infinite;
+}
+
+.cartoon-location-badge {
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12));
+  transition: all 0.3s ease;
 }
 
 /* Character Idle Breathing Motion */

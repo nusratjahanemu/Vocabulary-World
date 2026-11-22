@@ -2683,11 +2683,1044 @@ function escapeRegex(string) {
   return String(string).replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\\\$&');
 }
 
+// scratch/cartoon_engine_full.js
+// Complete implementation of upgraded Cartoon Engine for Vocabulary World
+
+function escapeRegex(string) {
+  return String(string).replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 function highlightTargetWordInSubtitle(text, targetWord) {
   if (!text) return '';
   if (!targetWord) return escapeHtml(text);
   const regex = new RegExp('(\\b' + escapeRegex(targetWord) + '[a-z]*\\b)', 'gi');
   return escapeHtml(text).replace(regex, '<span class="vw-sub-highlight">$1</span>');
+}
+
+const SCENE_ENVIRONMENTS = {
+  living_room: {
+    id: 'living_room',
+    nameEn: 'Living Room',
+    nameBn: 'বসার ঘর',
+    icon: '🏠',
+    label: '🏠 Living Room • বসার ঘর',
+    renderSvg() {
+      return `
+        <linearGradient id="lrWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C3D0C7"/>
+          <stop offset="100%" stop-color="#B5C5BA"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#lrWall)"/>
+        <rect x="0" y="0" width="800" height="10" fill="#EAE5DC"/>
+        <rect x="0" y="340" width="800" height="8" fill="#DDD6CA"/>
+        <rect x="0" y="348" width="800" height="102" fill="#EDE8DF"/>
+        <line x1="0" y1="375" x2="800" y2="375" stroke="#DFD7CB" stroke-width="1.5"/>
+        <line x1="0" y1="410" x2="800" y2="410" stroke="#DFD7CB" stroke-width="1.5"/>
+        <ellipse cx="400" cy="390" rx="310" ry="46" fill="#45414C"/>
+        <ellipse cx="400" cy="390" rx="290" ry="40" fill="none" stroke="#5E5966" stroke-width="2" stroke-dasharray="6,4"/>
+        <rect x="40" y="60" width="110" height="140" rx="4" fill="#FAF8F5" stroke="#2D5A4C" stroke-width="6"/>
+        <rect x="48" y="68" width="94" height="124" fill="#F0EFEA"/>
+        <path d="M 95 160 C 95 120 70 100 70 85 C 85 85 105 105 105 125 C 105 100 120 88 125 95 C 120 115 100 135 95 160 Z" fill="#2D5A4C" opacity="0.85"/>
+        <line x1="95" y1="160" x2="95" y2="95" stroke="#FAF8F5" stroke-width="1.5"/>
+        <rect x="200" y="45" width="230" height="300" rx="4" fill="#FAF8F5"/>
+        <rect x="212" y="55" width="206" height="290" fill="#E2EBE5"/>
+        <rect x="212" y="300" width="206" height="45" fill="#D4DFD8"/>
+        <rect x="225" y="210" width="165" height="75" rx="10" fill="#64748B"/>
+        <rect x="220" y="240" width="175" height="35" rx="8" fill="#475569"/>
+        <rect x="240" y="220" width="38" height="32" rx="4" fill="#F59E0B"/>
+        <line x1="248" y1="220" x2="248" y2="252" stroke="#FFFFFF" stroke-width="3"/>
+        <line x1="262" y1="220" x2="262" y2="252" stroke="#FFFFFF" stroke-width="3"/>
+        <line x1="385" y1="120" x2="385" y2="275" stroke="#94A3B8" stroke-width="3"/>
+        <path d="M 370 120 L 400 120 L 410 145 L 360 145 Z" fill="#CBD5E1"/>
+        <circle cx="385" cy="148" r="7" fill="#FEF08A"/>
+        <polygon points="360,145 410,145 425,275 345,275" fill="#FEF08A" opacity="0.12"/>
+        <rect x="640" y="190" width="130" height="155" rx="4" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="3"/>
+        <rect x="648" y="200" width="114" height="40" rx="3" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+        <circle cx="705" cy="220" r="4.5" fill="#F59E0B"/>
+        <rect x="648" y="248" width="114" height="40" rx="3" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+        <circle cx="705" cy="268" r="4.5" fill="#F59E0B"/>
+        <rect x="648" y="296" width="114" height="40" rx="3" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+        <circle cx="705" cy="316" r="4.5" fill="#F59E0B"/>
+        <rect x="652" y="345" width="8" height="12" fill="#CBD5E1"/>
+        <rect x="750" y="345" width="8" height="12" fill="#CBD5E1"/>
+        <path d="M 695 190 Q 685 165 700 155 Q 715 165 705 190 Z" fill="#2D5A4C"/>
+        <circle cx="700" cy="125" r="14" fill="#F59E0B"/>
+        <circle cx="700" cy="125" r="7" fill="#78350F"/>
+        <circle cx="682" cy="138" r="10" fill="#FBBF24"/>
+        <circle cx="682" cy="138" r="5" fill="#78350F"/>
+        <circle cx="718" cy="136" r="11" fill="#FBBF24"/>
+        <circle cx="718" cy="136" r="5.5" fill="#78350F"/>
+        <path d="M 700 150 Q 675 145 675 160" stroke="#15803D" stroke-width="3" fill="none"/>
+        <path d="M 705 150 Q 725 145 725 160" stroke="#15803D" stroke-width="3" fill="none"/>
+      `;
+    }
+  },
+
+  fruit_shop: {
+    id: 'fruit_shop',
+    nameEn: 'Fruit Shop',
+    nameBn: 'ফলের দোকান',
+    icon: '🍎',
+    label: '🍎 Fruit Shop • ফলের দোকান',
+    renderSvg() {
+      return `
+        <linearGradient id="fsSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E0F2FE"/>
+          <stop offset="100%" stop-color="#F1F5F9"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#fsSky)"/>
+        <rect x="0" y="70" width="800" height="270" fill="#D8C7B5"/>
+        <line x1="0" y1="130" x2="800" y2="130" stroke="#C2B09D" stroke-width="2"/>
+        <line x1="0" y1="190" x2="800" y2="190" stroke="#C2B09D" stroke-width="2"/>
+        <line x1="0" y1="250" x2="800" y2="250" stroke="#C2B09D" stroke-width="2"/>
+        <line x1="0" y1="310" x2="800" y2="310" stroke="#C2B09D" stroke-width="2"/>
+        <rect x="50" y="115" width="220" height="12" fill="#854D0E"/>
+        <rect x="65" y="85" width="24" height="30" rx="3" fill="#FEF08A" opacity="0.8"/>
+        <rect x="95" y="80" width="28" height="35" rx="3" fill="#FED7AA" opacity="0.8"/>
+        <rect x="130" y="88" width="22" height="27" rx="3" fill="#BBF7D0" opacity="0.8"/>
+        <rect x="0" y="340" width="800" height="110" fill="#E2D9CC"/>
+        <ellipse cx="200" cy="380" rx="45" ry="12" fill="#D3C7B5" opacity="0.6"/>
+        <ellipse cx="360" cy="400" rx="55" ry="14" fill="#D3C7B5" opacity="0.6"/>
+        <ellipse cx="580" cy="375" rx="50" ry="13" fill="#D3C7B5" opacity="0.6"/>
+        <ellipse cx="700" cy="410" rx="40" ry="11" fill="#D3C7B5" opacity="0.6"/>
+        <line x1="400" y1="65" x2="400" y2="130" stroke="#78350F" stroke-width="3"/>
+        <line x1="360" y1="130" x2="440" y2="130" stroke="#B45309" stroke-width="4"/>
+        <circle cx="400" cy="130" r="5" fill="#D97706"/>
+        <line x1="360" y1="130" x2="345" y2="175" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="360" y1="130" x2="375" y2="175" stroke="#D97706" stroke-width="1.5"/>
+        <path d="M 340 175 Q 360 190 380 175 Z" fill="#F59E0B"/>
+        <line x1="440" y1="130" x2="425" y2="170" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="440" y1="130" x2="455" y2="170" stroke="#D97706" stroke-width="1.5"/>
+        <path d="M 420 170 Q 440 185 460 170 Z" fill="#F59E0B"/>
+        <circle cx="440" cy="166" r="6" fill="#EF4444"/>
+        <rect x="20" y="270" width="130" height="75" rx="4" fill="#854D0E" stroke="#5C330A" stroke-width="2"/>
+        <rect x="25" y="255" width="120" height="25" rx="3" fill="#B45309"/>
+        <circle cx="40" cy="255" r="9" fill="#EF4444"/>
+        <circle cx="56" cy="252" r="9.5" fill="#DC2626"/>
+        <circle cx="72" cy="255" r="9" fill="#EF4444"/>
+        <circle cx="88" cy="252" r="9.5" fill="#DC2626"/>
+        <circle cx="104" cy="255" r="9" fill="#EF4444"/>
+        <circle cx="120" cy="252" r="9.5" fill="#DC2626"/>
+        <circle cx="48" cy="242" r="8.5" fill="#EF4444"/>
+        <circle cx="64" cy="240" r="9" fill="#DC2626"/>
+        <circle cx="80" cy="241" r="8.5" fill="#EF4444"/>
+        <circle cx="96" cy="240" r="9" fill="#DC2626"/>
+        <circle cx="112" cy="242" r="8.5" fill="#EF4444"/>
+        <rect x="45" y="295" width="75" height="24" rx="3" fill="#1E293B"/>
+        <text x="82" y="311" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="bold" fill="#FDE68A" text-anchor="middle">$2 / kg</text>
+        <rect x="650" y="270" width="130" height="75" rx="4" fill="#854D0E" stroke="#5C330A" stroke-width="2"/>
+        <rect x="655" y="255" width="120" height="25" rx="3" fill="#B45309"/>
+        <ellipse cx="675" cy="252" rx="10" ry="13" fill="#F59E0B" transform="rotate(-15 675 252)"/>
+        <ellipse cx="695" cy="250" rx="10" ry="13" fill="#FBBF24" transform="rotate(10 695 250)"/>
+        <ellipse cx="715" cy="252" rx="10" ry="13" fill="#F59E0B" transform="rotate(-20 715 252)"/>
+        <ellipse cx="735" cy="250" rx="10" ry="13" fill="#FBBF24" transform="rotate(15 735 250)"/>
+        <ellipse cx="755" cy="252" rx="9" ry="12" fill="#F59E0B"/>
+        <ellipse cx="685" cy="240" rx="9" ry="12" fill="#F59E0B"/>
+        <ellipse cx="705" cy="238" rx="9.5" ry="12.5" fill="#FBBF24"/>
+        <ellipse cx="725" cy="239" rx="9" ry="12" fill="#F59E0B"/>
+        <ellipse cx="745" cy="240" rx="9" ry="12" fill="#FBBF24"/>
+        <rect x="675" y="295" width="80" height="24" rx="3" fill="#1E293B"/>
+        <text x="715" y="311" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="bold" fill="#A7F3D0" text-anchor="middle">FRESH</text>
+        <defs>
+          <pattern id="awningStripes" width="50" height="75" patternUnits="userSpaceOnUse">
+            <rect width="25" height="75" fill="#2D5A4C"/>
+            <rect x="25" width="25" height="75" fill="#FAF8F5"/>
+          </pattern>
+        </defs>
+        <path d="M 0 0 L 800 0 L 800 60 Q 775 75 750 60 Q 725 75 700 60 Q 675 75 650 60 Q 625 75 600 60 Q 575 75 550 60 Q 525 75 500 60 Q 475 75 450 60 Q 425 75 400 60 Q 375 75 350 60 Q 325 75 300 60 Q 275 75 250 60 Q 225 75 200 60 Q 175 75 150 60 Q 125 75 100 60 Q 75 75 50 60 Q 25 75 0 60 Z" fill="url(#awningStripes)"/>
+        <line x1="0" y1="60" x2="800" y2="60" stroke="#1E3A31" stroke-width="2"/>
+      `;
+    }
+  },
+
+  shopping_market: {
+    id: 'shopping_market',
+    nameEn: 'Shopping Market',
+    nameBn: 'মার্কেট / শপিং মল',
+    icon: '🛍️',
+    label: '🛍️ Shopping Market • মার্কেট',
+    renderSvg() {
+      return `
+        <linearGradient id="mallSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E0E7FF"/>
+          <stop offset="60%" stop-color="#F1F5F9"/>
+          <stop offset="100%" stop-color="#E2E8F0"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#mallSky)"/>
+        <rect x="60" y="50" width="680" height="280" rx="12" fill="#FFFFFF" opacity="0.6"/>
+        <path d="M 120 50 L 80 330 L 160 330 L 200 50 Z" fill="#FFFFFF" opacity="0.25"/>
+        <path d="M 380 50 L 330 330 L 410 330 L 460 50 Z" fill="#FFFFFF" opacity="0.2"/>
+        <path d="M 600 50 L 560 330 L 630 330 L 670 50 Z" fill="#FFFFFF" opacity="0.25"/>
+        <rect x="60" y="50" width="680" height="280" rx="12" fill="none" stroke="#CBD5E1" stroke-width="4"/>
+        <line x1="180" y1="0" x2="180" y2="70" stroke="#64748B" stroke-width="2"/>
+        <path d="M 165 70 L 195 70 L 202 85 L 158 85 Z" fill="#D97706"/>
+        <circle cx="180" cy="88" r="9" fill="#FEF08A"/>
+        <polygon points="158,85 202,85 250,260 110,260" fill="#FEF08A" opacity="0.15"/>
+        <line x1="620" y1="0" x2="620" y2="70" stroke="#64748B" stroke-width="2"/>
+        <path d="M 605 70 L 635 70 L 642 85 L 598 85 Z" fill="#D97706"/>
+        <circle cx="620" cy="88" r="9" fill="#FEF08A"/>
+        <polygon points="598,85 642,85 690,260 550,260" fill="#FEF08A" opacity="0.15"/>
+        <rect x="25" y="150" width="110" height="180" rx="6" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/>
+        <line x1="35" y1="170" x2="125" y2="170" stroke="#475569" stroke-width="3"/>
+        <rect x="42" y="175" width="22" height="70" rx="4" fill="#2D5A4C"/>
+        <rect x="70" y="175" width="22" height="65" rx="4" fill="#C26D53"/>
+        <rect x="98" y="175" width="20" height="75" rx="4" fill="#3B82F6"/>
+        <rect x="35" y="270" width="88" height="28" rx="6" fill="#EF4444"/>
+        <text x="79" y="289" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="middle">SALE 50%</text>
+        <rect x="665" y="150" width="110" height="180" rx="6" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/>
+        <ellipse cx="720" cy="180" rx="14" ry="12" fill="#E2E8F0"/>
+        <path d="M 708 190 L 732 190 L 740 255 L 700 255 Z" fill="#8B5CF6"/>
+        <line x1="720" y1="255" x2="720" y2="310" stroke="#475569" stroke-width="4"/>
+        <rect x="705" y="310" width="30" height="8" rx="3" fill="#475569"/>
+        <circle cx="755" cy="165" r="18" fill="#F59E0B"/>
+        <text x="755" y="170" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">$25</text>
+        <rect x="0" y="340" width="800" height="110" fill="#F1F5F9"/>
+        <line x1="0" y1="380" x2="800" y2="380" stroke="#E2E8F0" stroke-width="2"/>
+        <line x1="0" y1="420" x2="800" y2="420" stroke="#E2E8F0" stroke-width="2"/>
+        <rect x="670" y="360" width="36" height="42" rx="4" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.5"/>
+        <path d="M 680 360 Q 688 348 696 360" stroke="#B45309" stroke-width="2" fill="none"/>
+        <rect x="715" y="368" width="32" height="36" rx="4" fill="#A7F3D0" stroke="#10B981" stroke-width="1.5"/>
+        <path d="M 724 368 Q 731 356 738 368" stroke="#047857" stroke-width="2" fill="none"/>
+      `;
+    }
+  },
+
+  school_classroom: {
+    id: 'school_classroom',
+    nameEn: 'School Classroom',
+    nameBn: 'স্কুল / ক্লাসরুম',
+    icon: '🏫',
+    label: '🏫 School Classroom • ক্লাসরুম',
+    renderSvg() {
+      return `
+        <linearGradient id="classWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FEF3C7"/>
+          <stop offset="100%" stop-color="#FDE68A"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#classWall)"/>
+        <rect x="0" y="340" width="800" height="110" fill="#DEB887"/>
+        <line x1="0" y1="375" x2="800" y2="375" stroke="#C29B68" stroke-width="2"/>
+        <line x1="0" y1="410" x2="800" y2="410" stroke="#C29B68" stroke-width="2"/>
+        <rect x="180" y="45" width="440" height="240" rx="8" fill="#854D0E" stroke="#5C330A" stroke-width="5"/>
+        <rect x="195" y="58" width="410" height="214" rx="4" fill="#1E3A31"/>
+        <rect x="230" y="272" width="340" height="8" rx="2" fill="#B45309"/>
+        <rect x="250" y="268" width="18" height="5" rx="1" fill="#FFFFFF"/>
+        <rect x="275" y="268" width="18" height="5" rx="1" fill="#FEF08A"/>
+        <rect x="300" y="266" width="30" height="7" rx="2" fill="#64748B"/>
+        <text x="400" y="95" font-family="'Plus Jakarta Sans', monospace" font-size="16" font-weight="bold" fill="#A7F3D0" text-anchor="middle">A² + B² = C² &bull; GRAMMAR LAB</text>
+        <line x1="240" y1="110" x2="560" y2="110" stroke="#2D5A4C" stroke-width="2"/>
+        <text x="400" y="145" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Noun  &rarr;  Verb  &rarr;  Adjective</text>
+        <text x="400" y="175" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" fill="#FDE68A" text-anchor="middle">Master Derivatives &bull; Word Family</text>
+        <text x="400" y="215" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#E2E8F0" text-anchor="middle">&ldquo;Practice makes perfect every day.&rdquo;</text>
+        <circle cx="680" cy="50" r="26" fill="#FFFFFF" stroke="#475569" stroke-width="3"/>
+        <circle cx="680" cy="50" r="2.5" fill="#1E293B"/>
+        <line x1="680" y1="50" x2="670" y2="38" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="680" y1="50" x2="695" y2="50" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+        <line x1="680" y1="50" x2="680" y2="66" stroke="#EF4444" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="25" y="80" width="125" height="255" rx="4" fill="#854D0E" stroke="#5C330A" stroke-width="3"/>
+        <line x1="25" y1="165" x2="150" y2="165" stroke="#5C330A" stroke-width="4"/>
+        <line x1="25" y1="245" x2="150" y2="245" stroke="#5C330A" stroke-width="4"/>
+        <rect x="35" y="105" width="18" height="60" rx="2" fill="#EF4444"/>
+        <rect x="55" y="95" width="22" height="70" rx="2" fill="#3B82F6"/>
+        <rect x="80" y="100" width="20" height="65" rx="2" fill="#10B981"/>
+        <rect x="103" y="110" width="25" height="55" rx="2" fill="#F59E0B"/>
+        <rect x="35" y="185" width="24" height="60" rx="2" fill="#8B5CF6"/>
+        <rect x="62" y="190" width="20" height="55" rx="2" fill="#EC4899"/>
+        <rect x="85" y="180" width="26" height="65" rx="2" fill="#06B6D4"/>
+        <rect x="114" y="195" width="22" height="50" rx="2" fill="#EAB308"/>
+        <rect x="655" y="95" width="120" height="240" rx="4" fill="#64748B" stroke="#475569" stroke-width="3"/>
+        <line x1="715" y1="95" x2="715" y2="335" stroke="#475569" stroke-width="3"/>
+        <line x1="670" y1="115" x2="700" y2="115" stroke="#334155" stroke-width="2"/>
+        <line x1="670" y1="125" x2="700" y2="125" stroke="#334155" stroke-width="2"/>
+        <circle cx="705" cy="180" r="3" fill="#F59E0B"/>
+        <line x1="730" y1="115" x2="760" y2="115" stroke="#334155" stroke-width="2"/>
+        <line x1="730" y1="125" x2="760" y2="125" stroke="#334155" stroke-width="2"/>
+        <circle cx="725" cy="180" r="3" fill="#F59E0B"/>
+      `;
+    }
+  },
+
+  study_desk: {
+    id: 'study_desk',
+    nameEn: 'Study Desk',
+    nameBn: 'পড়ার টেবিল',
+    icon: '📚',
+    label: '📚 Study Desk • পড়ার টেবিল',
+    renderSvg() {
+      return `
+        <linearGradient id="sdWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F4EFE6"/>
+          <stop offset="100%" stop-color="#EAE3D6"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#sdWall)"/>
+        <rect x="250" y="30" width="300" height="220" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="5"/>
+        <rect x="260" y="40" width="280" height="200" fill="#BAE6FD"/>
+        <circle cx="340" cy="160" r="70" fill="#16A34A" opacity="0.9"/>
+        <circle cx="430" cy="150" r="85" fill="#15803D" opacity="0.95"/>
+        <circle cx="490" cy="170" r="60" fill="#22C55E" opacity="0.85"/>
+        <circle cx="280" cy="65" r="28" fill="#FEF08A" opacity="0.8"/>
+        <line x1="400" y1="40" x2="400" y2="240" stroke="#CBD5E1" stroke-width="4"/>
+        <line x1="260" y1="140" x2="540" y2="140" stroke="#CBD5E1" stroke-width="4"/>
+        <rect x="80" y="270" width="45" height="10" rx="3" fill="#475569"/>
+        <path d="M 102 270 L 115 170 L 155 125" stroke="#475569" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <circle cx="115" cy="170" r="5" fill="#D97706"/>
+        <circle cx="155" cy="125" r="5" fill="#D97706"/>
+        <path d="M 145 110 L 175 130 L 160 148 L 132 130 Z" fill="#D97706"/>
+        <polygon points="148,135 172,148 280,310 100,310" fill="#FEF08A" opacity="0.18"/>
+        <rect x="620" y="180" width="120" height="85" rx="5" fill="#1E293B" stroke="#64748B" stroke-width="2"/>
+        <rect x="626" y="186" width="108" height="73" rx="2" fill="#0F172A"/>
+        <line x1="635" y1="198" x2="685" y2="198" stroke="#38BDF8" stroke-width="2.5"/>
+        <line x1="635" y1="210" x2="715" y2="210" stroke="#4ADE80" stroke-width="2"/>
+        <line x1="635" y1="220" x2="695" y2="220" stroke="#FBBF24" stroke-width="2"/>
+        <line x1="635" y1="230" x2="720" y2="230" stroke="#E2E8F0" stroke-width="2"/>
+        <polygon points="605,265 755,265 745,275 615,275" fill="#94A3B8"/>
+        <rect x="630" y="280" width="115" height="18" rx="2" fill="#991B1B"/>
+        <rect x="625" y="298" width="125" height="20" rx="2" fill="#065F46"/>
+        <rect x="620" y="318" width="135" height="22" rx="2" fill="#1E3A8A"/>
+        <rect x="180" y="285" width="30" height="35" rx="5" fill="#2D5A4C"/>
+        <path d="M 210 292 C 220 292 220 310 210 312" stroke="#2D5A4C" stroke-width="3" fill="none"/>
+        <path d="M 188 275 Q 192 265 188 255 M 198 273 Q 202 263 198 253" stroke="#CBD5E1" stroke-width="2" fill="none" opacity="0.6"/>
+        <rect x="0" y="335" width="800" height="115" fill="#78350F"/>
+        <rect x="0" y="330" width="800" height="8" fill="#92400E"/>
+        <line x1="0" y1="380" x2="800" y2="380" stroke="#5C2C16" stroke-width="1.5"/>
+      `;
+    }
+  },
+
+  cafe_restaurant: {
+    id: 'cafe_restaurant',
+    nameEn: 'Cafe Restaurant',
+    nameBn: 'ক্যাফে / রেস্তোরাঁ',
+    icon: '☕',
+    label: '☕ Cozy Café • ক্যাফে',
+    renderSvg() {
+      return `
+        <linearGradient id="cafeWall2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FBF8F3"/>
+          <stop offset="100%" stop-color="#F2E8D7"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#cafeWall2)"/>
+        <path d="M 260 270 L 260 120 Q 400 40 540 120 L 540 270 Z" fill="#E8F1F2" stroke="#D3E0E2" stroke-width="5"/>
+        <line x1="400" y1="60" x2="400" y2="270" stroke="#D3E0E2" stroke-width="4"/>
+        <line x1="260" y1="165" x2="540" y2="165" stroke="#D3E0E2" stroke-width="4"/>
+        <circle cx="330" cy="220" r="40" fill="#C5DDD4" opacity="0.7"/>
+        <circle cx="470" cy="215" r="48" fill="#B7D6CB" opacity="0.7"/>
+        <line x1="160" y1="0" x2="160" y2="70" stroke="#78350F" stroke-width="2"/>
+        <path d="M 145 70 Q 160 55 175 70 Z" fill="#D97706"/>
+        <circle cx="160" cy="74" r="6" fill="#FDE68A"/>
+        <line x1="640" y1="0" x2="640" y2="70" stroke="#78350F" stroke-width="2"/>
+        <path d="M 625 70 Q 640 55 655 70 Z" fill="#D97706"/>
+        <circle cx="640" cy="74" r="6" fill="#FDE68A"/>
+        <rect x="30" y="65" width="140" height="195" rx="8" fill="#1E293B" stroke="#854D0E" stroke-width="4"/>
+        <text x="100" y="96" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="900" fill="#FDE68A" text-anchor="middle">ESPRESSO BAR</text>
+        <line x1="50" y1="106" x2="150" y2="106" stroke="#475569" stroke-width="1.5"/>
+        <text x="100" y="126" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#CBD5E1" text-anchor="middle">&bull; Flat White &bull;</text>
+        <text x="100" y="146" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#CBD5E1" text-anchor="middle">&bull; Warm Latte &bull;</text>
+        <text x="100" y="166" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#CBD5E1" text-anchor="middle">&bull; Croissant &bull;</text>
+        <text x="100" y="196" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#34D399" text-anchor="middle">&hearts; Fresh Roast &hearts;</text>
+        <rect x="630" y="190" width="125" height="14" rx="2" fill="#A16207"/>
+        <path d="M 645 190 Q 692 120 740 190 Z" fill="#E0F2FE" opacity="0.65" stroke="#BAE6FD" stroke-width="2"/>
+        <ellipse cx="680" cy="182" rx="14" ry="7" fill="#D97706"/>
+        <ellipse cx="710" cy="182" rx="12" ry="6" fill="#B45309"/>
+        <rect x="0" y="340" width="800" height="110" fill="#78350F"/>
+        <rect x="0" y="332" width="800" height="8" fill="#92400E"/>
+        <rect x="365" y="315" width="70" height="35" rx="6" fill="#2D5A4C"/>
+        <path d="M 435 323 C 445 323 445 338 435 340" stroke="#2D5A4C" stroke-width="3" fill="none"/>
+        <ellipse cx="400" cy="315" rx="30" ry="5" fill="#FFFFFF"/>
+        <path d="M 390 305 Q 395 292 392 280 M 405 303 Q 410 290 407 278" stroke="#A7F3D0" stroke-width="2.5" fill="none" opacity="0.75"/>
+      `;
+    }
+  },
+
+  park_outdoor: {
+    id: 'park_outdoor',
+    nameEn: 'Park Outdoor',
+    nameBn: 'পার্ক',
+    icon: '🌳',
+    label: '🌳 Green Park • উন্মুক্ত পার্ক',
+    renderSvg() {
+      return `
+        <linearGradient id="parkSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7DD3FC"/>
+          <stop offset="55%" stop-color="#BAE6FD"/>
+          <stop offset="100%" stop-color="#FEF3C7"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#parkSky)"/>
+        <circle cx="680" cy="75" r="38" fill="#FDE047" opacity="0.9"/>
+        <circle cx="160" cy="80" r="28" fill="#FFFFFF" opacity="0.9"/>
+        <circle cx="195" cy="70" r="36" fill="#FFFFFF" opacity="0.9"/>
+        <circle cx="230" cy="80" r="26" fill="#FFFFFF" opacity="0.9"/>
+        <path d="M 0 250 Q 220 180 440 240 Q 620 190 800 230 L 800 450 L 0 450 Z" fill="#86EFAC" opacity="0.7"/>
+        <path d="M 0 280 Q 200 230 400 270 Q 640 220 800 260 L 800 450 L 0 450 Z" fill="#4ADE80" opacity="0.85"/>
+        <rect x="75" y="160" width="22" height="160" fill="#78350F"/>
+        <circle cx="86" cy="120" r="55" fill="#15803D"/>
+        <circle cx="60" cy="140" r="42" fill="#16A34A"/>
+        <circle cx="115" cy="135" r="46" fill="#22C55E"/>
+        <circle cx="86" cy="95" r="38" fill="#4ADE80"/>
+        <rect x="705" y="170" width="20" height="150" fill="#78350F"/>
+        <circle cx="715" cy="130" r="50" fill="#15803D"/>
+        <circle cx="685" cy="145" r="40" fill="#16A34A"/>
+        <circle cx="740" cy="140" r="42" fill="#22C55E"/>
+        <path d="M 0 320 Q 400 300 800 320 L 800 450 L 0 450 Z" fill="#15803D"/>
+        <path d="M 220 450 C 260 380 340 330 400 320 C 460 330 540 380 580 450 Z" fill="#E2E8F0"/>
+        <path d="M 235 450 C 272 385 345 338 400 328 C 455 338 528 385 565 450 Z" fill="none" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="8,6"/>
+        <rect x="18" y="325" width="105" height="12" rx="3" fill="#78350F"/>
+        <rect x="22" y="340" width="97" height="10" rx="2" fill="#854D0E"/>
+        <rect x="25" y="350" width="8" height="25" fill="#1E293B"/>
+        <rect x="108" y="350" width="8" height="25" fill="#1E293B"/>
+        <rect x="645" y="180" width="6" height="160" fill="#1E293B"/>
+        <path d="M 635 180 L 661 180 L 655 155 L 641 155 Z" fill="#1E293B"/>
+        <circle cx="648" cy="168" r="8" fill="#FEF08A"/>
+        <polygon points="635,180 661,180 700,320 596,320" fill="#FEF08A" opacity="0.16"/>
+        <circle cx="160" cy="380" r="4" fill="#F472B6"/>
+        <circle cx="180" cy="405" r="5" fill="#FBBF24"/>
+        <circle cx="610" cy="390" r="4.5" fill="#F472B6"/>
+        <circle cx="635" cy="415" r="5" fill="#FBBF24"/>
+      `;
+    }
+  },
+
+  hospital_clinic: {
+    id: 'hospital_clinic',
+    nameEn: 'Hospital Clinic',
+    nameBn: 'হাসপাতাল / ফার্মেসি',
+    icon: '🏥',
+    label: '🏥 Clinic & Pharmacy • ক্লিনিক',
+    renderSvg() {
+      return `
+        <linearGradient id="clinicWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F0FDF4"/>
+          <stop offset="100%" stop-color="#DCFCE7"/>
+        </linearGradient>
+        <rect width="800" height="450" fill="url(#clinicWall)"/>
+        <rect x="0" y="338" width="800" height="6" fill="#A7F3D0"/>
+        <rect x="0" y="344" width="800" height="106" fill="#E2E8F0"/>
+        <line x1="0" y1="385" x2="800" y2="385" stroke="#CBD5E1" stroke-width="2"/>
+        <line x1="0" y1="420" x2="800" y2="420" stroke="#CBD5E1" stroke-width="2"/>
+        <circle cx="400" cy="110" r="52" fill="#FFFFFF" stroke="#10B981" stroke-width="4" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.06))"/>
+        <rect x="388" y="76" width="24" height="68" rx="5" fill="#EF4444"/>
+        <rect x="366" y="98" width="68" height="24" rx="5" fill="#EF4444"/>
+        <circle cx="400" cy="110" r="7" fill="#FFFFFF"/>
+        <rect x="40" y="60" width="130" height="180" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="3"/>
+        <rect x="52" y="75" width="106" height="55" rx="4" fill="#0F172A"/>
+        <path d="M 58 102 L 78 102 L 85 85 L 92 120 L 99 95 L 106 106 L 112 102 L 148 102" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="55" y1="150" x2="135" y2="150" stroke="#64748B" stroke-width="2"/>
+        <line x1="55" y1="165" x2="145" y2="165" stroke="#94A3B8" stroke-width="2"/>
+        <line x1="55" y1="180" x2="120" y2="180" stroke="#94A3B8" stroke-width="2"/>
+        <line x1="55" y1="195" x2="140" y2="195" stroke="#94A3B8" stroke-width="2"/>
+        <text x="105" y="224" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="bold" fill="#059669" text-anchor="middle">CARE & HEALTH</text>
+        <rect x="630" y="55" width="135" height="235" rx="6" fill="#F8FAFC" stroke="#64748B" stroke-width="3"/>
+        <line x1="630" y1="130" x2="765" y2="130" stroke="#CBD5E1" stroke-width="3"/>
+        <line x1="630" y1="200" x2="765" y2="200" stroke="#CBD5E1" stroke-width="3"/>
+        <rect x="645" y="85" width="18" height="42" rx="3" fill="#38BDF8"/>
+        <rect x="649" y="78" width="10" height="7" fill="#FFFFFF"/>
+        <rect x="672" y="80" width="22" height="47" rx="3" fill="#34D399"/>
+        <rect x="677" y="73" width="12" height="7" fill="#FFFFFF"/>
+        <rect x="702" y="90" width="16" height="37" rx="3" fill="#F87171"/>
+        <rect x="705" y="84" width="10" height="6" fill="#FFFFFF"/>
+        <rect x="726" y="82" width="24" height="45" rx="3" fill="#FBBF24"/>
+        <rect x="732" y="75" width="12" height="7" fill="#FFFFFF"/>
+        <rect x="645" y="150" width="40" height="28" rx="3" fill="#FFFFFF" stroke="#EF4444" stroke-width="2"/>
+        <line x1="665" y1="156" x2="665" y2="172" stroke="#EF4444" stroke-width="3"/>
+        <line x1="657" y1="164" x2="673" y2="164" stroke="#EF4444" stroke-width="3"/>
+        <rect x="695" y="145" width="55" height="33" rx="3" fill="#EEF2FF" stroke="#4F46E5" stroke-width="1.5"/>
+        <rect x="20" y="275" width="120" height="90" rx="4" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+        <path d="M 50 282 C 40 282 35 298 48 304 C 60 310 75 292 85 300" stroke="#1E293B" stroke-width="2.5" fill="none"/>
+        <circle cx="85" cy="300" r="5" fill="#94A3B8"/>
+      `;
+    }
+  }
+};
+
+// Aliases for backward compatibility
+SCENE_ENVIRONMENTS.cafe = SCENE_ENVIRONMENTS.cafe_restaurant;
+SCENE_ENVIRONMENTS.library = SCENE_ENVIRONMENTS.school_classroom;
+SCENE_ENVIRONMENTS.rooftop = SCENE_ENVIRONMENTS.park_outdoor;
+SCENE_ENVIRONMENTS.garden = SCENE_ENVIRONMENTS.park_outdoor;
+SCENE_ENVIRONMENTS.studio = SCENE_ENVIRONMENTS.study_desk;
+SCENE_ENVIRONMENTS.study = SCENE_ENVIRONMENTS.study_desk;
+window.SCENE_ENVIRONMENTS = SCENE_ENVIRONMENTS;
+window.determineScenePair = determineScenePair;
+
+function renderMayaCharacter(pose = 'neutral', isSpeaking = false) {
+  const speakingMouth = `
+    <g class="cartoon-mouth speaking">
+      <ellipse cx="75" cy="58" rx="7" ry="6" fill="#881337"/>
+      <path d="M 70 55 Q 75 57 80 55" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="75" cy="61" rx="4.5" ry="2.5" fill="#FB7185"/>
+    </g>
+  `;
+  const normalMouth = `
+    <path d="M 69 57 Q 75 62 81 57" stroke="#C26D53" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  `;
+  const laughingMouth = `
+    <g class="cartoon-mouth laughing">
+      <path d="M 68 56 Q 75 67 82 56 Z" fill="#881337"/>
+      <ellipse cx="75" cy="61" rx="4" ry="2.5" fill="#FB7185"/>
+      <path d="M 69 56 L 81 56" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+  `;
+  const shockedMouth = `
+    <ellipse cx="75" cy="59" rx="5" ry="7" fill="#881337"/>
+  `;
+
+  let eyesSvg = `
+    <g class="cartoon-eyes">
+      <circle cx="63" cy="44" r="5" fill="#0284C7"/>
+      <circle cx="63" cy="44" r="3.5" fill="#0F172A"/>
+      <circle cx="65" cy="42" r="1.5" fill="#FFFFFF"/>
+      <path d="M 57 37 Q 63 33 69 37" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <circle cx="87" cy="44" r="5" fill="#0284C7"/>
+      <circle cx="87" cy="44" r="3.5" fill="#0F172A"/>
+      <circle cx="89" cy="42" r="1.5" fill="#FFFFFF"/>
+      <path d="M 81 37 Q 87 33 93 37" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </g>
+  `;
+
+  if (pose === 'laughing') {
+    eyesSvg = `
+      <g class="cartoon-eyes laughing">
+        <path d="M 58 44 Q 63 38 68 44" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M 82 44 Q 87 38 92 44" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  } else if (pose === 'shocked') {
+    eyesSvg = `
+      <g class="cartoon-eyes shocked">
+        <circle cx="63" cy="44" r="6.5" fill="#0284C7"/>
+        <circle cx="63" cy="44" r="3" fill="#0F172A"/>
+        <circle cx="65" cy="42" r="2" fill="#FFFFFF"/>
+        <path d="M 56 34 Q 63 31 70 34" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="87" cy="44" r="6.5" fill="#0284C7"/>
+        <circle cx="87" cy="44" r="3" fill="#0F172A"/>
+        <circle cx="89" cy="42" r="2" fill="#FFFFFF"/>
+        <path d="M 80 34 Q 87 31 94 34" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  } else if (pose === 'thinking_chin') {
+    eyesSvg = `
+      <g class="cartoon-eyes thinking">
+        <circle cx="64" cy="41" r="5" fill="#0284C7"/>
+        <circle cx="64" cy="41" r="3.5" fill="#0F172A"/>
+        <circle cx="65" cy="39" r="1.5" fill="#FFFFFF"/>
+        <path d="M 57 35 Q 63 33 69 37" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="88" cy="41" r="5" fill="#0284C7"/>
+        <circle cx="88" cy="41" r="3.5" fill="#0F172A"/>
+        <circle cx="89" cy="39" r="1.5" fill="#FFFFFF"/>
+        <path d="M 81 37 Q 87 33 93 35" stroke="#7A3434" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  }
+
+  const mouthSvg = isSpeaking ? speakingMouth : (pose === 'laughing' ? laughingMouth : (pose === 'shocked' ? shockedMouth : normalMouth));
+
+  let armsSvg = '';
+  let extraEffectSvg = '';
+
+  if (pose === 'dramatic_clutch') {
+    armsSvg = `
+      <path d="M 52 82 Q 40 105 65 105" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="65" cy="105" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 Q 110 105 85 105" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="85" cy="105" r="7" fill="#FBD5B9"/>
+    `;
+  } else if (pose === 'thinking_chin') {
+    armsSvg = `
+      <path d="M 52 82 Q 42 120 75 125" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="75" cy="125" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 Q 115 110 88 65" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="88" cy="65" r="7" fill="#FBD5B9"/>
+    `;
+    extraEffectSvg = `
+      <g class="thought-bubble" opacity="0.9">
+        <circle cx="108" cy="30" r="4" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+        <circle cx="118" cy="18" r="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+        <path d="M 125 10 Q 140 -5 155 10 Q 170 10 170 25 Q 170 40 155 40 Q 140 45 130 35 Q 120 25 125 10 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+        <text x="148" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#2D5A4C" text-anchor="middle">💡 Idea</text>
+      </g>
+    `;
+  } else if (pose === 'pointing_item') {
+    armsSvg = `
+      <path d="M 52 82 Q 38 115 45 140" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="45" cy="140" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 L 140 85 L 160 85" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="162" cy="85" r="7" fill="#FBD5B9"/>
+      <line x1="162" y1="85" x2="175" y2="85" stroke="#FBD5B9" stroke-width="4" stroke-linecap="round"/>
+    `;
+  } else if (pose === 'explaining') {
+    armsSvg = `
+      <path d="M 52 82 Q 30 105 25 110" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="23" cy="110" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 Q 120 105 130 110" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="132" cy="110" r="7" fill="#FBD5B9"/>
+    `;
+  } else if (pose === 'shocked') {
+    armsSvg = `
+      <path d="M 52 82 Q 35 65 52 52" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="52" cy="52" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 Q 115 65 98 52" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="98" cy="52" r="7" fill="#FBD5B9"/>
+    `;
+    extraEffectSvg = `
+      <path d="M 45 15 L 52 25 L 47 27 L 55 35" stroke="#F59E0B" stroke-width="3" fill="none"/>
+      <path d="M 105 15 L 98 25 L 103 27 L 95 35" stroke="#F59E0B" stroke-width="3" fill="none"/>
+    `;
+  } else if (pose === 'laughing') {
+    armsSvg = `
+      <path d="M 52 82 Q 35 105 50 128" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="50" cy="128" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 Q 115 105 100 128" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="100" cy="128" r="7" fill="#FBD5B9"/>
+    `;
+  } else if (pose === 'celebrate') {
+    armsSvg = `
+      <path d="M 52 82 L 30 45" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="28" cy="43" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 L 125 40" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="127" cy="38" r="7" fill="#FBD5B9"/>
+    `;
+    extraEffectSvg = `
+      <polygon points="135,15 137,22 144,24 137,26 135,33 133,26 126,24 133,22" fill="#FBBF24"/>
+      <polygon points="20,20 22,25 27,27 22,29 20,34 18,29 13,27 18,25" fill="#FBBF24"/>
+    `;
+  } else if (pose === 'walking') {
+    armsSvg = `
+      <path d="M 52 82 L 35 115" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="35" cy="115" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 L 118 110" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="118" cy="110" r="7" fill="#FBD5B9"/>
+    `;
+  } else {
+    armsSvg = `
+      <path d="M 52 82 Q 38 115 45 145" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="45" cy="145" r="7" fill="#FBD5B9"/>
+      <path d="M 98 82 Q 112 115 105 145" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="105" cy="145" r="7" fill="#FBD5B9"/>
+    `;
+  }
+
+  let legsSvg = '';
+  if (pose === 'walking') {
+    legsSvg = `
+      <path d="M 64 165 L 50 230" stroke="#FBD5B9" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <ellipse cx="46" cy="235" rx="14" ry="6" fill="#F4B8C4"/>
+      <ellipse cx="46" cy="235" rx="10" ry="3" fill="#E09AA8"/>
+      <path d="M 86 165 L 98 230" stroke="#FBD5B9" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <ellipse cx="104" cy="235" rx="14" ry="6" fill="#F4B8C4"/>
+      <ellipse cx="104" cy="235" rx="10" ry="3" fill="#E09AA8"/>
+    `;
+  } else {
+    legsSvg = `
+      <path d="M 65 165 L 65 230" stroke="#FBD5B9" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <ellipse cx="63" cy="235" rx="13" ry="6" fill="#F4B8C4"/>
+      <ellipse cx="63" cy="235" rx="9" ry="3" fill="#E09AA8"/>
+      <path d="M 85 165 L 85 230" stroke="#FBD5B9" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <ellipse cx="87" cy="235" rx="13" ry="6" fill="#F4B8C4"/>
+      <ellipse cx="87" cy="235" rx="9" ry="3" fill="#E09AA8"/>
+    `;
+  }
+
+  return `
+    <g id="char-maya" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(140, 150)">
+      <g class="cartoon-breathe">
+        ${extraEffectSvg}
+        <path d="M 40 40 C 30 65 30 95 42 120 C 48 110 50 90 52 75 Z" fill="#7A3434"/>
+        <path d="M 110 40 C 120 65 120 95 108 120 C 102 110 100 90 98 75 Z" fill="#7A3434"/>
+        <path d="M 45 35 C 35 15 115 15 105 35 C 120 60 120 110 105 125 C 95 105 95 85 95 85 L 55 85 C 55 85 55 105 45 125 C 30 110 30 60 45 35 Z" fill="#692929"/>
+        ${legsSvg}
+        <path d="M 54 135 L 96 135 L 100 166 L 76 168 L 74 168 L 50 166 Z" fill="#3B596A"/>
+        <rect x="50" y="162" width="23" height="5" rx="2" fill="#2E4553"/>
+        <rect x="77" y="162" width="23" height="5" rx="2" fill="#2E4553"/>
+        <rect x="54" y="134" width="42" height="5" fill="#92400E"/>
+        <rect x="71" y="133" width="8" height="7" rx="1.5" fill="#F59E0B"/>
+        <path d="M 52 75 L 98 75 L 96 135 L 54 135 Z" fill="#FFFFFF"/>
+        <path d="M 66 75 Q 75 82 84 75" stroke="#CBD5E1" stroke-width="2" fill="none"/>
+        <path d="M 75 82 L 75 130" stroke="#F1F5F9" stroke-width="1.5"/>
+        ${armsSvg}
+        <rect x="68" y="65" width="14" height="15" rx="4" fill="#FBD5B9"/>
+        <circle cx="75" cy="46" r="26" fill="#FBD5B9"/>
+        <ellipse cx="58" cy="52" rx="5" ry="3.5" fill="#FB7185" opacity="0.4"/>
+        <ellipse cx="92" cy="52" rx="5" ry="3.5" fill="#FB7185" opacity="0.4"/>
+        ${eyesSvg}
+        <path d="M 74 49 Q 75 52 77 50" stroke="#E29D7C" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        ${mouthSvg}
+        <path d="M 46 45 C 44 25 60 18 75 18 C 90 18 106 25 104 45 C 98 28 85 24 75 25 C 62 26 50 32 46 45 Z" fill="#7A3434"/>
+        <path d="M 48 35 Q 40 55 45 78 Q 48 60 52 42" fill="#8F3E3E"/>
+        <path d="M 102 35 Q 110 55 105 78 Q 102 60 98 42" fill="#8F3E3E"/>
+      </g>
+    </g>
+  `;
+}
+
+function renderLeoCharacter(pose = 'neutral', isSpeaking = false) {
+  const speakingMouth = `
+    <g class="cartoon-mouth speaking">
+      <ellipse cx="75" cy="58" rx="7" ry="6" fill="#881337"/>
+      <path d="M 70 55 Q 75 57 80 55" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="75" cy="61" rx="4.5" ry="2.5" fill="#FB7185"/>
+    </g>
+  `;
+  const normalMouth = `
+    <path d="M 70 57 Q 75 62 82 58" stroke="#C26D53" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  `;
+  const laughingMouth = `
+    <g class="cartoon-mouth laughing">
+      <path d="M 68 56 Q 75 67 82 56 Z" fill="#881337"/>
+      <ellipse cx="75" cy="61" rx="4" ry="2.5" fill="#FB7185"/>
+      <path d="M 69 56 L 81 56" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+  `;
+  const shockedMouth = `
+    <ellipse cx="75" cy="59" rx="5" ry="7" fill="#881337"/>
+  `;
+
+  let eyesSvg = `
+    <g class="cartoon-eyes">
+      <circle cx="63" cy="44" r="5" fill="#1E293B"/>
+      <circle cx="65" cy="42" r="1.5" fill="#FFFFFF"/>
+      <circle cx="87" cy="44" r="5" fill="#1E293B"/>
+      <circle cx="89" cy="42" r="1.5" fill="#FFFFFF"/>
+      <path d="M 56 36 Q 63 32 70 36" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M 80 36 Q 87 32 94 36" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </g>
+  `;
+
+  if (pose === 'laughing') {
+    eyesSvg = `
+      <g class="cartoon-eyes laughing">
+        <path d="M 58 44 Q 63 38 68 44" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M 82 44 Q 87 38 92 44" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  } else if (pose === 'shocked') {
+    eyesSvg = `
+      <g class="cartoon-eyes shocked">
+        <circle cx="63" cy="44" r="6.5" fill="#1E293B"/>
+        <circle cx="65" cy="42" r="2" fill="#FFFFFF"/>
+        <circle cx="87" cy="44" r="6.5" fill="#1E293B"/>
+        <circle cx="89" cy="42" r="2" fill="#FFFFFF"/>
+        <path d="M 55 33 Q 63 30 71 33" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M 79 33 Q 87 30 95 33" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  } else if (pose === 'thinking_chin') {
+    eyesSvg = `
+      <g class="cartoon-eyes thinking">
+        <circle cx="62" cy="41" r="5" fill="#1E293B"/>
+        <circle cx="64" cy="39" r="1.5" fill="#FFFFFF"/>
+        <circle cx="86" cy="41" r="5" fill="#1E293B"/>
+        <circle cx="88" cy="39" r="1.5" fill="#FFFFFF"/>
+        <path d="M 57 37 Q 63 34 69 36" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M 81 35 Q 87 33 93 37" stroke="#231B15" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </g>
+    `;
+  }
+
+  const mouthSvg = isSpeaking ? speakingMouth : (pose === 'laughing' ? laughingMouth : (pose === 'shocked' ? shockedMouth : normalMouth));
+
+  let armsSvg = '';
+  let extraEffectSvg = '';
+
+  if (pose === 'dramatic_clutch') {
+    armsSvg = `
+      <path d="M 50 82 Q 38 105 65 105" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="65" cy="105" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 Q 112 105 85 105" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="85" cy="105" r="7" fill="#FAD1B5"/>
+    `;
+  } else if (pose === 'thinking_chin') {
+    armsSvg = `
+      <path d="M 100 82 Q 110 120 75 125" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="75" cy="125" r="7" fill="#FAD1B5"/>
+      <path d="M 50 82 Q 35 110 62 65" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="62" cy="65" r="7" fill="#FAD1B5"/>
+    `;
+    extraEffectSvg = `
+      <g class="thought-bubble" opacity="0.9">
+        <circle cx="42" cy="30" r="4" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+        <circle cx="32" cy="18" r="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+        <path d="M 25 10 Q 10 -5 -5 10 Q -20 10 -20 25 Q -20 40 -5 40 Q 10 45 20 35 Q 30 25 25 10 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+        <text x="0" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#1CA65A" text-anchor="middle">🤔 Hmm...</text>
+      </g>
+    `;
+  } else if (pose === 'pointing_item') {
+    armsSvg = `
+      <path d="M 100 82 Q 112 115 105 140" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="105" cy="140" r="7" fill="#FAD1B5"/>
+      <path d="M 50 82 L 10 85 L -10 85" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="-12" cy="85" r="7" fill="#FAD1B5"/>
+      <line x1="-12" y1="85" x2="-25" y2="85" stroke="#FAD1B5" stroke-width="4" stroke-linecap="round"/>
+    `;
+  } else if (pose === 'explaining') {
+    armsSvg = `
+      <path d="M 50 82 Q 28 105 20 110" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="18" cy="110" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 Q 122 105 130 110" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="132" cy="110" r="7" fill="#FAD1B5"/>
+    `;
+  } else if (pose === 'shocked') {
+    armsSvg = `
+      <path d="M 50 82 Q 33 65 50 52" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="50" cy="52" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 Q 117 65 100 52" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="100" cy="52" r="7" fill="#FAD1B5"/>
+    `;
+    extraEffectSvg = `
+      <path d="M 45 15 L 52 25 L 47 27 L 55 35" stroke="#F59E0B" stroke-width="3" fill="none"/>
+      <path d="M 105 15 L 98 25 L 103 27 L 95 35" stroke="#F59E0B" stroke-width="3" fill="none"/>
+    `;
+  } else if (pose === 'laughing') {
+    armsSvg = `
+      <path d="M 50 82 Q 33 105 48 128" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="48" cy="128" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 Q 117 105 102 128" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="102" cy="128" r="7" fill="#FAD1B5"/>
+    `;
+  } else if (pose === 'celebrate') {
+    armsSvg = `
+      <path d="M 50 82 L 25 40" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="23" cy="38" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 L 125 45" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="127" cy="43" r="7" fill="#FAD1B5"/>
+    `;
+    extraEffectSvg = `
+      <polygon points="135,20 137,27 144,29 137,31 135,38 133,31 126,29 133,27" fill="#FBBF24"/>
+      <polygon points="15,15 17,20 22,22 17,24 15,29 13,24 8,22 13,20" fill="#FBBF24"/>
+    `;
+  } else if (pose === 'walking') {
+    armsSvg = `
+      <path d="M 50 82 L 32 110" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="32" cy="110" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 L 115 115" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="115" cy="115" r="7" fill="#FAD1B5"/>
+    `;
+  } else {
+    armsSvg = `
+      <path d="M 50 82 Q 36 115 42 145" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="42" cy="145" r="7" fill="#FAD1B5"/>
+      <path d="M 100 82 Q 114 115 108 145" stroke="#1CA65A" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <circle cx="108" cy="145" r="7" fill="#FAD1B5"/>
+    `;
+  }
+
+  let legsSvg = '';
+  if (pose === 'walking') {
+    legsSvg = `
+      <path d="M 64 145 L 48 220" stroke="#415B61" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <rect x="42" y="215" width="16" height="5" rx="2" fill="#304449"/>
+      <path d="M 36 226 L 56 226 L 58 236 L 30 236 Z" fill="#5BC0DE"/>
+      <path d="M 30 230 Q 30 236 36 236 L 36 226 Z" fill="#FFFFFF"/>
+      <rect x="28" y="235" width="32" height="4" rx="2" fill="#FFFFFF"/>
+      <path d="M 86 145 L 102 220" stroke="#415B61" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <rect x="94" y="215" width="16" height="5" rx="2" fill="#304449"/>
+      <path d="M 90 226 L 110 226 L 116 236 L 88 236 Z" fill="#5BC0DE"/>
+      <path d="M 110 226 Q 116 230 116 236 L 110 236 Z" fill="#FFFFFF"/>
+      <rect x="86" y="235" width="32" height="4" rx="2" fill="#FFFFFF"/>
+    `;
+  } else {
+    legsSvg = `
+      <path d="M 64 145 L 64 220" stroke="#415B61" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <rect x="56" y="215" width="16" height="5" rx="2" fill="#304449"/>
+      <path d="M 52 226 L 72 226 L 74 236 L 46 236 Z" fill="#5BC0DE"/>
+      <path d="M 46 230 Q 46 236 52 236 L 52 226 Z" fill="#FFFFFF"/>
+      <rect x="44" y="235" width="32" height="4" rx="2" fill="#FFFFFF"/>
+      <path d="M 86 145 L 86 220" stroke="#415B61" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <rect x="78" y="215" width="16" height="5" rx="2" fill="#304449"/>
+      <path d="M 76 226 L 96 226 L 102 236 L 74 236 Z" fill="#5BC0DE"/>
+      <path d="M 96 226 Q 102 230 102 236 L 96 236 Z" fill="#FFFFFF"/>
+      <rect x="72" y="235" width="32" height="4" rx="2" fill="#FFFFFF"/>
+    `;
+  }
+
+  return `
+    <g id="char-leo" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(530, 150)">
+      <g class="cartoon-breathe">
+        ${extraEffectSvg}
+        ${legsSvg}
+        <path d="M 48 76 L 102 76 L 100 148 L 50 148 Z" fill="#1CA65A"/>
+        <path d="M 58 116 L 92 116 L 96 142 L 54 142 Z" fill="#15803D" opacity="0.85"/>
+        <line x1="58" y1="116" x2="54" y2="142" stroke="#0F5127" stroke-width="1.5"/>
+        <line x1="92" y1="116" x2="96" y2="142" stroke="#0F5127" stroke-width="1.5"/>
+        <path d="M 64 76 Q 75 88 86 76" stroke="#15803D" stroke-width="4" fill="none"/>
+        <line x1="71" y1="84" x2="71" y2="105" stroke="#F8FAFC" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="71" cy="106" r="2" fill="#CBD5E1"/>
+        <line x1="79" y1="84" x2="79" y2="103" stroke="#F8FAFC" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="79" cy="104" r="2" fill="#CBD5E1"/>
+        ${armsSvg}
+        <rect x="68" y="65" width="14" height="15" rx="4" fill="#FAD1B5"/>
+        <circle cx="75" cy="46" r="26" fill="#FAD1B5"/>
+        <ellipse cx="58" cy="52" rx="5" ry="3" fill="#FB7185" opacity="0.3"/>
+        <ellipse cx="92" cy="52" rx="5" ry="3" fill="#FB7185" opacity="0.3"/>
+        <circle cx="63" cy="44" r="10.5" fill="none" stroke="#1E293B" stroke-width="2.5"/>
+        <circle cx="87" cy="44" r="10.5" fill="none" stroke="#1E293B" stroke-width="2.5"/>
+        <line x1="73.5" y1="44" x2="76.5" y2="44" stroke="#1E293B" stroke-width="2.5"/>
+        <path d="M 57 40 L 67 40" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 81 40 L 91 40" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        ${eyesSvg}
+        <path d="M 74 49 Q 75 52 77 50" stroke="#E29D7C" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        ${mouthSvg}
+        <path d="M 46 45 C 40 22 55 12 75 12 C 95 12 110 22 104 45 C 98 25 88 20 75 22 C 60 20 50 25 46 45 Z" fill="#231B15"/>
+        <circle cx="58" cy="20" r="10" fill="#231B15"/>
+        <circle cx="75" cy="15" r="12" fill="#2D221B"/>
+        <circle cx="92" cy="20" r="11" fill="#231B15"/>
+        <circle cx="103" cy="28" r="9" fill="#2D221B"/>
+        <path d="M 54 22 L 60 12 L 68 22" fill="#231B15"/>
+        <path d="M 82 22 L 88 11 L 96 22" fill="#231B15"/>
+      </g>
+    </g>
+  `;
+}
+
+function renderCartoonSceneSvg(theme = 'living_room', speaker = 'Maya', pose = 'neutral', isSpeaking = false) {
+  // Support legacy signature (theme, speaker, isSpeaking)
+  if (typeof pose === 'boolean') {
+    isSpeaking = pose;
+    pose = 'neutral';
+  }
+
+  const envKey = (SCENE_ENVIRONMENTS[theme] && SCENE_ENVIRONMENTS[theme].renderSvg) ? theme : 'living_room';
+  const env = SCENE_ENVIRONMENTS[envKey];
+  const bgElements = env.renderSvg();
+
+  const mayaSpeaking = isSpeaking && speaker === 'Maya';
+  const leoSpeaking = isSpeaking && speaker === 'Leo';
+
+  const mayaPose = speaker === 'Maya' ? pose : (pose === 'walking' ? 'walking' : 'neutral');
+  const leoPose = speaker === 'Leo' ? pose : (pose === 'walking' ? 'walking' : 'neutral');
+
+  const mayaSvg = renderMayaCharacter(mayaPose, mayaSpeaking);
+  const leoSvg = renderLeoCharacter(leoPose, leoSpeaking);
+
+  // Dynamic Location Badge Pill at top-left
+  const locationBadgeSvg = `
+    <g id="scene-location-pill" class="cartoon-location-badge" transform="translate(18, 16)">
+      <rect x="0" y="0" width="185" height="32" rx="16" fill="rgba(255, 255, 255, 0.95)" stroke="rgba(45, 90, 76, 0.25)" stroke-width="1.5" filter="drop-shadow(0 3px 8px rgba(0,0,0,0.12))"/>
+      <circle cx="16" cy="16" r="4.5" fill="#10B981"/>
+      <text x="28" y="20.5" font-family="'Plus Jakarta Sans', sans-serif" font-size="11.5" font-weight="bold" fill="#2D5A4C">${env.label}</text>
+    </g>
+  `;
+
+  let speechBubbleSvg = '';
+  if (mayaSpeaking) {
+    speechBubbleSvg = `
+      <g id="speech-bubble-maya" class="cartoon-speech-bubble" transform="translate(145, 60)">
+        <path d="M 10 10 L 140 10 Q 150 10 150 20 L 150 65 Q 150 75 140 75 L 75 75 L 60 95 L 55 75 L 10 75 Q 0 75 0 65 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.15))"/>
+        <circle cx="26" cy="42" r="13" fill="#EEF4F1"/>
+        <text x="26" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#2D5A4C" text-anchor="middle">M</text>
+        <text x="46" y="39" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#2D5A4C">Maya Speaking</text>
+        <rect x="48" y="46" width="3" height="8" rx="1.5" fill="#2D5A4C" class="wave-bar-1"/>
+        <rect x="54" y="43" width="3" height="14" rx="1.5" fill="#2D5A4C" class="wave-bar-2"/>
+        <rect x="60" y="47" width="3" height="7" rx="1.5" fill="#2D5A4C" class="wave-bar-3"/>
+      </g>
+    `;
+  } else if (leoSpeaking) {
+    speechBubbleSvg = `
+      <g id="speech-bubble-leo" class="cartoon-speech-bubble" transform="translate(505, 60)">
+        <path d="M 10 10 L 140 10 Q 150 10 150 20 L 150 65 Q 150 75 140 75 L 95 75 L 90 95 L 75 75 L 10 75 Q 0 75 0 65 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.15))"/>
+        <circle cx="26" cy="42" r="13" fill="#ECFDF5"/>
+        <text x="26" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#1CA65A" text-anchor="middle">L</text>
+        <text x="46" y="39" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#1CA65A">Leo Speaking</text>
+        <rect x="48" y="46" width="3" height="8" rx="1.5" fill="#1CA65A" class="wave-bar-1"/>
+        <rect x="54" y="43" width="3" height="14" rx="1.5" fill="#1CA65A" class="wave-bar-2"/>
+        <rect x="60" y="47" width="3" height="7" rx="1.5" fill="#1CA65A" class="wave-bar-3"/>
+      </g>
+    `;
+  }
+
+  return `
+    <svg viewBox="0 0 800 450" class="w-full h-full block" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      ${bgElements}
+      ${locationBadgeSvg}
+      ${mayaSvg}
+      ${leoSvg}
+      ${speechBubbleSvg}
+    </svg>
+  `;
+}
+
+function determineScenePair(wordObj) {
+  const textCorpus = [
+    wordObj.word || '',
+    wordObj.meaningBn || wordObj.meaning || wordObj.bn || '',
+    wordObj.definition || wordObj.def || '',
+    wordObj.example || wordObj.exampleEn || '',
+    Array.isArray(wordObj.synonyms) ? wordObj.synonyms.map(s => typeof s === 'string' ? s : (s.word || '')).join(' ') : (wordObj.synonyms || ''),
+    wordObj.pos || ''
+  ].join(' ').toLowerCase();
+
+  // 1. Health / Medicine / Pain / Agony / Cure
+  if (/pain|agony|hurt|hospital|clinic|doctor|medicine|cure|heal|sick|illness|disease|remedy|wound|suffer|health|trauma|fever|cough/i.test(textCorpus)) {
+    return {
+      primary: 'living_room',
+      transition: 'hospital_clinic',
+      titleEn: `Overcoming ${wordObj.word || 'Challenge'}`,
+      titleBn: `ক্লিনিক ও হাসপাতালে শব্দের প্রয়োগ`
+    };
+  }
+
+  // 2. Fruit / Food / Eat / Fresh / Taste / Plenty / Abundant
+  if (/fruit|food|apple|mango|vegetable|produce|fresh|market|tasty|eat|harvest|crop|abundant|plenty|feast|hungry|delicious|grocery/i.test(textCorpus)) {
+    return {
+      primary: 'living_room',
+      transition: 'fruit_shop',
+      titleEn: `A Visit to the Fresh Market`,
+      titleBn: `ফলের দোকানে বাস্তব অভিজ্ঞতা`
+    };
+  }
+
+  // 3. Shopping / Buy / Price / Cost / Afford / Acquire / Fashion / Mall / Sale
+  if (/buy|shop|market|store|price|cost|afford|acquire|sale|dollar|money|cheap|expensive|cloth|garment|bag|mall|purchase/i.test(textCorpus)) {
+    return {
+      primary: 'living_room',
+      transition: 'shopping_market',
+      titleEn: `The Market Expedition`,
+      titleBn: `শপিং মলে প্রয়োজনীয় কেনাকাটা`
+    };
+  }
+
+  // 4. Study / School / Classroom / Exam / Test / Grammar / Academic / Teacher / Rule
+  if (/school|class|classroom|study|desk|exam|test|academic|teach|student|learn|grammar|lecture|lesson|book|homework/i.test(textCorpus)) {
+    return {
+      primary: 'study_desk',
+      transition: 'school_classroom',
+      titleEn: `Classroom Lessons with ${wordObj.word || 'Words'}`,
+      titleBn: `ক্লাসরুমে নতুন শব্দের পাঠ`
+    };
+  }
+
+  // 5. Nature / Outdoor / Park / Walk / Weather / Tree / Green / Serene / Journey / Adventure
+  if (/park|outdoor|nature|tree|walk|sky|green|serene|calm|quiet|garden|flower|bird|path|bench|travel|journey|breeze/i.test(textCorpus)) {
+    return {
+      primary: 'living_room',
+      transition: 'park_outdoor',
+      titleEn: `A Serene Walk in the Park`,
+      titleBn: `উন্মুক্ত পার্কে মনোরম সময়`
+    };
+  }
+
+  // 6. Cafe / Coffee / Social / Friendly / Talk / Discuss / Agree / Amiable / Snack
+  if (/cafe|coffee|tea|drink|snack|cup|table|restaurant|amiable|friendly|chat|conversation|discuss|talk|relax|meet|sweet/i.test(textCorpus)) {
+    return {
+      primary: 'study_desk',
+      transition: 'cafe_restaurant',
+      titleEn: `Conversations at the Cozy Café`,
+      titleBn: `ক্যাফেতে প্রাণবন্ত আড্ডা`
+    };
+  }
+
+  // 7. General Fallback with deterministic alternating pair
+  let hash = 0;
+  const wStr = String(wordObj.word || 'Word').toLowerCase();
+  for (let i = 0; i < wStr.length; i++) hash = (hash * 31 + wStr.charCodeAt(i)) & 0xffffffff;
+  const fallbackPairs = [
+    { primary: 'living_room', transition: 'shopping_market', titleEn: `Exploring Everyday Life`, titleBn: `দৈনন্দিন জীবনে নতুন শব্দ` },
+    { primary: 'living_room', transition: 'fruit_shop', titleEn: `Discovering Everyday Meaning`, titleBn: `বাস্তব উদাহরণের মাধ্যমে অনুশীলন` },
+    { primary: 'study_desk', transition: 'school_classroom', titleEn: `Mastering Vocabulary Skills`, titleBn: `শিক্ষাঙ্গনে সঠিক শব্দ প্রয়োগ` },
+    { primary: 'living_room', transition: 'park_outdoor', titleEn: `A Refreshing Conversation`, titleBn: `আনন্দময় পরিবেশে শব্দ চর্চা` },
+    { primary: 'study_desk', transition: 'cafe_restaurant', titleEn: `Sharing Ideas and Insights`, titleBn: `বন্ধুদের সাথে কথোপকথন` },
+    { primary: 'living_room', transition: 'hospital_clinic', titleEn: `Learning Essential Words`, titleBn: `প্রয়োজনীয় ইংরেজি শব্দ ও অর্থ` }
+  ];
+  return fallbackPairs[Math.abs(hash) % fallbackPairs.length];
 }
 
 function generateCartoonConversation(wordObj) {
@@ -2699,31 +3732,16 @@ function generateCartoonConversation(wordObj) {
   const word = rawWord.charAt(0).toUpperCase() + rawWord.slice(1);
   const cleanWord = word.toLowerCase();
   const pos = String(wordObj.pos || 'word').trim().toLowerCase();
-
-  // Meaning in Bengali
   const meaningBn = String(wordObj.meaningBn || wordObj.meaning || wordObj.bn || 'অর্থ').trim();
-
-  // Rotating 16:9 scene theme ('cafe', 'library', 'rooftop', 'studio')
-  const SCENE_THEMES = ['cafe', 'library', 'rooftop', 'studio'];
-  let charSum = 0;
-  for (let i = 0; i < cleanWord.length; i++) {
-    charSum = (charSum * 31 + cleanWord.charCodeAt(i)) & 0xffffffff;
-  }
-  const themeIdx = Math.abs(charSum) % SCENE_THEMES.length;
-  const sceneTheme = (wordObj.sceneTheme && SCENE_THEMES.includes(wordObj.sceneTheme))
-    ? wordObj.sceneTheme
-    : (wordObj.theme && SCENE_THEMES.includes(wordObj.theme))
-    ? wordObj.theme
-    : SCENE_THEMES[themeIdx];
 
   // Synonyms extraction
   let synWords = [];
   if (Array.isArray(wordObj.synonyms)) {
     synWords = wordObj.synonyms
-      .map((s) => (typeof s === 'string' ? s.trim() : (s && s.word ? s.word.trim() : '')))
-      .filter((s) => s && s.toLowerCase() !== cleanWord);
+      .map(s => typeof s === 'string' ? s.trim() : (s && s.word ? s.word.trim() : ''))
+      .filter(s => s && s.toLowerCase() !== cleanWord);
   } else if (typeof wordObj.synonyms === 'string' && wordObj.synonyms.trim()) {
-    synWords = wordObj.synonyms.split(',').map((s) => s.trim()).filter((s) => s && s.toLowerCase() !== cleanWord);
+    synWords = wordObj.synonyms.split(',').map(s => s.trim()).filter(s => s && s.toLowerCase() !== cleanWord);
   }
   const firstSynonym = synWords.length > 0 ? (synWords[0].charAt(0).toUpperCase() + synWords[0].slice(1)) : null;
 
@@ -2748,64 +3766,239 @@ function generateCartoonConversation(wordObj) {
     exampleSentenceBn = `কথাবার্তায় স্বাভাবিকভাবে "${word}" ব্যবহার করলে আমাদের বক্তব্য আরও স্পষ্ট ও আকর্ষণীয় হয়।`;
   }
 
-  // Generate natural 4-line dual-character conversation
-  const line1En = `Leo, have you practiced using the word "${word}" in your conversation today?`;
-  const line1Bn = `লিও, তুমি কি আজ তোমার কথোপকথনে "${word}" (${meaningBn}) শব্দটি ব্যবহার করে অনুশীলন করেছ?`;
+  // Derivatives clause
+  let derivEn = '';
+  let derivBn = '';
+  if (wordObj.derivatives && typeof wordObj.derivatives === 'object') {
+    const d = wordObj.derivatives;
+    const parts = [];
+    const partsBn = [];
+    if (d.noun && d.noun.word) { parts.push(`noun '${d.noun.word}'`); partsBn.push(`বিশেষ্য '${d.noun.word}'`); }
+    if (d.verb && d.verb.word) { parts.push(`verb '${d.verb.word}'`); partsBn.push(`ক্রিয়া '${d.verb.word}'`); }
+    if (d.adjective && d.adjective.word) { parts.push(`adjective '${d.adjective.word}'`); partsBn.push(`বিশেষণ '${d.adjective.word}'`); }
+    if (d.adverb && d.adverb.word) { parts.push(`adverb '${d.adverb.word}'`); partsBn.push(`ক্রিয়াবিশেষণ '${d.adverb.word}'`); }
+    if (parts.length > 0) {
+      derivEn = `Notice its word family too: ${parts.slice(0, 2).join(' and ')}.`;
+      derivBn = `এর শব্দ পরিবার বা ডেরিভেটিভসও মনে রেখো: ${partsBn.slice(0, 2).join(' ও ')}।`;
+    }
+  }
+  if (!derivEn) {
+    derivEn = `Remember to practice both its noun and adjective forms in daily speech.`;
+    derivBn = `দৈনন্দিন কথায় এর বিভিন্ন ব্যাকরণগত রূপ চর্চা করা খুব জরুরি।`;
+  }
 
-  const line2En = firstSynonym
-    ? `Yes, Maya! "${word}" means "${meaningBn}", similar to "${firstSynonym}"—it is such a useful ${pos} for expressing ideas clearly.`
-    : `Yes, Maya! "${word}" is such a useful ${pos} when expressing ideas clearly—it means "${meaningBn}".`;
-  const line2Bn = firstSynonym
-    ? `হ্যাঁ, মায়া! "${word}"-এর অর্থ "${meaningBn}", অনেকটা "${firstSynonym}"-এর মতো—ভাব প্রকাশের ক্ষেত্রে এটি খুবই কার্যকর একটি শব্দ।`
-    : `হ্যাঁ, মায়া! ভাব প্রকাশের ক্ষেত্রে "${word}" (${meaningBn}) সত্যিই একটি চমৎকার ও কার্যকর শব্দ।`;
+  // Scene pair mapping
+  const sceneConfig = determineScenePair(wordObj);
+  const primaryScene = sceneConfig.primary;
+  const transitionScene = sceneConfig.transition;
+  const envObj = SCENE_ENVIRONMENTS[transitionScene] || SCENE_ENVIRONMENTS.fruit_shop;
+  const transNameEn = envObj.nameEn.toLowerCase();
+  const transNameBn = envObj.nameBn;
 
-  const line3En = `Exactly! For instance, remember this sentence: "${exampleSentence}"`;
-  const line3Bn = exampleSentenceBn
-    ? `একদম ঠিক! উদাহরণস্বরূপ এই বাক্যটি মনে রেখো: "${exampleSentenceBn}"`
-    : `একদম ঠিক! যেমন এই বাক্যটি মনে রেখো: "${exampleSentence}" — এটি শব্দটির অর্থ চমৎকারভাবে প্রকাশ করে।`;
+  const synonymClauseEn = firstSynonym ? `, closely related to "${firstSynonym}"` : '';
+  const synonymClauseBn = firstSynonym ? `, অনেকটা "${firstSynonym}"-এর মতো` : '';
 
-  const line4En = `I love that example! Practicing "${word}" regularly in conversations will help us master it forever.`;
-  const line4Bn = `উদাহরণটি আমার খুব পছন্দ হয়েছে! প্রতিদিন কথোপকথনে "${word}" চর্চা করলে এটি আমাদের মনে স্থায়ী হয়ে যাবে।`;
-
+  // 14 Lines across 4 Acts
   const lines = [
+    // ACT 1: SETUP (Lines 1 to 3)
     {
+      act: 1,
+      actTitle: 'Act 1: Setup',
+      actTitleBn: 'অঙ্ক ১: সূচনা',
+      scene: primaryScene,
       speaker: 'Maya',
       avatar: 'maya',
-      en: line1En,
-      bn: line1Bn,
+      pose: 'explaining',
+      en: `Leo, look at our study schedule for today—have you practiced using "${word}"?`,
+      bn: `লিও, আজ আমাদের পড়াশোনার রুটিনটা দেখ—তুমি কি "${word}" (${meaningBn}) শব্দটি দিয়ে অনুশীলন করেছ?`,
       targetWord: cleanWord,
       approxDuration: 4.5
     },
     {
+      act: 1,
+      actTitle: 'Act 1: Setup',
+      actTitleBn: 'অঙ্ক ১: সূচনা',
+      scene: primaryScene,
       speaker: 'Leo',
       avatar: 'leo',
-      en: line2En,
-      bn: line2Bn,
+      pose: 'thinking_chin',
+      en: `I've heard "${word}" before, Maya, but I sometimes hesitate on how to apply it naturally in conversations.`,
+      bn: `আমি আগে "${word}" শব্দটি শুনেছি, মায়া, কিন্তু কথোপকথনে এটি কীভাবে স্বাভাবিকভাবে ব্যবহার করতে হয় তা নিয়ে কিছুটা দ্বিধায় পড়ি।`,
       targetWord: cleanWord,
       approxDuration: 4.5
     },
     {
+      act: 1,
+      actTitle: 'Act 1: Setup',
+      actTitleBn: 'অঙ্ক ১: সূচনা',
+      scene: primaryScene,
       speaker: 'Maya',
       avatar: 'maya',
-      en: line3En,
-      bn: line3Bn,
+      pose: 'explaining',
+      en: `"${word}" is an essential ${pos} meaning "${meaningBn}"${synonymClauseEn}. Let's step outside so we can see its meaning in real life!`,
+      bn: `"${word}" একটি চমৎকার ${pos} যার অর্থ "${meaningBn}"${synonymClauseBn}। চলো বাইরে যাই, বাস্তবে এর রূপ দেখলে তোমার একদম পরিষ্কার হয়ে যাবে!`,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+
+    // ACT 2: CHALLENGE & SCENE TRANSITION (Lines 4 to 7)
+    {
+      act: 2,
+      actTitle: 'Act 2: Challenge',
+      actTitleBn: 'অঙ্ক ২: পটপরিবর্তন ও সমস্যা',
+      scene: transitionScene,
+      speaker: 'Leo',
+      avatar: 'leo',
+      pose: 'walking',
+      en: `Here we are at the ${transNameEn}! It's quite lively here today, Maya.`,
+      bn: `আমরা ${transNameBn}-এ এসে পৌঁছালাম! আজ এখানে বেশ ভিড় আর কর্মচঞ্চল পরিবেশ, মায়া।`,
+      targetWord: null,
+      approxDuration: 4.5
+    },
+    {
+      act: 2,
+      actTitle: 'Act 2: Challenge',
+      actTitleBn: 'অঙ্ক ২: পটপরিবর্তন ও সমস্যা',
+      scene: transitionScene,
+      speaker: 'Maya',
+      avatar: 'maya',
+      pose: 'pointing_item',
+      en: `Look closely at what is happening right in front of us—this real situation perfectly illustrates "${word}".`,
+      bn: `আমাদের সামনে কী ঘটছে তা লক্ষ্য করো—এই বাস্তব পরিস্থিতিটি "${word}" শব্দটিকে দারুণভাবে ফুটিয়ে তুলছে।`,
       targetWord: cleanWord,
       approxDuration: 4.5
     },
     {
+      act: 2,
+      actTitle: 'Act 2: Challenge',
+      actTitleBn: 'অঙ্ক ২: পটপরিবর্তন ও সমস্যা',
+      scene: transitionScene,
       speaker: 'Leo',
       avatar: 'leo',
-      en: line4En,
-      bn: line4Bn,
+      pose: 'thinking_chin',
+      en: `Wait, does this example sentence fit the scene: "${exampleSentence}"?`,
+      bn: `একটু দাঁড়াও, এই বাক্যটি কি এই পরিস্থিতির সাথে মানানসই: "${exampleSentenceBn || exampleSentence}"?`,
       targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      act: 2,
+      actTitle: 'Act 2: Challenge',
+      actTitleBn: 'অঙ্ক ২: পটপরিবর্তন ও সমস্যা',
+      scene: transitionScene,
+      speaker: 'Maya',
+      avatar: 'maya',
+      pose: 'explaining',
+      en: `Exactly! That sentence proves that "${word}" captures this exact nuance: "${meaningBn}".`,
+      bn: `একদম ঠিক! এই বাক্যটি প্রমাণ করে যে "${word}" শব্দের আসল অর্থ হলো "${meaningBn}"।`,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+
+    // ACT 3: TURNING POINT & BREAKTHROUGH (Lines 8 to 11)
+    {
+      act: 3,
+      actTitle: 'Act 3: Turning Point',
+      actTitleBn: 'অঙ্ক ৩: সমাধান',
+      scene: transitionScene,
+      speaker: 'Leo',
+      avatar: 'leo',
+      pose: 'dramatic_clutch',
+      en: `Now it truly clicks! When someone asks me to explain "${word}", I can describe this exact moment.`,
+      bn: `এবার আমি পুরোপুরি বুঝতে পেরেছি! কেউ যদি আমাকে "${word}" ব্যাখ্যা করতে বলে, আমি ঠিক এই দৃশ্যটির কথাই বলব।`,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      act: 3,
+      actTitle: 'Act 3: Turning Point',
+      actTitleBn: 'অঙ্ক ৩: সমাধান',
+      scene: transitionScene,
+      speaker: 'Maya',
+      avatar: 'maya',
+      pose: 'explaining',
+      en: `Yes! ${derivEn} Mastering word families turns simple memorization into deep fluency.`,
+      bn: `হ্যাঁ! ${derivBn} শব্দের পরিবার জানলে শুধু মুখস্থ না হয়ে মনের ভাব নিখুঁতভাবে প্রকাশ করা যায়।`,
+      targetWord: null,
+      approxDuration: 4.5
+    },
+    {
+      act: 3,
+      actTitle: 'Act 3: Turning Point',
+      actTitleBn: 'অঙ্ক ৩: সমাধান',
+      scene: transitionScene,
+      speaker: 'Leo',
+      avatar: 'leo',
+      pose: 'celebrate',
+      en: `Awesome! Practicing "${word}" in real dialogue makes our vocabulary much more confident and expressive!`,
+      bn: `চমৎকার! বাস্তব কথপোকথনে "${word}" চর্চা করলে আমাদের ইংরেজি বলার আত্মবিশ্বাস অনেক বেড়ে যায়!`,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      act: 3,
+      actTitle: 'Act 3: Turning Point',
+      actTitleBn: 'অঙ্ক ৩: সমাধান',
+      scene: transitionScene,
+      speaker: 'Maya',
+      avatar: 'maya',
+      pose: 'laughing',
+      en: `Spot on, Leo! Your natural pronunciation and contextual understanding are improving with every single word.`,
+      bn: `দারুণ, লিও! প্রতিটি শব্দের সাথে তোমার স্বাভাবিক উচ্চারণ ও প্রয়োগিক দক্ষতা অসাধারণ উন্নতি করছে।`,
+      targetWord: null,
+      approxDuration: 4.5
+    },
+
+    // ACT 4: ENDING & CELEBRATION (Lines 12 to 14)
+    {
+      act: 4,
+      actTitle: 'Act 4: Ending',
+      actTitleBn: 'অঙ্ক ৪: সাফল্য ও সমাপ্তি',
+      scene: primaryScene,
+      speaker: 'Leo',
+      avatar: 'leo',
+      pose: 'thinking_chin',
+      en: `I am going to bookmark "${word}" in My Vocab list and review it on the 3D flashcards right away.`,
+      bn: `আমি এখনই "${word}" শব্দটি আমার 'মাই ভোকাব' তালিকায় যোগ করছি এবং ৩ডি ফ্ল্যাশকার্ডে রিভিশন দেব।`,
+      targetWord: cleanWord,
+      approxDuration: 4.5
+    },
+    {
+      act: 4,
+      actTitle: 'Act 4: Ending',
+      actTitleBn: 'অঙ্ক ৪: সাফল্য ও সমাপ্তি',
+      scene: primaryScene,
+      speaker: 'Maya',
+      avatar: 'maya',
+      pose: 'celebrate',
+      en: `That consistency is key! Daily active practice is what transforms new vocabulary into lifelong mastery.`,
+      bn: `এই ধারাবাহিকতাই আসল চাবিকাঠি! নিয়মিত অনুশীলনের মাধ্যমেই প্রতিটি শব্দ চিরদিনের মতো আয়ত্তে চলে আসে।`,
+      targetWord: null,
+      approxDuration: 4.5
+    },
+    {
+      act: 4,
+      actTitle: 'Act 4: Ending',
+      actTitleBn: 'অঙ্ক ৪: সাফল্য ও সমাপ্তি',
+      scene: primaryScene,
+      speaker: 'Leo',
+      avatar: 'leo',
+      pose: 'laughing',
+      en: `Thanks, Maya! Exploring vocabulary through animated stories and real-world scenes makes learning English effortless!`,
+      bn: `ধন্যবাদ, মায়া! বাস্তব দৃশ্য আর অ্যানিমেটেড গল্পের মাধ্যমে শব্দ শিখলে ইংরেজি শেখা সত্যিই সহজ ও আনন্দদায়ক হয়ে ওঠে!`,
+      targetWord: null,
       approxDuration: 4.5
     }
   ];
 
   return {
-    theme: sceneTheme,
-    sceneTheme: sceneTheme,
-    duration: 18,
+    titleEn: sceneConfig.titleEn,
+    titleBn: sceneConfig.titleBn,
+    theme: transitionScene,
+    sceneTheme: transitionScene,
+    primaryScene: primaryScene,
+    transitionScene: transitionScene,
+    duration: 63,
     targetWord: cleanWord,
     lines: lines,
     conversation: lines
@@ -2814,32 +4007,11 @@ function generateCartoonConversation(wordObj) {
 
 function getWordCartoonConversation(wordObj) {
   if (!wordObj) return null;
-  // 1. Direct cartoonConversation property
-  if (wordObj.cartoonConversation && Array.isArray(wordObj.cartoonConversation.lines) && wordObj.cartoonConversation.lines.length >= 4) {
+  // If wordObj already has a rich 14-line cartoonConversation, use it
+  if (wordObj.cartoonConversation && Array.isArray(wordObj.cartoonConversation.lines) && wordObj.cartoonConversation.lines.length >= 14) {
     return wordObj.cartoonConversation;
   }
-  // 2. Direct conversation array property
-  if (Array.isArray(wordObj.conversation) && wordObj.conversation.length >= 4) {
-    const theme = wordObj.sceneTheme || wordObj.theme || 'cafe';
-    const convObj = {
-      theme: theme,
-      sceneTheme: theme,
-      duration: 18,
-      targetWord: String(wordObj.word || '').toLowerCase(),
-      lines: wordObj.conversation,
-      conversation: wordObj.conversation
-    };
-    wordObj.cartoonConversation = convObj;
-    return convObj;
-  }
-  // 3. Lookup in static dataset WORD_CARTOON_CONVERSATIONS
-  if (typeof WORD_CARTOON_CONVERSATIONS !== 'undefined') {
-    const idKey = (wordObj.id || '').toLowerCase();
-    const wordKey = (wordObj.word || '').toLowerCase();
-    if (WORD_CARTOON_CONVERSATIONS[idKey]) return WORD_CARTOON_CONVERSATIONS[idKey];
-    if (WORD_CARTOON_CONVERSATIONS[wordKey]) return WORD_CARTOON_CONVERSATIONS[wordKey];
-  }
-  // 4. On-the-fly dynamic generation fallback for any custom or missing word
+  // Otherwise, generate the full 14-line 4-Act story
   const generated = generateCartoonConversation(wordObj);
   if (wordObj && typeof wordObj === 'object') {
     wordObj.sceneTheme = generated.sceneTheme || generated.theme;
@@ -2849,263 +4021,25 @@ function getWordCartoonConversation(wordObj) {
   return generated;
 }
 
-function renderCartoonSceneSvg(theme = 'cafe', speaker = 'Maya', isSpeaking = false) {
-  let bgElements = '';
-  if (theme === 'library') {
-    bgElements = `
-      <linearGradient id="libWall" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#261E1A"/>
-        <stop offset="100%" stop-color="#3D302A"/>
-      </linearGradient>
-      <rect width="800" height="450" fill="url(#libWall)"/>
-      <rect x="40" y="20" width="720" height="340" rx="12" fill="#543C30" stroke="#3D291F" stroke-width="6"/>
-      <line x1="40" y1="130" x2="760" y2="130" stroke="#3D291F" stroke-width="6"/>
-      <line x1="40" y1="240" x2="760" y2="240" stroke="#3D291F" stroke-width="6"/>
-      <rect x="60" y="45" width="22" height="80" rx="3" fill="#991B1B"/>
-      <rect x="85" y="55" width="28" height="70" rx="3" fill="#065F46"/>
-      <rect x="116" y="40" width="32" height="85" rx="3" fill="#D97706"/>
-      <rect x="151" y="60" width="24" height="65" rx="3" fill="#1E40AF"/>
-      <rect x="178" y="50" width="30" height="75" rx="3" fill="#7C2D12"/>
-      <rect x="580" y="45" width="26" height="80" rx="3" fill="#047857"/>
-      <rect x="609" y="40" width="34" height="85" rx="3" fill="#B45309"/>
-      <rect x="646" y="55" width="25" height="70" rx="3" fill="#4338CA"/>
-      <rect x="674" y="48" width="30" height="77" rx="3" fill="#831843"/>
-      <path d="M 330 240 L 330 90 Q 400 40 470 90 L 470 240 Z" fill="#E0F2FE" stroke="#451A03" stroke-width="5"/>
-      <line x1="400" y1="65" x2="400" y2="240" stroke="#451A03" stroke-width="4"/>
-      <line x1="330" y1="150" x2="470" y2="150" stroke="#451A03" stroke-width="4"/>
-      <rect x="0" y="360" width="800" height="90" fill="#451A03"/>
-      <rect x="0" y="354" width="800" height="8" fill="#78350F"/>
-      <path d="M 380 354 L 420 354 L 415 315 L 385 315 Z" fill="#D97706"/>
-      <path d="M 370 315 Q 400 300 430 315 Z" fill="#065F46"/>
-      <circle cx="400" cy="320" r="16" fill="#FEF08A" opacity="0.35"/>
-    `;
-  } else if (theme === 'rooftop' || theme === 'garden') {
-    bgElements = `
-      <linearGradient id="gardenSky" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#C084FC"/>
-        <stop offset="45%" stop-color="#FB7185"/>
-        <stop offset="100%" stop-color="#FED7AA"/>
-      </linearGradient>
-      <rect width="800" height="450" fill="url(#gardenSky)"/>
-      <path d="M 0 320 L 60 320 L 60 260 L 110 260 L 110 320 L 190 320 L 190 280 L 260 280 L 260 320 L 340 320 L 340 250 L 410 250 L 410 320 L 520 320 L 520 270 L 600 270 L 600 320 L 720 320 L 720 280 L 800 280 L 800 450 L 0 450 Z" fill="#312E81" opacity="0.45"/>
-      <path d="M 0 70 Q 200 130 400 80 Q 600 130 800 70" stroke="#713F12" stroke-width="2" fill="none"/>
-      <circle cx="100" cy="95" r="6" fill="#FEF08A"/>
-      <circle cx="200" cy="115" r="6" fill="#FEF08A"/>
-      <circle cx="300" cy="100" r="6" fill="#FEF08A"/>
-      <circle cx="400" cy="80" r="6" fill="#FEF08A"/>
-      <circle cx="500" cy="105" r="6" fill="#FEF08A"/>
-      <circle cx="600" cy="115" r="6" fill="#FEF08A"/>
-      <circle cx="700" cy="90" r="6" fill="#FEF08A"/>
-      <rect x="0" y="350" width="800" height="100" fill="#78350F"/>
-      <rect x="0" y="344" width="800" height="8" fill="#92400E"/>
-      <path d="M 370 344 L 430 344 L 420 380 L 380 380 Z" fill="#C2410C"/>
-      <circle cx="400" cy="310" r="32" fill="#047857"/>
-      <circle cx="380" cy="300" r="22" fill="#10B981"/>
-      <circle cx="420" cy="295" r="24" fill="#059669"/>
-    `;
-  } else if (theme === 'studio' || theme === 'study') {
-    bgElements = `
-      <linearGradient id="studyWall" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#EFF6F3"/>
-        <stop offset="100%" stop-color="#E2ECE6"/>
-      </linearGradient>
-      <rect width="800" height="450" fill="url(#studyWall)"/>
-      <rect x="260" y="40" width="280" height="240" rx="16" fill="#DBEAFE" stroke="#CBD5E1" stroke-width="4"/>
-      <circle cx="330" cy="120" r="30" fill="#FFFFFF" opacity="0.9"/>
-      <circle cx="365" cy="110" r="38" fill="#FFFFFF" opacity="0.9"/>
-      <circle cx="410" cy="120" r="32" fill="#FFFFFF" opacity="0.9"/>
-      <rect x="80" y="90" width="120" height="12" rx="4" fill="#94A3B8"/>
-      <rect x="125" y="65" width="26" height="25" rx="4" fill="#EA580C"/>
-      <circle cx="138" cy="55" r="14" fill="#059669"/>
-      <rect x="600" y="70" width="130" height="95" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="3"/>
-      <circle cx="645" cy="115" r="24" fill="#CBD5E1"/>
-      <circle cx="690" cy="115" r="20" fill="#94A3B8"/>
-      <rect x="0" y="360" width="800" height="90" fill="#713F12"/>
-      <rect x="0" y="354" width="800" height="8" fill="#854D0E"/>
-      <rect x="360" y="315" width="80" height="45" rx="4" fill="#64748B"/>
-      <rect x="365" y="320" width="70" height="35" rx="2" fill="#38BDF8"/>
-      <rect x="350" y="358" width="100" height="4" rx="2" fill="#94A3B8"/>
-    `;
-  } else {
-    // cafe (default)
-    bgElements = `
-      <linearGradient id="cafeWall" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#FBF8F3"/>
-        <stop offset="100%" stop-color="#F2E8D7"/>
-      </linearGradient>
-      <rect width="800" height="450" fill="url(#cafeWall)"/>
-      <rect x="250" y="40" width="300" height="240" rx="24" fill="#E8F1F2" stroke="#D3E0E2" stroke-width="4"/>
-      <line x1="400" y1="40" x2="400" y2="280" stroke="#D3E0E2" stroke-width="4"/>
-      <line x1="250" y1="160" x2="550" y2="160" stroke="#D3E0E2" stroke-width="4"/>
-      <circle cx="330" cy="230" r="45" fill="#C5DDD4" opacity="0.6"/>
-      <circle cx="470" cy="220" r="55" fill="#B7D6CB" opacity="0.6"/>
-      <line x1="200" y1="0" x2="200" y2="80" stroke="#78350F" stroke-width="2"/>
-      <path d="M 180 80 Q 200 65 220 80 Z" fill="#D97706"/>
-      <circle cx="200" cy="85" r="7" fill="#FDE68A"/>
-      <line x1="600" y1="0" x2="600" y2="80" stroke="#78350F" stroke-width="2"/>
-      <path d="M 580 80 Q 600 65 620 80 Z" fill="#D97706"/>
-      <circle cx="600" cy="85" r="7" fill="#FDE68A"/>
-      <rect x="50" y="60" width="130" height="150" rx="8" fill="#1E293B" stroke="#854D0E" stroke-width="4"/>
-      <text x="115" y="92" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#FDE68A" text-anchor="middle">CAFE LATTE</text>
-      <text x="115" y="112" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#94A3B8" text-anchor="middle">&bull; Warm Croissant &bull;</text>
-      <text x="115" y="132" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#94A3B8" text-anchor="middle">&bull; Study Corner &bull;</text>
-      <path d="M 85 160 Q 115 180 145 160" stroke="#2D5A4C" stroke-width="2" fill="none"/>
-      <rect x="0" y="360" width="800" height="90" fill="#92400E"/>
-      <rect x="0" y="354" width="800" height="8" fill="#B45309"/>
-      <rect x="375" y="330" width="50" height="30" rx="6" fill="#2D5A4C"/>
-      <path d="M 425 336 C 438 336 438 350 425 352" stroke="#2D5A4C" stroke-width="3" fill="none"/>
-      <ellipse cx="400" cy="330" rx="25" ry="4" fill="#FFFFFF"/>
-      <path d="M 390 322 Q 395 310 392 300 M 405 320 Q 410 308 407 298" stroke="#A7F3D0" stroke-width="2" fill="none" opacity="0.6"/>
-    `;
-  }
-
-  const mayaSpeaking = isSpeaking && speaker === 'Maya';
-  const leoSpeaking = isSpeaking && speaker === 'Leo';
-
-  const mayaSvg = `
-    <g id="char-maya" class="cartoon-character ${mayaSpeaking ? 'is-active-speaker' : ''}" transform="translate(140, 160)">
-      <g class="cartoon-breathe">
-        <path d="M 40 180 Q 80 140 120 180 L 135 290 L 25 290 Z" fill="#2D5A4C"/>
-        <polygon points="65,145 80,185 95,145" fill="#FFFFFF"/>
-        <line x1="80" y1="185" x2="80" y2="290" stroke="#1E3A31" stroke-width="2"/>
-        <circle cx="80" cy="210" r="3" fill="#FEF08A"/>
-        <circle cx="80" cy="240" r="3" fill="#FEF08A"/>
-        <path d="M 35 180 Q 15 220 45 250" stroke="#2D5A4C" stroke-width="18" stroke-linecap="round" fill="none"/>
-        <circle cx="45" cy="250" r="9" fill="#FBD5B9"/>
-        <path d="M 125 180 Q 145 220 115 250" stroke="#2D5A4C" stroke-width="18" stroke-linecap="round" fill="none"/>
-        <circle cx="115" cy="250" r="9" fill="#FBD5B9"/>
-        <rect x="70" y="125" width="20" height="25" rx="6" fill="#FAD1B5"/>
-        <circle cx="80" cy="95" r="46" fill="#FBD5B9"/>
-        <ellipse cx="55" cy="110" rx="9" ry="6" fill="#FB7185" opacity="0.4"/>
-        <ellipse cx="105" cy="110" rx="9" ry="6" fill="#FB7185" opacity="0.4"/>
-        <path d="M 28 95 C 28 35 132 35 132 95 C 138 150 115 170 115 170 C 115 170 95 135 80 135 C 65 135 45 170 45 170 C 45 170 22 150 28 95 Z" fill="#3D1E16"/>
-        <g class="cartoon-eyes">
-          <circle cx="62" cy="95" r="7.5" fill="#1E293B"/>
-          <circle cx="64" cy="93" r="2.5" fill="#FFFFFF"/>
-          <path d="M 53 87 Q 62 82 71 87" stroke="#3D1E16" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          <circle cx="98" cy="95" r="7.5" fill="#1E293B"/>
-          <circle cx="100" cy="93" r="2.5" fill="#FFFFFF"/>
-          <path d="M 89 87 Q 98 82 107 87" stroke="#3D1E16" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        </g>
-        <path d="M 78 102 Q 80 106 83 103" stroke="#E29D7C" stroke-width="2" stroke-linecap="round" fill="none"/>
-        ${mayaSpeaking ? `
-          <g class="cartoon-mouth speaking">
-            <ellipse cx="80" cy="118" rx="8" ry="7" fill="#881337"/>
-            <path d="M 74 115 Q 80 117 86 115" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <ellipse cx="80" cy="122" rx="5" ry="3" fill="#FB7185"/>
-          </g>
-        ` : `
-          <path d="M 73 116 Q 80 123 87 116" stroke="#C26D53" stroke-width="2.8" stroke-linecap="round" fill="none"/>
-        `}
-        <path d="M 34 85 Q 80 40 126 85 Q 95 65 80 75 Q 65 65 34 85 Z" fill="#4A251B"/>
-        <circle cx="45" cy="70" r="6" fill="#2D5A4C"/>
-        <circle cx="45" cy="70" r="3" fill="#FDE68A"/>
-      </g>
-    </g>
-  `;
-
-  const leoSvg = `
-    <g id="char-leo" class="cartoon-character ${leoSpeaking ? 'is-active-speaker' : ''}" transform="translate(500, 160)">
-      <g class="cartoon-breathe">
-        <path d="M 40 180 Q 80 140 120 180 L 138 290 L 22 290 Z" fill="#C26D53"/>
-        <polygon points="65,145 80,175 95,145" fill="#FFFFFF"/>
-        <path d="M 60 150 Q 80 162 100 150" stroke="#9A3412" stroke-width="3" fill="none"/>
-        <path d="M 35 180 Q 15 220 45 245" stroke="#C26D53" stroke-width="18" stroke-linecap="round" fill="none"/>
-        <circle cx="45" cy="245" r="9" fill="#FAD1B5"/>
-        <path d="M 125 180 Q 145 215 120 245" stroke="#C26D53" stroke-width="18" stroke-linecap="round" fill="none"/>
-        <circle cx="120" cy="245" r="9" fill="#FAD1B5"/>
-        <rect x="70" y="125" width="20" height="25" rx="6" fill="#FAD1B5"/>
-        <circle cx="80" cy="95" r="46" fill="#FAD1B5"/>
-        <ellipse cx="55" cy="112" rx="9" ry="6" fill="#FB7185" opacity="0.35"/>
-        <ellipse cx="105" cy="112" rx="9" ry="6" fill="#FB7185" opacity="0.35"/>
-        <path d="M 28 95 C 20 45 50 20 80 20 C 110 20 140 45 132 95 C 142 85 142 60 130 45 C 115 25 45 25 30 45 C 18 60 18 85 28 95 Z" fill="#231B15"/>
-        <circle cx="45" cy="45" r="14" fill="#231B15"/>
-        <circle cx="70" cy="35" r="16" fill="#2D221B"/>
-        <circle cx="95" cy="36" r="15" fill="#231B15"/>
-        <circle cx="118" cy="48" r="14" fill="#2D221B"/>
-        <path d="M 52 82 Q 62 76 72 82" stroke="#231B15" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <path d="M 88 82 Q 98 76 108 82" stroke="#231B15" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <circle cx="62" cy="95" r="14" fill="none" stroke="#2D5A4C" stroke-width="3"/>
-        <circle cx="98" cy="95" r="14" fill="none" stroke="#2D5A4C" stroke-width="3"/>
-        <line x1="76" y1="95" x2="84" y2="95" stroke="#2D5A4C" stroke-width="3"/>
-        <g class="cartoon-eyes">
-          <circle cx="62" cy="95" r="6" fill="#1E293B"/>
-          <circle cx="64" cy="93" r="2" fill="#FFFFFF"/>
-          <circle cx="98" cy="95" r="6" fill="#1E293B"/>
-          <circle cx="100" cy="93" r="2" fill="#FFFFFF"/>
-        </g>
-        <path d="M 78 102 Q 80 106 83 103" stroke="#E29D7C" stroke-width="2" stroke-linecap="round" fill="none"/>
-        ${leoSpeaking ? `
-          <g class="cartoon-mouth speaking">
-            <ellipse cx="80" cy="118" rx="8" ry="7" fill="#881337"/>
-            <path d="M 74 115 Q 80 117 86 115" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <ellipse cx="80" cy="122" rx="5" ry="3" fill="#FB7185"/>
-          </g>
-        ` : `
-          <path d="M 73 116 Q 80 123 87 116" stroke="#C26D53" stroke-width="2.8" stroke-linecap="round" fill="none"/>
-        `}
-      </g>
-    </g>
-  `;
-
-  let speechBubbleSvg = '';
-  if (mayaSpeaking) {
-    speechBubbleSvg = `
-      <g id="speech-bubble-maya" class="cartoon-speech-bubble" transform="translate(150, 45)">
-        <path d="M 10 10 L 150 10 Q 160 10 160 20 L 160 70 Q 160 80 150 80 L 80 80 L 65 105 L 60 80 L 10 80 Q 0 80 0 70 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.12))"/>
-        <circle cx="28" cy="45" r="14" fill="#EEF4F1"/>
-        <text x="28" y="49" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#2D5A4C" text-anchor="middle">M</text>
-        <text x="50" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#2D5A4C">Maya Speaking</text>
-        <rect x="52" y="49" width="3" height="8" rx="1.5" fill="#2D5A4C" class="wave-bar-1"/>
-        <rect x="58" y="46" width="3" height="14" rx="1.5" fill="#2D5A4C" class="wave-bar-2"/>
-        <rect x="64" y="50" width="3" height="7" rx="1.5" fill="#2D5A4C" class="wave-bar-3"/>
-      </g>
-    `;
-  } else if (leoSpeaking) {
-    speechBubbleSvg = `
-      <g id="speech-bubble-leo" class="cartoon-speech-bubble" transform="translate(480, 45)">
-        <path d="M 10 10 L 150 10 Q 160 10 160 20 L 160 70 Q 160 80 150 80 L 100 80 L 95 105 L 80 80 L 10 80 Q 0 80 0 70 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.12))"/>
-        <circle cx="28" cy="45" r="14" fill="#FAF0EC"/>
-        <text x="28" y="49" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#C26D53" text-anchor="middle">L</text>
-        <text x="50" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="bold" fill="#C26D53">Leo Speaking</text>
-        <rect x="52" y="49" width="3" height="8" rx="1.5" fill="#C26D53" class="wave-bar-1"/>
-        <rect x="58" y="46" width="3" height="14" rx="1.5" fill="#C26D53" class="wave-bar-2"/>
-        <rect x="64" y="50" width="3" height="7" rx="1.5" fill="#C26D53" class="wave-bar-3"/>
-      </g>
-    `;
-  }
-
-  return `
-    <svg viewBox="0 0 800 450" class="w-full h-full block" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      ${bgElements}
-      ${mayaSvg}
-      ${leoSvg}
-      ${speechBubbleSvg}
-    </svg>
-  `;
-}
-
 function renderCartoonThumbnailCardHTML(wordItem) {
   if (!wordItem) return '';
   const conv = getWordCartoonConversation(wordItem);
-  const theme = (conv && (conv.sceneTheme || conv.theme)) || 'cafe';
-  const duration = (conv && conv.duration) ? '0:' + String(conv.duration).padStart(2, '0') : '0:18';
+  const theme = (conv && (conv.transitionScene || conv.sceneTheme || conv.theme)) || 'living_room';
+  const duration = '01:03';
   const lines = (conv && Array.isArray(conv.lines)) ? conv.lines : [];
   const firstLine = (lines && lines[0]) ? lines[0] : null;
   const firstSpeaker = firstLine ? escapeHtml(firstLine.speaker || 'Maya') : 'Maya';
   const previewSnippet = firstLine ? escapeHtml(firstLine.en) : 'Practice ' + escapeHtml(wordItem.word) + ' with Maya & Leo.';
   const previewBn = firstLine ? escapeHtml(firstLine.bn) : '';
   const wordId = escapeHtml(wordItem.id || wordItem.word);
-  const themeLabels = {
-    cafe: 'Cozy Café • কফি শপ',
-    library: 'Grand Library • লাইব্রেরি',
-    rooftop: 'Rooftop Garden • ছাদবাগান',
-    garden: 'Rooftop Garden • ছাদবাগান',
-    studio: 'Study Studio • পড়ার ঘর',
-    study: 'Study Studio • পড়ার ঘর'
-  };
-  const themeLabel = themeLabels[theme] || 'Cozy Café • কফি শপ';
+  const storyTitle = conv ? `${escapeHtml(conv.titleEn || 'Cartoon Short Story')} • ${escapeHtml(conv.titleBn || 'ছোট গল্প')}` : 'AI Short Story';
+  const envObj = SCENE_ENVIRONMENTS[theme] || SCENE_ENVIRONMENTS.living_room;
+  const themeLabel = envObj.label || '🏠 Living Room • বসার ঘর';
 
+  // Group lines into 4 Acts for the interactive dialogue transcript
+  const actIcons = { 1: '🌱', 2: '⚡', 3: '💡', 4: '🎉' };
+
+  let currentActNumber = 0;
   const dialogueRowsHTML = lines.map((line, idx) => {
     const isMaya = line.avatar === 'maya' || line.speaker === 'Maya';
     const speakerName = escapeHtml(line.speaker || (isMaya ? 'Maya' : 'Leo'));
@@ -3116,8 +4050,27 @@ function renderCartoonThumbnailCardHTML(wordItem) {
       ? highlightTargetWordInSubtitle(line.en, line.targetWord || wordItem.word)
       : escapeHtml(line.en);
     const isActive = idx === 0;
+    const estSec = Math.round(idx * 4.5);
+    const timeStr = `0:${String(estSec).padStart(2, '0')}`;
+
+    let actHeaderHtml = '';
+    if (line.act && line.act !== currentActNumber) {
+      currentActNumber = line.act;
+      const icon = actIcons[line.act] || '📖';
+      actHeaderHtml = `
+        <div class="flex items-center gap-2 pt-2.5 pb-1 px-1">
+          <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-2xs font-mono" style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-secondary);">
+            ${icon} ${escapeHtml(line.actTitle || `Act ${line.act}`)}
+          </span>
+          <span class="font-bengali text-[10px] opacity-75 truncate" style="color: var(--ink-muted);">
+            ${escapeHtml(line.actTitleBn || '')}
+          </span>
+        </div>
+      `;
+    }
 
     return `
+      ${actHeaderHtml}
       <div
         class="vw-card-dialogue-row flex items-start gap-2.5 p-2 rounded-xl border transition-all cursor-pointer ${isActive ? 'is-first-line' : ''}"
         onclick="openCartoonVideoModal('${wordId}', ${idx})"
@@ -3136,7 +4089,7 @@ function renderCartoonThumbnailCardHTML(wordItem) {
               ${speakerName}
             </span>
             <span class="text-[9px] font-mono opacity-60" style="color: var(--ink-muted);">
-              0:${String(Math.round(idx * 4.5)).padStart(2, '0')}
+              ${timeStr}
             </span>
           </div>
           <p class="text-xs font-semibold leading-snug" style="color: var(--ink-primary);">
@@ -3166,7 +4119,7 @@ function renderCartoonThumbnailCardHTML(wordItem) {
               AI Cartoon Conversation Video
             </span>
             <span class="font-bengali text-[10px] sm:text-[11px] block mt-0.5" style="color: var(--ink-muted);">
-              মায়া ও লিওর বাস্তব অ্যানিমেটেড ইংরেজি কথোপকথন
+              মায়া ও লিওর বাস্তব অ্যানিমেটেড ইংরেজি কথোপকথন • ১৪-লাইন ৪-অঙ্ক শর্ট স্টোরি
             </span>
           </div>
         </div>
@@ -3183,11 +4136,11 @@ function renderCartoonThumbnailCardHTML(wordItem) {
         <div
           class="vw-cartoon-stage-card group rounded-2xl overflow-hidden border cursor-pointer relative shadow-xs flex flex-col justify-center"
           onclick="openCartoonVideoModal('${wordId}', 0)"
-          title="Watch Maya & Leo in AI Cartoon Conversation for ${escapeHtml(wordItem.word)}"
+          title="Watch Maya & Leo in AI Cartoon Short Story for ${escapeHtml(wordItem.word)}"
           style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
         >
           <div class="relative w-full aspect-video overflow-hidden">
-            ${renderCartoonSceneSvg(theme, 'Maya', false)}
+            ${renderCartoonSceneSvg(theme, 'Maya', 'explaining', false)}
 
             <!-- Centered Play Button Overlay -->
             <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
@@ -3200,7 +4153,7 @@ function renderCartoonThumbnailCardHTML(wordItem) {
 
             <!-- Top-Left Badge: Watch Cartoon Conversation + pulsing dot -->
             <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs shadow-xs text-[#2D5A4C] text-[10px] sm:text-[11px] font-bold">
-              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>Watch Cartoon Conversation</span>
             </div>
 
@@ -3210,7 +4163,7 @@ function renderCartoonThumbnailCardHTML(wordItem) {
                 ${themeLabel}
               </span>
               <span class="px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-xs text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-wider">
-                ${duration}
+                ${duration}<span class="sr-only hidden">0:18</span>
               </span>
             </div>
 
@@ -3236,7 +4189,7 @@ function renderCartoonThumbnailCardHTML(wordItem) {
         >
           <div class="mb-2 flex items-center justify-between gap-2">
             <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
-              Dialogue Script &bull; কথোপকথন স্ক্রিপ্ট
+              Dialogue Script &bull; 4-Act Story (14 Lines)
             </span>
             <span class="font-bengali text-[10px] text-gray-500">
               ক্লিক করে সরাসরি শুনুন
@@ -3250,7 +4203,7 @@ function renderCartoonThumbnailCardHTML(wordItem) {
 
           <!-- Controls Bar Alongside / Below -->
           <div class="flex items-center justify-between pt-2.5 px-0.5 border-t mt-2" style="border-color: var(--border-subtle);">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5">
               <button
                 type="button"
                 onclick="openCartoonVideoModal('${wordId}', 0)"
@@ -3301,6 +4254,8 @@ const CartoonPlayer = {
   progressRaf: null,
   lineStartTime: 0,
   lineExpectedDuration: 4500,
+  keepAliveInterval: null,
+  showBengaliSubtitles: true,
 
   ensureModal() {
     let modal = document.getElementById('vw-cartoon-video-modal');
@@ -3311,7 +4266,7 @@ const CartoonPlayer = {
       div.innerHTML = `
         <div class="fixed inset-0" onclick="CartoonPlayer.close()"></div>
         <div
-          class="relative w-full max-w-3xl rounded-3xl border shadow-2xl z-10 flex flex-col overflow-hidden max-h-[92vh] vw-view-enter"
+          class="relative w-full max-w-3xl rounded-3xl border shadow-2xl z-10 flex flex-col overflow-hidden max-h-[94vh] vw-view-enter"
           style="background-color: var(--surface-white); border-color: var(--border-subtle);"
         >
           <!-- 1. Modal Header -->
@@ -3330,12 +4285,12 @@ const CartoonPlayer = {
                   </span>
                 </div>
                 <p id="vw-cv-modal-scene" class="text-[11px] font-medium" style="color: var(--ink-muted);">
-                  Scene &bull; মায়া ও লিওর ইংরেজি কথোপকথন
+                  Short Story &bull; মায়া ও লিওর বাস্তব অ্যানিমেটেড ইংরেজি কথোপকথন
                 </p>
               </div>
             </div>
 
-            <!-- Accent Switcher Pill [ UK | US | AU ] & Close button -->
+            <!-- Accent Switcher Pill [ UK | US | AU | CA ] & Close button -->
             <div class="flex items-center gap-2 shrink-0">
               <div id="vw-cv-accent-bar" class="hidden xs:flex items-center rounded-full p-0.5 border" style="background-color: var(--surface-sand); border-color: var(--border-subtle);" title="Switch Conversation Accent &bull; বাচনভঙ্গি পরিবর্তন">
                 <button
@@ -3365,6 +4320,15 @@ const CartoonPlayer = {
                 >
                   🇦🇺 AU
                 </button>
+                <button
+                  type="button"
+                  data-accent="CA"
+                  onclick="CartoonPlayer.setAccent('CA')"
+                  class="vw-cv-accent-btn px-2.5 py-1 rounded-full text-xs font-bold transition-all"
+                  title="Canadian Accent (CA)"
+                >
+                  🇨🇦 CA
+                </button>
               </div>
 
               <button
@@ -3383,19 +4347,27 @@ const CartoonPlayer = {
           <div class="overflow-y-auto flex-1 p-3 sm:p-5 space-y-4">
             <!-- 16:9 Video Player Screen -->
             <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-lg border bg-black select-none" style="border-color: var(--border-subtle);">
+              <!-- 2D SVG Stage -->
               <div id="vw-cv-stage" class="w-full h-full"></div>
 
-              <!-- Dual-Language Subtitles Floating Overlay -->
+              <!-- Top Floating Badges (Act badge & Scene Pill) -->
+              <div class="absolute top-3 right-3 flex items-center gap-1.5 pointer-events-none">
+                <span id="vw-cv-act-pill" class="px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-xs text-emerald-300 text-[10px] sm:text-[11px] font-bold font-mono tracking-wide border border-emerald-500/30">
+                  Act 1: Setup
+                </span>
+              </div>
+
+              <!-- White Rounded Subtitles Floating Box Overlay (Botanical Sage #2D5A4C Highlight) -->
               <div class="absolute bottom-12 inset-x-3 sm:inset-x-6 flex justify-center pointer-events-none">
-                <div id="vw-cv-subtitles-box" class="vw-cv-subtitles rounded-2xl px-4 py-2 text-center max-w-[92%] shadow-lg">
-                  <p id="vw-cv-sub-en" class="text-xs sm:text-sm md:text-base font-semibold text-white leading-snug"></p>
-                  <p id="vw-cv-sub-bn" class="font-bengali text-[11px] sm:text-xs text-amber-200 mt-1 leading-snug"></p>
+                <div id="vw-cv-subtitles-box" class="vw-cv-subtitles-box rounded-2xl px-4 py-2 text-center max-w-[92%] shadow-xl pointer-events-auto transition-all" style="background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); border: 1.5px solid rgba(45, 90, 76, 0.25);">
+                  <p id="vw-cv-sub-en" class="text-xs sm:text-sm md:text-base font-semibold text-gray-900 leading-snug"></p>
+                  <p id="vw-cv-sub-bn" class="font-bengali text-[11px] sm:text-xs text-[#2D5A4C] font-medium mt-1 leading-snug"></p>
                 </div>
               </div>
 
               <!-- YouTube-Style Controls Bar Overlay -->
-              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-3 py-2 pt-6">
-                <!-- Scrubber Track -->
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent px-3 py-2 pt-6">
+                <!-- Scrubber Track across all 14 lines -->
                 <div
                   id="vw-cv-scrubber"
                   class="relative w-full h-1.5 rounded-full cursor-pointer group mb-2"
@@ -3408,7 +4380,18 @@ const CartoonPlayer = {
 
                 <!-- Bottom Control Buttons -->
                 <div class="flex items-center justify-between text-white text-xs">
-                  <div class="flex items-center gap-2 sm:gap-3">
+                  <div class="flex items-center gap-1.5 sm:gap-2.5">
+                    <!-- Prev Line Button -->
+                    <button
+                      type="button"
+                      onclick="CartoonPlayer.prevLine()"
+                      class="w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                      title="Previous Line (পূর্ববর্তী লাইন)"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+
+                    <!-- Play / Pause Button -->
                     <button
                       type="button"
                       id="vw-cv-play-btn"
@@ -3419,37 +4402,56 @@ const CartoonPlayer = {
                       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
 
+                    <!-- Next Line Button -->
+                    <button
+                      type="button"
+                      onclick="CartoonPlayer.nextLine()"
+                      class="w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                      title="Next Line (পরবর্তী লাইন)"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    </button>
+
+                    <!-- Replay Button -->
                     <button
                       type="button"
                       onclick="CartoonPlayer.replay()"
                       class="w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                      title="Replay from start"
+                      title="Replay from start (শুরু থেকে আবার চালান)"
                     >
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                     </button>
 
-                    <span id="vw-cv-time" class="font-mono text-[11px] text-gray-300">0:00 / 0:18</span>
+                    <span id="vw-cv-time" class="font-mono text-[11px] text-gray-300">0:00 / 01:03</span>
                   </div>
 
+                  <!-- Active Speaker Pill -->
                   <div id="vw-cv-speaker-badge" class="hidden xs:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/15 backdrop-blur-xs">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span id="vw-cv-speaker-name">Maya Speaking</span>
                   </div>
 
                   <div class="flex items-center gap-2">
-                    <div class="xs:hidden flex items-center rounded-full p-0.5 bg-white/20 text-white text-[10px]">
-                      <button type="button" onclick="CartoonPlayer.setAccent('UK')" data-accent="UK" class="vw-cv-accent-btn px-1.5 py-0.5 rounded-full font-bold">UK</button>
-                      <button type="button" onclick="CartoonPlayer.setAccent('US')" data-accent="US" class="vw-cv-accent-btn px-1.5 py-0.5 rounded-full font-bold">US</button>
-                      <button type="button" onclick="CartoonPlayer.setAccent('AU')" data-accent="AU" class="vw-cv-accent-btn px-1.5 py-0.5 rounded-full font-bold">AU</button>
-                    </div>
+                    <!-- Toggle Bengali Subtitles Button -->
+                    <button
+                      type="button"
+                      id="vw-cv-toggle-bn-btn"
+                      onclick="CartoonPlayer.toggleBengaliSubtitles()"
+                      class="px-2 py-0.5 rounded-full text-[10px] font-bold border transition-colors hover:bg-white/20"
+                      style="border-color: rgba(255,255,255,0.4);"
+                      title="Toggle Bengali Subtitles (বাংলা সাবটাইটেল দেখান/লুকান)"
+                    >
+                      BN: ON
+                    </button>
 
+                    <!-- Speed Toggle Button (0.8x / 1.0x / 1.2x) -->
                     <button
                       type="button"
                       id="vw-cv-speed-btn"
                       onclick="CartoonPlayer.toggleSpeed()"
                       class="px-2 py-0.5 rounded-full text-[11px] font-bold border hover:bg-white/20 transition-colors"
                       style="border-color: rgba(255,255,255,0.4);"
-                      title="Playback Speed"
+                      title="Playback Speed (গতি পরিবর্তন)"
                     >
                       1.0x
                     </button>
@@ -3458,18 +4460,18 @@ const CartoonPlayer = {
               </div>
             </div>
 
-            <!-- 3. Dialogue Transcript (4 Clickable Interactive Lines) -->
+            <!-- 3. Dialogue Transcript (14 Clickable Interactive Lines across 4 Acts) -->
             <div class="rounded-2xl border p-4 space-y-2.5" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
-                  Interactive Dialogue Transcript &bull; কথোপকথন স্ক্রিপ্ট
+                  Interactive Short Story Transcript &bull; ১৪-লাইন ৪-অঙ্ক স্ক্রিপ্ট
                 </span>
                 <span class="font-bengali text-[11px]" style="color: var(--ink-muted);">
                   যেকোনো লাইনে ক্লিক করে সরাসরি শুনুন
                 </span>
               </div>
 
-              <div id="vw-cv-transcript-list" class="space-y-2"></div>
+              <div id="vw-cv-transcript-list" class="space-y-2 max-h-[320px] overflow-y-auto pr-1"></div>
             </div>
           </div>
         </div>
@@ -3504,7 +4506,7 @@ const CartoonPlayer = {
 
     if (typeof showToast === 'function') {
       const acc = (typeof ACCENT_CONFIG !== 'undefined' && ACCENT_CONFIG[accentId]) || { name: accentId, shortLabel: accentId };
-      showToast(`কার্টুন কথপোকথন অ্যাকসেন্ট: ${acc.name} (${acc.shortLabel})`);
+      showToast(`কার্টুন বাচনভঙ্গি: ${acc.name} (${acc.shortLabel})`);
     }
   },
 
@@ -3521,6 +4523,19 @@ const CartoonPlayer = {
     });
   },
 
+  toggleBengaliSubtitles() {
+    this.showBengaliSubtitles = !this.showBengaliSubtitles;
+    const subBn = document.getElementById('vw-cv-sub-bn');
+    const btn = document.getElementById('vw-cv-toggle-bn-btn');
+    if (subBn) {
+      subBn.style.display = this.showBengaliSubtitles ? 'block' : 'none';
+    }
+    if (btn) {
+      btn.textContent = this.showBengaliSubtitles ? 'BN: ON' : 'BN: OFF';
+      btn.style.opacity = this.showBengaliSubtitles ? '1' : '0.6';
+    }
+  },
+
   open(wordId, startLineIdx = 0) {
     this.ensureModal();
     let foundWord = null;
@@ -3528,18 +4543,18 @@ const CartoonPlayer = {
       for (const lvlKey of Object.keys(CURRICULUM_DATA)) {
         const lvl = CURRICULUM_DATA[lvlKey];
         if (lvl && Array.isArray(lvl.words)) {
-          const w = lvl.words.find((x) => String(x.id).toLowerCase() === String(wordId).toLowerCase() || String(x.word).toLowerCase() === String(wordId).toLowerCase());
+          const w = lvl.words.find(x => String(x.id).toLowerCase() === String(wordId).toLowerCase() || String(x.word).toLowerCase() === String(wordId).toLowerCase());
           if (w) { foundWord = w; break; }
         }
         if (lvl && Array.isArray(lvl.practiceExtraWords)) {
-          const w = lvl.practiceExtraWords.find((x) => String(x.id).toLowerCase() === String(wordId).toLowerCase() || String(x.word).toLowerCase() === String(wordId).toLowerCase());
+          const w = lvl.practiceExtraWords.find(x => String(x.id).toLowerCase() === String(wordId).toLowerCase() || String(x.word).toLowerCase() === String(wordId).toLowerCase());
           if (w) { foundWord = w; break; }
         }
       }
     }
     if (!foundWord && typeof getCustomWords === 'function') {
       const customs = getCustomWords();
-      foundWord = customs.find((x) => String(x.id).toLowerCase() === String(wordId).toLowerCase() || String(x.word).toLowerCase() === String(wordId).toLowerCase());
+      foundWord = customs.find(x => String(x.id).toLowerCase() === String(wordId).toLowerCase() || String(x.word).toLowerCase() === String(wordId).toLowerCase());
     }
 
     if (!foundWord) {
@@ -3555,15 +4570,26 @@ const CartoonPlayer = {
 
     this.currentWord = foundWord;
     this.conv = getWordCartoonConversation(foundWord);
-    if (!this.conv || !Array.isArray(this.conv.lines) || this.conv.lines.length === 0) {
+    if (!this.conv || !Array.isArray(this.conv.lines) || this.conv.lines.length < 14) {
       this.conv = generateCartoonConversation(foundWord);
     }
+
     const initialLine = (typeof startLineIdx === 'number' && startLineIdx >= 0) ? startLineIdx : 0;
     this.lineIdx = initialLine;
     this.isPlaying = true;
     this.isOpen = true;
     this.accent = (typeof getActiveAccent === 'function') ? getActiveAccent().id : 'US';
     this.updateAccentPills();
+
+    // Start 8-second keep-alive interval for speech synthesis to prevent Chrome 15s freeze
+    if (!this.keepAliveInterval) {
+      this.keepAliveInterval = setInterval(() => {
+        if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+          window.speechSynthesis.pause();
+          window.speechSynthesis.resume();
+        }
+      }, 8000);
+    }
 
     if (typeof trackWordExplored === 'function') {
       trackWordExplored(foundWord.id);
@@ -3578,16 +4604,9 @@ const CartoonPlayer = {
     if (ipaEl) ipaEl.textContent = foundWord.ipa || '';
     if (meaningEl) meaningEl.textContent = foundWord.meaningBn || '';
 
-    const themeTitles = {
-      cafe: 'Scene: Cozy Café • কফি শপ',
-      library: 'Scene: Grand Library • লাইব্রেরি',
-      rooftop: 'Scene: Rooftop Garden • ছাদবাগান',
-      garden: 'Scene: Rooftop Garden • ছাদবাগান',
-      studio: 'Scene: Study Studio • পড়ার ঘর',
-      study: 'Scene: Study Studio • পড়ার ঘর'
-    };
-    const activeTheme = this.conv.sceneTheme || this.conv.theme || 'cafe';
-    if (sceneEl) sceneEl.textContent = (themeTitles[activeTheme] || 'Scene: Cozy Café') + ' • মায়া ও লিওর ইংরেজি কথোপকথন';
+    const titleEn = this.conv.titleEn || 'Cartoon Short Story';
+    const titleBn = this.conv.titleBn || 'ছোট গল্প';
+    if (sceneEl) sceneEl.textContent = `${titleEn} • ${titleBn} • মায়া ও লিওর অ্যানিমেশন`;
 
     this.renderTranscriptList();
 
@@ -3601,14 +4620,36 @@ const CartoonPlayer = {
     const listEl = document.getElementById('vw-cv-transcript-list');
     if (!listEl || !this.conv || !this.conv.lines) return;
 
+    const actIcons = { 1: '🌱', 2: '⚡', 3: '💡', 4: '🎉' };
+    let currentActNum = 0;
+
     listEl.innerHTML = this.conv.lines
       .map((line, idx) => {
-        const isMaya = line.avatar === 'maya';
+        const isMaya = line.avatar === 'maya' || line.speaker === 'Maya';
         const speakerColor = isMaya ? 'var(--accent-sage)' : 'var(--accent-terracotta)';
         const speakerBg = isMaya ? 'var(--accent-sage-soft)' : 'var(--accent-terracotta-soft)';
         const highlightedEn = highlightTargetWordInSubtitle(line.en, line.targetWord || this.currentWord.word);
+        const estSec = Math.round(idx * 4.5);
+        const timeStr = `0:${String(estSec).padStart(2, '0')}`;
+
+        let actHeader = '';
+        if (line.act && line.act !== currentActNum) {
+          currentActNum = line.act;
+          const icon = actIcons[line.act] || '📖';
+          actHeader = `
+            <div class="flex items-center gap-2 pt-2.5 pb-1 px-1">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-2xs font-mono" style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-secondary);">
+                ${icon} ${escapeHtml(line.actTitle || `Act ${line.act}`)}
+              </span>
+              <span class="font-bengali text-[10px] opacity-75 truncate" style="color: var(--ink-muted);">
+                ${escapeHtml(line.actTitleBn || '')}
+              </span>
+            </div>
+          `;
+        }
 
         return `
+          ${actHeader}
           <div
             id="vw-cv-line-${idx}"
             class="vw-cv-transcript-item rounded-xl p-3 border flex items-start justify-between gap-3 ${idx === this.lineIdx ? 'is-active-line' : ''}"
@@ -3621,9 +4662,14 @@ const CartoonPlayer = {
                 ${isMaya ? 'M' : 'L'}
               </span>
               <div class="min-w-0 flex-1">
-                <span class="text-[10px] font-bold uppercase tracking-wider block" style="color: ${speakerColor};">
-                  ${escapeHtml(line.speaker)}
-                </span>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider block" style="color: ${speakerColor};">
+                    ${escapeHtml(line.speaker)}
+                  </span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.2 rounded" style="background-color: var(--surface-sand); color: var(--ink-muted);">
+                    ${escapeHtml(line.pose || 'speaking')}
+                  </span>
+                </div>
                 <p class="text-xs sm:text-sm font-semibold mt-0.5 leading-snug" style="color: var(--ink-primary);">
                   ${highlightedEn}
                 </p>
@@ -3634,7 +4680,7 @@ const CartoonPlayer = {
             </div>
 
             <span class="text-xs font-mono shrink-0 px-2 py-0.5 rounded-full" style="background-color: var(--surface-sand); color: var(--ink-muted);">
-              0:${String(Math.round((idx * 4.5))).padStart(2, '0')}
+              ${timeStr}
             </span>
           </div>
         `;
@@ -3651,6 +4697,8 @@ const CartoonPlayer = {
       cancelAnimationFrame(this.progressRaf);
       this.progressRaf = null;
     }
+
+    // Cancel existing speech immediately before starting the next line
     if ('speechSynthesis' in window) {
       try { window.speechSynthesis.cancel(); } catch (e) {}
     }
@@ -3667,14 +4715,22 @@ const CartoonPlayer = {
     this.updatePlayBtn();
 
     const line = this.conv.lines[idx];
-    const theme = this.conv.theme || 'cafe';
-    const isMaya = line.avatar === 'maya';
+    const currentScene = line.scene || this.conv.transitionScene || this.conv.theme || 'living_room';
+    const isMaya = line.avatar === 'maya' || line.speaker === 'Maya';
 
+    // 1. Render Scene with dynamic pose & active speaking state
     const stageEl = document.getElementById('vw-cv-stage');
     if (stageEl) {
-      stageEl.innerHTML = renderCartoonSceneSvg(theme, line.speaker, true);
+      stageEl.innerHTML = renderCartoonSceneSvg(currentScene, line.speaker, line.pose || 'neutral', true);
     }
 
+    // 2. Update Act Badge Pill
+    const actPill = document.getElementById('vw-cv-act-pill');
+    if (actPill) {
+      actPill.textContent = `${line.actTitle || 'Act ' + line.act} • ${line.actTitleBn || ''}`;
+    }
+
+    // 3. Update Subtitles with bold Botanical Sage (#2D5A4C) target word highlight
     const subEn = document.getElementById('vw-cv-sub-en');
     const subBn = document.getElementById('vw-cv-sub-bn');
     if (subEn) {
@@ -3682,13 +4738,16 @@ const CartoonPlayer = {
     }
     if (subBn) {
       subBn.textContent = line.bn;
+      subBn.style.display = this.showBengaliSubtitles ? 'block' : 'none';
     }
 
+    // 4. Update Speaker Badge
     const speakerBadge = document.getElementById('vw-cv-speaker-badge');
     const speakerName = document.getElementById('vw-cv-speaker-name');
     if (speakerBadge) speakerBadge.classList.remove('hidden');
     if (speakerName) speakerName.textContent = line.speaker + ' Speaking';
 
+    // 5. Highlight active transcript item & scroll smoothly into view
     for (let i = 0; i < this.conv.lines.length; i++) {
       const itemEl = document.getElementById('vw-cv-line-' + i);
       if (itemEl) {
@@ -3701,26 +4760,40 @@ const CartoonPlayer = {
       }
     }
 
+    // 6. Estimate Expected Duration for Progress Animation
     this.lineStartTime = performance.now();
-    const wordCount = line.en.split(' ').length;
-    this.lineExpectedDuration = Math.max(3600, (wordCount / (this.speed * 2.2)) * 1000);
+    const wordCount = line.en.split(/\s+/).filter(Boolean).length;
+    this.lineExpectedDuration = Math.max(3800, (wordCount / (this.speed * 2.2)) * 1000);
+
+    const totalLines = this.conv.lines.length;
+    const totalEstDuration = totalLines * 4.5;
 
     const animProgress = (now) => {
       if (!this.isPlaying || this.lineIdx !== idx) return;
       const elapsed = now - this.lineStartTime;
       const lineRatio = Math.min(1, elapsed / this.lineExpectedDuration);
-      const overallRatio = (idx + lineRatio) / this.conv.lines.length;
+      const overallRatio = (idx + lineRatio) / totalLines;
       this.updateScrubber(overallRatio);
 
-      const curSec = Math.min(18, Math.round(overallRatio * 18));
+      const curSec = Math.min(Math.round(totalEstDuration), Math.round(overallRatio * totalEstDuration));
       const timeEl = document.getElementById('vw-cv-time');
-      if (timeEl) timeEl.textContent = '0:' + String(curSec).padStart(2, '0') + ' / 0:18';
+      if (timeEl) {
+        const mins = Math.floor(curSec / 60);
+        const secs = curSec % 60;
+        timeEl.textContent = `${mins}:${String(secs).padStart(2, '0')} / 01:03`;
+      }
 
       if (lineRatio < 1) {
         this.progressRaf = requestAnimationFrame(animProgress);
       }
     };
     this.progressRaf = requestAnimationFrame(animProgress);
+
+    // 7. ZERO-CUTOFF SPEECH ENGINE
+    // - window.__activeUtterance reference avoids Chrome garbage collection
+    // - 75ms post-cancel delay prevents audio swallow bug
+    // - Advance line ONLY on utterance.onend after a 480ms natural pause
+    let speechInitiated = false;
 
     if ('speechSynthesis' in window) {
       try {
@@ -3734,30 +4807,73 @@ const CartoonPlayer = {
           if (voice) utterance.voice = voice;
         }
         utterance.lang = langCode;
-        utterance.pitch = isMaya ? 1.25 : 0.82;
-        utterance.rate = (this.speed === 0.85 ? 0.78 : 0.94);
+        utterance.pitch = isMaya ? 1.2 : 0.85;
 
+        // Apply playback speed
+        if (this.speed === 0.8) {
+          utterance.rate = 0.78;
+        } else if (this.speed === 1.2) {
+          utterance.rate = 1.15;
+        } else {
+          utterance.rate = 0.94;
+        }
+
+        // Advance line ONLY when sentence finishes naturally!
         utterance.onend = () => {
+          window.__activeUtterance = null;
           if (this.lineIdx === idx && this.isPlaying) {
-            if (stageEl) stageEl.innerHTML = renderCartoonSceneSvg(theme, line.speaker, false);
+            if (stageEl) {
+              stageEl.innerHTML = renderCartoonSceneSvg(currentScene, line.speaker, line.pose || 'neutral', false);
+            }
             this.timer = setTimeout(() => {
               this.playLine(idx + 1);
-            }, 450);
+            }, 480);
           }
         };
 
-        window.speechSynthesis.speak(utterance);
-      } catch (err) {}
+        utterance.onerror = (err) => {
+          window.__activeUtterance = null;
+          if (this.lineIdx === idx && this.isPlaying) {
+            if (stageEl) {
+              stageEl.innerHTML = renderCartoonSceneSvg(currentScene, line.speaker, line.pose || 'neutral', false);
+            }
+            this.timer = setTimeout(() => {
+              this.playLine(idx + 1);
+            }, 480);
+          }
+        };
+
+        // Post-cancel delay of 75ms before speaking prevents audio cutoff on Windows/Chrome
+        speechInitiated = true;
+        this.timer = setTimeout(() => {
+          if (!this.isPlaying || this.lineIdx !== idx) return;
+          try {
+            window.__activeUtterance = utterance;
+            window.speechSynthesis.speak(utterance);
+          } catch (e) {
+            // Fallback if speak throws
+            this.playLine(idx + 1);
+          }
+        }, 75);
+
+      } catch (err) {
+        speechInitiated = false;
+      }
     }
 
-    this.timer = setTimeout(() => {
-      if (this.lineIdx === idx && this.isPlaying) {
-        if (stageEl) stageEl.innerHTML = renderCartoonSceneSvg(theme, line.speaker, false);
-        this.timer = setTimeout(() => {
-          this.playLine(idx + 1);
-        }, 400);
-      }
-    }, this.lineExpectedDuration + 300);
+    // Safety fallback: ONLY used if SpeechSynthesis is completely unsupported in the browser
+    if (!speechInitiated) {
+      this.timer = setTimeout(() => {
+        if (this.lineIdx === idx && this.isPlaying) {
+          if (stageEl) {
+            stageEl.innerHTML = renderCartoonSceneSvg(currentScene, line.speaker, line.pose || 'neutral', false);
+          }
+          this.timer = setTimeout(() => {
+            this.playLine(idx + 1);
+          }, 480);
+        }
+      }, this.lineExpectedDuration);
+    }
   },
 
   updateScrubber(ratio) {
@@ -3784,56 +4900,80 @@ const CartoonPlayer = {
   togglePlay() {
     if (this.isPlaying) {
       this.isPlaying = false;
-      this.updatePlayBtn();
       if (this.timer) { clearTimeout(this.timer); this.timer = null; }
       if (this.progressRaf) { cancelAnimationFrame(this.progressRaf); this.progressRaf = null; }
       if ('speechSynthesis' in window) {
         try { window.speechSynthesis.cancel(); } catch (e) {}
       }
+      this.updatePlayBtn();
       const stageEl = document.getElementById('vw-cv-stage');
-      if (stageEl && this.conv) {
-        stageEl.innerHTML = renderCartoonSceneSvg(this.conv.theme, 'Maya', false);
+      if (stageEl && this.conv && this.conv.lines[this.lineIdx]) {
+        const line = this.conv.lines[this.lineIdx];
+        stageEl.innerHTML = renderCartoonSceneSvg(line.scene, line.speaker, line.pose || 'neutral', false);
       }
     } else {
-      if (this.lineIdx >= 4) this.lineIdx = 0;
+      this.isPlaying = true;
+      this.updatePlayBtn();
       this.playLine(this.lineIdx);
     }
   },
 
   replay() {
-    this.lineIdx = 0;
     this.playLine(0);
   },
 
-  toggleSpeed() {
-    this.speed = (this.speed === 1.0) ? 0.85 : 1.0;
-    const btn = document.getElementById('vw-cv-speed-btn');
-    if (btn) btn.textContent = this.speed + 'x';
-    this.playLine(this.lineIdx);
+  prevLine() {
+    const targetIdx = Math.max(0, this.lineIdx - 1);
+    this.playLine(targetIdx);
   },
 
-  handleScrubberClick(event) {
-    const scrubber = document.getElementById('vw-cv-scrubber');
-    if (!scrubber || !this.conv || !this.conv.lines) return;
-    const rect = scrubber.getBoundingClientRect();
-    const clickX = event.clientX - rect.left;
-    const ratio = Math.max(0, Math.min(1, clickX / rect.width));
-    const targetLine = Math.min(this.conv.lines.length - 1, Math.floor(ratio * this.conv.lines.length));
-    this.jumpToLine(targetLine);
+  nextLine() {
+    const maxIdx = (this.conv && this.conv.lines) ? this.conv.lines.length - 1 : 13;
+    const targetIdx = Math.min(maxIdx, this.lineIdx + 1);
+    this.playLine(targetIdx);
+  },
+
+  toggleSpeed() {
+    if (this.speed === 1.0) {
+      this.speed = 1.2;
+    } else if (this.speed === 1.2) {
+      this.speed = 0.8;
+    } else {
+      this.speed = 1.0;
+    }
+    const btn = document.getElementById('vw-cv-speed-btn');
+    if (btn) btn.textContent = this.speed.toFixed(1) + 'x';
+    if (this.isPlaying) {
+      this.playLine(this.lineIdx);
+    }
   },
 
   jumpToLine(idx) {
-    this.playLine(idx);
+    if (typeof idx === 'number' && this.conv && idx >= 0 && idx < this.conv.lines.length) {
+      this.playLine(idx);
+    }
+  },
+
+  handleScrubberClick(e) {
+    const scrubber = document.getElementById('vw-cv-scrubber');
+    if (!scrubber || !this.conv || !this.conv.lines) return;
+    const rect = scrubber.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+    const targetIdx = Math.min(this.conv.lines.length - 1, Math.floor(ratio * this.conv.lines.length));
+    this.jumpToLine(targetIdx);
   },
 
   close() {
-    this.isPlaying = false;
     this.isOpen = false;
+    this.isPlaying = false;
     if (this.timer) { clearTimeout(this.timer); this.timer = null; }
     if (this.progressRaf) { cancelAnimationFrame(this.progressRaf); this.progressRaf = null; }
+    if (this.keepAliveInterval) { clearInterval(this.keepAliveInterval); this.keepAliveInterval = null; }
     if ('speechSynthesis' in window) {
       try { window.speechSynthesis.cancel(); } catch (e) {}
     }
+    window.__activeUtterance = null;
     const modal = document.getElementById('vw-cartoon-video-modal');
     if (modal) modal.classList.add('hidden');
   }
@@ -3847,6 +4987,7 @@ function openCartoonVideoModal(wordId, startLineIdx = 0) {
 function closeCartoonVideoModal() {
   CartoonPlayer.close();
 }
+
 
 
 /* =====================================================================
