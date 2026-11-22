@@ -8227,6 +8227,14 @@ if (typeof module !== 'undefined' && module.exports) {
 
 let deferredPWAInstallPrompt = null;
 
+
+function isAndroidMobileDevice() {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+  const isAndroidUA = /Android/i.test(navigator.userAgent || '');
+  const isMobileViewport = (typeof window.innerWidth === 'number') ? window.innerWidth < 768 : true;
+  return isAndroidUA && isMobileViewport;
+}
+
 function isPWAInstalled() {
   if (typeof window === 'undefined') return false;
   const isStandalone = Boolean(
@@ -8266,25 +8274,40 @@ function registerServiceWorker() {
 
 function ensurePWAInstallBanner() {
   if (typeof document === 'undefined') return;
-  if (isPWAInstalled()) {
-    const existing = document.getElementById('vw-mobile-install-banner');
+
+  // 1. Immediately remove banner if running in standalone mode or already marked installed
+  if (isPWAInstalled() || (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)) {
+    const existing = document.getElementById('vw-install-banner') || document.getElementById('vw-mobile-install-banner');
     if (existing) existing.remove();
     return;
   }
+
+  // 2. Strictly hide on Desktop / PC — show ONLY on Android mobile devices
+  // Detect device type using both viewport (window.innerWidth < 768) AND User-Agent (/Android/i.test(navigator.userAgent))
+  // NEVER inject or display on Windows, Mac, Linux, or any desktop browser
+  if (!isAndroidMobileDevice()) {
+    const existing = document.getElementById('vw-install-banner') || document.getElementById('vw-mobile-install-banner');
+    if (existing) existing.remove();
+    return;
+  }
+
+  // 3. Check if user dismissed banner for this session
   if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('vw_install_banner_dismissed') === 'true') {
     return;
   }
-  let banner = document.getElementById('vw-mobile-install-banner');
+
+  // 4. Inject or reveal banner
+  let banner = document.getElementById('vw-install-banner') || document.getElementById('vw-mobile-install-banner');
   if (!banner) {
     banner = document.createElement('aside');
-    banner.id = 'vw-mobile-install-banner';
-    banner.className = 'vw-mobile-install-banner md:hidden';
+    banner.id = 'vw-install-banner';
+    banner.className = 'vw-install-banner vw-mobile-install-banner md:hidden';
     banner.style.zIndex = '9990';
     banner.style.pointerEvents = 'auto';
     banner.setAttribute('role', 'complementary');
     banner.setAttribute('aria-label', 'Install Vocabulary World App');
     banner.innerHTML = `
-      <div class="vw-install-banner-pill" style="pointer-events: auto;">
+      <div id="vw-install-pill" class="vw-install-pill vw-install-banner-pill" style="pointer-events: auto;">
         <div class="flex items-center gap-2 min-w-0">
           <span class="text-base shrink-0">📲</span>
           <span class="text-xs font-bold truncate">Install App &bull; Practice offline on Android</span>
@@ -8315,7 +8338,7 @@ function ensurePWAInstallBanner() {
     document.body.appendChild(banner);
 
     // Direct event listener attachment to eliminate any dead clicks
-    const installBtn = typeof banner.querySelector === 'function' ? banner.querySelector('#vw-banner-install-btn') : null;
+    const installBtn = banner.querySelector('#vw-banner-install-btn');
     if (installBtn) {
       installBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -8324,7 +8347,7 @@ function ensurePWAInstallBanner() {
       });
     }
 
-    const dismissBtn = typeof banner.querySelector === 'function' ? banner.querySelector('#vw-banner-dismiss-btn') : null;
+    const dismissBtn = banner.querySelector('#vw-banner-dismiss-btn');
     if (dismissBtn) {
       dismissBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -8342,7 +8365,7 @@ function dismissPWAInstallBanner() {
   if (typeof sessionStorage !== 'undefined') {
     sessionStorage.setItem('vw_install_banner_dismissed', 'true');
   }
-  const banner = document.getElementById('vw-mobile-install-banner');
+  const banner = document.getElementById('vw-install-banner') || document.getElementById('vw-mobile-install-banner');
   if (banner) {
     banner.classList.add('opacity-0', 'translate-y-4');
     setTimeout(() => {
@@ -8693,6 +8716,7 @@ if (typeof window !== 'undefined') {
   window.showAllPWAInstallUI = showAllPWAInstallUI;
   window.hideAllPWAInstallUI = hideAllPWAInstallUI;
   window.isPWAInstalled = isPWAInstalled;
+  window.isAndroidMobileDevice = isAndroidMobileDevice;
   window.ensurePWAInstallBanner = ensurePWAInstallBanner;
   window.dismissPWAInstallBanner = dismissPWAInstallBanner;
   window.showAndroidInstallGuide = showAndroidInstallGuide;
@@ -8718,6 +8742,7 @@ if (typeof window !== 'undefined') {
 if (typeof module !== 'undefined' && module.exports) {
   Object.assign(module.exports, {
     isPWAInstalled,
+    isAndroidMobileDevice,
     showAllPWAInstallUI,
     hideAllPWAInstallUI,
     showPWAInstallButtons,
