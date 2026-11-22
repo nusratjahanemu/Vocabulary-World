@@ -1771,3 +1771,187 @@ button:active:not(:disabled),
   white-space: nowrap;
 }
 
+/* =====================================================================
+   MOBILE NAVIGATION & ANDROID PWA INSTALL STYLES
+====================================================================== */
+
+.vw-mobile-dots-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  color: var(--ink-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.vw-mobile-dots-btn:hover,
+.vw-mobile-dots-btn:focus-visible {
+  border-color: var(--accent-sage);
+  color: var(--accent-sage);
+  transform: scale(1.05);
+}
+
+.vw-mobile-dots-btn:active {
+  transform: scale(0.95);
+}
+
+.vw-mobile-dots-indicator {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: #F59E0B;
+  border: 1.5px solid var(--surface-white);
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
+  animation: vw-pulse-amber 2s infinite;
+}
+
+@keyframes vw-pulse-amber {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.8;
+  }
+}
+
+.vw-mobile-dots-sheet {
+  background-color: var(--bg-ivory);
+  border: 1.5px solid var(--border-subtle);
+  box-shadow: 0 20px 40px -15px rgba(30, 36, 33, 0.25);
+  transform-origin: top right;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .vw-mobile-dots-sheet {
+  background-color: #1E2421;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+.vw-mobile-dots-sheet.is-open {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.vw-dots-nav-item {
+  color: var(--ink-primary);
+  background-color: transparent;
+  transition: all 0.18s ease;
+}
+
+.vw-dots-nav-item:hover {
+  background-color: var(--surface-sand);
+}
+
+.vw-dots-nav-item.active {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  font-weight: 700;
+}
+
+.vw-mobile-page-pill {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.vw-mobile-accent-tag {
+  background-color: var(--surface-sand);
+  color: var(--ink-secondary);
+  font-family: ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Floating Bottom Install Pill Banner */
+.vw-mobile-install-banner {
+  position: fixed;
+  bottom: 1rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  z-index: 45;
+  max-width: 28rem;
+  margin: 0 auto;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vw-install-banner-pill {
+  background-color: var(--accent-sage);
+  color: #FAF8F5;
+  border-radius: 9999px;
+  padding: 0.5rem 0.65rem 0.5rem 1rem;
+  box-shadow: 0 12px 28px -6px rgba(45, 90, 76, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.vw-install-now-btn {
+  background-color: #F59E0B;
+  color: #1C1917;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+  cursor: pointer;
+}
+
+.vw-install-now-btn:hover {
+  background-color: #FBBF24;
+  transform: translateY(-1px);
+}
+
+.vw-install-now-btn:active {
+  transform: translateY(0);
+}
+
+.vw-install-dismiss-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(250, 248, 245, 0.75);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.vw-install-dismiss-btn:hover {
+  color: #FAF8F5;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+

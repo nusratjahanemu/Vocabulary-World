@@ -990,9 +990,67 @@ function selectTopLevel(newLevel) {
   }
 }
 
-function toggleMobileNavMenu() {
-  const menu = document.getElementById('vw-mobile-nav-menu');
-  if (menu) menu.classList.toggle('hidden');
+function toggleMobileDotsMenu(forceState) {
+  const sheet = document.getElementById('vw-mobile-dots-sheet');
+  const backdrop = document.getElementById('vw-mobile-dots-backdrop');
+  if (!sheet) return;
+
+  const isHidden = sheet.classList.contains('hidden');
+  const shouldOpen = typeof forceState === 'boolean' ? forceState : isHidden;
+
+  if (shouldOpen) {
+    const isInstalled = (typeof isPWAInstalled === 'function') ? isPWAInstalled() : false;
+    const installPill = document.getElementById('vw-dots-install-pill');
+    if (installPill) {
+      if (isInstalled) {
+        installPill.classList.add('hidden');
+      } else {
+        installPill.classList.remove('hidden');
+      }
+    }
+
+    if (backdrop) backdrop.classList.remove('hidden');
+    sheet.classList.remove('hidden');
+    void sheet.offsetWidth;
+    sheet.classList.add('is-open');
+    sheet.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+    sheet.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+  } else {
+    sheet.classList.remove('is-open', 'opacity-100', 'scale-100', 'pointer-events-auto');
+    sheet.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    if (backdrop) backdrop.classList.add('hidden');
+    setTimeout(() => {
+      sheet.classList.add('hidden');
+    }, 200);
+  }
+}
+
+function toggleMobileNavMenu(forceState) {
+  toggleMobileDotsMenu(forceState);
+}
+
+function cycleNextAccent() {
+  const order = ['US', 'UK', 'AU', 'CA'];
+  const cur = (typeof getActiveAccent === 'function') ? getActiveAccent().id : 'US';
+  const nextIdx = (order.indexOf(cur) + 1) % order.length;
+  const nextAccentId = order[nextIdx];
+  if (typeof setActiveAccent === 'function') {
+    setActiveAccent(nextAccentId);
+  }
+  const acc = (typeof ACCENT_CONFIG !== 'undefined' && ACCENT_CONFIG[nextAccentId]) ? ACCENT_CONFIG[nextAccentId] : null;
+  if (acc) {
+    const flagEl = document.getElementById('vw-dots-accent-flag');
+    const badgeEl = document.getElementById('vw-dots-accent-badge');
+    const topBadge = document.getElementById('vw-navbar-accent-badge');
+    const mobileTag = document.getElementById('vw-mobile-accent-tag');
+    if (flagEl) flagEl.textContent = acc.flag;
+    if (badgeEl) badgeEl.textContent = acc.shortLabel;
+    if (topBadge) topBadge.textContent = acc.shortLabel;
+    if (mobileTag) mobileTag.textContent = acc.shortLabel;
+    if (typeof showToast === 'function') {
+      showToast(`🌐 Pronunciation accent: ${acc.name} (${acc.shortLabel})`, 'info');
+    }
+  }
 }
 
 /* =====================================================================
@@ -1032,6 +1090,11 @@ function toggleTheme() {
       btn.classList.remove('rotating');
     }, 400);
   });
+
+  const dotsThemeLabel = document.getElementById('vw-dots-theme-label');
+  if (dotsThemeLabel) {
+    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Mode 🌙' : 'Light Mode ☀️';
+  }
 }
 
 function toggleCountryPicker() {
@@ -1510,7 +1573,7 @@ function renderAppHeader(activePage = 'home') {
             >
               V
             </div>
-            <div class="hidden sm:block">
+            <div>
               <span class="font-editorial text-lg font-bold block leading-none" style="color: var(--ink-primary);">
                 Vocabulary World
               </span>
@@ -1520,12 +1583,122 @@ function renderAppHeader(activePage = 'home') {
             </div>
           </a>
 
-          <!-- 2. RIGHT: Clean Utility Controls (Theme Toggle + Country Selector + Sign In Pill Button) -->
-          <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <!-- 2. RIGHT: Desktop Controls (>= sm) -->
+          <div class="hidden sm:flex items-center gap-2 sm:gap-3 shrink-0">
             ${pwaInstallBtnHTML}
             ${themeToggleBtnHTML}
             ${countrySelectorHTML}
             ${authBtnHTML}
+          </div>
+
+          <!-- 3. RIGHT: Mobile 3-Dots Button (< sm) -->
+          <div class="flex sm:hidden items-center gap-2 shrink-0">
+            <button
+              type="button"
+              id="vw-mobile-dots-btn"
+              onclick="toggleMobileDotsMenu()"
+              aria-label="Open menu"
+              class="vw-mobile-dots-btn"
+              title="Open menu"
+            >
+              <span id="vw-mobile-dots-indicator" class="vw-mobile-dots-indicator ${(typeof isPWAInstalled === 'function' && isPWAInstalled()) ? 'hidden' : ''}"></span>
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="5" r="2"/>
+                <circle cx="12" cy="12" r="2"/>
+                <circle cx="12" cy="19" r="2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Backdrop for mobile 3-dots sheet -->
+        <div
+          id="vw-mobile-dots-backdrop"
+          class="fixed inset-0 z-40 bg-black/25 backdrop-blur-xs hidden transition-opacity"
+          onclick="toggleMobileDotsMenu(false)"
+        ></div>
+
+        <!-- Mobile 3-Dots Sheet for index.html -->
+        <div
+          id="vw-mobile-dots-sheet"
+          class="vw-mobile-dots-sheet fixed top-16 right-3 sm:right-6 w-[calc(100vw-24px)] max-w-[340px] rounded-3xl border p-4 z-50 hidden opacity-0 scale-95 pointer-events-none transition-all duration-200"
+        >
+          <!-- Top Rounded Highlight Pill (shown when not yet installed) -->
+          <div
+            id="vw-dots-install-pill"
+            class="vw-dots-install-pill rounded-2xl p-3 mb-3 border flex items-center justify-between gap-2.5 ${(typeof isPWAInstalled === 'function' && isPWAInstalled()) ? 'hidden' : ''}"
+            style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25);"
+          >
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-xl shrink-0">📲</span>
+              <div class="min-w-0">
+                <div class="font-editorial text-xs sm:text-sm font-bold truncate" style="color: var(--accent-sage);">
+                  Install Vocabulary World App
+                </div>
+                <div class="font-bengali text-[10px] text-gray-500 dark:text-gray-400 truncate">
+                  অ্যান্ড্রয়েডে দ্রুত অফলাইন অনুশীলন
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onclick="triggerPWAInstall(); toggleMobileDotsMenu(false);"
+              class="vw-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer shadow-xs whitespace-nowrap"
+            >
+              Install
+            </button>
+          </div>
+
+          <!-- Quick Settings Rows inside the dropdown -->
+          <div class="space-y-1">
+            <!-- 🌐 Accent selector -->
+            <button
+              type="button"
+              onclick="cycleNextAccent()"
+              class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
+            >
+              <div class="flex items-center gap-3">
+                <span class="text-base">🌐</span>
+                <div>
+                  <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Pronunciation Accent</span>
+                  <span class="text-[10px] text-gray-500 font-bengali">ক্লিক করে পরিবর্তন করুন</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span id="vw-dots-accent-flag" class="text-base">${activeAccent.flag}</span>
+                <span id="vw-dots-accent-badge" class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
+                <span class="text-[10px] text-gray-400">&circlearrowright;</span>
+              </div>
+            </button>
+
+            <!-- 🌗 Theme toggle -->
+            <button
+              type="button"
+              onclick="toggleTheme()"
+              class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
+            >
+              <div class="flex items-center gap-3">
+                <span class="text-base">🌗</span>
+                <div>
+                  <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Theme</span>
+                  <span class="text-[10px] text-gray-500 font-bengali">লাইট / ডার্ক মোড</span>
+                </div>
+              </div>
+              <span id="vw-dots-theme-label" class="text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
+                ${isDark ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
+              </span>
+            </button>
+
+            <!-- 📡 PWA Cache status badge -->
+            <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl" style="background-color: var(--surface-sand);">
+              <div class="flex items-center gap-3">
+                <span class="text-base">📡</span>
+                <span class="text-xs sm:text-sm font-bold" style="color: var(--ink-primary);">PWA Cache Status</span>
+              </div>
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
+                Offline Ready ✓
+              </span>
+            </div>
           </div>
         </div>
       </header>
@@ -1552,34 +1725,51 @@ function renderAppHeader(activePage = 'home') {
     }
   }
 
+  const pageMetaMap = {
+    home: { label: 'Levels', emoji: '🏛️' },
+    learn: { label: 'Learn', emoji: '📖' },
+    flashcards: { label: '3D Flashcards', emoji: '🗂️' },
+    games: { label: 'Games', emoji: '🎮' },
+    tracker: { label: 'Tracker', emoji: '📊' },
+    'add-words': { label: '+ Add Words', emoji: '➕' },
+    assessment: { label: 'Assessment', emoji: '🎯' }
+  };
+  const activeMeta = pageMetaMap[activePage] || { label: 'Learn', emoji: '📖' };
+  const isInstalled = (typeof isPWAInstalled === 'function') ? isPWAInstalled() : false;
+
   const navLinks = [
     {
       id: 'learn',
       label: 'Learn',
+      emoji: '📖',
       href: 'learn.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`
     },
     {
       id: 'flashcards',
       label: '3D Flashcards',
+      emoji: '🗂️',
       href: 'flashcards.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="14" rx="2"/><path d="M6 3h12a2 2 0 0 1 2 2v12"/></svg>`
     },
     {
       id: 'games',
       label: 'Games',
+      emoji: '🎮',
       href: 'games.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4m-2-2v4m7-2h.01m3 0h.01"/></svg>`
     },
     {
       id: 'tracker',
       label: 'Tracker',
+      emoji: '📊',
       href: 'tracker.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`
     },
     {
       id: 'add-words',
       label: '+ Add Words',
+      emoji: '➕',
       href: 'add-words.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8m-4-4h8"/></svg>`
     }
@@ -1591,26 +1781,39 @@ function renderAppHeader(activePage = 'home') {
       class="sticky top-0 z-40 w-full border-b backdrop-blur-md"
       style="background-color: rgba(250, 248, 245, 0.95); border-color: var(--border-subtle);"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        <!-- 1. LEFT: Brand Logo & Title -->
-        <a href="index.html" class="flex items-center gap-2.5 shrink-0 group focus:outline-none" title="Vocabulary World Home">
-          <div
-            class="w-9 h-9 rounded-xl flex items-center justify-center font-editorial font-bold text-lg text-white shadow-xs shrink-0 transition-transform group-hover:scale-105"
-            style="background-color: var(--accent-sage);"
-          >
-            V
-          </div>
-          <div class="hidden sm:block">
-            <span class="font-editorial text-lg font-bold block leading-none" style="color: var(--ink-primary);">
-              Vocabulary World
-            </span>
-            <span class="font-bengali text-[10px] block mt-0.5" style="color: var(--ink-muted);">
-              বাংলা-ইংরেজি শব্দভান্ডার
-            </span>
-          </div>
-        </a>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+        <!-- 1. LEFT: Brand Logo & Title on Desktop / Logo + Active Page Pill + Accent on Mobile -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0">
+          <a href="index.html" class="flex items-center gap-2 shrink-0 group focus:outline-none" title="Vocabulary World Home">
+            <div
+              class="w-9 h-9 rounded-xl flex items-center justify-center font-editorial font-bold text-lg text-white shadow-xs shrink-0 transition-transform group-hover:scale-105"
+              style="background-color: var(--accent-sage);"
+            >
+              V
+            </div>
+            <div class="hidden md:block">
+              <span class="font-editorial text-lg font-bold block leading-none" style="color: var(--ink-primary);">
+                Vocabulary World
+              </span>
+              <span class="font-bengali text-[10px] block mt-0.5" style="color: var(--ink-muted);">
+                বাংলা-ইংরেজি শব্দভান্ডার
+              </span>
+            </div>
+          </a>
 
-        <!-- 2. CENTER: LanGeek-Inspired Horizontal Sliding Pill Navigation (Desktop: >= md) -->
+          <!-- Mobile Active Page Pill Badge & Accent Tag (< md) -->
+          <div class="flex md:hidden items-center gap-1.5 min-w-0">
+            <span class="vw-mobile-page-pill">
+              <span>${activeMeta.emoji}</span>
+              <span class="truncate max-w-[110px]">${activeMeta.label}</span>
+            </span>
+            <span id="vw-mobile-accent-tag" class="vw-mobile-accent-tag">
+              ${activeAccent.shortLabel}
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. CENTER: Desktop Horizontal Sliding Pill Navigation (>= md) -->
         <nav
           id="vw-top-nav"
           class="vw-top-nav relative hidden md:inline-flex items-center"
@@ -1637,8 +1840,8 @@ function renderAppHeader(activePage = 'home') {
             .join('')}
         </nav>
 
-        <!-- 3. RIGHT: Utility Controls (Level Selector + Theme Toggle + Country Selector + Sign In Pill + Mobile Toggle) -->
-        <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <!-- 3. RIGHT: Desktop Controls (>= md) -->
+        <div class="hidden md:flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <!-- Active "Level: Beginner" Selector Pill (Dropdown) -->
           <div class="relative">
             <button
@@ -1650,7 +1853,7 @@ function renderAppHeader(activePage = 'home') {
               title="Current Level: ${levelTitle} &bull; Click to switch"
             >
               <span class="w-2 h-2 rounded-full shrink-0" style="background-color: var(--accent-sage);"></span>
-              <span class="hidden xs:inline">Level: </span><span>${levelTitle}</span>
+              <span>Level: ${levelTitle}</span>
               <span class="text-[9px] text-gray-400 ml-0.5">&blacktriangledown;</span>
             </button>
 
@@ -1713,106 +1916,164 @@ function renderAppHeader(activePage = 'home') {
           ${themeToggleBtnHTML}
           ${countrySelectorHTML}
           ${authBtnHTML}
+        </div>
 
-          <!-- Mobile Hamburger Toggle (< md) -->
+        <!-- 4. RIGHT: Mobile Chrome-Style 3-Dots (⋮) Menu Button (< md) -->
+        <div class="flex md:hidden items-center gap-2 shrink-0">
           <button
             type="button"
-            onclick="toggleMobileNavMenu()"
-            aria-label="Toggle navigation menu"
-            class="md:hidden p-2 rounded-xl border hover:bg-black/5 transition-colors"
-            style="border-color: var(--border-subtle); color: var(--ink-primary);"
+            id="vw-mobile-dots-btn"
+            onclick="toggleMobileDotsMenu()"
+            aria-label="Open menu"
+            class="vw-mobile-dots-btn"
+            title="Open menu &bull; মেন্যু খুলুন"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <span id="vw-mobile-dots-indicator" class="vw-mobile-dots-indicator ${isInstalled ? 'hidden' : ''}"></span>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="5" r="2"/>
+              <circle cx="12" cy="12" r="2"/>
+              <circle cx="12" cy="19" r="2"/>
             </svg>
           </button>
         </div>
       </div>
 
-      <!-- Mobile Dropdown Menu (< md) -->
+      <!-- Backdrop for mobile 3-dots sheet -->
       <div
-        id="vw-mobile-nav-menu"
-        class="hidden md:hidden border-t px-4 py-3 space-y-2 backdrop-blur-md"
-        style="background-color: rgba(250, 248, 245, 0.98); border-color: var(--border-subtle);"
+        id="vw-mobile-dots-backdrop"
+        class="fixed inset-0 z-40 bg-black/25 backdrop-blur-xs hidden transition-opacity"
+        onclick="toggleMobileDotsMenu(false)"
+      ></div>
+
+      <!-- Sleek Chrome-Style 3-Dots Dropdown Sheet (< md) -->
+      <div
+        id="vw-mobile-dots-sheet"
+        class="vw-mobile-dots-sheet fixed top-16 right-3 sm:right-6 w-[calc(100vw-24px)] max-w-[340px] rounded-3xl border p-4 z-50 hidden opacity-0 scale-95 pointer-events-none transition-all duration-200"
       >
-        <!-- Mobile Utility Shortcut Row -->
-        <div class="flex items-center justify-between pb-2 mb-1 border-b" style="border-color: var(--border-subtle);">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold" style="color: var(--ink-muted);">Settings:</span>
-            <!-- Mobile Theme Toggle -->
-            <button
-              type="button"
-              onclick="toggleTheme()"
-              class="vw-theme-toggle-btn w-8 h-8 text-xs"
-              title="Toggle theme"
-            >
-              <span class="vw-theme-toggle-icon">
-                ${isDark ? getSunIconSvg() : getMoonIconSvg()}
-              </span>
-            </button>
-
-            <!-- Mobile Country Indicator -->
-            <button
-              type="button"
-              onclick="toggleCountryPicker()"
-              class="vw-country-btn h-8 text-xs px-2"
-              title="Country accent: ${activeAccent.name}"
-            >
-              <span>${selectedCountry.flag}</span>
-              <span class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
-            </button>
-
-            <!-- Mobile Feedback Button -->
-            <button
-              type="button"
-              onclick="openFeedbackModal(); if (typeof toggleMobileNavMenu === 'function') toggleMobileNavMenu();"
-              class="vw-feedback-nav-btn w-8 h-8 text-xs"
-              title="Share Feedback &bull; মতামত দিন"
-              aria-label="Give feedback"
-            >
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Mobile Sign In / Profile -->
-          ${userProfile ? `
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-bold truncate max-w-[100px]" style="color: var(--ink-primary);">${userProfile.name}</span>
-              <button type="button" onclick="handleSignOut()" class="text-[11px] font-bold text-red-600 hover:underline">
-                Sign Out
-              </button>
+        <!-- Top Rounded Highlight Pill (shown when not yet installed) -->
+        <div
+          id="vw-dots-install-pill"
+          class="vw-dots-install-pill rounded-2xl p-3 mb-3 border flex items-center justify-between gap-2.5 ${isInstalled ? 'hidden' : ''}"
+          style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25);"
+        >
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="text-xl shrink-0">📲</span>
+            <div class="min-w-0">
+              <div class="font-editorial text-xs sm:text-sm font-bold truncate" style="color: var(--accent-sage);">
+                Install Vocabulary World App
+              </div>
+              <div class="font-bengali text-[10px] text-gray-500 dark:text-gray-400 truncate">
+                অ্যান্ড্রয়েডে দ্রুত অফলাইন অনুশীলন
+              </div>
             </div>
-          ` : `
-            <button
-              type="button"
-              onclick="openAuthModal()"
-              class="vw-auth-pill-btn h-8 text-xs px-3"
-            >
-              <span>Sign In</span>
-            </button>
-          `}
+          </div>
+          <button
+            type="button"
+            onclick="triggerPWAInstall(); toggleMobileDotsMenu(false);"
+            class="vw-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer shadow-xs whitespace-nowrap"
+          >
+            Install
+          </button>
         </div>
 
-        <!-- 5 Main Navigation Links -->
-        ${navLinks
-          .map((item) => {
-            const isActive = activePage === item.id;
-            return `
-              <a
-                href="${item.href}"
-                data-page="${item.id}"
-                class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold transition-colors ${
-                  isActive ? 'bg-[#EEF4F1] text-[#2D5A4C]' : 'text-gray-700 hover:bg-black/5'
-                }"
-              >
-                <span class="vw-nav-icon ${isActive ? 'nav-icon-pop' : ''}">${item.icon}</span>
-                <span>${item.label}</span>
-              </a>
-            `;
-          })
-          .join('')}
+        <!-- Main Navigation Rows (5 items with icons & active Botanical Sage highlight) -->
+        <div class="space-y-1 mb-2">
+          ${navLinks
+            .map((item) => {
+              const isActive = activePage === item.id;
+              return `
+                <a
+                  href="${item.href}"
+                  data-page="${item.id}"
+                  onclick="toggleMobileDotsMenu(false)"
+                  class="vw-dots-nav-item ${isActive ? 'active' : ''} flex items-center justify-between px-3.5 py-2.5 rounded-2xl transition-all"
+                >
+                  <div class="flex items-center gap-3">
+                    <span class="text-base">${item.emoji}</span>
+                    <span class="text-xs sm:text-sm ${isActive ? 'font-bold' : 'font-medium'}">${item.label}</span>
+                  </div>
+                  ${isActive ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background-color: var(--surface-white); color: var(--accent-sage);">Active</span>' : ''}
+                </a>
+              `;
+            })
+            .join('')}
+        </div>
+
+        <!-- Clean Horizontal Divider Line -->
+        <div class="border-t my-2" style="border-color: var(--border-subtle);"></div>
+
+        <!-- Quick Settings Rows inside the dropdown -->
+        <div class="space-y-1">
+          <!-- 🌐 Accent selector (cycles US / UK / AU / CA with live badge) -->
+          <button
+            type="button"
+            onclick="cycleNextAccent()"
+            class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-base">🌐</span>
+              <div>
+                <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Pronunciation Accent</span>
+                <span class="text-[10px] text-gray-500 font-bengali">ক্লিক করে পরিবর্তন করুন</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span id="vw-dots-accent-flag" class="text-base">${activeAccent.flag}</span>
+              <span id="vw-dots-accent-badge" class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
+              <span class="text-[10px] text-gray-400">&circlearrowright;</span>
+            </div>
+          </button>
+
+          <!-- 🌗 Theme toggle (Light / Dark Mode) -->
+          <button
+            type="button"
+            onclick="toggleTheme()"
+            class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-base">🌗</span>
+              <div>
+                <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Theme</span>
+                <span class="text-[10px] text-gray-500 font-bengali">লাইট / ডার্ক মোড</span>
+              </div>
+            </div>
+            <span id="vw-dots-theme-label" class="text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
+              ${isDark ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
+            </span>
+          </button>
+
+          <!-- 📡 PWA Cache status badge (Offline Ready) -->
+          <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl" style="background-color: var(--surface-sand);">
+            <div class="flex items-center gap-3">
+              <span class="text-base">📡</span>
+              <span class="text-xs sm:text-sm font-bold" style="color: var(--ink-primary);">PWA Cache Status</span>
+            </div>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
+              Offline Ready ✓
+            </span>
+          </div>
+        </div>
+
+        <!-- Quick Links: Feedback & Level -->
+        <div class="border-t my-2" style="border-color: var(--border-subtle);"></div>
+        <div class="flex items-center justify-between gap-2 pt-1">
+          <button
+            type="button"
+            onclick="openFeedbackModal(); toggleMobileDotsMenu(false);"
+            class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold hover:bg-black/5 transition-all cursor-pointer"
+            style="border-color: var(--border-subtle); color: var(--ink-secondary);"
+          >
+            <span>💬 Feedback</span>
+          </button>
+          <a
+            href="index.html"
+            onclick="toggleMobileDotsMenu(false)"
+            class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold hover:bg-black/5 transition-all cursor-pointer"
+            style="border-color: var(--border-subtle); color: var(--accent-sage);"
+          >
+            <span>🏛️ ${levelTitle}</span>
+          </a>
+        </div>
       </div>
     </header>
     ${authModalHTML}
@@ -5438,13 +5699,23 @@ if (typeof module !== 'undefined' && module.exports) {
 
 
 /* =====================================================================
-   10. PROGRESSIVE WEB APP (PWA) & SERVICE WORKER ENGINE
+   10. PROGRESSIVE WEB APP (PWA) & SERVICE WORKER ENGINE (ANDROID HARDENED)
 ====================================================================== */
 
 let deferredPWAInstallPrompt = null;
 
+function isPWAInstalled() {
+  if (typeof window === 'undefined') return false;
+  const isStandalone = Boolean(
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    (window.navigator && window.navigator.standalone === true)
+  );
+  const isMarkedInstalled = (typeof localStorage !== 'undefined') && localStorage.getItem('vw_app_installed') === 'true';
+  return isStandalone || isMarkedInstalled;
+}
+
 function registerServiceWorker() {
-  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return;
+  if (typeof window === 'undefined' || typeof navigator === 'undefined' || !('serviceWorker' in navigator)) return;
   // Cleanly ignore file:// protocol without any console errors
   if (window.location.protocol === 'file:') return;
   const isSecure = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -5470,69 +5741,241 @@ function registerServiceWorker() {
   });
 }
 
+function ensurePWAInstallBanner() {
+  if (typeof document === 'undefined') return;
+  if (isPWAInstalled()) {
+    const existing = document.getElementById('vw-mobile-install-banner');
+    if (existing) existing.remove();
+    return;
+  }
+  if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('vw_install_banner_dismissed') === 'true') {
+    return;
+  }
+  let banner = document.getElementById('vw-mobile-install-banner');
+  if (!banner) {
+    banner = document.createElement('aside');
+    banner.id = 'vw-mobile-install-banner';
+    banner.className = 'vw-mobile-install-banner md:hidden';
+    banner.setAttribute('role', 'complementary');
+    banner.setAttribute('aria-label', 'Install Vocabulary World App');
+    banner.innerHTML = `
+      <div class="vw-install-banner-pill">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="text-base shrink-0">📲</span>
+          <span class="text-xs font-bold truncate">Install App &bull; Practice offline on Android</span>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            onclick="triggerPWAInstall()"
+            class="vw-install-now-btn"
+            aria-label="Install App Now"
+          >
+            Install Now
+          </button>
+          <button
+            type="button"
+            onclick="dismissPWAInstallBanner()"
+            class="vw-install-dismiss-btn"
+            aria-label="Dismiss banner"
+            title="Dismiss"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+  } else {
+    banner.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+  }
+}
+
+function dismissPWAInstallBanner() {
+  if (typeof sessionStorage !== 'undefined') {
+    sessionStorage.setItem('vw_install_banner_dismissed', 'true');
+  }
+  const banner = document.getElementById('vw-mobile-install-banner');
+  if (banner) {
+    banner.classList.add('opacity-0', 'translate-y-4');
+    setTimeout(() => {
+      banner.remove();
+    }, 250);
+  }
+}
+
+function showAllPWAInstallUI() {
+  if (isPWAInstalled()) return;
+  if (typeof document === 'undefined') return;
+
+  const btns = document.querySelectorAll('.vw-pwa-install-btn, #vw-pwa-install-btn');
+  btns.forEach((btn) => {
+    btn.classList.remove('hidden');
+    btn.classList.add('inline-flex');
+  });
+
+  const dotsIndicator = document.getElementById('vw-mobile-dots-indicator');
+  if (dotsIndicator) dotsIndicator.classList.remove('hidden');
+
+  const installPill = document.getElementById('vw-dots-install-pill');
+  if (installPill) installPill.classList.remove('hidden');
+
+  ensurePWAInstallBanner();
+}
+
+function hideAllPWAInstallUI() {
+  if (typeof document === 'undefined') return;
+
+  const btns = document.querySelectorAll('.vw-pwa-install-btn, #vw-pwa-install-btn');
+  btns.forEach((btn) => {
+    btn.classList.add('hidden');
+    btn.classList.remove('inline-flex');
+  });
+
+  const dotsIndicator = document.getElementById('vw-mobile-dots-indicator');
+  if (dotsIndicator) dotsIndicator.classList.add('hidden');
+
+  const installPill = document.getElementById('vw-dots-install-pill');
+  if (installPill) installPill.classList.add('hidden');
+
+  const banner = document.getElementById('vw-mobile-install-banner');
+  if (banner) banner.remove();
+}
+
+function showPWAInstallButtons() {
+  showAllPWAInstallUI();
+}
+
+function hidePWAInstallButtons() {
+  hideAllPWAInstallUI();
+}
+
+function showAndroidInstallGuide() {
+  if (typeof document === 'undefined') return;
+  let modal = document.getElementById('vw-android-install-guide-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'vw-android-install-guide-modal';
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs';
+    modal.innerHTML = `
+      <div class="fixed inset-0" onclick="closeAndroidInstallGuide()"></div>
+      <div class="relative w-full max-w-sm rounded-3xl border p-6 shadow-2xl z-10 vw-view-enter" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+        <button type="button" onclick="closeAndroidInstallGuide()" class="absolute top-4 right-4 w-8 h-8 rounded-full border flex items-center justify-center text-gray-500 hover:border-[#2D5A4C] cursor-pointer" style="border-color: var(--border-subtle);">&times;</button>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-xl text-white shadow-xs" style="background-color: var(--accent-sage);">📲</div>
+          <div>
+            <h3 class="font-editorial text-base font-bold" style="color: var(--ink-primary);">Install on Android</h3>
+            <p class="font-bengali text-xs" style="color: var(--ink-muted);">অ্যান্ড্রয়েডে ইনস্টল করার নিয়ম</p>
+          </div>
+        </div>
+        <div class="space-y-3 py-2 text-xs font-medium" style="color: var(--ink-secondary);">
+          <div class="flex items-start gap-3 p-2.5 rounded-2xl" style="background-color: var(--surface-sand);">
+            <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0" style="background-color: var(--accent-sage);">1</span>
+            <div class="flex-1">
+              <span class="font-bold block" style="color: var(--ink-primary);">Tap Chrome Menu (&vellip;)</span>
+              <span class="font-bengali text-[11px] text-gray-500">ব্রাউজারের উপরে ডানে ৩-ডট (&vellip;) মেন্যুতে চাপুন</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-2.5 rounded-2xl" style="background-color: var(--surface-sand);">
+            <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0" style="background-color: var(--accent-sage);">2</span>
+            <div class="flex-1">
+              <span class="font-bold block" style="color: var(--ink-primary);">Select "Install app"</span>
+              <span class="font-bengali text-[11px] text-gray-500">মেন্যু থেকে "Install app" অথবা "Add to Home screen" নির্বাচন করুন</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" onclick="closeAndroidInstallGuide()" class="vw-btn-primary w-full py-2.5 rounded-xl text-xs font-bold mt-4 cursor-pointer">
+          Got it &bull; বুঝতে পেরেছি
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  } else {
+    modal.classList.remove('hidden');
+  }
+}
+
+function closeAndroidInstallGuide() {
+  if (typeof document === 'undefined') return;
+  const modal = document.getElementById('vw-android-install-guide-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+}
+
+async function triggerPWAInstall() {
+  const promptEvent = (typeof window !== 'undefined' && (window.__deferredInstallPrompt || window.__deferredPWAInstallPrompt)) || deferredPWAInstallPrompt;
+  if (promptEvent && typeof promptEvent.prompt === 'function') {
+    try {
+      promptEvent.prompt();
+      const choice = await promptEvent.userChoice;
+      if (choice && choice.outcome === 'accepted') {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('vw_app_installed', 'true');
+        }
+        hideAllPWAInstallUI();
+        if (typeof showToast === 'function') {
+          showToast('🎉 Vocabulary World অ্যাপটি আপনার ডিভাইসে সফলভাবে ইনস্টল করা হয়েছে!', 'success');
+        }
+      }
+    } catch (e) {
+      console.warn('[PWA] Error in prompt choice:', e);
+    }
+    deferredPWAInstallPrompt = null;
+    if (typeof window !== 'undefined') {
+      window.__deferredInstallPrompt = null;
+      window.__deferredPWAInstallPrompt = null;
+    }
+  } else {
+    showAndroidInstallGuide();
+  }
+}
+
 function initPWAInstallEngine() {
   if (typeof window === 'undefined') return;
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPWAInstallPrompt = e;
+    window.__deferredInstallPrompt = e;
     window.__deferredPWAInstallPrompt = e;
-    showPWAInstallButtons();
+    showAllPWAInstallUI();
   });
 
   window.addEventListener('appinstalled', () => {
     deferredPWAInstallPrompt = null;
+    window.__deferredInstallPrompt = null;
     window.__deferredPWAInstallPrompt = null;
-    hidePWAInstallButtons();
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('vw_app_installed', 'true');
+    }
+    hideAllPWAInstallUI();
     if (typeof showToast === 'function') {
       showToast('🎉 Vocabulary World অ্যাপটি আপনার ডিভাইসে সফলভাবে ইনস্টল করা হয়েছে!', 'success');
     }
   });
 
-  const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  const isStandalone = typeof window !== 'undefined' && ((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true);
-  if (isIOS && !isStandalone) {
-    showPWAInstallButtons();
-  }
-}
-
-function showPWAInstallButtons() {
-  if (typeof document === 'undefined') return;
-  const btns = document.querySelectorAll('.vw-pwa-install-btn, #vw-pwa-install-btn');
-  btns.forEach((btn) => {
-    btn.classList.remove('hidden');
-    btn.classList.add('inline-flex');
-  });
-}
-
-function hidePWAInstallButtons() {
-  if (typeof document === 'undefined') return;
-  const btns = document.querySelectorAll('.vw-pwa-install-btn, #vw-pwa-install-btn');
-  btns.forEach((btn) => {
-    btn.classList.add('hidden');
-    btn.classList.remove('inline-flex');
-  });
-}
-
-async function triggerPWAInstall() {
-  if (deferredPWAInstallPrompt) {
-    deferredPWAInstallPrompt.prompt();
-    const choice = await deferredPWAInstallPrompt.userChoice;
-    if (choice && choice.outcome === 'accepted') {
-      console.log('[PWA] User accepted install prompt');
-    }
-    deferredPWAInstallPrompt = null;
-    window.__deferredPWAInstallPrompt = null;
-    hidePWAInstallButtons();
-  } else {
-    const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    if (isIOS) {
-      alert('iOS ডিভাইসে ইনস্টল করতে: Safari ব্রাউজারের নিচে "Share" (শেয়ার) আইকনে চাপুন এবং "Add to Home Screen" নির্বাচন করুন। 📲');
-    } else {
-      if (typeof showToast === 'function') {
-        showToast('ℹ️ ব্রাউজার মেন্যু (৩-ডট) থেকে "Install Vocabulary World" অথবা "Add to Home screen" নির্বাচন করুন।', 'info');
+  // Listen to standalone media query changes
+  if (window.matchMedia) {
+    try {
+      const standaloneMQ = window.matchMedia('(display-mode: standalone)');
+      if (standaloneMQ.addEventListener) {
+        standaloneMQ.addEventListener('change', (e) => {
+          if (e.matches) {
+            if (typeof localStorage !== 'undefined') {
+              localStorage.setItem('vw_app_installed', 'true');
+            }
+            hideAllPWAInstallUI();
+          }
+        });
       }
-    }
+    } catch (err) {}
+  }
+
+  if (isPWAInstalled()) {
+    hideAllPWAInstallUI();
+  } else {
+    ensurePWAInstallBanner();
   }
 }
 
@@ -5542,19 +5985,48 @@ if (typeof window !== 'undefined') {
   window.triggerPWAInstall = triggerPWAInstall;
   window.showPWAInstallButtons = showPWAInstallButtons;
   window.hidePWAInstallButtons = hidePWAInstallButtons;
+  window.showAllPWAInstallUI = showAllPWAInstallUI;
+  window.hideAllPWAInstallUI = hideAllPWAInstallUI;
+  window.isPWAInstalled = isPWAInstalled;
+  window.ensurePWAInstallBanner = ensurePWAInstallBanner;
+  window.dismissPWAInstallBanner = dismissPWAInstallBanner;
+  window.showAndroidInstallGuide = showAndroidInstallGuide;
+  window.closeAndroidInstallGuide = closeAndroidInstallGuide;
+  window.toggleMobileDotsMenu = toggleMobileDotsMenu;
+  window.cycleNextAccent = cycleNextAccent;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  Object.assign(module.exports, {
+    isPWAInstalled,
+    showAllPWAInstallUI,
+    hideAllPWAInstallUI,
+    showPWAInstallButtons,
+    hidePWAInstallButtons,
+    dismissPWAInstallBanner,
+    ensurePWAInstallBanner,
+    triggerPWAInstall,
+    showAndroidInstallGuide,
+    closeAndroidInstallGuide,
+    toggleMobileDotsMenu,
+    cycleNextAccent,
+    renderAppHeader
+  });
 }
 
 /* =====================================================================
    AUTO-INITIALIZATION HOOK
 ====================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  PronunciationEngine.init();
-  loadPersistedState();
-  WordImageLoader.init();
-  ensureToastElement();
-  ensureFeedbackWidget();
-  updateTrackerDisplay();
-  updateMyVocabPillCounters();
-  registerServiceWorker();
-  initPWAInstallEngine();
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    PronunciationEngine.init();
+    loadPersistedState();
+    WordImageLoader.init();
+    ensureToastElement();
+    ensureFeedbackWidget();
+    updateTrackerDisplay();
+    updateMyVocabPillCounters();
+    registerServiceWorker();
+    initPWAInstallEngine();
+  });
+}
