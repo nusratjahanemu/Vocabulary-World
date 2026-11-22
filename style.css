@@ -1894,10 +1894,17 @@ button:active:not(:disabled),
   bottom: 1rem;
   left: 0.75rem;
   right: 0.75rem;
-  z-index: 45;
+  z-index: 9990;
+  pointer-events: auto;
   max-width: 28rem;
   margin: 0 auto;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Fallback Android Install Guide Modal Overlay */
+.vw-android-guide-overlay {
+  z-index: 9999 !important;
+  pointer-events: auto !important;
 }
 
 .vw-install-banner-pill {

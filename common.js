@@ -5869,10 +5869,12 @@ function ensurePWAInstallBanner() {
     banner = document.createElement('aside');
     banner.id = 'vw-mobile-install-banner';
     banner.className = 'vw-mobile-install-banner md:hidden';
+    banner.style.zIndex = '9990';
+    banner.style.pointerEvents = 'auto';
     banner.setAttribute('role', 'complementary');
     banner.setAttribute('aria-label', 'Install Vocabulary World App');
     banner.innerHTML = `
-      <div class="vw-install-banner-pill">
+      <div class="vw-install-banner-pill" style="pointer-events: auto;">
         <div class="flex items-center gap-2 min-w-0">
           <span class="text-base shrink-0">📲</span>
           <span class="text-xs font-bold truncate">Install App &bull; Practice offline on Android</span>
@@ -5880,6 +5882,7 @@ function ensurePWAInstallBanner() {
         <div class="flex items-center gap-1.5 shrink-0">
           <button
             type="button"
+            id="vw-banner-install-btn"
             onclick="triggerPWAInstall()"
             class="vw-install-now-btn"
             aria-label="Install App Now"
@@ -5888,6 +5891,7 @@ function ensurePWAInstallBanner() {
           </button>
           <button
             type="button"
+            id="vw-banner-dismiss-btn"
             onclick="dismissPWAInstallBanner()"
             class="vw-install-dismiss-btn"
             aria-label="Dismiss banner"
@@ -5899,8 +5903,28 @@ function ensurePWAInstallBanner() {
       </div>
     `;
     document.body.appendChild(banner);
+
+    // Direct event listener attachment to eliminate any dead clicks
+    const installBtn = typeof banner.querySelector === 'function' ? banner.querySelector('#vw-banner-install-btn') : null;
+    if (installBtn) {
+      installBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        triggerPWAInstall();
+      });
+    }
+
+    const dismissBtn = typeof banner.querySelector === 'function' ? banner.querySelector('#vw-banner-dismiss-btn') : null;
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dismissPWAInstallBanner();
+      });
+    }
   } else {
     banner.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+    banner.style.display = 'block';
   }
 }
 
@@ -5912,7 +5936,7 @@ function dismissPWAInstallBanner() {
   if (banner) {
     banner.classList.add('opacity-0', 'translate-y-4');
     setTimeout(() => {
-      banner.remove();
+      try { banner.remove(); } catch (e) {}
     }, 250);
   }
 }
@@ -5963,24 +5987,104 @@ function hidePWAInstallButtons() {
   hideAllPWAInstallUI();
 }
 
+function copyPageLinkForChrome() {
+  const url = (typeof window !== 'undefined' && window.location.href)
+    ? window.location.href
+    : 'https://nusratjahanemu.github.io/Vocabulary-World/';
+
+  function onCopySuccess() {
+    const copyBtn = document.getElementById('vw-android-copy-link-btn');
+    if (copyBtn) {
+      const origHtml = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<span>✓</span><span>Link Copied! (লিংক কপি হয়েছে)</span>';
+      copyBtn.style.borderColor = 'var(--accent-sage)';
+      setTimeout(() => {
+        if (copyBtn) {
+          copyBtn.innerHTML = origHtml;
+          copyBtn.style.borderColor = '';
+        }
+      }, 2500);
+    }
+    if (typeof showToast === 'function') {
+      showToast('✓ লিংক কপি করা হয়েছে! Chrome ব্রাউজারে পেস্ট করুন', 'success');
+    }
+  }
+
+  if (typeof navigator !== 'undefined' && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    navigator.clipboard.writeText(url)
+      .then(onCopySuccess)
+      .catch(() => fallbackCopy(url));
+  } else {
+    fallbackCopy(url);
+  }
+
+  function fallbackCopy(text) {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.top = '-9999px';
+      textArea.style.left = '-9999px';
+      textArea.setAttribute('readonly', '');
+      document.body.appendChild(textArea);
+      textArea.select();
+      const success = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      if (success) {
+        onCopySuccess();
+      } else {
+        if (typeof showToast === 'function') {
+          showToast('লিংক: ' + text, 'info');
+        }
+      }
+    } catch (e) {
+      if (typeof showToast === 'function') {
+        showToast('লিংক: ' + text, 'info');
+      }
+    }
+  }
+}
+
 function showAndroidInstallGuide() {
   if (typeof document === 'undefined') return;
   let modal = document.getElementById('vw-android-install-guide-modal');
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'vw-android-install-guide-modal';
-    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs';
+    modal.className = 'vw-android-guide-overlay fixed inset-0 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs vw-view-enter';
+    modal.style.zIndex = '9999';
+    modal.style.pointerEvents = 'auto';
     modal.innerHTML = `
-      <div class="fixed inset-0" onclick="closeAndroidInstallGuide()"></div>
-      <div class="relative w-full max-w-sm rounded-3xl border p-6 shadow-2xl z-10 vw-view-enter" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
-        <button type="button" onclick="closeAndroidInstallGuide()" class="absolute top-4 right-4 w-8 h-8 rounded-full border flex items-center justify-center text-gray-500 hover:border-[#2D5A4C] cursor-pointer" style="border-color: var(--border-subtle);">&times;</button>
+      <div class="vw-modal-backdrop-tap fixed inset-0" style="z-index: 1;"></div>
+      <div
+        class="vw-modal-card relative w-full max-w-sm rounded-3xl border p-6 shadow-2xl vw-view-enter"
+        style="background-color: var(--surface-white); border-color: var(--border-subtle); z-index: 2; pointer-events: auto;"
+      >
+        <button
+          type="button"
+          id="vw-android-modal-close-x"
+          onclick="closeAndroidInstallGuide()"
+          class="absolute top-4 right-4 w-8 h-8 rounded-full border flex items-center justify-center text-gray-500 hover:border-[#2D5A4C] cursor-pointer"
+          style="border-color: var(--border-subtle); z-index: 3;"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-xl text-white shadow-xs" style="background-color: var(--accent-sage);">📲</div>
+          <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-xl text-white shadow-xs" style="background-color: var(--accent-sage);">
+            📲
+          </div>
           <div>
-            <h3 class="font-editorial text-base font-bold" style="color: var(--ink-primary);">Install on Android</h3>
-            <p class="font-bengali text-xs" style="color: var(--ink-muted);">অ্যান্ড্রয়েডে ইনস্টল করার নিয়ম</p>
+            <h3 class="font-editorial text-base font-bold" style="color: var(--ink-primary);">
+              Install on Android
+            </h3>
+            <p class="font-bengali text-xs" style="color: var(--ink-muted);">
+              অ্যান্ড্রয়েডে ইনস্টল করার নিয়ম
+            </p>
           </div>
         </div>
+
         <div class="space-y-3 py-2 text-xs font-medium" style="color: var(--ink-secondary);">
           <div class="flex items-start gap-3 p-2.5 rounded-2xl" style="background-color: var(--surface-sand);">
             <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0" style="background-color: var(--accent-sage);">1</span>
@@ -5989,6 +6093,7 @@ function showAndroidInstallGuide() {
               <span class="font-bengali text-[11px] text-gray-500">ব্রাউজারের উপরে ডানে ৩-ডট (&vellip;) মেন্যুতে চাপুন</span>
             </div>
           </div>
+
           <div class="flex items-start gap-3 p-2.5 rounded-2xl" style="background-color: var(--surface-sand);">
             <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0" style="background-color: var(--accent-sage);">2</span>
             <div class="flex-1">
@@ -5997,14 +6102,80 @@ function showAndroidInstallGuide() {
             </div>
           </div>
         </div>
-        <button type="button" onclick="closeAndroidInstallGuide()" class="vw-btn-primary w-full py-2.5 rounded-xl text-xs font-bold mt-4 cursor-pointer">
+
+        <!-- Working Copy Link for Chrome button -->
+        <button
+          type="button"
+          id="vw-android-copy-link-btn"
+          onclick="copyPageLinkForChrome()"
+          class="w-full py-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all mt-3 cursor-pointer hover:border-[#2D5A4C]"
+          style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+        >
+          <span>📋</span>
+          <span>Copy Link for Chrome (লিংক কপি করুন)</span>
+        </button>
+
+        <button
+          type="button"
+          id="vw-android-modal-gotit-btn"
+          onclick="closeAndroidInstallGuide()"
+          class="vw-btn-primary w-full py-2.5 rounded-xl text-xs font-bold mt-2 cursor-pointer"
+        >
           Got it &bull; বুঝতে পেরেছি
         </button>
       </div>
     `;
     document.body.appendChild(modal);
+
+    // Direct event listeners to guarantee 100% responsiveness without dead clicks
+    const closeXBtn = modal.querySelector('#vw-android-modal-close-x');
+    if (closeXBtn) {
+      closeXBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAndroidInstallGuide();
+      });
+    }
+
+    const gotItBtn = modal.querySelector('#vw-android-modal-gotit-btn');
+    if (gotItBtn) {
+      gotItBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAndroidInstallGuide();
+      });
+    }
+
+    const copyBtn = modal.querySelector('#vw-android-copy-link-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        copyPageLinkForChrome();
+      });
+    }
+
+    // Modal backdrop click closes modal
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || (e.target && e.target.classList.contains('vw-modal-backdrop-tap'))) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAndroidInstallGuide();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const m = document.getElementById('vw-android-install-guide-modal');
+        if (m && !m.classList.contains('hidden') && m.style.display !== 'none') {
+          closeAndroidInstallGuide();
+        }
+      }
+    });
   } else {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -6013,22 +6184,25 @@ function closeAndroidInstallGuide() {
   const modal = document.getElementById('vw-android-install-guide-modal');
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
 async function triggerPWAInstall() {
   const promptEvent = (typeof window !== 'undefined' && (window.__deferredInstallPrompt || window.__deferredPWAInstallPrompt)) || deferredPWAInstallPrompt;
+
   if (promptEvent && typeof promptEvent.prompt === 'function') {
     try {
-      promptEvent.prompt();
+      await promptEvent.prompt();
       const choice = await promptEvent.userChoice;
       if (choice && choice.outcome === 'accepted') {
         if (typeof localStorage !== 'undefined') {
           localStorage.setItem('vw_app_installed', 'true');
         }
         hideAllPWAInstallUI();
+        closeAndroidInstallGuide();
         if (typeof showToast === 'function') {
-          showToast('🎉 Vocabulary World অ্যাপটি আপনার ডিভাইসে সফলভাবে ইনস্টল করা হয়েছে!', 'success');
+          showToast('✓ Vocabulary World installed! অ্যাপটি ইনস্টল করা হয়েছে!', 'success');
         }
       }
     } catch (e) {
@@ -6047,6 +6221,12 @@ async function triggerPWAInstall() {
 function initPWAInstallEngine() {
   if (typeof window === 'undefined') return;
 
+  // Check if beforeinstallprompt already fired in <head>
+  if (window.__deferredInstallPrompt) {
+    deferredPWAInstallPrompt = window.__deferredInstallPrompt;
+    showAllPWAInstallUI();
+  }
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPWAInstallPrompt = e;
@@ -6063,8 +6243,9 @@ function initPWAInstallEngine() {
       localStorage.setItem('vw_app_installed', 'true');
     }
     hideAllPWAInstallUI();
+    closeAndroidInstallGuide();
     if (typeof showToast === 'function') {
-      showToast('🎉 Vocabulary World অ্যাপটি আপনার ডিভাইসে সফলভাবে ইনস্টল করা হয়েছে!', 'success');
+      showToast('✓ Vocabulary World installed! অ্যাপটি ইনস্টল করা হয়েছে!', 'success');
     }
   });
 
@@ -6079,6 +6260,7 @@ function initPWAInstallEngine() {
               localStorage.setItem('vw_app_installed', 'true');
             }
             hideAllPWAInstallUI();
+            closeAndroidInstallGuide();
           }
         });
       }
@@ -6105,6 +6287,7 @@ if (typeof window !== 'undefined') {
   window.dismissPWAInstallBanner = dismissPWAInstallBanner;
   window.showAndroidInstallGuide = showAndroidInstallGuide;
   window.closeAndroidInstallGuide = closeAndroidInstallGuide;
+  window.copyPageLinkForChrome = copyPageLinkForChrome;
   window.toggleMobileDotsMenu = toggleMobileDotsMenu;
   window.cycleNextAccent = cycleNextAccent;
 }
@@ -6121,6 +6304,7 @@ if (typeof module !== 'undefined' && module.exports) {
     triggerPWAInstall,
     showAndroidInstallGuide,
     closeAndroidInstallGuide,
+    copyPageLinkForChrome,
     toggleMobileDotsMenu,
     cycleNextAccent,
     renderAppHeader
