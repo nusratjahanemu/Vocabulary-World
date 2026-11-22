@@ -1179,23 +1179,83 @@ button:active:not(:disabled),
   transform-origin: 80px 118px;
 }
 
-/* Active Speaker Highlight & Dimming */
+/* =====================================================================
+   AI CARTOON VIDEO STAGE — CHARACTER POSITIONING, SCALING & Z-INDEX
+   - Maya positioned on left rug (x=26%, translate 235px 290px)
+   - Leo positioned on right rug (x=72%, translate 665px 290px)
+   - Clean z-index layering (badges z-index: 20 > characters z-index: 10)
+====================================================================== */
+
+/* Base Character Properties */
 .cartoon-character {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
               opacity 0.35s ease,
               filter 0.35s ease;
+  transform-box: fill-box;
   transform-origin: center bottom;
+  z-index: 10;
 }
 
-.cartoon-character.is-active-speaker {
-  transform: scale(1.06) !important;
+/* Maya (Left Side, x = 26%, facing slightly right toward Leo) */
+#char-maya,
+.char-maya {
+  transform: translate(235px, 290px) scale(0.95);
+  transform-origin: center bottom;
+  z-index: 10;
+}
+
+#char-maya.is-active-speaker,
+.char-maya.is-active-speaker {
+  transform: translate(235px, 290px) scale(1.02) !important;
   opacity: 1 !important;
   filter: drop-shadow(0 6px 16px rgba(45, 90, 76, 0.35));
+  z-index: 15;
 }
 
-.cartoon-character:not(.is-active-speaker) {
-  opacity: 0.85;
-  transform: scale(0.97);
+#char-maya:not(.is-active-speaker),
+.char-maya:not(.is-active-speaker) {
+  transform: translate(235px, 290px) scale(0.95);
+  opacity: 0.88;
+}
+
+/* Leo (Right Side, x = 72%, facing slightly left toward Maya) */
+#char-leo,
+.char-leo {
+  transform: translate(665px, 290px) scale(0.95);
+  transform-origin: center bottom;
+  z-index: 10;
+}
+
+#char-leo.is-active-speaker,
+.char-leo.is-active-speaker {
+  transform: translate(665px, 290px) scale(1.02) !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 6px 16px rgba(28, 166, 90, 0.35));
+  z-index: 15;
+}
+
+#char-leo:not(.is-active-speaker),
+.char-leo:not(.is-active-speaker) {
+  transform: translate(665px, 290px) scale(0.95);
+  opacity: 0.88;
+}
+
+/* Badges Layer (Location Badge & Act Badge on Higher Layer: z-index: 20) */
+.cartoon-location-badge,
+#scene-location-pill,
+.cartoon-act-badge,
+#vw-cv-act-pill {
+  z-index: 20;
+  position: relative;
+}
+
+/* Floating Speech Bubbles (z-index: 25) */
+.cartoon-speech-bubble,
+#speech-bubble-maya,
+#speech-bubble-leo {
+  z-index: 25;
+  animation: speechBubblePop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: center bottom;
 }
 
 /* Speech Bubble Spring Pop-in */

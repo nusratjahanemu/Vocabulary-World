@@ -3256,8 +3256,9 @@ function renderMayaCharacter(pose = 'neutral', isSpeaking = false) {
   }
 
   return `
-    <g id="char-maya" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(140, 150)">
-      <g class="cartoon-breathe">
+    <g id="char-maya" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(235, 290) scale(0.95)">
+      <g transform="translate(0, -145)">
+        <g class="cartoon-breathe">
         ${extraEffectSvg}
         <path d="M 40 40 C 30 65 30 95 42 120 C 48 110 50 90 52 75 Z" fill="#7A3434"/>
         <path d="M 110 40 C 120 65 120 95 108 120 C 102 110 100 90 98 75 Z" fill="#7A3434"/>
@@ -3282,6 +3283,7 @@ function renderMayaCharacter(pose = 'neutral', isSpeaking = false) {
         <path d="M 46 45 C 44 25 60 18 75 18 C 90 18 106 25 104 45 C 98 28 85 24 75 25 C 62 26 50 32 46 45 Z" fill="#7A3434"/>
         <path d="M 48 35 Q 40 55 45 78 Q 48 60 52 42" fill="#8F3E3E"/>
         <path d="M 102 35 Q 110 55 105 78 Q 102 60 98 42" fill="#8F3E3E"/>
+        </g>
       </g>
     </g>
   `;
@@ -3468,8 +3470,9 @@ function renderLeoCharacter(pose = 'neutral', isSpeaking = false) {
   }
 
   return `
-    <g id="char-leo" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(530, 150)">
-      <g class="cartoon-breathe">
+    <g id="char-leo" class="cartoon-character ${isSpeaking ? 'is-active-speaker' : ''}" transform="translate(665, 290) scale(0.95)">
+      <g transform="translate(0, -145)">
+        <g class="cartoon-breathe">
         ${extraEffectSvg}
         ${legsSvg}
         <path d="M 48 76 L 102 76 L 100 148 L 50 148 Z" fill="#1CA65A"/>
@@ -3501,6 +3504,7 @@ function renderLeoCharacter(pose = 'neutral', isSpeaking = false) {
         <circle cx="103" cy="28" r="9" fill="#2D221B"/>
         <path d="M 54 22 L 60 12 L 68 22" fill="#231B15"/>
         <path d="M 82 22 L 88 11 L 96 22" fill="#231B15"/>
+        </g>
       </g>
     </g>
   `;
@@ -3538,7 +3542,7 @@ function renderCartoonSceneSvg(theme = 'living_room', speaker = 'Maya', pose = '
   let speechBubbleSvg = '';
   if (mayaSpeaking) {
     speechBubbleSvg = `
-      <g id="speech-bubble-maya" class="cartoon-speech-bubble" transform="translate(145, 60)">
+      <g id="speech-bubble-maya" class="cartoon-speech-bubble" transform="translate(185, 75)">
         <path d="M 10 10 L 140 10 Q 150 10 150 20 L 150 65 Q 150 75 140 75 L 75 75 L 60 95 L 55 75 L 10 75 Q 0 75 0 65 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.15))"/>
         <circle cx="26" cy="42" r="13" fill="#EEF4F1"/>
         <text x="26" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#2D5A4C" text-anchor="middle">M</text>
@@ -3550,7 +3554,7 @@ function renderCartoonSceneSvg(theme = 'living_room', speaker = 'Maya', pose = '
     `;
   } else if (leoSpeaking) {
     speechBubbleSvg = `
-      <g id="speech-bubble-leo" class="cartoon-speech-bubble" transform="translate(505, 60)">
+      <g id="speech-bubble-leo" class="cartoon-speech-bubble" transform="translate(570, 75)">
         <path d="M 10 10 L 140 10 Q 150 10 150 20 L 150 65 Q 150 75 140 75 L 95 75 L 90 95 L 75 75 L 10 75 Q 0 75 0 65 L 0 20 Q 0 10 10 10 Z" fill="#FFFFFF" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.15))"/>
         <circle cx="26" cy="42" r="13" fill="#ECFDF5"/>
         <text x="26" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="bold" fill="#1CA65A" text-anchor="middle">L</text>
@@ -3562,12 +3566,13 @@ function renderCartoonSceneSvg(theme = 'living_room', speaker = 'Maya', pose = '
     `;
   }
 
+  // Paint Order: Background -> Characters (z-index: 10) -> Location Badge (z-index: 20) -> Speech Bubbles (z-index: 25)
   return `
     <svg viewBox="0 0 800 450" class="w-full h-full block" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
       ${bgElements}
-      ${locationBadgeSvg}
       ${mayaSvg}
       ${leoSvg}
+      ${locationBadgeSvg}
       ${speechBubbleSvg}
     </svg>
   `;
