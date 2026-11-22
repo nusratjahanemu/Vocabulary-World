@@ -1002,13 +1002,28 @@ function toggleMobileDotsMenu(forceState) {
 
   if (shouldOpen) {
     const isInstalled = (typeof isPWAInstalled === 'function') ? isPWAInstalled() : false;
-    const installPill = document.getElementById('vw-dots-install-pill');
-    if (installPill) {
+    const installRow = document.getElementById('vw-dots-install-row') || document.getElementById('vw-dots-install-pill');
+    if (installRow) {
       if (isInstalled) {
-        installPill.classList.add('hidden');
+        installRow.classList.add('hidden');
       } else {
-        installPill.classList.remove('hidden');
+        installRow.classList.remove('hidden');
       }
+    }
+
+    const indicator = document.getElementById('vw-mobile-dots-indicator');
+    if (indicator) {
+      if (isInstalled) {
+        indicator.classList.add('hidden');
+      } else {
+        indicator.classList.remove('hidden');
+      }
+    }
+
+    const vocabCountEl = document.getElementById('vw-dots-my-vocab-count');
+    if (vocabCountEl && typeof getMyVocabList === 'function') {
+      const count = getMyVocabList().length;
+      vocabCountEl.textContent = `${count} words`;
     }
 
     if (backdrop) backdrop.classList.remove('hidden');
@@ -1027,8 +1042,36 @@ function toggleMobileDotsMenu(forceState) {
   }
 }
 
+
+// Close mobile 3-dots sheet when clicking outside
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', (e) => {
+    const sheet = document.getElementById('vw-mobile-dots-sheet');
+    const dotsBtn = document.getElementById('vw-mobile-dots-btn');
+    if (!sheet || sheet.classList.contains('hidden')) return;
+    if (dotsBtn && dotsBtn.contains(e.target)) return;
+    if (sheet.contains(e.target)) return;
+    toggleMobileDotsMenu(false);
+  });
+}
+
 function toggleMobileNavMenu(forceState) {
   toggleMobileDotsMenu(forceState);
+}
+
+function openMyVocabList() {
+  if (typeof toggleMobileDotsMenu === 'function') {
+    toggleMobileDotsMenu(false);
+  }
+  const path = (window.location.pathname || '').toLowerCase();
+  const file = path.split('/').pop().split('\\').pop() || '';
+  if (file === 'learn.html') {
+    if (typeof setFilterTab === 'function') {
+      setFilterTab('my-vocab');
+      return;
+    }
+  }
+  window.location.href = 'learn.html?tab=my-vocab';
 }
 
 function cycleNextAccent() {
@@ -1585,122 +1628,12 @@ function renderAppHeader(activePage = 'home') {
             </div>
           </a>
 
-          <!-- 2. RIGHT: Desktop Controls (>= sm) -->
-          <div class="hidden sm:flex items-center gap-2 sm:gap-3 shrink-0">
+          <!-- 2. RIGHT: Header Controls (Clean & Intact on Desktop & Mobile, NO 3-Dots Menu) -->
+          <div class="flex items-center gap-2 sm:gap-3 shrink-0">
             ${pwaInstallBtnHTML}
             ${themeToggleBtnHTML}
             ${countrySelectorHTML}
             ${authBtnHTML}
-          </div>
-
-          <!-- 3. RIGHT: Mobile 3-Dots Button (< sm) -->
-          <div class="flex sm:hidden items-center gap-2 shrink-0">
-            <button
-              type="button"
-              id="vw-mobile-dots-btn"
-              onclick="toggleMobileDotsMenu()"
-              aria-label="Open menu"
-              class="vw-mobile-dots-btn"
-              title="Open menu"
-            >
-              <span id="vw-mobile-dots-indicator" class="vw-mobile-dots-indicator ${(typeof isPWAInstalled === 'function' && isPWAInstalled()) ? 'hidden' : ''}"></span>
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="5" r="2"/>
-                <circle cx="12" cy="12" r="2"/>
-                <circle cx="12" cy="19" r="2"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Backdrop for mobile 3-dots sheet -->
-        <div
-          id="vw-mobile-dots-backdrop"
-          class="fixed inset-0 z-40 bg-black/25 backdrop-blur-xs hidden transition-opacity"
-          onclick="toggleMobileDotsMenu(false)"
-        ></div>
-
-        <!-- Mobile 3-Dots Sheet for index.html -->
-        <div
-          id="vw-mobile-dots-sheet"
-          class="vw-mobile-dots-sheet fixed top-16 right-3 sm:right-6 w-[calc(100vw-24px)] max-w-[340px] rounded-3xl border p-4 z-50 hidden opacity-0 scale-95 pointer-events-none transition-all duration-200"
-        >
-          <!-- Top Rounded Highlight Pill (shown when not yet installed) -->
-          <div
-            id="vw-dots-install-pill"
-            class="vw-dots-install-pill rounded-2xl p-3 mb-3 border flex items-center justify-between gap-2.5 ${(typeof isPWAInstalled === 'function' && isPWAInstalled()) ? 'hidden' : ''}"
-            style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25);"
-          >
-            <div class="flex items-center gap-2.5 min-w-0">
-              <span class="text-xl shrink-0">📲</span>
-              <div class="min-w-0">
-                <div class="font-editorial text-xs sm:text-sm font-bold truncate" style="color: var(--accent-sage);">
-                  Install Vocabulary World App
-                </div>
-                <div class="font-bengali text-[10px] text-gray-500 dark:text-gray-400 truncate">
-                  অ্যান্ড্রয়েডে দ্রুত অফলাইন অনুশীলন
-                </div>
-              </div>
-            </div>
-            <button
-              type="button"
-              onclick="triggerPWAInstall(); toggleMobileDotsMenu(false);"
-              class="vw-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer shadow-xs whitespace-nowrap"
-            >
-              Install
-            </button>
-          </div>
-
-          <!-- Quick Settings Rows inside the dropdown -->
-          <div class="space-y-1">
-            <!-- 🌐 Accent selector -->
-            <button
-              type="button"
-              onclick="cycleNextAccent()"
-              class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
-            >
-              <div class="flex items-center gap-3">
-                <span class="text-base">🌐</span>
-                <div>
-                  <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Pronunciation Accent</span>
-                  <span class="text-[10px] text-gray-500 font-bengali">ক্লিক করে পরিবর্তন করুন</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-1.5 shrink-0">
-                <span id="vw-dots-accent-flag" class="text-base">${activeAccent.flag}</span>
-                <span id="vw-dots-accent-badge" class="vw-navbar-accent-badge">${activeAccent.shortLabel}</span>
-                <span class="text-[10px] text-gray-400">&circlearrowright;</span>
-              </div>
-            </button>
-
-            <!-- 🌗 Theme toggle -->
-            <button
-              type="button"
-              onclick="toggleTheme()"
-              class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
-            >
-              <div class="flex items-center gap-3">
-                <span class="text-base">🌗</span>
-                <div>
-                  <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Theme</span>
-                  <span class="text-[10px] text-gray-500 font-bengali">লাইট / ডার্ক মোড</span>
-                </div>
-              </div>
-              <span id="vw-dots-theme-label" class="text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
-                ${isDark ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
-              </span>
-            </button>
-
-            <!-- 📡 PWA Cache status badge -->
-            <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl" style="background-color: var(--surface-sand);">
-              <div class="flex items-center gap-3">
-                <span class="text-base">📡</span>
-                <span class="text-xs sm:text-sm font-bold" style="color: var(--ink-primary);">PWA Cache Status</span>
-              </div>
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
-                Offline Ready ✓
-              </span>
-            </div>
           </div>
         </div>
       </header>
@@ -1738,6 +1671,7 @@ function renderAppHeader(activePage = 'home') {
   };
   const activeMeta = pageMetaMap[activePage] || { label: 'Learn', emoji: '📖' };
   const isInstalled = (typeof isPWAInstalled === 'function') ? isPWAInstalled() : false;
+  const myVocabCount = (typeof getMyVocabList === 'function') ? getMyVocabList().length : 0;
 
   const navLinks = [
     {
@@ -1843,7 +1777,7 @@ function renderAppHeader(activePage = 'home') {
         </nav>
 
         <!-- 3. RIGHT: Desktop Controls (>= md) -->
-        <div class="hidden md:flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <div class="vw-desktop-controls hidden md:flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <!-- Active "Level: Beginner" Selector Pill (Dropdown) -->
           <div class="relative">
             <button
@@ -1943,7 +1877,7 @@ function renderAppHeader(activePage = 'home') {
       <!-- Backdrop for mobile 3-dots sheet -->
       <div
         id="vw-mobile-dots-backdrop"
-        class="fixed inset-0 z-40 bg-black/25 backdrop-blur-xs hidden transition-opacity"
+        class="vw-mobile-dots-backdrop fixed inset-0 z-40 bg-black/25 backdrop-blur-xs hidden transition-opacity"
         onclick="toggleMobileDotsMenu(false)"
       ></div>
 
@@ -1952,33 +1886,7 @@ function renderAppHeader(activePage = 'home') {
         id="vw-mobile-dots-sheet"
         class="vw-mobile-dots-sheet fixed top-16 right-3 sm:right-6 w-[calc(100vw-24px)] max-w-[340px] rounded-3xl border p-4 z-50 hidden opacity-0 scale-95 pointer-events-none transition-all duration-200"
       >
-        <!-- Top Rounded Highlight Pill (shown when not yet installed) -->
-        <div
-          id="vw-dots-install-pill"
-          class="vw-dots-install-pill rounded-2xl p-3 mb-3 border flex items-center justify-between gap-2.5 ${isInstalled ? 'hidden' : ''}"
-          style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25);"
-        >
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="text-xl shrink-0">📲</span>
-            <div class="min-w-0">
-              <div class="font-editorial text-xs sm:text-sm font-bold truncate" style="color: var(--accent-sage);">
-                Install Vocabulary World App
-              </div>
-              <div class="font-bengali text-[10px] text-gray-500 dark:text-gray-400 truncate">
-                অ্যান্ড্রয়েডে দ্রুত অফলাইন অনুশীলন
-              </div>
-            </div>
-          </div>
-          <button
-            type="button"
-            onclick="triggerPWAInstall(); toggleMobileDotsMenu(false);"
-            class="vw-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-bold shrink-0 cursor-pointer shadow-xs whitespace-nowrap"
-          >
-            Install
-          </button>
-        </div>
-
-        <!-- Main Navigation Rows (5 items with icons & active Botanical Sage highlight) -->
+        <!-- 5 Main Navigation Features -->
         <div class="space-y-1 mb-2">
           ${navLinks
             .map((item) => {
@@ -2004,9 +1912,9 @@ function renderAppHeader(activePage = 'home') {
         <!-- Clean Horizontal Divider Line -->
         <div class="border-t my-2" style="border-color: var(--border-subtle);"></div>
 
-        <!-- Quick Settings Rows inside the dropdown -->
+        <!-- All Right-Side Header Utility Controls -->
         <div class="space-y-1">
-          <!-- 🌐 Accent selector (cycles US / UK / AU / CA with live badge) -->
+          <!-- 🌐 Accent Switcher (cycles US / UK / AU / CA) -->
           <button
             type="button"
             onclick="cycleNextAccent()"
@@ -2015,8 +1923,8 @@ function renderAppHeader(activePage = 'home') {
             <div class="flex items-center gap-3">
               <span class="text-base">🌐</span>
               <div>
-                <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Pronunciation Accent</span>
-                <span class="text-[10px] text-gray-500 font-bengali">ক্লিক করে পরিবর্তন করুন</span>
+                <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">Accent Switcher</span>
+                <span class="text-[10px] text-gray-500 font-bengali">অ্যাকসেন্ট পরিবর্তন (${activeAccent.name})</span>
               </div>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
@@ -2026,7 +1934,7 @@ function renderAppHeader(activePage = 'home') {
             </div>
           </button>
 
-          <!-- 🌗 Theme toggle (Light / Dark Mode) -->
+          <!-- 🌗 Theme Toggle (Light / Dark Mode) -->
           <button
             type="button"
             onclick="toggleTheme()"
@@ -2044,19 +1952,47 @@ function renderAppHeader(activePage = 'home') {
             </span>
           </button>
 
-          <!-- 📡 PWA Cache status badge (Offline Ready) -->
-          <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl" style="background-color: var(--surface-sand);">
+          <!-- ⭐ My Vocab List (shows saved words count from getMyVocabList().length) -->
+          <button
+            type="button"
+            onclick="openMyVocabList()"
+            class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer text-left"
+          >
             <div class="flex items-center gap-3">
-              <span class="text-base">📡</span>
-              <span class="text-xs sm:text-sm font-bold" style="color: var(--ink-primary);">PWA Cache Status</span>
+              <span class="text-base">⭐</span>
+              <div>
+                <span class="text-xs sm:text-sm font-bold block" style="color: var(--ink-primary);">My Vocab List</span>
+                <span class="text-[10px] text-gray-500 font-bengali">সংরক্ষিত শব্দ তালিকা</span>
+              </div>
             </div>
-            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
-              Offline Ready ✓
+            <span id="vw-dots-my-vocab-count" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              ${myVocabCount} words
             </span>
+          </button>
+
+          <!-- 📲 Install App (rendered only when not yet installed as Android PWA) -->
+          <div id="vw-dots-install-row" class="${isInstalled ? 'hidden' : ''}">
+            <button
+              type="button"
+              onclick="triggerPWAInstall(); toggleMobileDotsMenu(false);"
+              class="w-full flex items-center justify-between px-3.5 py-2 rounded-2xl transition-all cursor-pointer text-left"
+              style="background-color: var(--accent-sage-soft); color: var(--accent-sage);"
+            >
+              <div class="flex items-center gap-3">
+                <span class="text-base">📲</span>
+                <div>
+                  <span class="text-xs sm:text-sm font-bold block">Install App</span>
+                  <span class="text-[10px] text-gray-600 dark:text-gray-300 font-bengali">অ্যান্ড্রয়েড অ্যাপ ইনস্টল</span>
+                </div>
+              </div>
+              <span class="vw-btn-primary px-3 py-1 rounded-xl text-[11px] font-bold shadow-xs whitespace-nowrap">
+                Install
+              </span>
+            </button>
           </div>
         </div>
 
-        <!-- Quick Links: Feedback & Level -->
+        <!-- Clean Divider Line & Level Gateway Link -->
         <div class="border-t my-2" style="border-color: var(--border-subtle);"></div>
         <div class="flex items-center justify-between gap-2 pt-1">
           <button
@@ -2073,14 +2009,13 @@ function renderAppHeader(activePage = 'home') {
             class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold hover:bg-black/5 transition-all cursor-pointer"
             style="border-color: var(--border-subtle); color: var(--accent-sage);"
           >
-            <span>🏛️ ${levelTitle}</span>
+            <span>🏛️ Level: ${levelTitle}</span>
           </a>
         </div>
       </div>
     </header>
     ${authModalHTML}
   `;
-
   initTopNavSlidingPill();
 }
 
@@ -8483,6 +8418,7 @@ if (typeof window !== 'undefined') {
   window.copyPageLinkForChrome = copyPageLinkForChrome;
   window.toggleMobileDotsMenu = toggleMobileDotsMenu;
   window.cycleNextAccent = cycleNextAccent;
+  window.openMyVocabList = openMyVocabList;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -8500,6 +8436,7 @@ if (typeof module !== 'undefined' && module.exports) {
     copyPageLinkForChrome,
     toggleMobileDotsMenu,
     cycleNextAccent,
+    openMyVocabList,
     renderAppHeader
   });
 }
