@@ -1,2 +1,1773 @@
-/* Vocabulary World Root Stylesheet (Alias for css/style.css) */
-@import "css/style.css";
+/* =====================================================================
+   EDITORIAL DESIGN SYSTEM & COLOR PALETTE
+   Vocabulary World — Multi-Page Architecture
+====================================================================== */
+:root {
+  --bg-ivory: #FAF8F5;
+  --surface-white: #FFFFFF;
+  --surface-sand: #F3EFEA;
+  --surface-track: #ECE7DF;
+  --border-subtle: #E6E1D8;
+  --border-hover: #CFC8BC;
+  --accent-sage: #2D5A4C;
+  --accent-sage-hover: #23473C;
+  --accent-sage-soft: #EEF4F1;
+  --accent-terracotta: #C26D53;
+  --accent-terracotta-soft: #FAF0EC;
+  --ink-primary: #1E2421;
+  --ink-secondary: #5C6660;
+  --ink-muted: #7C8680;
+  --transition-smooth: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =====================================================================
+   DARK THEME PALETTE & COMPONENT STYLES
+====================================================================== */
+[data-theme="dark"] {
+  --bg-ivory: #141917;
+  --surface-white: #1D2421;
+  --surface-sand: #252E2A;
+  --surface-track: #202925;
+  --border-subtle: #2D3833;
+  --border-hover: #3E4E46;
+  --accent-sage: #4E8D78;
+  --accent-sage-hover: #5DA58D;
+  --accent-sage-soft: #22352E;
+  --accent-terracotta: #D9826C;
+  --accent-terracotta-soft: #382823;
+  --ink-primary: #F3EFEA;
+  --ink-secondary: #B8C2BD;
+  --ink-muted: #8E9B94;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--bg-ivory);
+  color: var(--ink-primary);
+}
+
+[data-theme="dark"] #vw-top-header {
+  background-color: rgba(20, 25, 23, 0.95) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="dark"] #vw-mobile-nav-menu {
+  background-color: rgba(20, 25, 23, 0.98) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="dark"] .vw-top-sliding-pill {
+  background-color: var(--accent-sage-soft);
+  border-color: rgba(78, 141, 120, 0.35);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: var(--surface-white) !important;
+}
+
+[data-theme="dark"] .bg-\[\#FAF8F5\] {
+  background-color: var(--bg-ivory) !important;
+}
+
+[data-theme="dark"] .bg-\[\#EEF4F1\] {
+  background-color: var(--accent-sage-soft) !important;
+}
+
+[data-theme="dark"] .bg-\[\#F3EFEA\] {
+  background-color: var(--surface-sand) !important;
+}
+
+[data-theme="dark"] .bg-\[\#FAF0EC\] {
+  background-color: var(--accent-terracotta-soft) !important;
+}
+
+[data-theme="dark"] .text-gray-900,
+[data-theme="dark"] .text-gray-800 {
+  color: var(--ink-primary) !important;
+}
+
+[data-theme="dark"] .text-gray-700,
+[data-theme="dark"] .text-gray-600 {
+  color: var(--ink-secondary) !important;
+}
+
+[data-theme="dark"] .text-gray-500,
+[data-theme="dark"] .text-gray-400 {
+  color: var(--ink-muted) !important;
+}
+
+[data-theme="dark"] .border-gray-200,
+[data-theme="dark"] .border-gray-100,
+[data-theme="dark"] .border-\[\#E6E1D6\],
+[data-theme="dark"] .border-\[\#E6E1D8\] {
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: var(--surface-sand) !important;
+  color: var(--ink-primary) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--ink-muted) !important;
+}
+
+[data-theme="dark"] .badge-beginner {
+  background-color: #1E332A;
+  color: #6EBFA4;
+}
+
+[data-theme="dark"] .badge-intermediate {
+  background-color: #38241D;
+  color: #E2917B;
+}
+
+[data-theme="dark"] .badge-advanced {
+  background-color: #27223D;
+  color: #A29BD9;
+}
+
+[data-theme="dark"] .badge-pro {
+  background-color: #2D332D;
+  color: #C2CBC5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-ivory);
+  color: var(--ink-primary);
+  font-family: 'Plus Jakarta Sans', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-editorial {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.font-bengali {
+  font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* =====================================================================
+   INTERACTIVE CLICK PRESS EFFECT (MICRO-INTERACTION)
+====================================================================== */
+button,
+.vw-btn-primary,
+.vw-speak-btn,
+.vw-level-card,
+.vw-assessment-option,
+.vw-pill-syn,
+.vw-pill-ant,
+.vw-section-tab,
+.vw-game-tab {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active:not(:disabled),
+.vw-btn-primary:active:not(:disabled),
+.vw-speak-btn:active,
+.vw-pill-syn:active,
+.vw-pill-ant:active,
+.vw-section-tab:active,
+.vw-game-tab:active,
+.vw-assessment-option:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* =====================================================================
+   LEVEL BADGES & INTERACTIVE CARDS
+====================================================================== */
+.badge-beginner {
+  background-color: #EEF4F1;
+  color: #2D5A4C;
+}
+
+.badge-intermediate {
+  background-color: #FAF0EC;
+  color: #C26D53;
+}
+
+.badge-advanced {
+  background-color: #ECEAF6;
+  color: #4A447A;
+}
+
+.badge-pro {
+  background-color: #EFECE6;
+  color: #2F3A35;
+}
+
+.vw-btn-primary {
+  background-color: var(--accent-sage);
+  color: #FFFFFF;
+  transition: var(--transition-smooth);
+}
+
+.vw-btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-sage-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -10px rgba(45, 90, 76, 0.48);
+}
+
+.vw-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Gentle click press effect for all interactive controls */
+button:active:not(:disabled),
+.vw-btn-primary:active:not(:disabled),
+.vw-speak-btn:active:not(:disabled),
+.vw-level-card:active,
+.vw-game-tab:active,
+.vw-top-nav-item:active,
+.vw-assessment-option:active {
+  transform: scale(0.96) !important;
+}
+
+.vw-level-card {
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-subtle);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
+              border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+
+.vw-level-card:hover {
+  border-color: var(--accent-sage);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 36px -18px rgba(30, 36, 33, 0.16);
+}
+
+.vw-assessment-option {
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-subtle);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.vw-assessment-option:hover {
+  border-color: var(--border-hover);
+  background-color: #FCFBF9;
+  transform: translateY(-1.5px);
+}
+
+.vw-assessment-option.is-selected {
+  border-color: var(--accent-sage);
+  background-color: var(--accent-sage-soft);
+  box-shadow: 0 12px 24px -14px rgba(45, 90, 76, 0.28);
+}
+
+/* =====================================================================
+   WORD CARD: SMOOTH HOVER LIFT & REVEAL TRANSITIONS
+====================================================================== */
+.vw-word-card {
+  background-color: var(--surface-white);
+  border: 1.5px solid var(--border-subtle);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
+              border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+}
+
+.vw-word-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -14px rgba(30, 36, 33, 0.12);
+}
+
+/* Smooth Meaning & Example Reveal */
+@keyframes vwMeaningReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.vw-meaning-reveal {
+  animation: vwMeaningReveal 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* =====================================================================
+   VIEW / MODAL ENTRANCE ANIMATION (FADE-IN & SLIDE-UP)
+====================================================================== */
+@keyframes vwViewFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vw-view-enter {
+  animation: vwViewFadeSlideUp 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.vw-panel-reveal {
+  animation: vwViewFadeSlideUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* =====================================================================
+   PRONUNCIATION SPEAKER BUTTONS & PULSE ANIMATION
+====================================================================== */
+@keyframes vwSoundWave {
+  0%, 100% {
+    transform: scaleY(0.38);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes vwSpeakPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(45, 90, 76, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(45, 90, 76, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(45, 90, 76, 0);
+  }
+}
+
+@keyframes vwSpeakerIconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.vw-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vw-speak-btn:hover {
+  transform: scale(1.05);
+}
+
+.vw-speak-main {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border: 1px solid rgba(45, 90, 76, 0.22);
+}
+
+.vw-speak-main:hover {
+  background-color: var(--accent-sage);
+  color: #FFFFFF;
+}
+
+.vw-speak-btn.is-speaking {
+  background-color: var(--accent-sage) !important;
+  color: #FFFFFF !important;
+  animation: vwSpeakPulse 1.2s infinite;
+}
+
+.vw-speak-btn.is-speaking svg,
+.vw-speak-btn.is-speaking .vw-wave-bars {
+  animation: vwSpeakerIconPulse 0.9s ease-in-out infinite;
+}
+
+.vw-wave-bars {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 13px;
+}
+
+.vw-wave-bars span {
+  display: block;
+  width: 2.5px;
+  height: 11px;
+  background-color: currentColor;
+  border-radius: 999px;
+  animation: vwSoundWave 0.65s ease-in-out infinite;
+}
+
+.vw-wave-bars span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.vw-wave-bars span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* =====================================================================
+   SYNONYM & ANTONYM PILLS
+====================================================================== */
+.vw-pill-syn {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border: 1px solid rgba(45, 90, 76, 0.22);
+  transition: var(--transition-smooth);
+}
+
+.vw-pill-syn.active,
+.vw-pill-syn:hover {
+  background-color: var(--accent-sage);
+  color: #FFFFFF;
+}
+
+.vw-pill-ant {
+  background-color: var(--accent-terracotta-soft);
+  color: var(--accent-terracotta);
+  border: 1px solid rgba(194, 109, 83, 0.24);
+  transition: var(--transition-smooth);
+}
+
+.vw-pill-ant.active,
+.vw-pill-ant:hover {
+  background-color: var(--accent-terracotta);
+  color: #FFFFFF;
+}
+
+/* =====================================================================
+   3D FLIP FLASHCARD & MEMORY GAMES
+====================================================================== */
+.vw-section-tab {
+  background-color: var(--surface-white);
+  color: var(--ink-secondary);
+  border: 1.5px solid var(--border-subtle);
+  transition: var(--transition-smooth);
+}
+
+.vw-section-tab:hover {
+  border-color: var(--border-hover);
+  color: var(--ink-primary);
+}
+
+.vw-section-tab.active {
+  background-color: var(--accent-sage);
+  color: #FFFFFF;
+  border-color: var(--accent-sage);
+}
+
+.vw-game-tab {
+  background-color: var(--surface-sand);
+  color: var(--ink-secondary);
+  border: 1px solid var(--border-subtle);
+  transition: var(--transition-smooth);
+}
+
+.vw-game-tab:hover {
+  border-color: var(--border-hover);
+  color: var(--ink-primary);
+}
+
+.vw-game-tab.active {
+  background-color: var(--accent-sage);
+  color: #FFFFFF;
+  border-color: var(--accent-sage);
+}
+
+.vw-flashcard-scene {
+  perspective: 1200px;
+}
+
+.vw-flashcard-inner {
+  position: relative;
+  width: 100%;
+  min-height: 390px;
+  transition: transform 0.55s cubic-bezier(0.2, 0.85, 0.4, 1.15);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .vw-flashcard-inner {
+    min-height: 360px;
+  }
+}
+
+.vw-flashcard-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.vw-flashcard-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1.5rem;
+  border: 1.5px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  box-shadow: 0 18px 36px -18px rgba(30, 36, 33, 0.14);
+}
+
+.vw-flashcard-back {
+  transform: rotateY(180deg);
+  background-color: #FDFCFA;
+  border-color: var(--accent-sage);
+}
+
+/* =====================================================================
+   PROGRESS BAR: SMOOTH WIDTH TRANSITIONS
+====================================================================== */
+.vw-progress-track {
+  background-color: var(--surface-track);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.vw-progress-bar {
+  background-color: var(--accent-sage);
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width;
+}
+
+.vw-progress-bar-terracotta {
+  background-color: var(--accent-terracotta);
+}
+
+/* =====================================================================
+   QUIZ & ANSWER EFFECTS: SHAKE & CORRECT POP/GLOW
+====================================================================== */
+@keyframes vwShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  35% { transform: translateX(5px); }
+  55% { transform: translateX(-4px); }
+  75% { transform: translateX(3px); }
+  90% { transform: translateX(-1px); }
+}
+
+.vw-shake {
+  animation: vwShake 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes vwCorrectPopGlow {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 0 rgba(45, 90, 76, 0.5);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 0 0 8px rgba(45, 90, 76, 0.22), 0 10px 24px -6px rgba(45, 90, 76, 0.32);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(45, 90, 76, 0), 0 4px 14px -2px rgba(45, 90, 76, 0.2);
+  }
+}
+
+.vw-correct-glow {
+  animation: vwCorrectPopGlow 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* =====================================================================
+   METRIC CARD HOVER ELEVATION
+====================================================================== */
+.vw-metric-card {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vw-metric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px -12px rgba(30, 36, 33, 0.12);
+}
+
+/* =====================================================================
+   MAIN CONTENT LAYOUT (FULL-WIDTH CLEAN CONTAINER)
+====================================================================== */
+.vw-main-layout {
+  min-height: calc(100vh - 4rem);
+  width: 100%;
+  margin-left: 0 !important;
+}
+
+/* =====================================================================
+   HORIZONTAL SLIDING PILL TOP NAVBAR (LANGEEK-INSPIRED)
+====================================================================== */
+#vw-top-header {
+  background-color: rgba(250, 248, 245, 0.95);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* LanGeek-Style Pill Rail */
+#vw-top-nav,
+.vw-top-nav {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 9999px;
+  background-color: var(--surface-sand);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Horizontal Floating Sliding Pill */
+.vw-top-sliding-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+  background-color: var(--accent-sage-soft);
+  border: 1px solid rgba(45, 90, 76, 0.2);
+  box-shadow: 0 1px 3px rgba(45, 90, 76, 0.08);
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.25s ease,
+              opacity 0.2s ease;
+  will-change: transform, width;
+  opacity: 0;
+}
+
+/* Top Horizontal Nav Links (Single-Line: Collapsing Icon + English Title Only) */
+.vw-top-nav-item,
+.nav-item {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent !important;
+  transition: color 0.22s ease, font-weight 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 1. Collapse Icons on Inactive Tabs (Clean Text-Only State) */
+.vw-top-nav-item .vw-nav-icon,
+.nav-item .vw-nav-icon {
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  transform: scale(0.4) translateX(-8px);
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform-origin: center center;
+  transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.22s ease,
+              margin-right 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: width, opacity, margin-right, transform;
+}
+
+.vw-top-nav-item .vw-nav-icon svg,
+.nav-item .vw-nav-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  color: var(--ink-muted);
+  stroke: currentColor;
+  transform-origin: center center;
+  transition: color 0.25s ease, stroke 0.25s ease;
+}
+
+.vw-top-nav-item:hover,
+.nav-item:hover {
+  color: var(--ink-primary);
+}
+
+/* 2. Expand & Animate Icon on Hover or Active Pill Focus (.is-pill-target) */
+.vw-top-nav-item.is-pill-target,
+.nav-item.is-pill-target {
+  color: var(--accent-sage) !important;
+  font-weight: 700;
+}
+
+.vw-top-nav-item.is-pill-target .vw-nav-icon,
+.nav-item.is-pill-target .vw-nav-icon {
+  width: 20px;
+  opacity: 1;
+  margin-right: 8px;
+  transform: scale(1) translateX(0);
+  color: var(--accent-sage) !important;
+  stroke: var(--accent-sage) !important;
+}
+
+.vw-top-nav-item.is-pill-target .vw-nav-icon svg,
+.nav-item.is-pill-target .vw-nav-icon svg {
+  color: var(--accent-sage) !important;
+  stroke: var(--accent-sage) !important;
+}
+
+/* Active Selected State styling when mouse is outside */
+.vw-top-nav-item.active {
+  color: var(--accent-sage) !important;
+}
+
+/* =====================================================================
+   Tailored Keyframe Micro-Motions on Inner SVG when .is-pill-target
+   (5 Active Navigation Items: Learn, Flashcards, Games, Tracker, Add Words)
+   ===================================================================== */
+
+/* 1. Learn (Book icon): Book tilt */
+@keyframes vwBookTilt {
+  0% { transform: rotate(0deg) scale(1); }
+  40% { transform: rotate(-14deg) scale(1.22); }
+  75% { transform: rotate(-6deg) scale(1.14); }
+  100% { transform: rotate(-8deg) scale(1.18); }
+}
+.vw-top-nav-item[data-page="learn"].is-pill-target .vw-nav-icon svg,
+.nav-item[data-page="learn"].is-pill-target .vw-nav-icon svg {
+  animation: vwBookTilt 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 3. 3D Flashcards (Cards icon): Card tilt */
+@keyframes vwCardTilt {
+  0% { transform: perspective(200px) rotateY(0deg) rotate(0deg) scale(1); }
+  45% { transform: perspective(200px) rotateY(32deg) rotate(-8deg) scale(1.22); }
+  75% { transform: perspective(200px) rotateY(18deg) rotate(-4deg) scale(1.14); }
+  100% { transform: perspective(200px) rotateY(22deg) rotate(-5deg) scale(1.16); }
+}
+.vw-top-nav-item[data-page="flashcards"].is-pill-target .vw-nav-icon svg,
+.nav-item[data-page="flashcards"].is-pill-target .vw-nav-icon svg {
+  animation: vwCardTilt 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 4. Games (Gamepad icon): Playful controller wiggle */
+@keyframes vwGameWiggle {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.18) rotate(-14deg); }
+  55% { transform: scale(1.18) rotate(10deg); }
+  75% { transform: scale(1.14) rotate(-4deg); }
+  100% { transform: scale(1.16) rotate(0deg); }
+}
+.vw-top-nav-item[data-page="games"].is-pill-target .vw-nav-icon svg,
+.nav-item[data-page="games"].is-pill-target .vw-nav-icon svg {
+  animation: vwGameWiggle 0.46s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 5. Tracker (Graph/Chart icon): Chart pulse */
+@keyframes vwChartPulse {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(-3px) scale(1.24); }
+  70% { transform: translateY(-0.5px) scale(1.12); }
+  100% { transform: translateY(-2px) scale(1.18); }
+}
+.vw-top-nav-item[data-page="tracker"].is-pill-target .vw-nav-icon svg,
+.nav-item[data-page="tracker"].is-pill-target .vw-nav-icon svg {
+  animation: vwChartPulse 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 6. + Add Words (Plus icon): 90deg spin */
+@keyframes vwSpin90 {
+  0% { transform: rotate(0deg) scale(1); }
+  60% { transform: rotate(105deg) scale(1.24); }
+  80% { transform: rotate(86deg) scale(1.15); }
+  100% { transform: rotate(90deg) scale(1.18); }
+}
+.vw-top-nav-item[data-page="add-words"].is-pill-target .vw-nav-icon svg,
+.nav-item[data-page="add-words"].is-pill-target .vw-nav-icon svg {
+  animation: vwSpin90 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vw-top-nav-item .vw-nav-icon,
+  .vw-top-nav-item svg {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+.filter-pill {
+  background-color: var(--surface-sand);
+  border-color: var(--border-subtle);
+  color: var(--ink-secondary);
+  transition: var(--transition-smooth);
+}
+
+.filter-pill:hover {
+  border-color: var(--border-hover);
+  color: var(--ink-primary);
+}
+
+.filter-pill.active {
+  background-color: var(--accent-sage) !important;
+  border-color: var(--accent-sage) !important;
+  color: #FFFFFF !important;
+}
+
+/* =====================================================================
+   AUTOMATIC WORD PICTURE FRAME & SKELETON
+====================================================================== */
+.vw-word-img-frame {
+  width: 88px;
+  height: 88px;
+  border-radius: 1rem;
+  border: 1px solid #E6E1D8;
+  background-color: var(--surface-sand);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px -2px rgba(30, 36, 33, 0.06);
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vw-word-img-frame:hover {
+  transform: scale(1.03);
+}
+
+@media (min-width: 640px) {
+  .vw-word-img-frame {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+/* =====================================================================
+   TOP NAV UTILITY CONTROLS: THEME TOGGLE, COUNTRY SELECTOR, SIGN IN
+====================================================================== */
+.vw-theme-toggle-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  color: var(--ink-primary);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-theme-toggle-btn:hover {
+  border-color: var(--accent-sage);
+  transform: translateY(-1px);
+}
+
+.vw-theme-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vw-theme-toggle-btn.rotating .vw-theme-toggle-icon {
+  transform: rotate(360deg) scale(0.85);
+}
+
+.vw-country-btn {
+  height: 2.25rem;
+  padding: 0 0.55rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  color: var(--ink-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-country-btn:hover {
+  border-color: var(--accent-sage);
+  transform: translateY(-1px);
+}
+
+.vw-auth-pill-btn {
+  height: 2.25rem;
+  padding: 0 0.95rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: var(--accent-sage);
+  color: #FFFFFF !important;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(45, 90, 76, 0.22);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-auth-pill-btn:hover {
+  background-color: var(--accent-sage-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(45, 90, 76, 0.36);
+}
+
+.vw-auth-user-btn {
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-subtle);
+  color: var(--ink-primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-auth-user-btn:hover {
+  border-color: var(--accent-sage);
+  transform: translateY(-1px);
+}
+
+/* =====================================================================
+   REAL CONVERSATION VIDEO CARD & YOUTUBE PLAYER MODAL
+====================================================================== */
+.vw-conv-video-card {
+  background-color: var(--surface-sand);
+  border: 1px solid var(--border-subtle);
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.22s ease;
+  will-change: transform, box-shadow;
+}
+
+.vw-conv-video-card:hover {
+  border-color: var(--accent-sage);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -10px rgba(45, 90, 76, 0.2);
+}
+
+.vw-watch-video-btn {
+  background-color: var(--accent-sage);
+  color: #FFFFFF !important;
+  border: 1px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(45, 90, 76, 0.2);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-watch-video-btn:hover {
+  background-color: var(--accent-sage-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(45, 90, 76, 0.32);
+}
+
+.vw-youtube-direct-btn {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-subtle);
+  color: var(--ink-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-youtube-direct-btn:hover {
+  border-color: #E60000;
+  color: #E60000 !important;
+  transform: translateY(-1px);
+  background-color: rgba(230, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .vw-youtube-direct-btn:hover {
+  border-color: #FF4D4D;
+  color: #FF4D4D !important;
+  background-color: rgba(255, 77, 77, 0.12);
+}
+
+/* Video Player Modal Container */
+.vw-video-modal-frame {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-color: #000000;
+}
+
+.vw-video-modal-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+/* =====================================================================
+   AI CARTOON CONVERSATION VIDEO CARD & ANIMATED PLAYER MODAL
+   (Maya & Leo in Warm Ivory #FAF8F5 and Botanical Sage #2D5A4C Theme)
+====================================================================== */
+
+.vw-cartoon-video-card {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.28s ease,
+              border-color 0.25s ease;
+  will-change: transform, box-shadow;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-cartoon-video-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -6px rgba(45, 90, 76, 0.18);
+  border-color: rgba(45, 90, 76, 0.45) !important;
+}
+
+.vw-cartoon-play-btn {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              background-color 0.2s ease;
+  will-change: transform;
+}
+
+.vw-cartoon-video-card:hover .vw-cartoon-play-btn {
+  transform: scale(1.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* Subtitle Container Overlay */
+.vw-cv-subtitles {
+  background: rgba(18, 24, 21, 0.90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .vw-cv-subtitles {
+  background: rgba(10, 14, 12, 0.94);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Subtitle Target Vocabulary Word Highlight */
+.vw-sub-highlight {
+  color: #FBBF24 !important;
+  font-weight: 800 !important;
+  background: rgba(251, 191, 36, 0.18);
+  padding: 0.08rem 0.45rem;
+  border-radius: 0.35rem;
+  border-bottom: 2px solid #FBBF24;
+  display: inline-block;
+  line-height: 1.25;
+}
+
+/* Character Idle Breathing Motion */
+@keyframes cartoonBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.cartoon-breathe {
+  animation: cartoonBreathe 3.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Eye Blinking */
+@keyframes cartoonBlink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  93%, 97% { transform: scaleY(0.08); }
+}
+
+.cartoon-eyes {
+  animation: cartoonBlink 4.2s ease-in-out infinite;
+  transform-origin: 80px 95px;
+}
+
+/* Lip-Sync Mouth Animation While Speaking */
+@keyframes lipSync {
+  0%, 100% { transform: scaleY(0.7) scaleX(0.95); }
+  25% { transform: scaleY(1.3) scaleX(1.1); }
+  50% { transform: scaleY(0.55) scaleX(1.0); }
+  75% { transform: scaleY(1.2) scaleX(1.05); }
+}
+
+.cartoon-mouth.speaking {
+  animation: lipSync 0.26s ease-in-out infinite alternate;
+  transform-origin: 80px 118px;
+}
+
+/* Active Speaker Highlight & Dimming */
+.cartoon-character {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.35s ease,
+              filter 0.35s ease;
+  transform-origin: center bottom;
+}
+
+.cartoon-character.is-active-speaker {
+  transform: scale(1.06) !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 6px 16px rgba(45, 90, 76, 0.35));
+}
+
+.cartoon-character:not(.is-active-speaker) {
+  opacity: 0.85;
+  transform: scale(0.97);
+}
+
+/* Speech Bubble Spring Pop-in */
+@keyframes speechBubblePop {
+  0% { transform: scale(0.6) translateY(12px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.cartoon-speech-bubble {
+  animation: speechBubblePop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: center bottom;
+}
+
+/* Speech Equalizer Waves */
+@keyframes waveBounce {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+.wave-bar-1 { animation: waveBounce 0.45s ease-in-out infinite alternate; transform-origin: bottom; }
+.wave-bar-2 { animation: waveBounce 0.45s ease-in-out infinite 0.15s alternate; transform-origin: bottom; }
+.wave-bar-3 { animation: waveBounce 0.45s ease-in-out infinite 0.3s alternate; transform-origin: bottom; }
+
+/* Interactive Dialogue Transcript Items */
+.vw-cv-transcript-item {
+  transition: all 0.22s ease;
+  cursor: pointer;
+}
+
+.vw-cv-transcript-item:hover {
+  border-color: rgba(45, 90, 76, 0.4) !important;
+  transform: translateX(2px);
+}
+
+.vw-cv-transcript-item.is-active-line {
+  border-color: var(--accent-sage) !important;
+  background-color: var(--accent-sage-soft) !important;
+  box-shadow: 0 2px 10px rgba(45, 90, 76, 0.15);
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .cartoon-breathe,
+  .cartoon-eyes,
+  .cartoon-mouth.speaking,
+  .cartoon-speech-bubble,
+  .wave-bar-1,
+  .wave-bar-2,
+  .wave-bar-3 {
+    animation: none !important;
+  }
+}
+
+/* =====================================================================
+   MULTI-ACCENT PRONUNCIATION & VOICE SWITCHING STYLES
+====================================================================== */
+.vw-navbar-accent-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border: 1px solid rgba(45, 90, 76, 0.2);
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .vw-navbar-accent-badge {
+  border-color: rgba(78, 141, 120, 0.35);
+}
+
+.vw-quick-accent-btn {
+  background-color: var(--surface-white);
+  border-color: var(--border-subtle);
+  color: var(--ink-secondary);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.vw-quick-accent-btn:hover {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border-color: var(--accent-sage);
+  transform: translateY(-1px);
+}
+
+.vw-quick-accent-btn.active {
+  background-color: var(--accent-sage);
+  color: #FFFFFF !important;
+  border-color: var(--accent-sage);
+  box-shadow: 0 2px 6px rgba(45, 90, 76, 0.28);
+}
+
+/* Card & Flashcard Mini-Pill Switcher */
+.vw-card-accent-group {
+  gap: 2px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.vw-accent-card-pill {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-muted);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  line-height: 1.2;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vw-accent-card-pill:hover {
+  color: var(--ink-primary);
+}
+
+.vw-accent-card-pill.active {
+  background-color: var(--accent-sage);
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 4px rgba(45, 90, 76, 0.25);
+}
+
+/* Cartoon Video Modal Accent Switcher */
+.vw-cv-accent-btn {
+  color: var(--ink-secondary);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  line-height: 1.2;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vw-cv-accent-btn:hover {
+  color: var(--ink-primary);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .vw-cv-accent-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.vw-cv-accent-btn.active {
+  background-color: var(--accent-sage);
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(45, 90, 76, 0.28);
+}
+
+/* Custom Word Badge & Cartoon Scene Badges */
+.vw-custom-word-pill {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border: 1px solid rgba(45, 90, 76, 0.25);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.vw-cartoon-theme-pill {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border: 1px solid rgba(45, 90, 76, 0.2);
+}
+
+/* =====================================================================
+   FEEDBACK SYSTEM (Floating Trigger Button & Interactive Modal)
+   ===================================================================== */
+.vw-feedback-floating-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: 9999px;
+  background-color: var(--surface-white);
+  color: var(--accent-sage);
+  border: 1.5px solid rgba(45, 90, 76, 0.25);
+  box-shadow: 0 8px 24px -4px rgba(45, 90, 76, 0.2), 0 2px 6px rgba(0, 0, 0, 0.06);
+  font-size: 0.825rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              border-color 0.2s ease,
+              background-color 0.2s ease,
+              color 0.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-feedback-floating-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  background-color: var(--accent-sage);
+  color: #FFFFFF !important;
+  border-color: var(--accent-sage);
+  box-shadow: 0 12px 30px -4px rgba(45, 90, 76, 0.35);
+}
+
+.vw-feedback-floating-btn .feedback-icon {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vw-feedback-floating-btn:hover .feedback-icon {
+  transform: rotate(-10deg) scale(1.18);
+}
+
+.vw-feedback-nav-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  color: var(--ink-primary);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-feedback-nav-btn:hover {
+  border-color: var(--accent-sage);
+  color: var(--accent-sage);
+  transform: translateY(-1px);
+}
+
+/* Category Selection Pills */
+.vw-fb-cat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.85rem;
+  border: 1.5px solid var(--border-subtle);
+  background-color: var(--surface-sand);
+  color: var(--ink-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-fb-cat-btn:hover {
+  border-color: var(--accent-sage);
+  color: var(--ink-primary);
+  transform: translateY(-1px);
+}
+
+.vw-fb-cat-btn.active {
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border-color: var(--accent-sage);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(45, 90, 76, 0.15);
+}
+
+/* Rating Emoji Buttons */
+.vw-fb-rating-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.25rem;
+  border-radius: 0.85rem;
+  border: 1.5px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.2s ease,
+              border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-fb-rating-btn:hover {
+  transform: scale(1.14);
+  background-color: var(--accent-sage-soft);
+}
+
+.vw-fb-rating-btn.active {
+  transform: scale(1.18);
+  background-color: var(--accent-sage-soft);
+  border-color: var(--accent-sage);
+  box-shadow: 0 4px 14px rgba(45, 90, 76, 0.22);
+}
+
+/* Feedback History Cards */
+.vw-fb-history-item {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  border-radius: 1rem;
+  padding: 0.85rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.vw-fb-history-item:hover {
+  border-color: var(--accent-sage);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* =====================================================================
+   BIG STORIES & NEWSPAPER SENTENCES (Editorial Journalistic Styling)
+   ===================================================================== */
+.vw-story-card {
+  transition: transform 0.25s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.vw-story-card:hover {
+  border-color: var(--accent-sage);
+  box-shadow: 0 8px 24px -4px rgba(45, 90, 76, 0.12);
+}
+
+.vw-newspaper-card {
+  position: relative;
+  transition: transform 0.22s ease, border-color 0.2s ease, box-shadow 0.22s ease;
+}
+
+.vw-newspaper-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-sage);
+  box-shadow: 0 10px 28px -4px rgba(45, 90, 76, 0.15);
+}
+
+.vw-news-quote-box {
+  position: relative;
+  border-left: 3.5px solid var(--accent-sage);
+  background-color: var(--surface-white);
+}
+
+.vw-news-keyword {
+  color: var(--accent-sage);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.vw-news-keyword:hover {
+  color: var(--accent-terracotta);
+}
+
+/* =====================================================================
+   MY VOCAB LIST & WARM-UP REVISION STYLES
+====================================================================== */
+
+/* Word Card "Mark Learned" / "In My Vocab" Pill Button */
+.vw-my-vocab-btn {
+  background-color: var(--surface-sand);
+  border: 1px solid var(--border-subtle);
+  color: var(--ink-secondary);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vw-my-vocab-btn:hover {
+  border-color: var(--accent-sage);
+  color: var(--accent-sage);
+  transform: translateY(-1px);
+}
+
+.vw-my-vocab-btn.is-learned {
+  background-color: var(--accent-sage);
+  border-color: rgba(45, 90, 76, 0.4);
+  color: #FAF8F5;
+  box-shadow: 0 2px 8px -1px rgba(45, 90, 76, 0.35);
+}
+
+.vw-my-vocab-btn.is-learned:hover {
+  background-color: #24493e;
+  border-color: #24493e;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .vw-my-vocab-btn.is-learned {
+  background-color: #3f7b68;
+  border-color: rgba(63, 123, 104, 0.5);
+  color: #FAF8F5;
+  box-shadow: 0 2px 10px -1px rgba(63, 123, 104, 0.35);
+}
+
+/* My Vocab Saved Word Card */
+.vw-my-vocab-card {
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vw-my-vocab-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-sage);
+  box-shadow: 0 8px 24px -4px rgba(45, 90, 76, 0.12);
+}
+
+/* Warm-Up Exam Option Button */
+.vw-warmup-option-btn {
+  position: relative;
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+  user-select: none;
+}
+
+.vw-warmup-option-btn:hover:not(:disabled) {
+  transform: translateY(-1.5px);
+  border-color: var(--accent-sage);
+  background-color: var(--accent-sage-soft);
+  box-shadow: 0 4px 16px -2px rgba(45, 90, 76, 0.15);
+}
+
+.vw-warmup-option-btn.is-correct {
+  border-color: var(--accent-sage) !important;
+  background-color: var(--accent-sage-soft) !important;
+  color: var(--accent-sage) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 18px -2px rgba(45, 90, 76, 0.25);
+}
+
+.vw-warmup-option-btn.is-wrong {
+  border-color: var(--accent-terracotta) !important;
+  background-color: var(--accent-terracotta-soft) !important;
+  color: var(--accent-terracotta) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 18px -2px rgba(194, 109, 83, 0.25);
+}
+
+/* PWA Install Button */
+.vw-pwa-install-btn {
+  background-color: var(--accent-sage-soft);
+  border: 1px solid rgba(45, 90, 76, 0.25);
+  color: var(--accent-sage);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  user-select: none;
+}
+
+.vw-pwa-install-btn:hover {
+  background-color: var(--accent-sage);
+  border-color: var(--accent-sage);
+  color: #FAF8F5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -2px rgba(45, 90, 76, 0.25);
+}
+
+[data-theme="dark"] .vw-pwa-install-btn {
+  background-color: rgba(63, 123, 104, 0.2);
+  border-color: rgba(63, 123, 104, 0.4);
+  color: #72B8A0;
+}
+
+[data-theme="dark"] .vw-pwa-install-btn:hover {
+  background-color: #3f7b68;
+  border-color: #3f7b68;
+  color: #FAF8F5;
+}
+
+/* =====================================================================
+   DERIVATIVES (WORD FAMILY) SYSTEM STYLES
+====================================================================== */
+
+.vw-derivatives-container {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.vw-derivatives-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vw-derivatives-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.vw-derivatives-table th {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border-bottom: 1px solid rgba(45, 90, 76, 0.15);
+}
+
+.vw-derivatives-table td {
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.8125rem;
+  color: var(--ink-primary);
+  vertical-align: top;
+}
+
+.vw-derivatives-table tr:last-child td {
+  border-bottom: none;
+}
+
+.vw-derivative-cell-word {
+  font-weight: 700;
+  font-family: 'Fraunces', serif;
+  font-size: 0.9375rem;
+  color: var(--ink-primary);
+}
+
+.vw-derivative-cell-pron {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  margin-top: 0.1rem;
+}
+
+.vw-derivative-cell-empty {
+  color: var(--ink-muted);
+  font-weight: 700;
+  opacity: 0.4;
+}
+
+/* Detailed breakdown */
+.vw-derivative-entry {
+  padding: 0.75rem 1rem;
+  border-radius: 0.875rem;
+  background-color: var(--bg-ivory);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+
+.vw-derivative-entry:hover {
+  border-color: rgba(45, 90, 76, 0.3);
+  box-shadow: 0 4px 12px -2px rgba(45, 90, 76, 0.06);
+}
+
+.vw-derivative-highlight-word {
+  color: var(--accent-sage);
+  font-weight: 700;
+}
+
+/* Derivatives study list pills */
+.vw-deriv-list-pill {
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.vw-deriv-list-pill:hover {
+  border-color: var(--accent-sage);
+  color: var(--accent-sage);
+}
+
+.vw-deriv-list-pill.is-active {
+  background-color: var(--accent-sage);
+  border-color: var(--accent-sage);
+  color: #FAF8F5;
+  box-shadow: 0 4px 12px -2px rgba(45, 90, 76, 0.25);
+}
+
+/* Flashcard Back compact 4-column Derivatives */
+.vw-flashcard-deriv-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  text-align: center;
+  background-color: var(--surface-sand);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.vw-flashcard-deriv-col {
+  padding: 0.25rem;
+}
+
+.vw-flashcard-deriv-col:not(:first-child) {
+  border-left: 1px solid var(--border-subtle);
+}
+
+.vw-flashcard-deriv-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+}
+
+.vw-flashcard-deriv-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin-top: 0.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

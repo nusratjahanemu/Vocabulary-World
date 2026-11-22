@@ -69,6 +69,41 @@
     let fcFlipped = false;
     let fcMasteredIds = [];
 
+    function renderFlashcardDerivativesHTML(card) {
+      const d = card && card.derivatives;
+      if (!d || typeof d !== 'object' || (!d.noun && !d.verb && !d.adjective && !d.adverb)) {
+        return '';
+      }
+
+      const forms = [
+        { label: 'Noun', form: d.noun },
+        { label: 'Verb', form: d.verb },
+        { label: 'Adj', form: d.adjective },
+        { label: 'Adv', form: d.adverb }
+      ];
+
+      return `
+        <div class="mt-2.5 pt-2 border-t" style="border-color: var(--border-subtle);">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[9px] font-bold uppercase tracking-wider" style="color: var(--accent-sage);">
+              DERIVATIVES (পদ রূপান্তর)
+            </span>
+            <span class="text-[9px] font-mono text-gray-400">Word Family</span>
+          </div>
+          <div class="vw-flashcard-deriv-grid">
+            ${forms.map(f => `
+              <div class="vw-flashcard-deriv-col">
+                <div class="vw-flashcard-deriv-label">${f.label}</div>
+                <div class="vw-flashcard-deriv-val" title="${f.form ? escapeHtml(f.form.word + (f.form.banglaMeaning ? ' — ' + f.form.banglaMeaning : '')) : 'None'}">
+                  ${f.form && f.form.word ? escapeHtml(f.form.word) : '<span class="opacity-40">—</span>'}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     // Support query param ?level=xxx
     const urlParams = new URLSearchParams(window.location.search);
     const paramLevel = urlParams.get('level');
@@ -310,6 +345,9 @@
                       <p class="text-xs sm:text-sm font-medium" style="color: var(--ink-primary);">&ldquo;${escapeHtml(card.example)}&rdquo;</p>
                       <p class="font-bengali text-xs mt-1" style="color: var(--ink-secondary);">(${escapeHtml(card.exampleBn)})</p>
                     </div>
+
+                    <!-- Derivatives 4-Column Academic Table on Card Back -->
+                    ${renderFlashcardDerivativesHTML(card)}
                   </div>
                 </div>
               </div>

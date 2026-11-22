@@ -498,7 +498,7 @@ button:active:not(:disabled),
 .vw-flashcard-inner {
   position: relative;
   width: 100%;
-  min-height: 340px;
+  min-height: 390px;
   transition: transform 0.55s cubic-bezier(0.2, 0.85, 0.4, 1.15);
   transform-style: preserve-3d;
   cursor: pointer;
@@ -506,7 +506,7 @@ button:active:not(:disabled),
 
 @media (min-width: 640px) {
   .vw-flashcard-inner {
-    min-height: 315px;
+    min-height: 360px;
   }
 }
 
@@ -1620,3 +1620,154 @@ button:active:not(:disabled),
   border-color: #3f7b68;
   color: #FAF8F5;
 }
+
+/* =====================================================================
+   DERIVATIVES (WORD FAMILY) SYSTEM STYLES
+====================================================================== */
+
+.vw-derivatives-container {
+  background-color: var(--surface-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.vw-derivatives-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vw-derivatives-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.vw-derivatives-table th {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--accent-sage-soft);
+  color: var(--accent-sage);
+  border-bottom: 1px solid rgba(45, 90, 76, 0.15);
+}
+
+.vw-derivatives-table td {
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.8125rem;
+  color: var(--ink-primary);
+  vertical-align: top;
+}
+
+.vw-derivatives-table tr:last-child td {
+  border-bottom: none;
+}
+
+.vw-derivative-cell-word {
+  font-weight: 700;
+  font-family: 'Fraunces', serif;
+  font-size: 0.9375rem;
+  color: var(--ink-primary);
+}
+
+.vw-derivative-cell-pron {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  margin-top: 0.1rem;
+}
+
+.vw-derivative-cell-empty {
+  color: var(--ink-muted);
+  font-weight: 700;
+  opacity: 0.4;
+}
+
+/* Detailed breakdown */
+.vw-derivative-entry {
+  padding: 0.75rem 1rem;
+  border-radius: 0.875rem;
+  background-color: var(--bg-ivory);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+
+.vw-derivative-entry:hover {
+  border-color: rgba(45, 90, 76, 0.3);
+  box-shadow: 0 4px 12px -2px rgba(45, 90, 76, 0.06);
+}
+
+.vw-derivative-highlight-word {
+  color: var(--accent-sage);
+  font-weight: 700;
+}
+
+/* Derivatives study list pills */
+.vw-deriv-list-pill {
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface-white);
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.vw-deriv-list-pill:hover {
+  border-color: var(--accent-sage);
+  color: var(--accent-sage);
+}
+
+.vw-deriv-list-pill.is-active {
+  background-color: var(--accent-sage);
+  border-color: var(--accent-sage);
+  color: #FAF8F5;
+  box-shadow: 0 4px 12px -2px rgba(45, 90, 76, 0.25);
+}
+
+/* Flashcard Back compact 4-column Derivatives */
+.vw-flashcard-deriv-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  text-align: center;
+  background-color: var(--surface-sand);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.vw-flashcard-deriv-col {
+  padding: 0.25rem;
+}
+
+.vw-flashcard-deriv-col:not(:first-child) {
+  border-left: 1px solid var(--border-subtle);
+}
+
+.vw-flashcard-deriv-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+}
+
+.vw-flashcard-deriv-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin-top: 0.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

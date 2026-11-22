@@ -126,7 +126,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "ঝড়ো, উত্তাল",
             "explanationBn": "প্রচণ্ড ঝড়বৃষ্টি বা তীব্র অশান্ত পরিস্থিতিকে বোঝায়।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Serenity",
+            "banglaPronunciation": "['সেরেনিটি]",
+            "pos": "noun",
+            "banglaMeaning": "প্রশান্তি বা নির্মলতা",
+            "exampleEn": "The mountain lake possessed a deep and peaceful serenity.",
+            "exampleBn": "পাহাড়ি হ্রদটিতে এক গভীর ও স্নিগ্ধ প্রশান্তি বিরাজ করছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Serene",
+            "banglaPronunciation": "['সেরিন]",
+            "pos": "adjective",
+            "banglaMeaning": "শান্ত, নির্মল বা প্রশান্ত",
+            "exampleEn": "She had a serene smile on her face.",
+            "exampleBn": "তার মুখে একটি শান্ত ও অমায়িক হাসি ছিল।"
+          },
+          "adverb": {
+            "word": "Serenely",
+            "banglaPronunciation": "['সেরিনলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রশান্তভাবে বা শান্তচিত্তে",
+            "exampleEn": "The white swan floated serenely across the calm water.",
+            "exampleBn": "সাদা রাজহাঁসটি শান্ত জলের ওপর দিয়ে স্নিগ্ধভাবে ভেসে যাচ্ছিল।"
+          }
+        }
       },
       {
         "id": "beg-2",
@@ -191,7 +218,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "স্বার্থপর",
             "explanationBn": "কেবল নিজের সুবিধার কথা চিন্তা করা এবং অন্যের অবদান ভুলে যাওয়া।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Gratitude",
+            "banglaPronunciation": "['গ্র্যাটিটিউড]",
+            "pos": "noun",
+            "banglaMeaning": "কৃতজ্ঞতা বা ধন্যভাব",
+            "exampleEn": "He expressed heartfelt gratitude for their generous support.",
+            "exampleBn": "তাদের উদার সমর্থনের জন্য তিনি আন্তরিক কৃতজ্ঞতা প্রকাশ করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Grateful",
+            "banglaPronunciation": "['গ্রেটফুল]",
+            "pos": "adjective",
+            "banglaMeaning": "কৃতজ্ঞ বা চিরবাধিত",
+            "exampleEn": "I am truly grateful for your helpful advice.",
+            "exampleBn": "আপনার সহায়ক উপদেশের জন্য আমি সত্যি কৃতজ্ঞ।"
+          },
+          "adverb": {
+            "word": "Gratefully",
+            "banglaPronunciation": "['গ্রেটফুলি]",
+            "pos": "adverb",
+            "banglaMeaning": "কৃতজ্ঞচিত্তে",
+            "exampleEn": "She gratefully accepted the community award.",
+            "exampleBn": "তিনি কৃতজ্ঞচিত্তে কমিউনিটি পুরস্কারটি গ্রহণ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-3",
@@ -256,7 +310,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "মন্থর, ঢিলেঢালা",
             "explanationBn": "খুব ধীরগতিতে এবং উৎসাহহীনভাবে কাজ করা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Diligence",
+            "banglaPronunciation": "['ডিলিজেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "অধ্যবসায় বা একাগ্র পরিশ্রম",
+            "exampleEn": "His steady diligence earned him the top rank.",
+            "exampleBn": "তার ধারাবাহিক অধ্যবসায় তাকে শীর্ষস্থান এনে দিয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Diligent",
+            "banglaPronunciation": "['ডিলিজেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "পরিশ্রমী বা যত্নবান",
+            "exampleEn": "She is a diligent researcher who checks every fact.",
+            "exampleBn": "তিনি একজন পরিশ্রমী গবেষক যিনি প্রতিটি তথ্য যাচাই করেন।"
+          },
+          "adverb": {
+            "word": "Diligently",
+            "banglaPronunciation": "['ডিলিজেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অধ্যবসায়ের সাথে বা নিষ্ঠাভরে",
+            "exampleEn": "He worked diligently to complete the software project.",
+            "exampleBn": "তিনি নিষ্ঠাভরে সফটওয়্যার প্রকল্পটি সম্পন্ন করতে কাজ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-4",
@@ -321,7 +402,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "আত্মকেন্দ্রিক",
             "explanationBn": "কেবল নিজের স্বার্থ নিয়ে ব্যস্ত থাকা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Generosity",
+            "banglaPronunciation": "['জেনারোসিটি]",
+            "pos": "noun",
+            "banglaMeaning": "উদারতা বা বদান্যতা",
+            "exampleEn": "Her kindness and generosity touched many lives.",
+            "exampleBn": "তার দয়া ও উদারতা বহু মানুষের হৃদয় স্পর্শ করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Generous",
+            "banglaPronunciation": "['জেনারেস]",
+            "pos": "adjective",
+            "banglaMeaning": "উদার বা দানশীল",
+            "exampleEn": "He made a generous donation to the children's hospital.",
+            "exampleBn": "তিনি শিশু হাসপাতালে এক উদার অনুদান দিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Generously",
+            "banglaPronunciation": "['জেনারেসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "উদারভাবে বা মুক্তহস্তে",
+            "exampleEn": "Neighbors contributed generously during the winter relief drive.",
+            "exampleBn": "শীতকালীন ত্রাণ কার্যক্রমে প্রতিবেশীরা মুক্তহস্তে দান করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-5",
@@ -386,7 +494,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "কৌতূহলহীন",
             "explanationBn": "চারপাশের ঘটনা সম্পর্কে জানার কোনো চেষ্টা না করা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Curiosity",
+            "banglaPronunciation": "['কিউরিওসিটি]",
+            "pos": "noun",
+            "banglaMeaning": "কৌতূহল বা জানার আগ্রহ",
+            "exampleEn": "Scientific curiosity drives exploration of distant planets.",
+            "exampleBn": "বৈজ্ঞানিক কৌতূহল দূরবর্তী গ্রহগুলো অন্বেষণে প্রেরণা যোগায়।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Curious",
+            "banglaPronunciation": "['কিউরিয়াস]",
+            "pos": "adjective",
+            "banglaMeaning": "কৌতূহলী বা অনুসন্ধিৎসু",
+            "exampleEn": "The curious child asked questions about the stars.",
+            "exampleBn": "কৌতূহলী শিশুটি নক্ষত্র সম্পর্কে নানা প্রশ্ন করেছিল।"
+          },
+          "adverb": {
+            "word": "Curiously",
+            "banglaPronunciation": "['কিউরিয়াসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "কৌতূহলবশত বা অদ্ভুতভাবে",
+            "exampleEn": "She looked curiously at the antique clock on the mantel.",
+            "exampleBn": "তিনি কৌতূহলবশত তাকের ওপর রাখা প্রাচীন ঘড়িটির দিকে তাকালেন।"
+          }
+        }
       },
       {
         "id": "beg-6",
@@ -451,7 +586,41 @@ const CURRICULUM_DATA = {
             "meaningBn": "দুর্বলতা",
             "explanationBn": "মানসিক বা শারীরিক শক্তির অভাব।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Courage",
+            "banglaPronunciation": "['কারেজ]",
+            "pos": "noun",
+            "banglaMeaning": "সাহস বা বীরত্ব",
+            "exampleEn": "It takes moral courage to speak truth to power.",
+            "exampleBn": "ক্ষমতার সামনে সত্য বলতে নৈতিক সাহসের প্রয়োজন হয়।"
+          },
+          "verb": {
+            "word": "Encourage",
+            "banglaPronunciation": "['এনকারেজ]",
+            "pos": "verb",
+            "banglaMeaning": "উৎসাহিত করা বা সাহস দেওয়া",
+            "exampleEn": "Mentors encourage students to pursue their boldest dreams.",
+            "exampleBn": "মেন্টররা শিক্ষার্থীদের তাদের সবচেয়ে বড় স্বপ্ন পূরণে উৎসাহিত করেন।"
+          },
+          "adjective": {
+            "word": "Courageous",
+            "banglaPronunciation": "['কারেজাস]",
+            "pos": "adjective",
+            "banglaMeaning": "সাহসী বা নির্ভীক",
+            "exampleEn": "Firefighters made a courageous rescue in the blaze.",
+            "exampleBn": "অগ্নিনির্বাপক কর্মীরা আগুনে এক সাহসী উদ্ধার অভিযান চালিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Courageously",
+            "banglaPronunciation": "['কারেজাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সাহসিকতার সাথে বা নির্ভয়ে",
+            "exampleEn": "The young officer courageously defended the mountain outpost.",
+            "exampleBn": "তরুণ কর্মকর্তা সাহসিকতার সাথে পাহাড়ি সীমান্ত ফাঁড়ি রক্ষা করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-01",
@@ -531,7 +700,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abandon",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abandonment",
+            "banglaPronunciation": "['অ্যাব্যানডনমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "পরিত্যাগ বা বর্জন",
+            "exampleEn": "The abandonment of old customs paved the way for progress.",
+            "exampleBn": "পুরোনো প্রথা পরিত্যাগ অগ্রগতির পথ সুগম করেছিল।"
+          },
+          "verb": {
+            "word": "Abandon",
+            "banglaPronunciation": "['অ্যাব্যানডন]",
+            "pos": "verb",
+            "banglaMeaning": "পরিত্যাগ করা বা ছেড়ে যাওয়া",
+            "exampleEn": "The sailors had to abandon the sinking vessel.",
+            "exampleBn": "নাবিকদের ডুবন্ত জাহাজটি পরিত্যাগ করতে হয়েছিল।"
+          },
+          "adjective": {
+            "word": "Abandoned",
+            "banglaPronunciation": "['অ্যাব্যানডন্ড]",
+            "pos": "adjective",
+            "banglaMeaning": "পরিত্যক্ত",
+            "exampleEn": "They explored an abandoned fortress on the hill.",
+            "exampleBn": "তারা পাহাড়ের ওপর একটি পরিত্যক্ত দুর্গ ঘুরে দেখেছিল।"
+          },
+          "adverb": {
+            "word": "Abandonedly",
+            "banglaPronunciation": "['অ্যাব্যানডনডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বেপরোয়াভাবে",
+            "exampleEn": "He laughed abandonedly in the face of danger.",
+            "exampleBn": "তিনি বিপদের মুখে বেপরোয়াভাবে হেসেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-02",
@@ -611,7 +814,41 @@ const CURRICULUM_DATA = {
             "targetWord": "ability",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ability",
+            "banglaPronunciation": "['অ্যাবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "সামর্থ্য বা সক্ষমতা",
+            "exampleEn": "She showed remarkable ability in computer programming.",
+            "exampleBn": "কম্পিউটার প্রোগ্রামিংয়ে তিনি অসাধারণ সামর্থ্য প্রদর্শন করেছিলেন।"
+          },
+          "verb": {
+            "word": "Enable",
+            "banglaPronunciation": "['এনেবল]",
+            "pos": "verb",
+            "banglaMeaning": "সক্ষম করা বা সুযোগ করে দেওয়া",
+            "exampleEn": "Scholarships enable talented rural youths to attend university.",
+            "exampleBn": "বৃত্তি মেধাবী গ্রামীণ তরুণদের বিশ্ববিদ্যালয়ে পড়ার সুযোগ করে দেয়।"
+          },
+          "adjective": {
+            "word": "Able",
+            "banglaPronunciation": "['এবল]",
+            "pos": "adjective",
+            "banglaMeaning": "সক্ষম বা দক্ষ",
+            "exampleEn": "He is an able leader who listens to his team.",
+            "exampleBn": "তিনি একজন দক্ষ নেতা যিনি তার দলের কথা শোনেন।"
+          },
+          "adverb": {
+            "word": "Ably",
+            "banglaPronunciation": "['এবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দক্ষতার সাথে",
+            "exampleEn": "She ably managed the regional sales division.",
+            "exampleBn": "তিনি দক্ষতার সাথে আঞ্চলিক বিক্রয় বিভাগ পরিচালনা করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-03",
@@ -691,7 +928,41 @@ const CURRICULUM_DATA = {
             "targetWord": "absent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Absence",
+            "banglaPronunciation": "['অ্যাবসেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "অনুপস্থিতি বা অভাব",
+            "exampleEn": "His prolonged absence was felt by everyone in the office.",
+            "exampleBn": "অফিসে তার দীর্ঘ অনুপস্থিতি সবাই অনুভব করেছিল।"
+          },
+          "verb": {
+            "word": "Absent",
+            "banglaPronunciation": "['অ্যাবসেন্ট]",
+            "pos": "verb",
+            "banglaMeaning": "নিজেকে অনুপস্থিত রাখা",
+            "exampleEn": "Do not absent yourself from crucial review meetings.",
+            "exampleBn": "গুরুত্বপূর্ণ পর্যালোচনা মিটিং থেকে নিজেকে অনুপস্থিত রাখবেন না।"
+          },
+          "adjective": {
+            "word": "Absent",
+            "banglaPronunciation": "['অ্যাবসেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুপস্থিত বা অন্যমনস্ক",
+            "exampleEn": "Three students were absent from class today.",
+            "exampleBn": "আজ ক্লাসে তিনজন শিক্ষার্থী অনুপস্থিত ছিল।"
+          },
+          "adverb": {
+            "word": "Absently",
+            "banglaPronunciation": "['অ্যাবসেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অন্যমনস্কভাবে",
+            "exampleEn": "He nodded absently while reading the urgent email.",
+            "exampleBn": "জরুরি ইমেইল পড়ার সময় তিনি অন্যমনস্কভাবে মাথা নাড়লেন।"
+          }
+        }
       },
       {
         "id": "beg-a-04",
@@ -771,7 +1042,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accept",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acceptance",
+            "banglaPronunciation": "['অ্যাকসেপ্টেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "গ্রহণ বা সম্মতি",
+            "exampleEn": "She received her university acceptance letter yesterday.",
+            "exampleBn": "তিনি গতকাল বিশ্ববিদ্যালয়ে ভর্তির সম্মতিপত্র পেয়েছেন।"
+          },
+          "verb": {
+            "word": "Accept",
+            "banglaPronunciation": "['অ্যাকসেপ্ট]",
+            "pos": "verb",
+            "banglaMeaning": "গ্রহণ করা বা মেনে নেওয়া",
+            "exampleEn": "We gladly accept your invitation to the seminar.",
+            "exampleBn": "আমরা আনন্দের সাথে সেমিনারে আপনার আমন্ত্রণ গ্রহণ করছি।"
+          },
+          "adjective": {
+            "word": "Acceptable",
+            "banglaPronunciation": "['অ্যাকসেপ্টেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "গ্রহণযোগ্য বা সন্তোষজনক",
+            "exampleEn": "The compromise was acceptable to both debating sides.",
+            "exampleBn": "আপসটি বিতর্ককারী উভয় পক্ষের কাছেই গ্রহণযোগ্য ছিল।"
+          },
+          "adverb": {
+            "word": "Acceptably",
+            "banglaPronunciation": "['অ্যাকসেপ্টেব্লি]",
+            "pos": "adverb",
+            "banglaMeaning": "সন্তোষজনকভাবে",
+            "exampleEn": "The team performed acceptably despite the bad weather.",
+            "exampleBn": "খারাপ আবহাওয়া সত্ত্বেও দলটি সন্তোষজনকভাবে খেলেছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-05",
@@ -851,7 +1156,34 @@ const CURRICULUM_DATA = {
             "targetWord": "achieve",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Achievement",
+            "banglaPronunciation": "['অ্যাচিভমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "অর্জন বা সাফল্য",
+            "exampleEn": "Graduating with honors is a proud academic achievement.",
+            "exampleBn": "অনার্সসহ স্নাতক সম্পন্ন করা এক গর্বিত প্রাতিষ্ঠানিক অর্জন।"
+          },
+          "verb": {
+            "word": "Achieve",
+            "banglaPronunciation": "['অ্যাচিভ]",
+            "pos": "verb",
+            "banglaMeaning": "অর্জন করা বা সাধন করা",
+            "exampleEn": "With hard work, you can achieve your highest potential.",
+            "exampleBn": "কঠোর পরিশ্রমের মাধ্যমে আপনি আপনার সর্বোচ্চ সম্ভাবনা অর্জন করতে পারেন।"
+          },
+          "adjective": {
+            "word": "Achievable",
+            "banglaPronunciation": "['অ্যাচিভেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "অর্জনযোগ্য",
+            "exampleEn": "Set ambitious yet realistic and achievable goals.",
+            "exampleBn": "উচ্চাকাঙ্ক্ষী অথচ বাস্তবসম্মত ও অর্জনযোগ্য লক্ষ্য নির্ধারণ করুন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-06",
@@ -931,7 +1263,41 @@ const CURRICULUM_DATA = {
             "targetWord": "active",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Activity",
+            "banglaPronunciation": "['অ্যাকটিভিটি]",
+            "pos": "noun",
+            "banglaMeaning": "কার্যকলাপ বা সক্রিয়তা",
+            "exampleEn": "Physical activity promotes long-term heart health.",
+            "exampleBn": "শারীরিক সক্রিয়তা দীর্ঘমেয়াদী হৃদযন্ত্রের সুস্থতা বাড়ায়।"
+          },
+          "verb": {
+            "word": "Activate",
+            "banglaPronunciation": "['অ্যাকটিভেট]",
+            "pos": "verb",
+            "banglaMeaning": "সক্রিয় করা বা চালু করা",
+            "exampleEn": "Press the button to activate the backup generator.",
+            "exampleBn": "ব্যাকআপ জেনারেটর চালু করতে বোতামটি চাপুন।"
+          },
+          "adjective": {
+            "word": "Active",
+            "banglaPronunciation": "['অ্যাকটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "সক্রিয় বা চটপটে",
+            "exampleEn": "Grandfather stays mentally active by solving daily crosswords.",
+            "exampleBn": "প্রতিদিন শব্দজট সমাধান করে দাদা মানসিকভাবে সক্রিয় থাকেন।"
+          },
+          "adverb": {
+            "word": "Actively",
+            "banglaPronunciation": "['অ্যাকটিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সক্রিয়ভাবে বা উদ্যমের সাথে",
+            "exampleEn": "Students actively participated in the open debate.",
+            "exampleBn": "শিক্ষার্থীরা উন্মুক্ত বিতর্কে সক্রিয়ভাবে অংশ নিয়েছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-07",
@@ -1011,7 +1377,41 @@ const CURRICULUM_DATA = {
             "targetWord": "adapt",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adaptation",
+            "banglaPronunciation": "['অ্যাডাপটেশন]",
+            "pos": "noun",
+            "banglaMeaning": "অভিযোজন বা রূপান্তর",
+            "exampleEn": "Desert plants exhibit remarkable adaptation to drought.",
+            "exampleBn": "মরুভূমির উদ্ভিদ খরায় অসাধারণ অভিযোজন প্রদর্শন করে।"
+          },
+          "verb": {
+            "word": "Adapt",
+            "banglaPronunciation": "['অ্যাডাপ্ট]",
+            "pos": "verb",
+            "banglaMeaning": "খাপ খাওয়ানো বা মানিয়ে নেওয়া",
+            "exampleEn": "Immigrants learn to adapt quickly to new climates.",
+            "exampleBn": "অভিবাসীরা নতুন জলবায়ুর সাথে দ্রুত খাপ খাইয়ে নিতে শেখে।"
+          },
+          "adjective": {
+            "word": "Adaptable",
+            "banglaPronunciation": "['অ্যাডাপ্টাবল]",
+            "pos": "adjective",
+            "banglaMeaning": "পরিবর্তনশীল বা খাপ খাইয়ে নিতে সক্ষম",
+            "exampleEn": "An adaptable worker succeeds in dynamic startup environments.",
+            "exampleBn": "একজন পরিবর্তনশীল কর্মী গতিশীল স্টার্টআপ পরিবেশে সাফল্য পায়।"
+          },
+          "adverb": {
+            "word": "Adaptively",
+            "banglaPronunciation": "['অ্যাডাপ্টিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অভিযোজনমূলকভাবে",
+            "exampleEn": "The algorithm adjusts its parameters adaptively.",
+            "exampleBn": "অ্যালগরিদমটি তার প্যারামিটারগুলো অভিযোজনমূলকভাবে সমন্বয় করে।"
+          }
+        }
       },
       {
         "id": "beg-a-08",
@@ -1091,7 +1491,41 @@ const CURRICULUM_DATA = {
             "targetWord": "admire",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Admiration",
+            "banglaPronunciation": "['অ্যাডমিরেশন]",
+            "pos": "noun",
+            "banglaMeaning": "প্রশংসা বা শ্রদ্ধা",
+            "exampleEn": "We watched the skilled surgeon in silent admiration.",
+            "exampleBn": "আমরা নীরব প্রশংসায় দক্ষ সার্জনের কাজ পর্যবেক্ষণ করলাম।"
+          },
+          "verb": {
+            "word": "Admire",
+            "banglaPronunciation": "['অ্যাডমায়ার]",
+            "pos": "verb",
+            "banglaMeaning": "প্রশংসা করা বা শ্রদ্ধা করা",
+            "exampleEn": "I deeply admire her calm leadership under extreme pressure.",
+            "exampleBn": "চরম চাপের মুখে তার শান্ত নেতৃত্বকে আমি গভীরভাবে শ্রদ্ধা করি।"
+          },
+          "adjective": {
+            "word": "Admirable",
+            "banglaPronunciation": "['অ্যাডমিরেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রশংসনীয় বা প্রশংসার যোগ্য",
+            "exampleEn": "His dedication to community service is truly admirable.",
+            "exampleBn": "সমাজসেবায় তার আত্মোৎসর্গ সত্যি প্রশংসনীয়।"
+          },
+          "adverb": {
+            "word": "Admirably",
+            "banglaPronunciation": "['অ্যাডমিরেবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রশংসনীয়ভাবে বা চমৎকারভাবে",
+            "exampleEn": "She performed admirably in her very first stage debut.",
+            "exampleBn": "মঞ্চে প্রথম অভিষেকেই তিনি প্রশংসনীয়ভাবে পারফর্ম করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-09",
@@ -1171,7 +1605,34 @@ const CURRICULUM_DATA = {
             "targetWord": "advice",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Advice",
+            "banglaPronunciation": "['অ্যাডভাইস]",
+            "pos": "noun",
+            "banglaMeaning": "উপদেশ বা পরামর্শ",
+            "exampleEn": "Take your mentor's career advice seriously.",
+            "exampleBn": "আপনার মেন্টরের পেশাগত পরামর্শ গুরুত্বের সাথে গ্রহণ করুন।"
+          },
+          "verb": {
+            "word": "Advise",
+            "banglaPronunciation": "['অ্যাডভাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "উপদেশ দেওয়া বা পরামর্শ দেওয়া",
+            "exampleEn": "Doctors advise drinking plenty of clean water every day.",
+            "exampleBn": "চিকিৎসকরা প্রতিদিন প্রচুর বিশুদ্ধ পানি পান করার পরামর্শ দেন।"
+          },
+          "adjective": {
+            "word": "Advisable",
+            "banglaPronunciation": "['অ্যাডভাইজেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "পরামর্শযোগ্য বা যুক্তিযুক্ত",
+            "exampleEn": "It is advisable to book flight tickets weeks in advance.",
+            "exampleBn": "কয়েক সপ্তাহ আগেই বিমানের টিকিট বুক করা যুক্তিযুক্ত।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-10",
@@ -1251,7 +1712,41 @@ const CURRICULUM_DATA = {
             "targetWord": "afford",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affordability",
+            "banglaPronunciation": "['অ্যাফোর্ডেবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "সাশ্রয়ী ভাব বা সামর্থ্য",
+            "exampleEn": "Housing affordability is a pressing concern for young families.",
+            "exampleBn": "বাসস্থানের সাশ্রয়ী মূল্য তরুণ পরিবারগুলোর জন্য একটি বড় উদ্বেগের বিষয়।"
+          },
+          "verb": {
+            "word": "Afford",
+            "banglaPronunciation": "['অ্যাফোর্ড]",
+            "pos": "verb",
+            "banglaMeaning": "সামর্থ্য থাকা বা ব্যয়ভার বহন করা",
+            "exampleEn": "We cannot afford to waste precious natural resources.",
+            "exampleBn": "মূল্যবান প্রাকৃতিক সম্পদ নষ্ট করার সামর্থ্য আমাদের নেই।"
+          },
+          "adjective": {
+            "word": "Affordable",
+            "banglaPronunciation": "['অ্যাফোর্ডেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "সুলভ বা সাশ্রয়ী",
+            "exampleEn": "The company builds durable and affordable laptops for students.",
+            "exampleBn": "কোম্পানিটি শিক্ষার্থীদের জন্য টেকসই ও সাশ্রয়ী ল্যাপটপ তৈরি করে।"
+          },
+          "adverb": {
+            "word": "Affordably",
+            "banglaPronunciation": "['অ্যাফোর্ডেবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সাশ্রয়ী মূল্যে",
+            "exampleEn": "Electric cars are now priced affordably for ordinary buyers.",
+            "exampleBn": "সাধারণ ক্রেতাদের জন্য বৈদ্যুতিক গাড়িগুলো এখন সাশ্রয়ী মূল্যে পাওয়া যায়।"
+          }
+        }
       },
       {
         "id": "beg-a-11",
@@ -1331,7 +1826,27 @@ const CURRICULUM_DATA = {
             "targetWord": "afraid",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Fear",
+            "banglaPronunciation": "['ফিয়ার]",
+            "pos": "noun",
+            "banglaMeaning": "ভয় বা শঙ্কা",
+            "exampleEn": "He overcame his childhood fear of dark rooms.",
+            "exampleBn": "তিনি অন্ধকার ঘরের প্রতি শৈশবের ভয় কাটিয়ে উঠেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Afraid",
+            "banglaPronunciation": "['অ্যাফ্রেইড]",
+            "pos": "adjective",
+            "banglaMeaning": "ভীত বা ভীতসন্ত্রস্ত",
+            "exampleEn": "Do not be afraid to voice your authentic opinion.",
+            "exampleBn": "আপনার খাঁটি মতামত প্রকাশ করতে ভীত হবেন না।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-12",
@@ -1411,7 +1926,41 @@ const CURRICULUM_DATA = {
             "targetWord": "agree",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agreement",
+            "banglaPronunciation": "['অ্যাগ্রিমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "চুক্তি বা ঐক্যমত্য",
+            "exampleEn": "Both nations signed a historic environmental agreement.",
+            "exampleBn": "উভয় দেশ একটি ঐতিহাসিক পরিবেশ চুক্তি স্বাক্ষর করেছে।"
+          },
+          "verb": {
+            "word": "Agree",
+            "banglaPronunciation": "['অ্যাগ্রি]",
+            "pos": "verb",
+            "banglaMeaning": "সম্মত হওয়া বা একমত হওয়া",
+            "exampleEn": "I completely agree with your assessment of the issue.",
+            "exampleBn": "বিষয়টি সম্পর্কে আপনার মূল্যায়নের সাথে আমি সম্পূর্ণ একমত।"
+          },
+          "adjective": {
+            "word": "Agreeable",
+            "banglaPronunciation": "['অ্যাগ্রিয়েবল]",
+            "pos": "adjective",
+            "banglaMeaning": "মনোরম বা সম্মত হওয়ার মতো",
+            "exampleEn": "The hotel offered an agreeable atmosphere for work.",
+            "exampleBn": "হোটেলটি কাজের জন্য এক মনোরম পরিবেশ উপহার দিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Agreeably",
+            "banglaPronunciation": "['অ্যাগ্রিয়েবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "মনোরমভাবে বা সানন্দে",
+            "exampleEn": "The warm breeze blew agreeably through the open window.",
+            "exampleBn": "খোলা জানালা দিয়ে স্নিগ্ধ বাতাস মনোরমভাবে প্রবাহিত হচ্ছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-13",
@@ -1491,7 +2040,41 @@ const CURRICULUM_DATA = {
             "targetWord": "allow",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allowance",
+            "banglaPronunciation": "['অ্যালাউয়েন্স]",
+            "pos": "noun",
+            "banglaMeaning": "ভাতা বা বরাদ্দ",
+            "exampleEn": "Parents gave him a modest weekly allowance for books.",
+            "exampleBn": "বই কেনার জন্য বাবা-মা তাকে পরিমিত সাপ্তাহিক ভাতা দিতেন।"
+          },
+          "verb": {
+            "word": "Allow",
+            "banglaPronunciation": "['অ্যালাউ]",
+            "pos": "verb",
+            "banglaMeaning": "অনুমতি দেওয়া বা অনুমোদন করা",
+            "exampleEn": "The guard did not allow unauthorized visitors inside.",
+            "exampleBn": "প্রহরী অননুমোদিত দর্শনার্থীদের ভেতরে প্রবেশ করতে দেননি।"
+          },
+          "adjective": {
+            "word": "Allowable",
+            "banglaPronunciation": "['অ্যালাউয়েবল]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুমোদনযোগ্য বা বিধিসম্মত",
+            "exampleEn": "Check the maximum allowable baggage weight for your flight.",
+            "exampleBn": "আপনার ফ্লাইটের জন্য সর্বোচ্চ অনুমোদনযোগ্য ব্যাগের ওজন যাচাই করুন।"
+          },
+          "adverb": {
+            "word": "Allowably",
+            "banglaPronunciation": "['অ্যালাউয়েবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিধিসম্মতভাবে",
+            "exampleEn": "The company claimed allowably deducted business expenses.",
+            "exampleBn": "কোম্পানি বিধিসম্মতভাবে ছাড় দেওয়া ব্যবসায়িক খরচ দাবি করেছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-14",
@@ -1571,7 +2154,27 @@ const CURRICULUM_DATA = {
             "targetWord": "ancient",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Antiquity",
+            "banglaPronunciation": "['অ্যানটিকুইটি]",
+            "pos": "noun",
+            "banglaMeaning": "প্রাচীনকাল বা প্রাচীনত্ব",
+            "exampleEn": "Scholars revere artifacts preserved from remote antiquity.",
+            "exampleBn": "পণ্ডিতরা সুদূর প্রাচীনকাল থেকে সংরক্ষিত প্রত্নবস্তুর সমাদর করেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ancient",
+            "banglaPronunciation": "['অ্যানশেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রাচীন বা বহুকালের পুরোনো",
+            "exampleEn": "They explored the ancient stone temples of Bagan.",
+            "exampleBn": "তারা বাগানের প্রাচীন পাথরের মন্দিরগুলো ঘুরে দেখেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-15",
@@ -1651,7 +2254,34 @@ const CURRICULUM_DATA = {
             "targetWord": "annual",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Annual",
+            "banglaPronunciation": "['অ্যানুয়াল]",
+            "pos": "noun",
+            "banglaMeaning": "বার্ষিকী বা বার্ষিক প্রকাশনা",
+            "exampleEn": "The school published its annual sports review magazine.",
+            "exampleBn": "বিদ্যালয়টি তার বার্ষিক ক্রীড়া পর্যালোচনা পত্রিকা প্রকাশ করেছে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Annual",
+            "banglaPronunciation": "['অ্যানুয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "বার্ষিক বা বাৎসরিক",
+            "exampleEn": "The company holds its annual shareholder meeting in March.",
+            "exampleBn": "কোম্পানিটি মার্চ মাসে তাদের বাৎসরিক শেয়ারহোল্ডার মিটিং আহ্বান করে।"
+          },
+          "adverb": {
+            "word": "Annually",
+            "banglaPronunciation": "['অ্যানুয়ালি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রতি বছর বা বাৎসরিকভাবে",
+            "exampleEn": "The scholarship fund awards thirty students annually.",
+            "exampleBn": "বৃত্তি তহবিলটি প্রতি বছর ত্রিশজন শিক্ষার্থীকে পুরস্কৃত করে।"
+          }
+        }
       },
       {
         "id": "beg-a-16",
@@ -1731,7 +2361,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anxious",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anxiety",
+            "banglaPronunciation": "['অ্যাংজাইটি]",
+            "pos": "noun",
+            "banglaMeaning": "উদ্বেগ বা দুর্ভাবনা",
+            "exampleEn": "Regular meditation helps reduce workplace anxiety.",
+            "exampleBn": "নিয়মিত ধ্যান কর্মক্ষেত্রের মানসিক উদ্বেগ কমাতে সাহায্য করে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anxious",
+            "banglaPronunciation": "['অ্যাংশাস]",
+            "pos": "adjective",
+            "banglaMeaning": "উদ্বিগ্ন বা চিন্তিত",
+            "exampleEn": "She felt anxious while waiting for the interview verdict.",
+            "exampleBn": "সাক্ষাৎকারের সিদ্ধান্তের জন্য অপেক্ষা করার সময় তিনি উদ্বিগ্ন বোধ করছিলেন।"
+          },
+          "adverb": {
+            "word": "Anxiously",
+            "banglaPronunciation": "['অ্যাংশাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "উদ্বেগের সাথে বা উৎকণ্ঠা নিয়ে",
+            "exampleEn": "Parents paced anxiously outside the hospital operating theater.",
+            "exampleBn": "হাসপাতালের অপারেশন থিয়েটারের বাইরে অভিভাবকরা উৎকণ্ঠা নিয়ে হাঁটাহাঁটি করছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-17",
@@ -1811,7 +2468,41 @@ const CURRICULUM_DATA = {
             "targetWord": "apologize",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Apology",
+            "banglaPronunciation": "['অ্যাপোলজি]",
+            "pos": "noun",
+            "banglaMeaning": "ক্ষমা প্রার্থনা বা দুঃখ প্রকাশ",
+            "exampleEn": "He offered a sincere public apology for his late arrival.",
+            "exampleBn": "দেরিতে আসার জন্য তিনি আন্তরিকভাবে প্রকাশ্যে ক্ষমা প্রার্থনা করেছিলেন।"
+          },
+          "verb": {
+            "word": "Apologize",
+            "banglaPronunciation": "['অ্যাপোলোজাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "ক্ষমা চাওয়া বা দুঃখ প্রকাশ করা",
+            "exampleEn": "Never hesitate to apologize when you make an honest mistake.",
+            "exampleBn": "সৎ কোনো ভুল করলে ক্ষমা চাইতে কখনই ইতস্তত করবেন না।"
+          },
+          "adjective": {
+            "word": "Apologetic",
+            "banglaPronunciation": "['অ্যাপোলোজেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুতপ্ত বা ক্ষমাপ্রার্থী",
+            "exampleEn": "She gave an apologetic wave after accidentally dropping the cup.",
+            "exampleBn": "ভুলবশত কাপটি ফেলে দেওয়ার পর তিনি অনুতপ্ত ভঙ্গিতে হাত নাড়লেন।"
+          },
+          "adverb": {
+            "word": "Apologetically",
+            "banglaPronunciation": "['অ্যাপোলোজেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "অনুতপ্ত চিত্তে বা দুঃখের সাথে",
+            "exampleEn": "The waiter smiled apologetically and brought a fresh napkin.",
+            "exampleBn": "ওয়েটার অনুতপ্ত চিত্তে মৃদু হেসে একটি নতুন ন্যাপকিন এনে দিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-18",
@@ -1891,7 +2582,41 @@ const CURRICULUM_DATA = {
             "targetWord": "appear",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Appearance",
+            "banglaPronunciation": "['অ্যাপিয়ারেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "উপস্থিতি, আবির্ভাব বা বহির্রূপ",
+            "exampleEn": "The sudden appearance of the comet amazed astronomers.",
+            "exampleBn": "ধূমকেতুর আকস্মিক আবির্ভাব জ্যোতির্বিজ্ঞানীদের বিস্মিত করেছিল।"
+          },
+          "verb": {
+            "word": "Appear",
+            "banglaPronunciation": "['অ্যাপিয়ার]",
+            "pos": "verb",
+            "banglaMeaning": "উপস্থিত হওয়া বা দৃশ্যমান হওয়া",
+            "exampleEn": "Bright stars begin to appear as twilight falls.",
+            "exampleBn": "গোধূলি নামার সাথে সাথে উজ্জ্বল নক্ষত্র দৃশ্যমান হতে শুরু করে।"
+          },
+          "adjective": {
+            "word": "Apparent",
+            "banglaPronunciation": "['অ্যাপারেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "স্পষ্ট বা আপাতদৃষ্ট",
+            "exampleEn": "It became apparent that the project needed more time.",
+            "exampleBn": "এটি স্পষ্ট হয়ে উঠেছিল যে প্রকল্পের জন্য আরও সময় প্রয়োজন।"
+          },
+          "adverb": {
+            "word": "Apparently",
+            "banglaPronunciation": "['অ্যাপারেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আপাতদৃষ্টিতে বা স্পষ্টতই",
+            "exampleEn": "Apparently, the morning train was delayed by heavy mist.",
+            "exampleBn": "আপাতদৃষ্টিতে, ঘন কুয়াশার কারণে সকালের ট্রেন বিলম্বিত হয়েছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-19",
@@ -1971,7 +2696,41 @@ const CURRICULUM_DATA = {
             "targetWord": "appreciate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Appreciation",
+            "banglaPronunciation": "['অ্যাপ্রিসিয়েশন]",
+            "pos": "noun",
+            "banglaMeaning": "মূল্যায়ন, তারিফ বা কৃতজ্ঞতা",
+            "exampleEn": "Employees showed appreciation for the new flexible schedule.",
+            "exampleBn": "নতুন নমনীয় কর্মঘণ্টার প্রতি কর্মীরা আন্তরিক কৃতজ্ঞতা প্রকাশ করেছিলেন।"
+          },
+          "verb": {
+            "word": "Appreciate",
+            "banglaPronunciation": "['অ্যাপ্রিশিয়েট]",
+            "pos": "verb",
+            "banglaMeaning": "কদর করা বা তারিফ করা",
+            "exampleEn": "I deeply appreciate your tireless efforts on our team.",
+            "exampleBn": "আমাদের দলে আপনার অক্লান্ত প্রচেষ্টার আমি গভীর কদর করি।"
+          },
+          "adjective": {
+            "word": "Appreciative",
+            "banglaPronunciation": "['অ্যাপ্রিশিয়েটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "কৃতজ্ঞ বা সমঝদার",
+            "exampleEn": "The appreciative audience applauded enthusiastically.",
+            "exampleBn": "সমঝদার দর্শকরা উচ্ছ্বসিত হয়ে করতালি দিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Appreciatively",
+            "banglaPronunciation": "['অ্যাপ্রিশিয়েটিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "কৃতজ্ঞতার সাথে বা প্রশংসাসূচকভাবে",
+            "exampleEn": "She nodded appreciatively after tasting the homemade soup.",
+            "exampleBn": "বাড়িতে তৈরি স্যুপের স্বাদ নিয়ে তিনি প্রশংসাসূচকভাবে মাথা নাড়লেন।"
+          }
+        }
       },
       {
         "id": "beg-a-20",
@@ -2051,7 +2810,34 @@ const CURRICULUM_DATA = {
             "targetWord": "approach",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Approach",
+            "banglaPronunciation": "['অ্যাপ্রোচ]",
+            "pos": "noun",
+            "banglaMeaning": "পদ্ধতি, দৃষ্টিভঙ্গি বা আগমন",
+            "exampleEn": "We need a collaborative approach to solve climate challenges.",
+            "exampleBn": "জলবায়ুর চ্যালেঞ্জ মোকাবিলায় আমাদের সমন্বিত দৃষ্টিভঙ্গি প্রয়োজন।"
+          },
+          "verb": {
+            "word": "Approach",
+            "banglaPronunciation": "['অ্যাপ্রোচ]",
+            "pos": "verb",
+            "banglaMeaning": "কাছে যাওয়া বা অগ্রসর হওয়া",
+            "exampleEn": "Approach the laboratory equipment with caution and care.",
+            "exampleBn": "সতর্কতা ও যত্নের সাথে গবেষণাগারের যন্ত্রপাতির কাছে যান।"
+          },
+          "adjective": {
+            "word": "Approachable",
+            "banglaPronunciation": "['অ্যাপ্রোচেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "সহজগম্য বা সদালাপী",
+            "exampleEn": "The department head is friendly and approachable.",
+            "exampleBn": "বিভাগীয় প্রধান অত্যন্ত বন্ধুবৎসল এবং সহজে কাছে যাওয়ার মতো ব্যক্তি।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-21",
@@ -2131,7 +2917,41 @@ const CURRICULUM_DATA = {
             "targetWord": "approve",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Approval",
+            "banglaPronunciation": "['অ্যাপ্রুভাল]",
+            "pos": "noun",
+            "banglaMeaning": "অনুমোদন বা সম্মতি",
+            "exampleEn": "The budget proposal gained the council's unanimous approval.",
+            "exampleBn": "বাজেট প্রস্তাবটি কাউন্সিলের সর্বসম্মত অনুমোদন লাভ করেছিল।"
+          },
+          "verb": {
+            "word": "Approve",
+            "banglaPronunciation": "['অ্যাপ্রুভ]",
+            "pos": "verb",
+            "banglaMeaning": "অনুমোদন করা বা পছন্দ করা",
+            "exampleEn": "The director will approve the final film editing draft.",
+            "exampleBn": "পরিচালক চলচ্চিত্রের চূড়ান্ত সম্পাদনা অনুমোদন করবেন।"
+          },
+          "adjective": {
+            "word": "Approving",
+            "banglaPronunciation": "['অ্যাপ্রুভিং]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুমোদনসূচক বা প্রশংসামূলক",
+            "exampleEn": "Her mentor gave an approving nod during her presentation.",
+            "exampleBn": "তার উপস্থাপনার সময় মেন্টর অনুমোদনসূচক সম্মতি জানিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Approvingly",
+            "banglaPronunciation": "['অ্যাপ্রুভিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অনুমোদনের সাথে বা সন্তুষ্টির সাথে",
+            "exampleEn": "The professor looked approvingly at the well-researched essay.",
+            "exampleBn": "অধ্যাপক চমৎকার গবেষণালব্ধ প্রবন্ধটির দিকে সন্তুষ্টির সাথে তাকালেন।"
+          }
+        }
       },
       {
         "id": "beg-a-22",
@@ -2211,7 +3031,41 @@ const CURRICULUM_DATA = {
             "targetWord": "argue",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Argument",
+            "banglaPronunciation": "['আর্গুমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "যুক্তি বা বিতর্ক",
+            "exampleEn": "She presented a compelling logical argument in court.",
+            "exampleBn": "তিনি আদালতে একটি জোরালো ও যৌক্তিক যুক্তি উপস্থাপন করেছিলেন।"
+          },
+          "verb": {
+            "word": "Argue",
+            "banglaPronunciation": "['আর্গিউ]",
+            "pos": "verb",
+            "banglaMeaning": "যুক্তি দেওয়া বা তর্ক করা",
+            "exampleEn": "Lawyers argue persuasively before the jury panel.",
+            "exampleBn": "আইনজীবীরা জুরি প্যানেলের সামনে যুক্তি দিয়ে তর্ক করেন।"
+          },
+          "adjective": {
+            "word": "Argumentative",
+            "banglaPronunciation": "['আর্গুমেন্টেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "বিতর্কপ্রবণ বা তর্কাশ্রয়ী",
+            "exampleEn": "Avoid being argumentative during peaceful negotiations.",
+            "exampleBn": "শান্তিপূর্ণ আলোচনার সময় বিতর্কপ্রবণ আচরণ এড়িয়ে চলুন।"
+          },
+          "adverb": {
+            "word": "Arguably",
+            "banglaPronunciation": "['আর্গিউয়েবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "যুক্তিসঙ্গতভাবেই বা বলা যায়",
+            "exampleEn": "Shakespeare is arguably the greatest playwright in English.",
+            "exampleBn": "বলা যায় শেক্সপিয়র ইংরেজি ভাষার শ্রেষ্ঠতম নাট্যকার।"
+          }
+        }
       },
       {
         "id": "beg-a-23",
@@ -2291,7 +3145,34 @@ const CURRICULUM_DATA = {
             "targetWord": "arrange",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Arrangement",
+            "banglaPronunciation": "['অ্যারেঞ্জমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "ব্যবস্থা বা সুবিন্যাস",
+            "exampleEn": "The floral arrangement on the dining table was stunning.",
+            "exampleBn": "খাবার টেবিলের ফুলের বিন্যাসটি ছিল নজরকাড়া।"
+          },
+          "verb": {
+            "word": "Arrange",
+            "banglaPronunciation": "['অ্যারেঞ্জ]",
+            "pos": "verb",
+            "banglaMeaning": "সাজানো বা আয়োজন করা",
+            "exampleEn": "Volunteers helped arrange chairs for the community seminar.",
+            "exampleBn": "স্বেচ্ছাসেবকরা কমিউনিটি সেমিনারের জন্য চেয়ার সাজাতে সাহায্য করেছিল।"
+          },
+          "adjective": {
+            "word": "Arranged",
+            "banglaPronunciation": "['অ্যারেঞ্জড]",
+            "pos": "adjective",
+            "banglaMeaning": "সুবিন্যস্ত বা নির্ধারিত",
+            "exampleEn": "Books were neatly arranged by genre on the wooden shelves.",
+            "exampleBn": "কাঠের তাকে বইগুলো বিষয়ভিত্তিক সুন্দরভাবে সাজানো ছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-24",
@@ -2371,7 +3252,27 @@ const CURRICULUM_DATA = {
             "targetWord": "arrive",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Arrival",
+            "banglaPronunciation": "['অ্যারাইভাল]",
+            "pos": "noun",
+            "banglaMeaning": "আগমন বা পৌঁছানো",
+            "exampleEn": "Passengers waited eagerly for the flight's scheduled arrival.",
+            "exampleBn": "যাত্রীরা ফ্লাইটের নির্ধারিত আগমনের জন্য অধীর আগ্রহে অপেক্ষা করছিলেন।"
+          },
+          "verb": {
+            "word": "Arrive",
+            "banglaPronunciation": "['অ্যারাইভ]",
+            "pos": "verb",
+            "banglaMeaning": "পৌঁছানো বা উপস্থিত হওয়া",
+            "exampleEn": "We expect the international delegates to arrive tomorrow noon.",
+            "exampleBn": "আমরা আন্তর্জাতিক প্রতিনিধিদের আগামীকাল দুপুরে পৌঁছানোর প্রত্যাশা করছি।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-25",
@@ -2451,7 +3352,34 @@ const CURRICULUM_DATA = {
             "targetWord": "assist",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Assistance",
+            "banglaPronunciation": "['অ্যাসিস্টেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "সহায়তা বা সাহায্য",
+            "exampleEn": "First responders provided medical assistance to the injured.",
+            "exampleBn": "জরুরি উদ্ধারকারী দল আহতদের চিকিৎসা সহায়তা প্রদান করেছিল।"
+          },
+          "verb": {
+            "word": "Assist",
+            "banglaPronunciation": "['অ্যাসিস্ট]",
+            "pos": "verb",
+            "banglaMeaning": "সাহায্য করা বা সহায়তা করা",
+            "exampleEn": "A volunteer stepped forward to assist the elderly passenger.",
+            "exampleBn": "একজন স্বেচ্ছাসেবক বয়োজ্যেষ্ঠ যাত্রীকে সাহায্য করতে এগিয়ে এলেন।"
+          },
+          "adjective": {
+            "word": "Assistant",
+            "banglaPronunciation": "['অ্যাসিস্টেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সহকারী বা সহায়ক",
+            "exampleEn": "She was appointed assistant director of the research institute.",
+            "exampleBn": "তিনি গবেষণা ইনস্টিটিউটের সহকারী পরিচালক হিসেবে নিযুক্ত হয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-26",
@@ -2531,7 +3459,41 @@ const CURRICULUM_DATA = {
             "targetWord": "absorb",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Absorption",
+            "banglaPronunciation": "['অ্যাবজরপশন]",
+            "pos": "noun",
+            "banglaMeaning": "শোষণ বা নিমগ্নতা",
+            "exampleEn": "The absorption of nutrients occurs mainly in the small intestine.",
+            "exampleBn": "পুষ্টির শোষণ মূলত ক্ষুদ্রান্ত্রে ঘটে থাকে।"
+          },
+          "verb": {
+            "word": "Absorb",
+            "banglaPronunciation": "['অ্যাবজর্ব]",
+            "pos": "verb",
+            "banglaMeaning": "শোষণ করা বা শুষে নেওয়া",
+            "exampleEn": "A dry sponge will absorb spilled water in seconds.",
+            "exampleBn": "শুকনো স্পঞ্জ কয়েক সেকেন্ডেই উপচে পড়া পানি শুষে নেয়।"
+          },
+          "adjective": {
+            "word": "Absorbent",
+            "banglaPronunciation": "['অ্যাবজরবেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "শোষণক্ষম বা ভেদ্য",
+            "exampleEn": "Cotton towels are naturally soft and highly absorbent.",
+            "exampleBn": "সুতি তোয়ালে স্বভাবতই নরম এবং দারুণ শোষণক্ষম।"
+          },
+          "adverb": {
+            "word": "Absorbingly",
+            "banglaPronunciation": "['অ্যাবজরবিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "মুগ্ধকরভাবে বা আকর্ষণীয়ভাবে",
+            "exampleEn": "The historical novel was absorbingly written from start to finish.",
+            "exampleBn": "ঐতিহাসিক উপন্যাসটি শুরু থেকে শেষ পর্যন্ত মুগ্ধকরভাবে লেখা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-27",
@@ -2611,7 +3573,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abstract",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abstraction",
+            "banglaPronunciation": "['অ্যাবস্ট্রাকশন]",
+            "pos": "noun",
+            "banglaMeaning": "বিমূর্তায়ন বা বিমূর্ত ভাব",
+            "exampleEn": "Pure mathematics often operates at high levels of abstraction.",
+            "exampleBn": "খাঁটি গণিত প্রায়শই উচ্চস্তরের বিমূর্ত ধারণার ওপর পরিচালিত হয়।"
+          },
+          "verb": {
+            "word": "Abstract",
+            "banglaPronunciation": "['অ্যাবস্ট্রাক্ট]",
+            "pos": "verb",
+            "banglaMeaning": "সারসংক্ষেপ করা বা নিষ্কাশন করা",
+            "exampleEn": "Researchers abstract key findings into an executive summary.",
+            "exampleBn": "গবেষকরা মূল ফলাফলগুলোকে একটি নির্বাহী সারসংক্ষেপে রূপ দেন।"
+          },
+          "adjective": {
+            "word": "Abstract",
+            "banglaPronunciation": "['অ্যাবস্ট্রাক্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "বিমূর্ত বা ভাবমূলক",
+            "exampleEn": "Freedom is an abstract concept with profound real-world weight.",
+            "exampleBn": "স্বাধীনতা হলো গভীর বাস্তব গুরুত্বসম্পন্ন একটি বিমূর্ত ধারণা।"
+          },
+          "adverb": {
+            "word": "Abstractly",
+            "banglaPronunciation": "['অ্যাবস্ট্রাক্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিমূর্তভাবে বা তাত্ত্বিকভাবে",
+            "exampleEn": "Philosophers discuss justice abstractly before examining court cases.",
+            "exampleBn": "দার্শনিকরা আদালতের মামলার পূর্বে ন্যায়বিচার নিয়ে তাত্ত্বিকভাবে আলোচনা করেন।"
+          }
+        }
       },
       {
         "id": "beg-a-28",
@@ -2691,7 +3687,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abuse",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abuse",
+            "banglaPronunciation": "['অ্যাবিউজ]",
+            "pos": "noun",
+            "banglaMeaning": "অপব্যবহার বা নির্যাতন",
+            "exampleEn": "Strict laws prevent the abuse of executive authority.",
+            "exampleBn": "কঠোর আইন প্রশাসনিক ক্ষমতার অপব্যবহার রোধ করে।"
+          },
+          "verb": {
+            "word": "Abuse",
+            "banglaPronunciation": "['অ্যাবিউজ]",
+            "pos": "verb",
+            "banglaMeaning": "অপব্যবহার করা বা অন্যায় আচরণ করা",
+            "exampleEn": "Leaders must never abuse their power for private gain.",
+            "exampleBn": "নেতাদের কখনই ব্যক্তিগত লাভের জন্য ক্ষমতার অপব্যবহার করা উচিত নয়।"
+          },
+          "adjective": {
+            "word": "Abusive",
+            "banglaPronunciation": "['অ্যাবিউসিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "অপব্যবহারমূলক বা আক্রমণাত্মক",
+            "exampleEn": "Online moderators immediately ban users posting abusive comments.",
+            "exampleBn": "অনলাইন নিয়ন্ত্রকরা আক্রমণাত্মক মন্তব্য করা ব্যবহারকারীদের সঙ্গে সঙ্গে নিষিদ্ধ করেন।"
+          },
+          "adverb": {
+            "word": "Abusively",
+            "banglaPronunciation": "['অ্যাবিউসিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আক্রমণাত্মকভাবে বা রূঢ়ভাবে",
+            "exampleEn": "The angry customer shouted abusively at the counter staff.",
+            "exampleBn": "ক্ষুব্ধ গ্রাহক কাউন্টার কর্মীদের ওপর আক্রমণাত্মকভাবে চিৎকার করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-29",
@@ -2771,7 +3801,34 @@ const CURRICULUM_DATA = {
             "targetWord": "academic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Academic",
+            "banglaPronunciation": "['অ্যাকাডেমিক]",
+            "pos": "noun",
+            "banglaMeaning": "শিক্ষাবিদ বা অ্যাকাডেমিক গবেষক",
+            "exampleEn": "Distinguished academics gathered for the global history conference.",
+            "exampleBn": "বিশ্ব ইতিহাস সম্মেলনের জন্য বিশিষ্ট শিক্ষাবিদরা সমবেত হয়েছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Academic",
+            "banglaPronunciation": "['অ্যাকাডেমিক]",
+            "pos": "adjective",
+            "banglaMeaning": "শিক্ষা সংক্রান্ত বা প্রাতিষ্ঠানিক",
+            "exampleEn": "Her stellar academic record opened doors to top universities.",
+            "exampleBn": "তার দুর্দান্ত প্রাতিষ্ঠানিক ফলাফল শীর্ষ বিশ্ববিদ্যালয়গুলোর দুয়ার খুলে দিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Academically",
+            "banglaPronunciation": "['অ্যাকাডেমিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "শিক্ষা বা অ্যাকাডেমিক দৃষ্টিকোণ থেকে",
+            "exampleEn": "She performed academically better than her peers.",
+            "exampleBn": "তিনি প্রাতিষ্ঠানিকভাবে তার সহপাঠীদের চেয়ে ভালো ফলাফল করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-30",
@@ -2851,7 +3908,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accent",
+            "banglaPronunciation": "['অ্যাকসেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "উচ্চারণভঙ্গি বা জোর",
+            "exampleEn": "He speaks fluent English with a soft British accent.",
+            "exampleBn": "তিনি মিষ্টি ব্রিটিশ উচ্চারণভঙ্গিতে সাবলীল ইংরেজি বলেন।"
+          },
+          "verb": {
+            "word": "Accentuate",
+            "banglaPronunciation": "['অ্যাকসেনচুয়েট]",
+            "pos": "verb",
+            "banglaMeaning": "স্পষ্টতর করা বা জোর দেওয়া",
+            "exampleEn": "The stage lighting served to accentuate the dancers' graceful movements.",
+            "exampleBn": "মঞ্চের আলো নৃত্যশিল্পীদের ছন্দময় অঙ্গভঙ্গিকে আরও স্পষ্ট করে তুলেছিল।"
+          },
+          "adjective": {
+            "word": "Accented",
+            "banglaPronunciation": "['অ্যাকসেন্টেড]",
+            "pos": "adjective",
+            "banglaMeaning": "আঞ্চলিক টানযুক্ত বা স্বরাঘাতযুক্ত",
+            "exampleEn": "She noticed his accented pronunciation of vowels.",
+            "exampleBn": "তিনি তার স্বরবর্ণের বিশেষ আঞ্চলিক উচ্চারণভঙ্গি লক্ষ্য করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-31",
@@ -2931,7 +4015,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accident",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accident",
+            "banglaPronunciation": "['অ্যাকসিডেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "দুর্ঘটনা বা আকস্মিক ঘটনা",
+            "exampleEn": "Wearing seatbelts minimizes injury in a car accident.",
+            "exampleBn": "সিটবেল্ট পরা গাড়ি দুর্ঘটনায় আঘাতের ঝুঁকি হ্রাস করে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Accidental",
+            "banglaPronunciation": "['অ্যাকসিডেন্টাল]",
+            "pos": "adjective",
+            "banglaMeaning": "আকস্মিক বা অনাকাঙ্ক্ষিত",
+            "exampleEn": "The fire was confirmed as an accidental electrical short circuit.",
+            "exampleBn": "অগ্নিকাণ্ডটি একটি অনাকাঙ্ক্ষিত বৈদ্যুতিক শর্ট সার্কিট হিসেবে নিশ্চিত করা হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Accidentally",
+            "banglaPronunciation": "['অ্যাকসিডেন্টালি]",
+            "pos": "adverb",
+            "banglaMeaning": "দুর্ঘটনাবশত বা ভুলক্রমে",
+            "exampleEn": "He accidentally deleted the draft before saving the file.",
+            "exampleBn": "ফাইলটি সেভ করার আগেই তিনি ভুলক্রমে ড্রাফটটি মুছে ফেলেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-32",
@@ -3011,7 +4122,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accompany",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accompaniment",
+            "banglaPronunciation": "['অ্যাকম্পানিমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "সঙ্গ বা বাদ্যসঙ্গতি",
+            "exampleEn": "The soprano sang with gentle piano accompaniment.",
+            "exampleBn": "গায়িকা মৃদু পিয়ানোর বাদ্যসঙ্গতের সাথে গান গেয়েছিলেন।"
+          },
+          "verb": {
+            "word": "Accompany",
+            "banglaPronunciation": "['অ্যাকম্পানি]",
+            "pos": "verb",
+            "banglaMeaning": "সঙ্গ দেওয়া বা সাথে যাওয়া",
+            "exampleEn": "Maya volunteered to accompany her grandmother to the clinic.",
+            "exampleBn": "মায়া তার দাদিকে ক্লিনিকে সঙ্গ দিতে স্বেচ্ছায় এগিয়ে এসেছিল।"
+          },
+          "adjective": {
+            "word": "Accompanying",
+            "banglaPronunciation": "['অ্যাকম্পানিং]",
+            "pos": "adjective",
+            "banglaMeaning": "সহগামী বা সংলগ্ন",
+            "exampleEn": "Read the accompanying booklet before operating the machine.",
+            "exampleBn": "যন্ত্রটি চালানোর পূর্বে সংলগ্ন পুস্তিকাটি পড়ে নিন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-33",
@@ -3091,7 +4229,41 @@ const CURRICULUM_DATA = {
             "targetWord": "account",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Account",
+            "banglaPronunciation": "['অ্যাকাউন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "হিসাব, খাতা বা বিবরণ",
+            "exampleEn": "She opened a savings account at the local post office.",
+            "exampleBn": "তিনি স্থানীয় পোস্ট অফিসে একটি সঞ্চয়ী হিসাব খুলেছিলেন।"
+          },
+          "verb": {
+            "word": "Account",
+            "banglaPronunciation": "['অ্যাকাউন্ট]",
+            "pos": "verb",
+            "banglaMeaning": "হিসাব দেওয়া বা কারণ ব্যাখ্যা করা",
+            "exampleEn": "Cold weather accounts for the recent drop in tourism.",
+            "exampleBn": "শীতল আবহাওয়া সাম্প্রতিক পর্যটন হ্রাসের কারণ ব্যাখ্যা করে।"
+          },
+          "adjective": {
+            "word": "Accountable",
+            "banglaPronunciation": "['অ্যাকাউন্টেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "দায়বদ্ধ বা জবাবদিহিযোগ্য",
+            "exampleEn": "Elected officials must remain accountable to the public.",
+            "exampleBn": "নির্বাচিত প্রতিনিধিদের অবশ্যই জনগণের কাছে দায়বদ্ধ থাকতে হবে।"
+          },
+          "adverb": {
+            "word": "Accountably",
+            "banglaPronunciation": "['অ্যাকাউন্টেবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "জবাবদিহিতার সাথে",
+            "exampleEn": "The committee acted accountably throughout the budget allocation.",
+            "exampleBn": "বাজেট বরাদ্দের পুরো সময়ে কমিটি জবাবদিহিতার সাথে কাজ করেছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-34",
@@ -3171,7 +4343,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accustom",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Custom",
+            "banglaPronunciation": "['কাস্টম]",
+            "pos": "noun",
+            "banglaMeaning": "প্রথা বা অভ্যাস",
+            "exampleEn": "Sharing festive sweets is an ancient family custom.",
+            "exampleBn": "উৎসবের মিষ্টি বিতরণ করা একটি প্রাচীন পারিবারিক প্রথা।"
+          },
+          "verb": {
+            "word": "Accustom",
+            "banglaPronunciation": "['অ্যাকাস্টম]",
+            "pos": "verb",
+            "banglaMeaning": "অভ্যস্ত করা বা মানিয়ে নেওয়া",
+            "exampleEn": "It takes time to accustom your eyes to bright morning glare.",
+            "exampleBn": "সকালের প্রখর আলোর সাথে চোখ অভ্যস্ত করতে কিছুটা সময় লাগে।"
+          },
+          "adjective": {
+            "word": "Accustomed",
+            "banglaPronunciation": "['অ্যাকাস্টমড]",
+            "pos": "adjective",
+            "banglaMeaning": "অভ্যস্ত বা পরিচিত",
+            "exampleEn": "He is accustomed to waking up at dawn for daily runs.",
+            "exampleBn": "তিনি প্রতিদিনের দৌড়ের জন্য ভোরে ঘুম থেকে উঠতে অভ্যস্ত।"
+          },
+          "adverb": {
+            "word": "Accustomedly",
+            "banglaPronunciation": "['অ্যাকাস্টমডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "স্বভাবসুলভভাবে",
+            "exampleEn": "She accustomedly took her favorite window seat on the train.",
+            "exampleBn": "তিনি স্বভাবসুলভভাবে ট্রেনের জানালার ধারের প্রিয় আসনটিতে বসলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-35",
@@ -3251,7 +4457,41 @@ const CURRICULUM_DATA = {
             "targetWord": "actual",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Actuality",
+            "banglaPronunciation": "['অ্যাকচুয়ালিটি]",
+            "pos": "noun",
+            "banglaMeaning": "বাস্তবতা বা প্রকৃত অবস্থা",
+            "exampleEn": "In actuality, the project cost less than the initial forecast.",
+            "exampleBn": "বাস্তবে, প্রকল্পটি প্রাথমিক অনুমানের চেয়ে কম ব্যয়ে সম্পন্ন হয়েছিল।"
+          },
+          "verb": {
+            "word": "Actualize",
+            "banglaPronunciation": "['অ্যাকচুয়ালাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "বাস্তবায়ন করা বা সত্যে রূপ দেওয়া",
+            "exampleEn": "Hard work helps entrepreneurs actualize ambitious business ideas.",
+            "exampleBn": "কঠোর পরিশ্রম উদ্যোক্তাদের উচ্চাভিলাষী পরিকল্পনা বাস্তবায়নে সহায়তা করে।"
+          },
+          "adjective": {
+            "word": "Actual",
+            "banglaPronunciation": "['অ্যাকচুয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রকৃত বা আসল",
+            "exampleEn": "The actual temperature felt colder due to biting winds.",
+            "exampleBn": "ঝড়ো বাতাসের কারণে প্রকৃত তাপমাত্রা আরও বেশি ঠান্ডা মনে হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Actually",
+            "banglaPronunciation": "['অ্যাকচুয়ালি]",
+            "pos": "adverb",
+            "banglaMeaning": "আসলে বা প্রকৃতপক্ষে",
+            "exampleEn": "She actually completed the marathon in record time.",
+            "exampleBn": "তিনি প্রকৃতপক্ষে রেকর্ড সময়ে ম্যারাথন শেষ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-36",
@@ -3331,7 +4571,41 @@ const CURRICULUM_DATA = {
             "targetWord": "admirable",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Admiration",
+            "banglaPronunciation": "['অ্যাডমিরেশন]",
+            "pos": "noun",
+            "banglaMeaning": "প্রশংসা বা সমাদর",
+            "exampleEn": "Her quiet courage won the deep admiration of her peers.",
+            "exampleBn": "তার শান্ত সাহস সহকর্মীদের গভীর সমাদর লাভ করেছিল।"
+          },
+          "verb": {
+            "word": "Admire",
+            "banglaPronunciation": "['অ্যাডমায়ার]",
+            "pos": "verb",
+            "banglaMeaning": "প্রশংসা করা",
+            "exampleEn": "We admire artists who capture natural light brilliantly.",
+            "exampleBn": "আমরা সেই শিল্পীদের প্রশংসা করি যারা প্রাকৃতিক আলো চমৎকারভাবে ফুটিয়ে তোলেন।"
+          },
+          "adjective": {
+            "word": "Admirable",
+            "banglaPronunciation": "['অ্যাডমিরেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রশংসনীয় বা প্রশংসার যোগ্য",
+            "exampleEn": "Honesty in difficult situations is an admirable virtue.",
+            "exampleBn": "কঠিন পরিস্থিতিতে সততা প্রদর্শন এক প্রশংসনীয় গুণ।"
+          },
+          "adverb": {
+            "word": "Admirably",
+            "banglaPronunciation": "['অ্যাডমিরেবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রশংসনীয়ভাবে",
+            "exampleEn": "The young debater handled tough cross-examinations admirably.",
+            "exampleBn": "তরুণ বিতার্কিক কঠিন জেরাগুলো প্রশংসনীয়ভাবে সামলেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-37",
@@ -3411,7 +4685,41 @@ const CURRICULUM_DATA = {
             "targetWord": "admit",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Admission",
+            "banglaPronunciation": "['অ্যাডমিশন]",
+            "pos": "noun",
+            "banglaMeaning": "ভর্তি, প্রবেশাধিকার বা স্বীকারোক্তি",
+            "exampleEn": "Museum admission is free for students on weekends.",
+            "exampleBn": "সাপ্তাহিক ছুটির দিনে শিক্ষার্থীদের জন্য জাদুঘরে প্রবেশ সম্পূর্ণ ফ্রি।"
+          },
+          "verb": {
+            "word": "Admit",
+            "banglaPronunciation": "['অ্যাডমিট]",
+            "pos": "verb",
+            "banglaMeaning": "স্বীকার করা বা প্রবেশ করতে দেওয়া",
+            "exampleEn": "It takes integrity to admit an honest mistake.",
+            "exampleBn": "সৎ ভুল স্বীকার করার জন্য আত্মিক সততার প্রয়োজন।"
+          },
+          "adjective": {
+            "word": "Admissible",
+            "banglaPronunciation": "['অ্যাডমিসিবল]",
+            "pos": "adjective",
+            "banglaMeaning": "গ্রহণযোগ্য বা সাক্ষ্যযোগ্য",
+            "exampleEn": "The judge ruled the forensic data admissible in court.",
+            "exampleBn": "বিচারক ফরেনসিক তথ্যটি আদালতে গ্রহণযোগ্য বলে রায় দিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Admittedly",
+            "banglaPronunciation": "['অ্যাডমিটেডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "স্বীকার করতেই হয় যে",
+            "exampleEn": "Admittedly, the preliminary exam was more challenging than expected.",
+            "exampleBn": "স্বীকার করতেই হয় যে প্রাথমিক পরীক্ষাটি প্রত্যাশার চেয়ে কঠিন ছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-38",
@@ -3491,7 +4799,34 @@ const CURRICULUM_DATA = {
             "targetWord": "advance",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Advancement",
+            "banglaPronunciation": "['অ্যাডভান্সমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "অগ্রগতি বা পদোন্নতি",
+            "exampleEn": "Scientific advancement improves human living standards worldwide.",
+            "exampleBn": "বৈজ্ঞানিক অগ্রগতি বিশ্বজুড়ে মানুষের জীবনযাত্রার মান উন্নত করে।"
+          },
+          "verb": {
+            "word": "Advance",
+            "banglaPronunciation": "['অ্যাডভান্স]",
+            "pos": "verb",
+            "banglaMeaning": "এগিয়ে যাওয়া বা অগ্রসর হওয়া",
+            "exampleEn": "Daily vocabulary practice helps learners advance steadily.",
+            "exampleBn": "প্রতিদিনের শব্দচর্চা শিক্ষার্থীদের ধারাবাহিকভাবে এগিয়ে যেতে সাহায্য করে।"
+          },
+          "adjective": {
+            "word": "Advanced",
+            "banglaPronunciation": "['অ্যাডভান্সড]",
+            "pos": "adjective",
+            "banglaMeaning": "উন্নত বা উচ্চতর",
+            "exampleEn": "She enrolled in an advanced course on artificial intelligence.",
+            "exampleBn": "তিনি কৃত্রিম বুদ্ধিমত্তার ওপর একটি উচ্চতর কোর্সে ভর্তি হয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-39",
@@ -3571,7 +4906,34 @@ const CURRICULUM_DATA = {
             "targetWord": "advantage",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Advantage",
+            "banglaPronunciation": "['অ্যাডভান্টেজ]",
+            "pos": "noun",
+            "banglaMeaning": "সুবিধা বা সুযোগ",
+            "exampleEn": "Fluency in multiple languages gives candidates a great advantage.",
+            "exampleBn": "একাধিক ভাষায় অনর্গলতা প্রার্থীদের দারুণ সুবিধা এনে দেয়।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Advantageous",
+            "banglaPronunciation": "['অ্যাডভান্টেজাস]",
+            "pos": "adjective",
+            "banglaMeaning": "সুবিধাজনক বা লাভজনক",
+            "exampleEn": "The trade pact created advantageous terms for local exporters.",
+            "exampleBn": "বাণিজ্য চুক্তিটি স্থানীয় রপ্তানিকারকদের জন্য সুবিধাজনক শর্ত তৈরি করেছিল।"
+          },
+          "adverb": {
+            "word": "Advantageously",
+            "banglaPronunciation": "['অ্যাডভান্টেজাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সুবিধাজনকভাবে",
+            "exampleEn": "The new warehouse is advantageously situated near the highway.",
+            "exampleBn": "নতুন গুদামটি সুবিধাজনকভাবে মহাসড়কের নিকটে অবস্থিত।"
+          }
+        }
       },
       {
         "id": "beg-a-40",
@@ -3651,7 +5013,41 @@ const CURRICULUM_DATA = {
             "targetWord": "adventure",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adventure",
+            "banglaPronunciation": "['অ্যাডভেঞ্চার]",
+            "pos": "noun",
+            "banglaMeaning": "দুঃসাহসিক অভিযান বা রোমাঞ্চ",
+            "exampleEn": "Trekking through the Himalayas was a thrilling adventure.",
+            "exampleBn": "হিমালয়ের মধ্য দিয়ে ট্রেকিং ছিল এক রোমাঞ্চকর দুঃসাহসিক অভিযান।"
+          },
+          "verb": {
+            "word": "Venture",
+            "banglaPronunciation": "['ভেঞ্চার]",
+            "pos": "verb",
+            "banglaMeaning": "ঝুঁকি নিয়ে অগ্রসর হওয়া",
+            "exampleEn": "Few explorers venture into the uncharted frozen wilderness.",
+            "exampleBn": "খুব কম অভিযাত্রীই অচেনা বরফাবৃত বন্য অঞ্চলে ঝুঁকি নিয়ে প্রবেশ করেন।"
+          },
+          "adjective": {
+            "word": "Adventurous",
+            "banglaPronunciation": "['অ্যাডভেঞ্চারাস]",
+            "pos": "adjective",
+            "banglaMeaning": "দুঃসাহসী বা অভিযানপ্রিয়",
+            "exampleEn": "Adventurous travelers enjoy camping under starlit desert skies.",
+            "exampleBn": "অভিযানপ্রিয় ভ্রমণকারীরা তারার আলোয় ভরা মরুভূমির নিচে ক্যাম্পিং উপভোগ করেন।"
+          },
+          "adverb": {
+            "word": "Adventurously",
+            "banglaPronunciation": "['অ্যাডভেঞ্চারাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দুঃসাহসের সাথে বা রোমাঞ্চ নিয়ে",
+            "exampleEn": "They set off adventurously to raft the turbulent white waters.",
+            "exampleBn": "তারা রোমাঞ্চ নিয়ে উত্তাল খরস্রোতা নদীতে ভেলা ভাসাতে রওনা হলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-41",
@@ -3731,7 +5127,34 @@ const CURRICULUM_DATA = {
             "targetWord": "advertise",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Advertisement",
+            "banglaPronunciation": "['অ্যাডভারটাইজমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "বিজ্ঞাপন বা প্রচার",
+            "exampleEn": "The colorful billboard advertisement caught every commuter's eye.",
+            "exampleBn": "রঙিন বিলবোর্ড বিজ্ঞাপনটি প্রতিটি নিত্যযাত্রীর নজর কেড়েছিল।"
+          },
+          "verb": {
+            "word": "Advertise",
+            "banglaPronunciation": "['অ্যাডভারটাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "বিজ্ঞাপন দেওয়া বা প্রচার করা",
+            "exampleEn": "Bakeries advertise seasonal delicacies on social networks.",
+            "exampleBn": "বেকারিগুলো সামাজিক মাধ্যমে তাদের ঋতুভিত্তিক সুস্বাদু খাবারের বিজ্ঞাপন প্রচার করে।"
+          },
+          "adjective": {
+            "word": "Advertised",
+            "banglaPronunciation": "['অ্যাডভারটাইজড]",
+            "pos": "adjective",
+            "banglaMeaning": "বিজ্ঞাপিত বা প্রচারিত",
+            "exampleEn": "The advertised discount attracted long queues of eager shoppers.",
+            "exampleBn": "বিজ্ঞাপিত ছাড়ের খবর পেয়ে উৎসুক ক্রেতাদের দীর্ঘ লাইন লেগে গিয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-42",
@@ -3811,7 +5234,41 @@ const CURRICULUM_DATA = {
             "targetWord": "affect",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affect",
+            "banglaPronunciation": "['অ্যাফেক্ট]",
+            "pos": "noun",
+            "banglaMeaning": "আবেগীয় প্রকাশ বা অনুভূতি",
+            "exampleEn": "Psychologists observe a patient's facial affect during clinical evaluations.",
+            "exampleBn": "মনোবিজ্ঞানীরা চিকিৎসার মূল্যায়নে রোগীর মুখের আবেগীয় প্রকাশ পর্যবেক্ষণ করেন।"
+          },
+          "verb": {
+            "word": "Affect",
+            "banglaPronunciation": "['অ্যাফেক্ট]",
+            "pos": "verb",
+            "banglaMeaning": "প্রভাবিত করা বা প্রভাব ফেলা",
+            "exampleEn": "Adequate restful sleep directly affects daily cognitive focus.",
+            "exampleBn": "পর্যাপ্ত আরামদায়ক ঘুম দৈনন্দিন মনোযোগের ওপর সরাসরি প্রভাব ফেলে।"
+          },
+          "adjective": {
+            "word": "Affected",
+            "banglaPronunciation": "['অ্যাফেক্টেড]",
+            "pos": "adjective",
+            "banglaMeaning": "ক্ষতিগ্রস্ত বা প্রভাবিত",
+            "exampleEn": "Relief supplies reached the flood-affected coastal communities promptly.",
+            "exampleBn": "ত্রাণসামগ্রী দ্রুত বন্যা-কবলিত উপকূলীয় জনগোষ্ঠীর কাছে পৌঁছে গিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Affectingly",
+            "banglaPronunciation": "['অ্যাফেক্টিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "হৃদয়স্পর্শীভাবে",
+            "exampleEn": "She spoke affectingly about the sacrifices of rural mothers.",
+            "exampleBn": "তিনি গ্রামীণ মায়েদের আত্মত্যাগ সম্পর্কে হৃদয়স্পর্শীভাবে কথা বলেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-43",
@@ -3891,7 +5348,34 @@ const CURRICULUM_DATA = {
             "targetWord": "affection",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affection",
+            "banglaPronunciation": "['অ্যাফেকশন]",
+            "pos": "noun",
+            "banglaMeaning": "স্নেহ, মমতা বা আন্তরিক অনুরাগ",
+            "exampleEn": "Grandparents treat children with boundless love and affection.",
+            "exampleBn": "দাদা-দাদিরা শিশুদের অফুরন্ত ভালোবাসা ও স্নেহে আগলে রাখেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Affectionate",
+            "banglaPronunciation": "['অ্যাফেকশনেট]",
+            "pos": "adjective",
+            "banglaMeaning": "স্নেহশীল বা মমতাময়ী",
+            "exampleEn": "The therapy dog greeted visitors with an affectionate nuzzle.",
+            "exampleBn": "থেরাপি কুকুরটি দর্শনার্থীদের মমতাময়ী পরশে স্বাগত জানিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Affectionately",
+            "banglaPronunciation": "['অ্যাফেকশনেটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "স্নেহভরে বা ভালোবেসে",
+            "exampleEn": "She hugged her younger brother affectionately before school.",
+            "exampleBn": "স্কুলে যাওয়ার আগে তিনি স্নেহভরে তার ছোট ভাইকে জড়িয়ে ধরলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-44",
@@ -3971,7 +5455,27 @@ const CURRICULUM_DATA = {
             "targetWord": "agency",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agency",
+            "banglaPronunciation": "['এজেন্সি]",
+            "pos": "noun",
+            "banglaMeaning": "সংস্থা, দপ্তর বা কর্তৃত্ব",
+            "exampleEn": "The international aid agency distributed food packets to refugees.",
+            "exampleBn": "আন্তর্জাতিক সাহায্য সংস্থাটি শরণার্থীদের মাঝে খাদ্য প্যাকেট বিতরণ করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Agential",
+            "banglaPronunciation": "['এজেনশিয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "কর্তৃত্বসংক্রান্ত বা প্রতিনিধিমূলক",
+            "exampleEn": "Sociologists study the agential power of community leaders.",
+            "exampleBn": "সমাজবিজ্ঞানীরা কমিউনিটি নেতাদের প্রতিনিধিমূলক ক্ষমতা নিয়ে গবেষণা করেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-45",
@@ -4051,7 +5555,41 @@ const CURRICULUM_DATA = {
             "targetWord": "alert",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alertness",
+            "banglaPronunciation": "['অ্যালার্টনেস]",
+            "pos": "noun",
+            "banglaMeaning": "সতর্কতা বা সজাগ ভাব",
+            "exampleEn": "The guard's sharp alertness prevented a potential security breach.",
+            "exampleBn": "প্রহরীর তীক্ষ্ণ সতর্কতা সম্ভাব্য নিরাপত্তা বিঘ্ন রোধ করেছিল।"
+          },
+          "verb": {
+            "word": "Alert",
+            "banglaPronunciation": "['অ্যালার্ট]",
+            "pos": "verb",
+            "banglaMeaning": "সতর্ক করা বা সাবধান করা",
+            "exampleEn": "Sirens sounded to alert residents of an approaching cyclone.",
+            "exampleBn": "আসন্ন ঘূর্ণিঝড় সম্পর্কে বাসিন্দাদের সতর্ক করতে সাইরেন বেজে উঠেছিল।"
+          },
+          "adjective": {
+            "word": "Alert",
+            "banglaPronunciation": "['অ্যালার্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সতর্ক বা সজাগ",
+            "exampleEn": "Night drivers must stay alert on dark mountain turns.",
+            "exampleBn": "রাতের চালকদের অন্ধকার পাহাড়ি বাঁকে অবশ্যই সজাগ থাকতে হবে।"
+          },
+          "adverb": {
+            "word": "Alertly",
+            "banglaPronunciation": "['অ্যালার্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সতর্কতার সাথে বা সজাগভাবে",
+            "exampleEn": "The watchman looked alertly down the dimly lit alley.",
+            "exampleBn": "পাহারাদার সতর্কতার সাথে আবছা আলোকিত গলির দিকে তাকালেন।"
+          }
+        }
       },
       {
         "id": "beg-a-46",
@@ -4131,7 +5669,34 @@ const CURRICULUM_DATA = {
             "targetWord": "alter",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alteration",
+            "banglaPronunciation": "['অলটারেশন]",
+            "pos": "noun",
+            "banglaMeaning": "পরিবর্তন বা রদবদল",
+            "exampleEn": "The architect suggested an alteration to increase natural light.",
+            "exampleBn": "প্রাকৃতিক আলো বৃদ্ধির জন্য স্থপতি নকশায় একটি পরিবর্তনের পরামর্শ দিয়েছিলেন।"
+          },
+          "verb": {
+            "word": "Alter",
+            "banglaPronunciation": "['অলটার]",
+            "pos": "verb",
+            "banglaMeaning": "পরিবর্তন করা বা রূপান্তর করা",
+            "exampleEn": "A tailor can alter the suit jacket to fit you perfectly.",
+            "exampleBn": "একজন দর্জি স্যুটের জ্যাকেটটি রদবদল করে আপনার গায়ের মাপমতো মানানসই করতে পারেন।"
+          },
+          "adjective": {
+            "word": "Alterable",
+            "banglaPronunciation": "['অলটারেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "পরিবর্তনযোগ্য",
+            "exampleEn": "Digital contracts are easily alterable before final signatures.",
+            "exampleBn": "চূড়ান্ত স্বাক্ষরের পূর্বে ডিজিটাল চুক্তিগুলো সহজেই পরিবর্তনযোগ্য।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "beg-a-47",
@@ -4211,7 +5776,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ambition",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ambition",
+            "banglaPronunciation": "['অ্যাম্বিশন]",
+            "pos": "noun",
+            "banglaMeaning": "উচ্চাকাঙ্ক্ষা বা বড় লক্ষ্য",
+            "exampleEn": "Her lifelong ambition was to become an aerospace engineer.",
+            "exampleBn": "তার আজীবনের উচ্চাকাঙ্ক্ষা ছিল একজন অ্যারোস্পেস প্রকৌশলী হওয়া।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ambitious",
+            "banglaPronunciation": "['অ্যাম্বিশাস]",
+            "pos": "adjective",
+            "banglaMeaning": "উচ্চাকাঙ্ক্ষী বা প্রত্যয়ী",
+            "exampleEn": "The startup launched an ambitious plan to build green batteries.",
+            "exampleBn": "স্টার্টআপটি পরিবেশবান্ধব ব্যাটারি তৈরির একটি উচ্চাকাঙ্ক্ষী পরিকল্পনা শুরু করেছে।"
+          },
+          "adverb": {
+            "word": "Ambitiously",
+            "banglaPronunciation": "['অ্যাম্বিশাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "উচ্চাকাঙ্ক্ষার সাথে বা বড় স্বপ্নে",
+            "exampleEn": "The young team worked ambitiously toward a global market debut.",
+            "exampleBn": "তরুণ দলটি বৈশ্বিক বাজারে অভিষেকের বড় স্বপ্ন নিয়ে কাজ করেছিল।"
+          }
+        }
       },
       {
         "id": "beg-a-48",
@@ -4291,7 +5883,41 @@ const CURRICULUM_DATA = {
             "targetWord": "amuse",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amusement",
+            "banglaPronunciation": "['অ্যামিউজমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "বিনোদন বা আমোদপ্রমোদ",
+            "exampleEn": "The clever carnival games brought great amusement to children.",
+            "exampleBn": "মেলা প্রাঙ্গণের চমৎকার খেলাগুলো শিশুদের মনে পরম বিনোদন এনে দিয়েছিল।"
+          },
+          "verb": {
+            "word": "Amuse",
+            "banglaPronunciation": "['অ্যামিউজ]",
+            "pos": "verb",
+            "banglaMeaning": "আনন্দ দেওয়া বা হাসানো",
+            "exampleEn": "The comedian's witty jokes amused the entire auditorium.",
+            "exampleBn": "কৌতুকশিল্পীর বুদ্ধিদীপ্ত কৌতুক পুরো মিলনায়তনকে হাসিয়েছিল।"
+          },
+          "adjective": {
+            "word": "Amusing",
+            "banglaPronunciation": "['অ্যামিউজিং]",
+            "pos": "adjective",
+            "banglaMeaning": "মজাদার বা কৌতুকপূর্ণ",
+            "exampleEn": "He narrated an amusing story from his university days.",
+            "exampleBn": "তিনি তার বিশ্ববিদ্যালয় জীবনের একটি মজাদার গল্প শুনিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Amusingly",
+            "banglaPronunciation": "['অ্যামিউজিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "মজাদারভাবে বা কৌতুকচ্ছলে",
+            "exampleEn": "The presenter amusingly explained technical terms using cartoons.",
+            "exampleBn": "উপস্থাপক কার্টুন ব্যবহার করে মজাদারভাবে জটিল প্রযুক্তিগত শব্দ ব্যাখ্যা করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-49",
@@ -4371,7 +5997,41 @@ const CURRICULUM_DATA = {
             "targetWord": "analyze",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Analysis",
+            "banglaPronunciation": "['অ্যানালাইসিস]",
+            "pos": "noun",
+            "banglaMeaning": "বিশ্লেষণ বা পুঙ্খানুপুঙ্খ পরীক্ষা",
+            "exampleEn": "A thorough data analysis revealed positive consumer trends.",
+            "exampleBn": "পুঙ্খানুপুঙ্খ তথ্য বিশ্লেষণ ইতিবাচক ভোক্তা প্রবণতা প্রকাশ করেছিল।"
+          },
+          "verb": {
+            "word": "Analyze",
+            "banglaPronunciation": "['অ্যানালাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "বিশ্লেষণ করা বা খতিয়ে দেখা",
+            "exampleEn": "Economists analyze inflation patterns to forecast interest rates.",
+            "exampleBn": "অর্থনীতিবিদরা সুদের হারের পূর্বাভাসের জন্য মূল্যস্ফীতি বিশ্লেষণ করেন।"
+          },
+          "adjective": {
+            "word": "Analytical",
+            "banglaPronunciation": "['অ্যানালিটিক্যাল]",
+            "pos": "adjective",
+            "banglaMeaning": "বিশ্লেষণাত্মক বা বিচারবুদ্ধিসম্পন্ন",
+            "exampleEn": "She demonstrated sharp analytical thinking in software design.",
+            "exampleBn": "সফটওয়্যার নকশায় তিনি প্রখর বিশ্লেষণাত্মক চিন্তার পরিচয় দিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Analytically",
+            "banglaPronunciation": "['অ্যানালিটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিশ্লেষণাত্মক দৃষ্টিকোণ থেকে",
+            "exampleEn": "He approached the budget deficit problem analytically.",
+            "exampleBn": "তিনি বাজেট ঘাটতির সমস্যাটি বিশ্লেষণাত্মক দৃষ্টিকোণ থেকে মোকাবিলা করেছিলেন।"
+          }
+        }
       },
       {
         "id": "beg-a-50",
@@ -4451,7 +6111,34 @@ const CURRICULUM_DATA = {
             "targetWord": "announce",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Announcement",
+            "banglaPronunciation": "['অ্যানাউন্সমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "ঘোষণা বা বিবৃতি",
+            "exampleEn": "The principal made an important announcement during assembly.",
+            "exampleBn": "সমাবেশে প্রধান শিক্ষক একটি গুরুত্বপূর্ণ ঘোষণা দিয়েছিলেন।"
+          },
+          "verb": {
+            "word": "Announce",
+            "banglaPronunciation": "['অ্যানাউন্স]",
+            "pos": "verb",
+            "banglaMeaning": "ঘোষণা করা বা সবাইকে জানানো",
+            "exampleEn": "The committee will announce scholarship winners next Monday.",
+            "exampleBn": "কমিটি আগামী সোমবার বৃত্তি বিজয়ীদের নাম ঘোষণা করবে।"
+          },
+          "adjective": {
+            "word": "Announced",
+            "banglaPronunciation": "['অ্যানাউন্সড]",
+            "pos": "adjective",
+            "banglaMeaning": "ঘোষিত",
+            "exampleEn": "Passengers waited patiently for the announced flight boarding gate.",
+            "exampleBn": "যাত্রীরা ঘোষিত ফ্লাইট বোর্ডিং গেটের জন্য ধৈর্যের সাথে অপেক্ষা করলেন।"
+          },
+          "adverb": null
+        }
       }
     ],
     "practiceExtraWords": [
@@ -4463,7 +6150,41 @@ const CURRICULUM_DATA = {
         "meaningBn": "সম্প্রীতি, মিল",
         "explanationEn": "Living or working together peacefully without conflict.",
         "example": "Neighbors live in harmony when they respect one another.",
-        "exampleBn": "প্রতিবেশীরা একে অপরকে সম্মান করলে তারা সম্প্রীতির সাথে বসবাস করে।"
+        "exampleBn": "প্রতিবেশীরা একে অপরকে সম্মান করলে তারা সম্প্রীতির সাথে বসবাস করে।",
+        "derivatives": {
+          "noun": {
+            "word": "Harmony",
+            "banglaPronunciation": "['হারমানি]",
+            "pos": "noun",
+            "banglaMeaning": "সম্প্রীতি বা ঐক্যতান",
+            "exampleEn": "They lived together in peace and harmony.",
+            "exampleBn": "তারা শান্তি ও সম্প্রীতির সাথে একসাথে বসবাস করত।"
+          },
+          "verb": {
+            "word": "Harmonize",
+            "banglaPronunciation": "['হারমানাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "সামঞ্জস্যপূর্ণ করা বা তাল মেলানো",
+            "exampleEn": "We must harmonize our domestic laws with international standards.",
+            "exampleBn": "আমাদের অবশ্যই দেশীয় আইনগুলোকে আন্তর্জাতিক মানের সাথে সামঞ্জস্যপূর্ণ করতে হবে।"
+          },
+          "adjective": {
+            "word": "Harmonious",
+            "banglaPronunciation": "[হার'মোনিয়াস]",
+            "pos": "adjective",
+            "banglaMeaning": "সুরেলা বা সৌহার্দ্যপূর্ণ",
+            "exampleEn": "The team maintained a harmonious working relationship.",
+            "exampleBn": "দলটি একটি সৌহার্দ্যপূর্ণ কাজের সম্পর্ক বজায় রেখেছিল।"
+          },
+          "adverb": {
+            "word": "Harmoniously",
+            "banglaPronunciation": "[হার'মোনিয়াসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সম্প্রীতির সাথে",
+            "exampleEn": "The diverse communities coexisted harmoniously for decades.",
+            "exampleBn": "বিভিন্ন সম্প্রদায় কয়েক দশক ধরে সম্প্রীতির সাথে সহাবস্থান করেছিল।"
+          }
+        }
       },
       {
         "id": "beg-8",
@@ -4473,7 +6194,34 @@ const CURRICULUM_DATA = {
         "meaningBn": "ভদ্র, বিনয়ী",
         "explanationEn": "Having good manners and showing respect to other people.",
         "example": "Using polite words like please and thank you brightens every day.",
-        "exampleBn": "দয়া করে এবং ধন্যবাদ-এর মতো ভদ্র শব্দ ব্যবহার করলে প্রতিটি দিন সুন্দর হয়ে ওঠে।"
+        "exampleBn": "দয়া করে এবং ধন্যবাদ-এর মতো ভদ্র শব্দ ব্যবহার করলে প্রতিটি দিন সুন্দর হয়ে ওঠে।",
+        "derivatives": {
+          "noun": {
+            "word": "Politeness",
+            "banglaPronunciation": "[পা'লাইটনেস]",
+            "pos": "noun",
+            "banglaMeaning": "ভদ্রতা বা শিষ্টাচার",
+            "exampleEn": "Politeness costs nothing but gains everything.",
+            "exampleBn": "ভদ্রতার কোনো মূল্য লাগে না কিন্তু তা সব কিছু অর্জন করে দেয়।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Polite",
+            "banglaPronunciation": "[পা'লাইট]",
+            "pos": "adjective",
+            "banglaMeaning": "ভদ্র বা মার্জিত",
+            "exampleEn": "She gave a polite smile to the guests.",
+            "exampleBn": "তিনি অতিথিদের উদ্দেশ্যে একটি মার্জিত হাসি দিলেন।"
+          },
+          "adverb": {
+            "word": "Politely",
+            "banglaPronunciation": "[পা'লাইটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "ভদ্রভাবে",
+            "exampleEn": "He politely declined the job offer.",
+            "exampleBn": "তিনি ভদ্রভাবে চাকরির প্রস্তাবটি প্রত্যাখ্যান করেছিলেন।"
+          }
+        }
       }
     ],
     "dailyWords": [
@@ -4719,7 +6467,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "কোমল ও সূক্ষ্ম",
             "explanationBn": "কঠিন পরিবেশে টিকে থাকার মতো শক্ত নয়।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Resilience",
+            "banglaPronunciation": "['রেজিলিয়েন্স]",
+            "pos": "noun",
+            "banglaMeaning": "স্থিতিস্থাপকতা বা ঘুরে দাঁড়ানোর ক্ষমতা",
+            "exampleEn": "The community showed immense resilience after the natural disaster.",
+            "exampleBn": "প্রাকৃতিক দুর্যোগের পর সম্প্রদায়টি ঘুরে দাঁড়ানোর দারুণ ক্ষমতা প্রদর্শন করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Resilient",
+            "banglaPronunciation": "['রেজিলিয়েন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "স্থিতিস্থাপক বা সহনশীল",
+            "exampleEn": "Resilient entrepreneurs adapt swiftly to economic downturns.",
+            "exampleBn": "সহনশীল উদ্যোক্তারা অর্থনৈতিক মন্দায় দ্রুত খাপ খাইয়ে নেন।"
+          },
+          "adverb": {
+            "word": "Resiliently",
+            "banglaPronunciation": "['রেজিলিয়েন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দৃঢ়ভাবে বা ঘুরে দাঁড়ানোর সাথে",
+            "exampleEn": "The young athlete bounced back resiliently from a knee injury.",
+            "exampleBn": "তরুণ অ্যাথলেট হাঁটুর চোট কাটিয়ে দৃঢ়ভাবে ফিরে এসেছিলেন।"
+          }
+        }
       },
       {
         "id": "int-2",
@@ -4784,7 +6559,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "থেমে থেমে বলা",
             "explanationBn": "সাবলীলতার অভাবে থেমে থেমে কথা বলা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Eloquence",
+            "banglaPronunciation": "['এলোক্যোয়েন্স]",
+            "pos": "noun",
+            "banglaMeaning": "বাগ্মীতা বা প্রাঞ্জল বাচনভঙ্গি",
+            "exampleEn": "Her eloquence held the vast auditorium in spellbound silence.",
+            "exampleBn": "তার প্রাঞ্জল বাগ্মীতা পুরো মিলনায়তনকে মন্ত্রমুগ্ধ নীরবতায় বেঁধে রেখেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Eloquent",
+            "banglaPronunciation": "['এলোক্যোয়েন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "বাগ্মী বা প্রাঞ্জলভাষী",
+            "exampleEn": "He delivered an eloquent tribute to the departing mentor.",
+            "exampleBn": "তিনি বিদায়ী মেন্টরের প্রতি এক প্রাঞ্জল শ্রদ্ধাঞ্জলি জ্ঞাপন করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Eloquently",
+            "banglaPronunciation": "['এলোক্যোয়েন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বাগ্মীতার সাথে বা প্রাঞ্জল ভাষায়",
+            "exampleEn": "She argued eloquently for universal education rights.",
+            "exampleBn": "তিনি সর্বজনীন শিক্ষার অধিকারের স্বপক্ষে প্রাঞ্জল ভাষায় যুক্তি দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "int-3",
@@ -4849,7 +6651,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "ঐচ্ছিক",
             "explanationBn": "বাধ্যতামূলক নয়, ইচ্ছার ওপর নির্ভরশীল।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Inevitability",
+            "banglaPronunciation": "['ইনেভিটেবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "অনিবার্য অবস্থা বা নিশ্চিত পরিণাম",
+            "exampleEn": "Philosophers often ponder the inevitability of historical change.",
+            "exampleBn": "দার্শনিকরা প্রায়শই ঐতিহাসিক পরিবর্তনের অনিবার্যতা নিয়ে ভাবেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Inevitable",
+            "banglaPronunciation": "['ইনেভিটেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "অনিবার্য বা যা এড়ানো যায় না",
+            "exampleEn": "Technological progress is an inevitable reality of our modern era.",
+            "exampleBn": "প্রযুক্তিগত অগ্রগতি আমাদের আধুনিক যুগের এক অনিবার্য বাস্তবতা।"
+          },
+          "adverb": {
+            "word": "Inevitably",
+            "banglaPronunciation": "['ইনেভিটেবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অনিবার্যভাবে বা অবধারিতভাবে",
+            "exampleEn": "Careless driving inevitably leads to dangerous accidents.",
+            "exampleBn": "অসাবধানতাবশত গাড়ি চালানো অবধারিতভাবে বিপজ্জনক দুর্ঘটনার দিকে নিয়ে যায়।"
+          }
+        }
       },
       {
         "id": "int-4",
@@ -4914,7 +6743,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "বিশৃঙ্খল",
             "explanationBn": "পরিচ্ছন্নতা বা শৃঙ্খলার অভাব।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Meticulousness",
+            "banglaPronunciation": "['মেটিকিউলাসনেস]",
+            "pos": "noun",
+            "banglaMeaning": "খুঁতখুঁতে যত্ন বা পুঙ্খানুপুঙ্খতা",
+            "exampleEn": "Her meticulousness in data verification ensured flawless results.",
+            "exampleBn": "তথ্য যাচাইয়ে তার পুঙ্খানুপুঙ্খ যত্ন ত্রুটিহীন ফলাফল নিশ্চিত করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Meticulous",
+            "banglaPronunciation": "['মেটিকিউলাস]",
+            "pos": "adjective",
+            "banglaMeaning": "খুঁতখুঁতে বা অতি যত্নবান",
+            "exampleEn": "The watchmaker exercised meticulous precision with tiny gears.",
+            "exampleBn": "ঘড়ি প্রস্তুতকারক ক্ষুদ্র গিয়ারগুলো নিয়ে অতি যত্নবান নির্ভুলতা বজায় রেখেছিলেন।"
+          },
+          "adverb": {
+            "word": "Meticulously",
+            "banglaPronunciation": "['মেটিকিউলাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "পুঙ্খানুপুঙ্খভাবে বা অতীব যত্নে",
+            "exampleEn": "The antique manuscript was meticulously restored by museum experts.",
+            "exampleBn": "প্রাচীন পাণ্ডুলিপিটি জাদুঘরের বিশেষজ্ঞদের দ্বারা অতীব যত্নে সংস্কার করা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-5",
@@ -4979,7 +6835,41 @@ const CURRICULUM_DATA = {
             "meaningBn": "বাধা সৃষ্টি করা",
             "explanationBn": "অন্যের কাজের গতি কমিয়ে দেওয়া।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Collaboration",
+            "banglaPronunciation": "['কোলাবোরেশন]",
+            "pos": "noun",
+            "banglaMeaning": "সহযোগিতা বা যৌথ কাজ",
+            "exampleEn": "International collaboration is vital to tackle global health crises.",
+            "exampleBn": "বৈশ্বিক স্বাস্থ্য সংকট মোকাবিলায় আন্তর্জাতিক সহযোগিতা অপরিহার্য।"
+          },
+          "verb": {
+            "word": "Collaborate",
+            "banglaPronunciation": "['কোলাবোরেট]",
+            "pos": "verb",
+            "banglaMeaning": "একত্রে কাজ করা বা যৌথভাবে সহযোগিতা করা",
+            "exampleEn": "Designers collaborate closely with software engineers on new apps.",
+            "exampleBn": "নতুন অ্যাপ তৈরিতে ডিজাইনাররা সফটওয়্যার প্রকৌশলীদের সাথে ঘনিষ্ঠভাবে কাজ করেন।"
+          },
+          "adjective": {
+            "word": "Collaborative",
+            "banglaPronunciation": "['কোলাবোরেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "যৌথ বা সহযোগিতামূলক",
+            "exampleEn": "We encourage a collaborative workspace where everyone's voice matters.",
+            "exampleBn": "আমরা এমন এক সহযোগিতামূলক কর্মপরিবেশকে উৎসাহিত করি যেখানে সবার মতামতের গুরুত্ব থাকে।"
+          },
+          "adverb": {
+            "word": "Collaboratively",
+            "banglaPronunciation": "['কোলাবোরেটিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "যৌথভাবে বা সহযোগিতার সাথে",
+            "exampleEn": "The two research teams worked collaboratively to publish their paper.",
+            "exampleBn": "গবেষণা প্রবন্ধটি প্রকাশের জন্য দুটি দল যৌথভাবে কাজ করেছিল।"
+          }
+        }
       },
       {
         "id": "int-6",
@@ -5044,7 +6934,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "অনভিজ্ঞতা",
             "explanationBn": "বাস্তব জটিলতা সম্পর্কে ধারণার অভাব।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Insight",
+            "banglaPronunciation": "['ইনসাইট]",
+            "pos": "noun",
+            "banglaMeaning": "অন্তর্দৃষ্টি বা গভীর উপলব্ধি",
+            "exampleEn": "The psychologist offered valuable insight into child behavior.",
+            "exampleBn": "মনোবিজ্ঞানী শিশু আচরণের ওপর মূল্যবান অন্তর্দৃষ্টি উপস্থাপন করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Insightful",
+            "banglaPronunciation": "['ইনসাইটফুল]",
+            "pos": "adjective",
+            "banglaMeaning": "অন্তর্দৃষ্টিসম্পন্ন বা দূরদর্শী",
+            "exampleEn": "She wrote an insightful commentary on current economic trends.",
+            "exampleBn": "তিনি বর্তমান অর্থনৈতিক প্রবণতার ওপর এক অন্তর্দৃষ্টিসম্পন্ন মন্তব্য লিখেছিলেন।"
+          },
+          "adverb": {
+            "word": "Insightfully",
+            "banglaPronunciation": "['ইনসাইটফুলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অন্তর্দৃষ্টির সাথে বা দূরদর্শিতার সাথে",
+            "exampleEn": "The mentor insightfully explained the hidden motives behind the policy.",
+            "exampleBn": "মেন্টর দূরদর্শিতার সাথে নীতিটির পেছনের প্রচ্ছন্ন উদ্দেশ্য ব্যাখ্যা করেছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-01",
@@ -5124,7 +7041,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abbreviate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abbreviation",
+            "banglaPronunciation": "['অ্যাব্রিয়েভিয়েশন]",
+            "pos": "noun",
+            "banglaMeaning": "সংক্ষেপণ বা সংক্ষিপ্ত রূপ",
+            "exampleEn": "'UN' is a universally recognized abbreviation for the United Nations.",
+            "exampleBn": "'UN' হলো জাতিসংঘের একটি বিশ্বজনীন স্বীকৃত সংক্ষিপ্ত রূপ।"
+          },
+          "verb": {
+            "word": "Abbreviate",
+            "banglaPronunciation": "['অ্যাব্রিয়েভিয়েট]",
+            "pos": "verb",
+            "banglaMeaning": "সংক্ষেপ করা বা ছোট করা",
+            "exampleEn": "Writers often abbreviate long terminology in technical manuals.",
+            "exampleBn": "লেখকরা প্রযুক্তিগত নির্দেশিকায় দীর্ঘ পরিভাষাকে প্রায়ই সংক্ষেপ করে থাকেন।"
+          },
+          "adjective": {
+            "word": "Abbreviated",
+            "banglaPronunciation": "['অ্যাব্রিয়েভিয়েটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "সংক্ষিপ্ত বা সংকুচিত",
+            "exampleEn": "An abbreviated version of the novel was printed for young learners.",
+            "exampleBn": "তরুণ শিক্ষার্থীদের জন্য উপন্যাসটির একটি সংক্ষিপ্ত সংস্করণ ছাপা হয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-02",
@@ -5204,7 +7148,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abolish",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abolition",
+            "banglaPronunciation": "['অ্যাবোলিশন]",
+            "pos": "noun",
+            "banglaMeaning": "বিলুপ্তি, রদ বা উচ্ছেদ",
+            "exampleEn": "The abolition of slavery was a monumental victory for human dignity.",
+            "exampleBn": "দাসপ্রথার বিলুপ্তি ছিল মানব মর্যাদার জন্য এক যুগান্তকারী বিজয়।"
+          },
+          "verb": {
+            "word": "Abolish",
+            "banglaPronunciation": "['অ্যাবোলিশ]",
+            "pos": "verb",
+            "banglaMeaning": "বাতিল করা বা রদ করা",
+            "exampleEn": "Parliament voted to abolish outdated colonial trade taxes.",
+            "exampleBn": "সংসদ সেকেলে ঔপনিবেশিক বাণিজ্য কর বাতিল করার পক্ষে ভোট দিয়েছিল।"
+          },
+          "adjective": {
+            "word": "Abolitionary",
+            "banglaPronunciation": "['অ্যাবোলিশনারি]",
+            "pos": "adjective",
+            "banglaMeaning": "রদ বা উচ্ছেদ সংক্রান্ত",
+            "exampleEn": "The activists formed an abolitionary alliance against capital punishment.",
+            "exampleBn": "কর্মীরা মৃত্যুদণ্ডের বিরুদ্ধে একটি উচ্ছেদ সংক্রান্ত জোট গঠন করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-03",
@@ -5284,7 +7255,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abrupt",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abruptness",
+            "banglaPronunciation": "['অ্যাব্রাপ্টনেস]",
+            "pos": "noun",
+            "banglaMeaning": "আকস্মিকতা বা কর্কশ ভাব",
+            "exampleEn": "The abruptness of his departure caught everyone off guard.",
+            "exampleBn": "তার প্রস্থানের আকস্মিকতা সবাইকে অপ্রস্তুত করে দিয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Abrupt",
+            "banglaPronunciation": "['অ্যাব্রাপ্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "আকস্মিক বা খাড়া",
+            "exampleEn": "The bus came to an abrupt stop at the intersection.",
+            "exampleBn": "মোড়ে বাসটি আকস্মিকভাবে থেমে গিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Abruptly",
+            "banglaPronunciation": "['অ্যাব্রাপ্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "হঠাৎ করে বা আচমকা",
+            "exampleEn": "The power supply went off abruptly during the thunderstorm.",
+            "exampleBn": "ঝড়বৃষ্টির সময় বিদ্যুৎ সরবরাহ আচমকা বন্ধ হয়ে গিয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-a-04",
@@ -5364,7 +7362,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abundant",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abundance",
+            "banglaPronunciation": "['অ্যাবানডেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "প্রাচুর্য বা আধিক্য",
+            "exampleEn": "The river delta provides an abundance of fresh fish.",
+            "exampleBn": "নদী অববাহিকা প্রচুর পরিমাণে তাজা মাছ সরবরাহ করে।"
+          },
+          "verb": {
+            "word": "Abound",
+            "banglaPronunciation": "['অ্যাবাউন্ড]",
+            "pos": "verb",
+            "banglaMeaning": "প্রচুর পরিমাণে থাকা বা পূর্ণ হওয়া",
+            "exampleEn": "Wild berries abound in these mountain valleys during summer.",
+            "exampleBn": "গ্রীষ্মকালে এই পাহাড়ি উপত্যকাগুলোতে প্রচুর বুনো ফল পাওয়া যায়।"
+          },
+          "adjective": {
+            "word": "Abundant",
+            "banglaPronunciation": "['অ্যাবানডেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রচুর বা প্রাচুর্যময়",
+            "exampleEn": "Farmers celebrated an abundant harvest of golden wheat.",
+            "exampleBn": "কৃষকরা সোনালী গমের প্রচুর ফসল ঘরে তুলে উৎসব করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Abundantly",
+            "banglaPronunciation": "['অ্যাবানডেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রচুর পরিমাণে বা সুস্পষ্টভাবে",
+            "exampleEn": "His genuine dedication was abundantly clear to all onlookers.",
+            "exampleBn": "তার আন্তরিক নিষ্ঠা সকল দর্শকের কাছে সুস্পষ্টভাবে পরিষ্কার ছিল।"
+          }
+        }
       },
       {
         "id": "int-a-05",
@@ -5444,7 +7476,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accelerate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acceleration",
+            "banglaPronunciation": "['অ্যাকসেলারেশন]",
+            "pos": "noun",
+            "banglaMeaning": "ত্বরণ বা গতিবৃদ্ধি",
+            "exampleEn": "Electric cars achieve rapid acceleration without engine noise.",
+            "exampleBn": "বৈদ্যুতিক গাড়িগুলো কোনো ইঞ্জিনের শব্দ ছাড়াই দ্রুত ত্বরণ অর্জন করে।"
+          },
+          "verb": {
+            "word": "Accelerate",
+            "banglaPronunciation": "['অ্যাকসেলারেট]",
+            "pos": "verb",
+            "banglaMeaning": "ত্বরান্বিত করা বা গতি বাড়ানো",
+            "exampleEn": "Modern digital tools accelerate project delivery significantly.",
+            "exampleBn": "আধুনিক ডিজিটাল সরঞ্জাম প্রকল্পের গতি উল্লেখযোগ্যভাবে ত্বরান্বিত করে।"
+          },
+          "adjective": {
+            "word": "Accelerative",
+            "banglaPronunciation": "['অ্যাকসেলারেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "ত্বরান্বিতকারী বা গতিবর্ধক",
+            "exampleEn": "Tax incentives exerted an accelerative effect on local commerce.",
+            "exampleBn": "কর প্রণোদনা স্থানীয় বাণিজ্যের ওপর এক গতিবর্ধক প্রভাব ফেলেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-06",
@@ -5524,7 +7583,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accessible",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accessibility",
+            "banglaPronunciation": "['অ্যাকসেসিবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "প্রবেশগম্যতা বা সহজলভ্যতা",
+            "exampleEn": "Wheelchair accessibility was prioritized during library redesign.",
+            "exampleBn": "লাইব্রেরির নতুন নকশায় হুইলচেয়ার প্রবেশগম্যতাকে অগ্রাধিকার দেওয়া হয়েছিল।"
+          },
+          "verb": {
+            "word": "Access",
+            "banglaPronunciation": "['অ্যাকসেস]",
+            "pos": "verb",
+            "banglaMeaning": "প্রবেশ করা বা ব্যবহার করা",
+            "exampleEn": "Students can access digital textbooks from anywhere on campus.",
+            "exampleBn": "শিক্ষার্থীরা ক্যাম্পাসের যেকোনো স্থান থেকে ডিজিটাল পাঠ্যবই ব্যবহার করতে পারে।"
+          },
+          "adjective": {
+            "word": "Accessible",
+            "banglaPronunciation": "['অ্যাকসেসিবল]",
+            "pos": "adjective",
+            "banglaMeaning": "সহজলভ্য বা প্রবেশসাধ্য",
+            "exampleEn": "The clinic offers accessible healthcare to low-income families.",
+            "exampleBn": "ক্লিনিকটি স্বল্প আয়ের পরিবারগুলোকে সহজলভ্য স্বাস্থ্যসেবা প্রদান করে।"
+          },
+          "adverb": {
+            "word": "Accessibly",
+            "banglaPronunciation": "['অ্যাকসেসিব্লি]",
+            "pos": "adverb",
+            "banglaMeaning": "সহজলভ্যভাবে",
+            "exampleEn": "Emergency exits are accessibly placed along each hotel floor.",
+            "exampleBn": "হোটেলের প্রতিটি ফ্লোরে জরুরি নির্গমন পথগুলো সহজলভ্যভাবে রাখা হয়েছে।"
+          }
+        }
       },
       {
         "id": "int-a-07",
@@ -5604,7 +7697,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acclaim",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acclaim",
+            "banglaPronunciation": "['অ্যাক্লেইম]",
+            "pos": "noun",
+            "banglaMeaning": "উচ্ছ্বসিত প্রশংসা বা সমাদর",
+            "exampleEn": "Her debut documentary received widespread critical acclaim.",
+            "exampleBn": "তার প্রথম প্রামাণ্যচিত্রটি সমালোচকদের ব্যাপক সমাদর লাভ করেছিল।"
+          },
+          "verb": {
+            "word": "Acclaim",
+            "banglaPronunciation": "['অ্যাক্লেইম]",
+            "pos": "verb",
+            "banglaMeaning": "প্রশংসা করা বা সাধুবাদ জানানো",
+            "exampleEn": "Audiences acclaimed the pianist after her brilliant performance.",
+            "exampleBn": "অনবদ্য পারফরম্যান্সের পর দর্শকরা পিয়ানোবাদককে প্রশংসায় ভাসিয়েছিলেন।"
+          },
+          "adjective": {
+            "word": "Acclaimed",
+            "banglaPronunciation": "['অ্যাক্লেইমড]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রশংসিত বা সমাদৃত",
+            "exampleEn": "The acclaimed novelist gave a masterclass on creative writing.",
+            "exampleBn": "প্রশংসিত ঔপন্যাসিক সৃজনশীল লেখার ওপর একটি মাস্টারক্লাস নিয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-08",
@@ -5684,7 +7804,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accommodate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accommodation",
+            "banglaPronunciation": "['অ্যাকোমোডেশন]",
+            "pos": "noun",
+            "banglaMeaning": "আবাসন বা সংস্থান",
+            "exampleEn": "The hotel provided comfortable accommodation for all delegates.",
+            "exampleBn": "হোটেলটি সকল প্রতিনিধির জন্য আরামদায়ক আবাসনের ব্যবস্থা করেছিল।"
+          },
+          "verb": {
+            "word": "Accommodate",
+            "banglaPronunciation": "['অ্যাকোমোডেট]",
+            "pos": "verb",
+            "banglaMeaning": "স্থান সংকুলান করা বা সুবিধা দেওয়া",
+            "exampleEn": "The auditorium can comfortably accommodate over six hundred guests.",
+            "exampleBn": "মিলনায়তনটি ছয় শতাধিক অতিথির স্বাচ্ছন্দ্যে স্থান সংকুলান করতে পারে।"
+          },
+          "adjective": {
+            "word": "Accommodating",
+            "banglaPronunciation": "['অ্যাকোমোডেটিং]",
+            "pos": "adjective",
+            "banglaMeaning": "সহযোগিতাপূর্ণ বা অমায়িক",
+            "exampleEn": "The host was very accommodating and adjusted the tour schedule.",
+            "exampleBn": "মেহমানদার অত্যন্ত সহযোগিতাপূর্ণ ছিলেন এবং ভ্রমণের সময়সূচি সমন্বয় করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Accommodatingly",
+            "banglaPronunciation": "['অ্যাকোমোডেটিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সহযোগিতাপূর্ণভাবে",
+            "exampleEn": "The flight attendant smiled accommodatingly and fetched an extra pillow.",
+            "exampleBn": "বিমানবালা সহযোগিতাপূর্ণ হাসিমুখে একটি অতিরিক্ত বালিশ এনে দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-09",
@@ -5764,7 +7918,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accomplish",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accomplishment",
+            "banglaPronunciation": "['অ্যাকমপ্লিশমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "কৃতিত্ব বা সফল সম্পাদন",
+            "exampleEn": "Climbing Everest was a lifetime accomplishment for the athlete.",
+            "exampleBn": "এভারেস্ট জয় ছিল সেই ক্রীড়াবিদের জন্য জীবনের এক পরম কৃতিত্ব।"
+          },
+          "verb": {
+            "word": "Accomplish",
+            "banglaPronunciation": "['অ্যাকমপ্লিশ]",
+            "pos": "verb",
+            "banglaMeaning": "সম্পন্ন করা বা সাধন করা",
+            "exampleEn": "Together, we can accomplish ambitious conservation goals.",
+            "exampleBn": "একত্রে আমরা উচ্চাকাঙ্ক্ষী সংরক্ষণ লক্ষ্যগুলো সম্পন্ন করতে পারি।"
+          },
+          "adjective": {
+            "word": "Accomplished",
+            "banglaPronunciation": "['অ্যাকমপ্লিশড]",
+            "pos": "adjective",
+            "banglaMeaning": "সুদক্ষ বা সিদ্ধহস্ত",
+            "exampleEn": "She is an accomplished violinist who performs globally.",
+            "exampleBn": "তিনি একজন সুদক্ষ বেহালাবাদক যিনি বিশ্বজুড়ে পারফর্ম করেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-10",
@@ -5844,7 +8025,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accumulate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accumulation",
+            "banglaPronunciation": "['অ্যাকিউমিউলেশন]",
+            "pos": "noun",
+            "banglaMeaning": "সঞ্চয় বা পুঞ্জীভবন",
+            "exampleEn": "The slow accumulation of dust caused the projector fan to stall.",
+            "exampleBn": "ধুলার ধীর পুঞ্জীভবন প্রজেক্টরের ফ্যানটি আটকে দিয়েছিল।"
+          },
+          "verb": {
+            "word": "Accumulate",
+            "banglaPronunciation": "['অ্যাকিউমিউলেট]",
+            "pos": "verb",
+            "banglaMeaning": "সঞ্চয় করা বা জমা হওয়া",
+            "exampleEn": "Smart savings strategies allow wealth to accumulate over time.",
+            "exampleBn": "বুদ্ধিদীপ্ত সঞ্চয় কৌশল সময় গড়ার সাথে সাথে সম্পদ বৃদ্ধি পেতে সাহায্য করে।"
+          },
+          "adjective": {
+            "word": "Accumulative",
+            "banglaPronunciation": "['অ্যাকিউমিউলেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "সঞ্চয়ী বা ক্রমবর্ধিষ্ণু",
+            "exampleEn": "Long exposure to sunlight has an accumulative effect on skin.",
+            "exampleBn": "সূর্যের আলোতে দীর্ঘক্ষণ থাকা ত্বকের ওপর এক ক্রমবর্ধিষ্ণু প্রভাব ফেলে।"
+          },
+          "adverb": {
+            "word": "Accumulatively",
+            "banglaPronunciation": "['অ্যাকিউমিউলেটিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "ক্রমপুঞ্জীভূতভাবে",
+            "exampleEn": "Small daily habits act accumulatively to shape your career.",
+            "exampleBn": "প্রতিদিনের ছোটখাটো অভ্যাসগুলো ক্রমপুঞ্জীভূতভাবে আপনার ক্যারিয়ার গড়ে তোলে।"
+          }
+        }
       },
       {
         "id": "int-a-11",
@@ -5924,7 +8139,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accurate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accuracy",
+            "banglaPronunciation": "['অ্যাকিউরেসি]",
+            "pos": "noun",
+            "banglaMeaning": "নির্ভুলতা বা যথার্থতা",
+            "exampleEn": "GPS navigation relies on satellite positioning accuracy.",
+            "exampleBn": "জিপিএস নেভিগেশন স্যাটেলাইট অবস্থানের নির্ভুলতার ওপর নির্ভর করে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Accurate",
+            "banglaPronunciation": "['অ্যাকিউরেট]",
+            "pos": "adjective",
+            "banglaMeaning": "সঠিক বা নির্ভুল",
+            "exampleEn": "Scientists require accurate measurements for reliable experimental results.",
+            "exampleBn": "নির্ভরযোগ্য পরীক্ষার ফলাফলের জন্য বিজ্ঞানীদের নির্ভুল পরিমাপ প্রয়োজন।"
+          },
+          "adverb": {
+            "word": "Accurately",
+            "banglaPronunciation": "['অ্যাকিউরেটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সঠিকভাবে বা নির্ভুলভাবে",
+            "exampleEn": "The weather forecast accurately predicted heavy evening showers.",
+            "exampleBn": "আবহাওয়ার পূর্বাভাস সন্ধ্যার ভারী বৃষ্টির সঠিক ভবিষ্যদ্বাণী করেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-12",
@@ -6004,7 +8246,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acknowledge",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acknowledgment",
+            "banglaPronunciation": "['অ্যাকনলেজমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "স্বীকৃতি বা প্রাপ্তিস্বীকার",
+            "exampleEn": "He received a certificate in acknowledgment of his volunteer service.",
+            "exampleBn": "স্বেচ্ছাসেবার স্বীকৃতিস্বরূপ তিনি একটি প্রশংসাপত্র লাভ করেছিলেন।"
+          },
+          "verb": {
+            "word": "Acknowledge",
+            "banglaPronunciation": "['অ্যাকনলেজ]",
+            "pos": "verb",
+            "banglaMeaning": "স্বীকার করা বা মান্য করা",
+            "exampleEn": "The leadership team was quick to acknowledge junior engineers' contributions.",
+            "exampleBn": "নেতৃত্ব দল কনিষ্ঠ প্রকৌশলীদের অবদান স্বীকার করতে দ্বিধা করেনি।"
+          },
+          "adjective": {
+            "word": "Acknowledged",
+            "banglaPronunciation": "['অ্যাকনলেজড]",
+            "pos": "adjective",
+            "banglaMeaning": "স্বীকৃত",
+            "exampleEn": "Dr. Sen is an acknowledged international authority on microfinance.",
+            "exampleBn": "ড. সেন ক্ষুদ্রঋণের ওপর এক স্বীকৃত আন্তর্জাতিক বিশেষজ্ঞ।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-13",
@@ -6084,7 +8353,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acquire",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acquisition",
+            "banglaPronunciation": "['অ্যাকুইজিশন]",
+            "pos": "noun",
+            "banglaMeaning": "অর্জন বা অধিগ্রহণ",
+            "exampleEn": "Language acquisition happens naturally in early childhood years.",
+            "exampleBn": "শৈশবের শুরুর বছরগুলোতে ভাষা অর্জন প্রাকৃতিকভাবে ঘটে থাকে।"
+          },
+          "verb": {
+            "word": "Acquire",
+            "banglaPronunciation": "['অ্যাকোয়ার]",
+            "pos": "verb",
+            "banglaMeaning": "অর্জন করা বা কেনা",
+            "exampleEn": "Dedicated reading helps students acquire an extensive English vocabulary.",
+            "exampleBn": "মনোযোগ দিয়ে পড়া শিক্ষার্থীদের বিস্তৃত ইংরেজি শব্দভাণ্ডার অর্জনে সাহায্য করে।"
+          },
+          "adjective": {
+            "word": "Acquirable",
+            "banglaPronunciation": "['অ্যাকোয়ারেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "অর্জনযোগ্য",
+            "exampleEn": "Public speaking is an acquirable skill through regular practice.",
+            "exampleBn": "জনসমক্ষে কথা বলা নিয়মিত অনুশীলনের মাধ্যমে এক অর্জনযোগ্য দক্ষতা।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-14",
@@ -6164,7 +8460,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adequate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adequacy",
+            "banglaPronunciation": "['অ্যাডিকোয়াসি]",
+            "pos": "noun",
+            "banglaMeaning": "পর্যাপ্ততা বা উপযোগিতা",
+            "exampleEn": "The committee evaluated the adequacy of emergency hospital beds.",
+            "exampleBn": "কমিটি হাসপাতালের জরুরি শয্যার পর্যাপ্ততা মূল্যায়ন করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adequate",
+            "banglaPronunciation": "['অ্যাডিকোয়াট]",
+            "pos": "adjective",
+            "banglaMeaning": "পর্যাপ্ত বা উপযুক্ত",
+            "exampleEn": "Ensure your body receives adequate hydration during hot summer days.",
+            "exampleBn": "তীব্র গরমের দিনে আপনার শরীর পর্যাপ্ত পানিশূন্যতামুক্ত রয়েছে কিনা নিশ্চিত করুন।"
+          },
+          "adverb": {
+            "word": "Adequately",
+            "banglaPronunciation": "['অ্যাডিকোয়াটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "পর্যাপ্তভাবে বা যথাযথভাবে",
+            "exampleEn": "The safety equipment adequately protected workers in the mine.",
+            "exampleBn": "নিরাপত্তা সরঞ্জাম খনির শ্রমিকদের যথাযথভাবে রক্ষা করেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-15",
@@ -6244,7 +8567,41 @@ const CURRICULUM_DATA = {
             "targetWord": "adhere",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adherence",
+            "banglaPronunciation": "['অ্যাডহিয়ারেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "আনুগত্য বা মেনে চলা",
+            "exampleEn": "Strict adherence to safety codes prevents factory accidents.",
+            "exampleBn": "নিরাপত্তা বিধি কঠোরভাবে মেনে চলা কারখানার দুর্ঘটনা প্রতিরোধ করে।"
+          },
+          "verb": {
+            "word": "Adhere",
+            "banglaPronunciation": "['অ্যাডহিয়ার]",
+            "pos": "verb",
+            "banglaMeaning": "লেগে থাকা বা মেনে চলা",
+            "exampleEn": "All drivers must adhere to designated city speed limits.",
+            "exampleBn": "সকল চালককে অবশ্যই নির্ধারিত নগর গতিসীমা মেনে চলতে হবে।"
+          },
+          "adjective": {
+            "word": "Adhesive",
+            "banglaPronunciation": "['অ্যাডহেসিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "আঠালো বা সংযুক্তকারী",
+            "exampleEn": "Apply strong adhesive tape around the packaging box.",
+            "exampleBn": "প্যাকেজিং বাক্সের চারপাশে শক্ত আঠালো টেপ লাগান।"
+          },
+          "adverb": {
+            "word": "Adhesively",
+            "banglaPronunciation": "['অ্যাডহেসিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আঠালোভাবে",
+            "exampleEn": "The postage stamp bonded adhesively to the envelope.",
+            "exampleBn": "ডাকটিকিটটি খামের সাথে আঠালোভাবে লেগে গিয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-a-16",
@@ -6324,7 +8681,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adjacent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adjacency",
+            "banglaPronunciation": "['অ্যাডজেসেন্সি]",
+            "pos": "noun",
+            "banglaMeaning": "সান্নিধ্য বা লাগোয়া অবস্থা",
+            "exampleEn": "The house's adjacency to the central metro station made it attractive.",
+            "exampleBn": "কেন্দ্রীয় মেট্রো স্টেশনের সান্নিধ্য বাড়িটিকে দারুণ আকর্ষণীয় করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adjacent",
+            "banglaPronunciation": "['অ্যাডজেসেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সংলগ্ন বা পাশাপাশি অবস্থিত",
+            "exampleEn": "The library is adjacent to the historic town hall.",
+            "exampleBn": "গ্রন্থাগারটি প্রাচীন টাউন হলের গা ঘেঁষে অবস্থিত।"
+          },
+          "adverb": {
+            "word": "Adjacently",
+            "banglaPronunciation": "['অ্যাডজেসেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "পাশাপাশি বা লাগোয়াভাবে",
+            "exampleEn": "Two conference suites were adjacently arranged on the third floor.",
+            "exampleBn": "তৃতীয় তলায় দুটি সম্মেলন কক্ষ পাশাপাশি সাজানো হয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-a-17",
@@ -6404,7 +8788,27 @@ const CURRICULUM_DATA = {
             "targetWord": "adolescent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adolescence",
+            "banglaPronunciation": "['অ্যাডোলেসেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "কৈশোর বা বয়সসন্ধিকাল",
+            "exampleEn": "Adolescence is a time of intense emotional and cognitive growth.",
+            "exampleBn": "কৈশোর হলো তীব্র মানসিক ও বুদ্ধিবৃত্তিক বিকাশের এক সময়।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adolescent",
+            "banglaPronunciation": "['অ্যাডোলেসেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "কিশোর বা অপ্রাপ্তবয়স্ক",
+            "exampleEn": "Counselors guide adolescent youths through peer pressure challenges.",
+            "exampleBn": "পরামর্শদাতারা সহপাঠীদের চাপের চ্যালেঞ্জে কিশোরদের দিকনির্দেশনা দেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-18",
@@ -6484,7 +8888,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adverse",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adversity",
+            "banglaPronunciation": "['অ্যাডভার্সিটি]",
+            "pos": "noun",
+            "banglaMeaning": "প্রতিকূলতা বা দুরবস্থা",
+            "exampleEn": "True character shines brightly in the midst of adversity.",
+            "exampleBn": "প্রতিকূলতার মাঝে খাঁটি চরিত্রের আলো উজ্জ্বলভাবে জ্বলে ওঠে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adverse",
+            "banglaPronunciation": "['অ্যাডভার্স]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রতিকূল বা ক্ষতিকর",
+            "exampleEn": "Mountaineers pressed on despite facing adverse blizzard conditions.",
+            "exampleBn": "তুষারঝড়ের প্রতিকূল পরিস্থিতি সত্ত্বেও পর্বতারোহীরা এগিয়ে চলেছিলেন।"
+          },
+          "adverb": {
+            "word": "Adversely",
+            "banglaPronunciation": "['অ্যাডভার্সলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রতিকূলভাবে বা ক্ষতিকরভাবে",
+            "exampleEn": "Sudden exchange rate fluctuations adversely affected import businesses.",
+            "exampleBn": "আকস্মিক মুদ্রা বিনিময় হারের ওঠানামা আমদানি ব্যবসাকে ক্ষতিকরভাবে প্রভাবিত করেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-19",
@@ -6564,7 +8995,34 @@ const CURRICULUM_DATA = {
             "targetWord": "advocate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Advocacy",
+            "banglaPronunciation": "['অ্যাডভোকেসি]",
+            "pos": "noun",
+            "banglaMeaning": "সমর্থন বা ওকালতি",
+            "exampleEn": "Her public advocacy for renewable energy won international praise.",
+            "exampleBn": "নবায়নযোগ্য শক্তির পক্ষে তার প্রকাশ্য সমর্থন আন্তর্জাতিক প্রশংসা পেয়েছিল।"
+          },
+          "verb": {
+            "word": "Advocate",
+            "banglaPronunciation": "['অ্যাডভোকেট]",
+            "pos": "verb",
+            "banglaMeaning": "সমর্থন করা বা পক্ষ নেওয়া",
+            "exampleEn": "Doctors advocate a wholesome diet and daily outdoor activity.",
+            "exampleBn": "চিকিৎসকরা স্বাস্থ্যকর খাদ্য ও প্রতিদিনের শারীরিক পরিশ্রমের জোর সমর্থন করেন।"
+          },
+          "adjective": {
+            "word": "Advocatory",
+            "banglaPronunciation": "['অ্যাডভোকেটরি]",
+            "pos": "adjective",
+            "banglaMeaning": "সমর্থনমূলক",
+            "exampleEn": "She delivered an advocatory speech for universal school lunches.",
+            "exampleBn": "তিনি সর্বজনীন বিদ্যালয় দুপুরের খাবারের জন্য একটি সমর্থনমূলক বক্তৃতা দিয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-20",
@@ -6644,7 +9102,34 @@ const CURRICULUM_DATA = {
             "targetWord": "affluent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affluence",
+            "banglaPronunciation": "['অ্যাফ্লুয়েন্স]",
+            "pos": "noun",
+            "banglaMeaning": "প্রাচুর্য বা বিত্তশালী অবস্থা",
+            "exampleEn": "The suburb is famous for its quiet leafy avenues and affluence.",
+            "exampleBn": "উপশহরটি তার শান্ত গাছপালা ঘেরা রাস্তা ও বিত্তশালী প্রাচুর্যের জন্য খ্যাত।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Affluent",
+            "banglaPronunciation": "['অ্যাফ্লুয়েন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "বিত্তবান বা সমৃদ্ধিশালী",
+            "exampleEn": "Affluent neighborhoods invested heavily in rooftop solar panels.",
+            "exampleBn": "বিত্তশালী এলাকাগুলো ছাদের সৌর বিদ্যুতে ব্যাপক বিনিয়োগ করেছিল।"
+          },
+          "adverb": {
+            "word": "Affluently",
+            "banglaPronunciation": "['অ্যাফ্লুয়েন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিত্তশালীভাবে বা সচ্ছলভাবে",
+            "exampleEn": "The retired merchant lived affluently in his coastal villa.",
+            "exampleBn": "অবসরপ্রাপ্ত বণিক তার উপকূলীয় ভিলায় অত্যন্ত সচ্ছলভাবে বাস করতেন।"
+          }
+        }
       },
       {
         "id": "int-a-21",
@@ -6724,7 +9209,41 @@ const CURRICULUM_DATA = {
             "targetWord": "aggravate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aggravation",
+            "banglaPronunciation": "['অ্যাগ্রাভেশন]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্রতর হওয়া বা অবনতি",
+            "exampleEn": "Smoking leads to the rapid aggravation of chronic lung disease.",
+            "exampleBn": "ধূমপান দীর্ঘস্থায়ী ফুসফুসের রোগের দ্রুত অবনতি ঘটায়।"
+          },
+          "verb": {
+            "word": "Aggravate",
+            "banglaPronunciation": "['অ্যাগ্রাভেট]",
+            "pos": "verb",
+            "banglaMeaning": "আরও খারাপ করা বা তীব্রতর করা",
+            "exampleEn": "Rubbing your eyes will only aggravate seasonal allergic itchiness.",
+            "exampleBn": "চোখ ঘষলে ঋতুভিত্তিক অ্যালার্জির চুলকানি কেবল আরও বেড়ে যাবে।"
+          },
+          "adjective": {
+            "word": "Aggravating",
+            "banglaPronunciation": "['অ্যাগ্রাভেটিং]",
+            "pos": "adjective",
+            "banglaMeaning": "বিরক্তিকর বা উত্তেজনাকর",
+            "exampleEn": "Frequent train delays are deeply aggravating for daily commuters.",
+            "exampleBn": "ঘনঘন ট্রেনের দেরি নিত্যযাত্রীদের জন্য অত্যন্ত বিরক্তিকর।"
+          },
+          "adverb": {
+            "word": "Aggravatingly",
+            "banglaPronunciation": "['অ্যাগ্রাভেটিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিরক্তিকরভাবে",
+            "exampleEn": "The website loaded aggravatingly slowly on poor networks.",
+            "exampleBn": "দুর্বল নেটওয়ার্কে ওয়েবসাইটটি বিরক্তিকরভাবে ধীরগতিতে লোড হয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-a-22",
@@ -6804,7 +9323,34 @@ const CURRICULUM_DATA = {
             "targetWord": "agile",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agility",
+            "banglaPronunciation": "['অ্যাজিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "চপলতা বা ক্ষিপ্রতা",
+            "exampleEn": "The gymnast stunned judges with her balance and agility.",
+            "exampleBn": "জিমন্যাস্ট তার ভারসাম্য ও ক্ষিপ্রতা দিয়ে বিচারকদের মুগ্ধ করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Agile",
+            "banglaPronunciation": "['অ্যাজাইল]",
+            "pos": "adjective",
+            "banglaMeaning": "চটপটে বা ক্ষিপ্র",
+            "exampleEn": "Tech startups need agile teams capable of pivoting rapidly.",
+            "exampleBn": "প্রযুক্তি স্টার্টআপগুলোর এমন চটপটে দলের প্রয়োজন যারা দ্রুত মানিয়ে নিতে পারে।"
+          },
+          "adverb": {
+            "word": "Agilely",
+            "banglaPronunciation": "['অ্যাজাইল-লি]",
+            "pos": "adverb",
+            "banglaMeaning": "চটপটেভাবে বা ক্ষিপ্রতার সাথে",
+            "exampleEn": "The mountain goat climbed agilely up the sheer rock wall.",
+            "exampleBn": "পাহাড়ি ছাগলটি খাড়া পাথুরে দেওয়াল বেয়ে ক্ষিপ্রতার সাথে উঠেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-23",
@@ -6884,7 +9430,34 @@ const CURRICULUM_DATA = {
             "targetWord": "allocate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allocation",
+            "banglaPronunciation": "['অ্যালোকেশন]",
+            "pos": "noun",
+            "banglaMeaning": "বরাদ্দকরণ বা বণ্টন",
+            "exampleEn": "Budget allocation for primary schools increased by ten percent.",
+            "exampleBn": "প্রাথমিক বিদ্যালয়গুলোর জন্য বাজেট বরাদ্দ দশ শতাংশ বৃদ্ধি পেয়েছে।"
+          },
+          "verb": {
+            "word": "Allocate",
+            "banglaPronunciation": "['অ্যালোকেট]",
+            "pos": "verb",
+            "banglaMeaning": "বরাদ্দ করা বা নির্দিষ্ট করা",
+            "exampleEn": "The board voted to allocate extra funds for scientific research.",
+            "exampleBn": "পর্ষদ বৈজ্ঞানিক গবেষণার জন্য অতিরিক্ত তহবিল বরাদ্দ করার পক্ষে ভোট দিয়েছিল।"
+          },
+          "adjective": {
+            "word": "Allocated",
+            "banglaPronunciation": "['অ্যালোকেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "বরাদ্দকৃত",
+            "exampleEn": "Use the allocated computer terminal for your practical exam.",
+            "exampleBn": "আপনার ব্যবহারিক পরীক্ষার জন্য বরাদ্দকৃত কম্পিউটার টার্মিনালটি ব্যবহার করুন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-24",
@@ -6964,7 +9537,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anticipate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anticipation",
+            "banglaPronunciation": "['অ্যান্টিসিপেশন]",
+            "pos": "noun",
+            "banglaMeaning": "প্রত্যাশা বা পূর্বানুমান",
+            "exampleEn": "Fans waited in joyful anticipation for the musical concert to begin.",
+            "exampleBn": "ভক্তরা সংগীতানুষ্ঠান শুরু হওয়ার আনন্দে অধীর প্রত্যাশায় অপেক্ষা করছিলেন।"
+          },
+          "verb": {
+            "word": "Anticipate",
+            "banglaPronunciation": "['অ্যান্টিসিপেট]",
+            "pos": "verb",
+            "banglaMeaning": "আগে থেকে অনুমান করা বা প্রত্যাশা করা",
+            "exampleEn": "Experienced pilots anticipate mid-air turbulence and alter course.",
+            "exampleBn": "অভিজ্ঞ বৈমানিকরা বায়ুর দোলাচল আগে থেকে অনুমান করে পথ পরিবর্তন করেন।"
+          },
+          "adjective": {
+            "word": "Anticipatory",
+            "banglaPronunciation": "['অ্যান্টিসিপেটরি]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রত্যাশিত বা পূর্বানুমানমূলক",
+            "exampleEn": "The audience gave an anticipatory cheer as lights dimmed.",
+            "exampleBn": "আলো নিভে যাওয়ার সাথে সাথে দর্শকরা এক আনন্দময় উল্লাস প্রকাশ করল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-25",
@@ -7044,7 +9644,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amiable",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amiability",
+            "banglaPronunciation": "['এমিয়্যাবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "অমায়িকতা বা বন্ধুভাবাপন্নতা",
+            "exampleEn": "Her natural amiability put nervous newcomers at ease.",
+            "exampleBn": "তার সহজাত অমায়িকতা উদ্বিগ্ন নবাগতদের নিমেষেই স্বস্তি দিয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Amiable",
+            "banglaPronunciation": "['এমিয়্যাবল]",
+            "pos": "adjective",
+            "banglaMeaning": "অমায়িক বা সদালাপী",
+            "exampleEn": "The hotel receptionist was polite, attentive, and amiable.",
+            "exampleBn": "হোটেলের অভ্যর্থনাকারী ভদ্র, মনোযোগী এবং অমায়িক ছিলেন।"
+          },
+          "adverb": {
+            "word": "Amiably",
+            "banglaPronunciation": "['এমিয়্যাব্লি]",
+            "pos": "adverb",
+            "banglaMeaning": "অমায়িকতার সাথে বা হাসিমুখে",
+            "exampleEn": "Neighbors chatted amiably over the garden hedge.",
+            "exampleBn": "প্রতিবেশীরা বাগানের বেড়ার ওপার থেকে হাসিমুখে গল্প করছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-26",
@@ -7124,7 +9751,27 @@ const CURRICULUM_DATA = {
             "targetWord": "abode",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abode",
+            "banglaPronunciation": "['অ্যাবোড]",
+            "pos": "noun",
+            "banglaMeaning": "বাসস্থান বা নীড়",
+            "exampleEn": "The poet lived in a tranquil mountain abode surrounded by pines.",
+            "exampleBn": "কবি পাইন ঘেরা এক শান্ত পাহাড়ি বাসস্থানে বাস করতেন।"
+          },
+          "verb": {
+            "word": "Abide",
+            "banglaPronunciation": "['অ্যাবাইড]",
+            "pos": "verb",
+            "banglaMeaning": "মেনে চলা বা অবস্থান করা",
+            "exampleEn": "All community members must abide by the residential bylaws.",
+            "exampleBn": "সকল বাসিন্দাকে অবশ্যই আবাসিক উপবিধিগুলো মেনে চলতে হবে।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "int-a-27",
@@ -7204,7 +9851,41 @@ const CURRICULUM_DATA = {
             "targetWord": "absorbent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Absorbency",
+            "banglaPronunciation": "['অ্যাবজরবেন্সি]",
+            "pos": "noun",
+            "banglaMeaning": "শোষণক্ষমতা",
+            "exampleEn": "Test the liquid absorbency of various paper towels.",
+            "exampleBn": "বিভিন্ন কাগজের তোয়ালের তরল শোষণক্ষমতা পরীক্ষা করুন।"
+          },
+          "verb": {
+            "word": "Absorb",
+            "banglaPronunciation": "['অ্যাবজর্ব]",
+            "pos": "verb",
+            "banglaMeaning": "শুষে নেওয়া বা শোষণ করা",
+            "exampleEn": "Warm soil will absorb gentle rainfall quickly.",
+            "exampleBn": "উষ্ণ মাটি মৃদু বৃষ্টিপাত দ্রুত শুষে নেয়।"
+          },
+          "adjective": {
+            "word": "Absorbent",
+            "banglaPronunciation": "['অ্যাবজরবেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "শোষণক্ষম বা ভেদ্য",
+            "exampleEn": "Use an absorbent cloth to wipe the kitchen counter.",
+            "exampleBn": "রান্নাঘরের কাউন্টার মুছতে একটি শোষণক্ষম কাপড় ব্যবহার করুন।"
+          },
+          "adverb": {
+            "word": "Absorbingly",
+            "banglaPronunciation": "['অ্যাবজরবিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আকর্ষণীয়ভাবে",
+            "exampleEn": "The travel biography was absorbingly written.",
+            "exampleBn": "ভ্রমণ জীবনীটি দারুণ আকর্ষণীয়ভাবে লেখা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-a-28",
@@ -7284,7 +9965,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abstinence",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abstinence",
+            "banglaPronunciation": "['অ্যাবস্টিনেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "সংযম বা পরিহার",
+            "exampleEn": "Total abstinence from tobacco improves heart health.",
+            "exampleBn": "তামাক থেকে সম্পূর্ণ সংযম হৃদযন্ত্রের সুস্থতা বাড়ায়।"
+          },
+          "verb": {
+            "word": "Abstain",
+            "banglaPronunciation": "['অ্যাবস্টেইন]",
+            "pos": "verb",
+            "banglaMeaning": "বিরত থাকা বা সংযম পালন করা",
+            "exampleEn": "Athletes abstain from junk food during championship training.",
+            "exampleBn": "চ্যাম্পিয়নশিপ প্রশিক্ষণে অ্যাথলেটরা অস্বাস্থ্যকর খাবার থেকে বিরত থাকেন।"
+          },
+          "adjective": {
+            "word": "Abstinent",
+            "banglaPronunciation": "['অ্যাবস্টিনেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সংযমী বা মিতাহারী",
+            "exampleEn": "He led an abstinent lifestyle devoted to philosophical study.",
+            "exampleBn": "তিনি দার্শনিক পড়াশোনায় নিবেদিত এক সংযমী জীবনযাপন করতেন।"
+          },
+          "adverb": {
+            "word": "Abstinently",
+            "banglaPronunciation": "['অ্যাবস্টিনেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সংযমের সাথে",
+            "exampleEn": "She lived abstinently during the month of spiritual fasting.",
+            "exampleBn": "তিনি আত্মশুদ্ধির রোজা রাখার মাসে পরম সংযমের সাথে কাটিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-29",
@@ -7364,7 +10079,34 @@ const CURRICULUM_DATA = {
             "targetWord": "absurd",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Absurdity",
+            "banglaPronunciation": "['অ্যাবসার্ডিটি]",
+            "pos": "noun",
+            "banglaMeaning": "অযৌক্তিকতা বা হাস্যকর অবস্থা",
+            "exampleEn": "The absurdity of the rumor made everyone laugh aloud.",
+            "exampleBn": "গুজবটির অযৌক্তিকতা সবাইকে হো হো করে হাসিয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Absurd",
+            "banglaPronunciation": "['অ্যাবসার্ড]",
+            "pos": "adjective",
+            "banglaMeaning": "অযৌক্তিক বা হাস্যকর",
+            "exampleEn": "Claiming that the earth is flat is completely absurd.",
+            "exampleBn": "পৃথিবী সমতল বলে দাবি করা সম্পূর্ণ অযৌক্তিক।"
+          },
+          "adverb": {
+            "word": "Absurdly",
+            "banglaPronunciation": "['অ্যাবসার্ডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অযৌক্তিকভাবে বা মাত্রাতিরিক্তভাবে",
+            "exampleEn": "The boutique hotel charges absurdly high prices for coffee.",
+            "exampleBn": "বুটিক হোটেলটি কফির জন্য মাত্রাতিরিক্ত বেশি দাম রাখে।"
+          }
+        }
       },
       {
         "id": "int-a-30",
@@ -7444,7 +10186,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abundance",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abundance",
+            "banglaPronunciation": "['অ্যাবানডেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "প্রাচুর্য বা আধিক্য",
+            "exampleEn": "Tropical rain forests house an abundance of medicinal flora.",
+            "exampleBn": "গ্রীষ্মমণ্ডলীয় বৃষ্টিবনগুলো ঔষধি উদ্ভিদের এক বিপুল প্রাচুর্য ধারণ করে।"
+          },
+          "verb": {
+            "word": "Abound",
+            "banglaPronunciation": "['অ্যাবাউন্ড]",
+            "pos": "verb",
+            "banglaMeaning": "প্রচুর পরিমাণে থাকা",
+            "exampleEn": "Fish abound in the protected coastal marine sanctuary.",
+            "exampleBn": "সংরক্ষিত উপকূলীয় সামুদ্রিক অভয়ারণ্যে প্রচুর মাছ পাওয়া যায়।"
+          },
+          "adjective": {
+            "word": "Abundant",
+            "banglaPronunciation": "['অ্যাবানডেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রচুর বা অফুরন্ত",
+            "exampleEn": "Solar energy is an abundant clean power resource.",
+            "exampleBn": "সৌরশক্তি হলো এক অফুরন্ত পরিচ্ছন্ন জ্বালানি উৎস।"
+          },
+          "adverb": {
+            "word": "Abundantly",
+            "banglaPronunciation": "['অ্যাবানডেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রচুর পরিমাণে বা স্পষ্টরূপে",
+            "exampleEn": "The professor made his expectations abundantly clear to the class.",
+            "exampleBn": "অধ্যাপক ক্লাসের সামনে তার প্রত্যাশা অত্যন্ত সুস্পষ্টভাবে তুলে ধরলেন।"
+          }
+        }
       },
       {
         "id": "int-a-31",
@@ -7524,7 +10300,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abyss",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abyss",
+            "banglaPronunciation": "['অ্যাবিস]",
+            "pos": "noun",
+            "banglaMeaning": "অতল গহ্বর বা অতল খাদ",
+            "exampleEn": "The submarine explored the dark abyss of the oceanic trench.",
+            "exampleBn": "সাবমেরিনটি মহাসাগরীয় খাদের অন্ধকার অতল গহ্বর অন্বেষণ করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Abyssal",
+            "banglaPronunciation": "['অ্যাবিসাল]",
+            "pos": "adjective",
+            "banglaMeaning": "অতল বা গভীর সমুদ্রসংক্রান্ত",
+            "exampleEn": "Scientists study unique creatures living on the abyssal plain.",
+            "exampleBn": "বিজ্ঞানীরা অতল সামুদ্রিক সমতলে বসবাসকারী অনন্য প্রাণী নিয়ে গবেষণা করেন।"
+          },
+          "adverb": {
+            "word": "Abysmally",
+            "banglaPronunciation": "['অ্যাবিজমার্লি]",
+            "pos": "adverb",
+            "banglaMeaning": "চরম হতাশাজনকভাবে বা শোচনীয়ভাবে",
+            "exampleEn": "The neglected road was abysmally poorly maintained.",
+            "exampleBn": "উপেক্ষিত রাস্তাটি চরম শোচনীয়ভাবে রক্ষণাবেক্ষণ করা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "int-a-32",
@@ -7604,7 +10407,27 @@ const CURRICULUM_DATA = {
             "targetWord": "accessory",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accessory",
+            "banglaPronunciation": "['অ্যাকসেসরি]",
+            "pos": "noun",
+            "banglaMeaning": "অনুষঙ্গ বা সহায়ক সরঞ্জাম",
+            "exampleEn": "A woolen scarf is a stylish winter fashion accessory.",
+            "exampleBn": "পশমি স্কার্ফ হলো একটি চমৎকার শীতকালীন ফ্যাশন অনুষঙ্গ।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Accessorial",
+            "banglaPronunciation": "['অ্যাকসেসোরিয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "আনুষঙ্গিক বা অতিরিক্ত",
+            "exampleEn": "The shipping invoice listed accessorial handling charges.",
+            "exampleBn": "চালানপত্রে আনুষঙ্গিক হ্যান্ডলিং খরচ তালিকাভুক্ত ছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-33",
@@ -7684,7 +10507,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accomplice",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accomplice",
+            "banglaPronunciation": "['অ্যাকমপ্লিস]",
+            "pos": "noun",
+            "banglaMeaning": "অপরাধের সহযোগী",
+            "exampleEn": "The thief was arrested along with his getaway accomplice.",
+            "exampleBn": "চোরটিকে তার পলায়নরত অপরাধের সহযোগীসহ গ্রেফতার করা হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Complicit",
+            "banglaPronunciation": "['কমপ্লিসিট]",
+            "pos": "adjective",
+            "banglaMeaning": "দোষী সহযোগী বা সংশ্লিষ্ট",
+            "exampleEn": "Several managers were complicit in the tax fraud scheme.",
+            "exampleBn": "কর ফাঁকির চক্রান্তে বেশ কয়েকজন ব্যবস্থাপক সংশ্লিষ্ট ছিলেন।"
+          },
+          "adverb": {
+            "word": "Complicitly",
+            "banglaPronunciation": "['কমপ্লিসিটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দোষী সহযোগীর মতো",
+            "exampleEn": "He stayed quiet, complicitly allowing the forgery to happen.",
+            "exampleBn": "তিনি চুপ থেকে অপরাধের সহযোগীর মতো জালিয়াতিটি ঘটতে দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-34",
@@ -7764,7 +10614,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accordance",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accordance",
+            "banglaPronunciation": "['অ্যাকর্ডেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "সঙ্গতি বা সামঞ্জস্য",
+            "exampleEn": "The building was erected in accordance with earthquake standards.",
+            "exampleBn": "ভবনটি ভূমিকম্প নিরাপত্তা বিধির সাথে পূর্ণ সঙ্গতি রেখে নির্মাণ করা হয়েছিল।"
+          },
+          "verb": {
+            "word": "Accord",
+            "banglaPronunciation": "['অ্যাকর্ড]",
+            "pos": "verb",
+            "banglaMeaning": "সম্মতি দেওয়া বা খাপ খাওয়া",
+            "exampleEn": "His deeds accord with his noble moral principles.",
+            "exampleBn": "তার কর্মকাণ্ড তার মহৎ নৈতিক নীতির সাথে খাপ খায়।"
+          },
+          "adjective": {
+            "word": "Accordant",
+            "banglaPronunciation": "['অ্যাকর্ড্যান্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সঙ্গতিপূর্ণ বা একমত",
+            "exampleEn": "Her testimony was accordant with the forensic report.",
+            "exampleBn": "তার সাক্ষ্য ফরেনসিক প্রতিবেদনের সাথে সম্পূর্ণ সঙ্গতিপূর্ণ ছিল।"
+          },
+          "adverb": {
+            "word": "Accordantly",
+            "banglaPronunciation": "['অ্যাকর্ড্যান্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সঙ্গতি রেখে",
+            "exampleEn": "The staff acted accordantly with the updated company protocols.",
+            "exampleBn": "কর্মীরা কোম্পানির হালনাগাদ নিয়মাবলীর সাথে সঙ্গতি রেখে কাজ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-35",
@@ -7844,7 +10728,41 @@ const CURRICULUM_DATA = {
             "targetWord": "accountability",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accountability",
+            "banglaPronunciation": "['অ্যাকাউন্টেবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "জবাবদিহিতা বা দায়বদ্ধতা",
+            "exampleEn": "Public audits ensure transparency and institutional accountability.",
+            "exampleBn": "জননিরীক্ষা স্বচ্ছতা এবং প্রাতিষ্ঠানিক জবাবদিহিতা নিশ্চিত করে।"
+          },
+          "verb": {
+            "word": "Account",
+            "banglaPronunciation": "['অ্যাকাউন্ট]",
+            "pos": "verb",
+            "banglaMeaning": "হিসাব দেওয়া বা ব্যাখ্যা করা",
+            "exampleEn": "Officials must account for every penny of allocated public funds.",
+            "exampleBn": "কর্মকর্তাদের অবশ্যই বরাদ্দকৃত সরকারি অর্থের পাই টু পাই হিসাব দিতে হবে।"
+          },
+          "adjective": {
+            "word": "Accountable",
+            "banglaPronunciation": "['অ্যাকাউন্টেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "দায়বদ্ধ বা জবাবদিহি করতে বাধ্য",
+            "exampleEn": "Leaders remain strictly accountable to the citizens who elected them.",
+            "exampleBn": "নেতারা তাদের নির্বাচিত করা নাগরিকদের কাছে কঠোরভাবে দায়বদ্ধ থাকেন।"
+          },
+          "adverb": {
+            "word": "Accountably",
+            "banglaPronunciation": "['অ্যাকাউন্টেবলি]",
+            "pos": "adverb",
+            "banglaMeaning": "জবাবদিহিতার সাথে",
+            "exampleEn": "The board acted accountably during the corporate merger.",
+            "exampleBn": "করপোরেট সংযুক্তির পুরো প্রক্রিয়ায় পর্ষদ জবাবদিহিতার সাথে কাজ করেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-36",
@@ -7924,7 +10842,34 @@ const CURRICULUM_DATA = {
             "targetWord": "accrue",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accrual",
+            "banglaPronunciation": "['অ্যাক্রুয়াল]",
+            "pos": "noun",
+            "banglaMeaning": "বৃদ্ধি বা সঞ্চিত সুদ",
+            "exampleEn": "Accounting staff recorded the annual accrual of bond interest.",
+            "exampleBn": "হিসাবরক্ষণ কর্মীরা বন্ড সুদের বার্ষিক সঞ্চয় লিপিবদ্ধ করেছিলেন।"
+          },
+          "verb": {
+            "word": "Accrue",
+            "banglaPronunciation": "['অ্যাক্রু']",
+            "pos": "verb",
+            "banglaMeaning": "জমা হওয়া বা বৃদ্ধি পাওয়া",
+            "exampleEn": "Substantial interest will accrue on your fixed deposit account.",
+            "exampleBn": "আপনার স্থায়ী আমানত হিসাবে উল্লেখযোগ্য পরিমাণ সুদ জমা হবে।"
+          },
+          "adjective": {
+            "word": "Accrued",
+            "banglaPronunciation": "['অ্যাক্রুড]",
+            "pos": "adjective",
+            "banglaMeaning": "সঞ্চিত বা উপার্জিত",
+            "exampleEn": "Employees cashed in their accrued vacation days before retiring.",
+            "exampleBn": "অবসর নেওয়ার আগে কর্মীরা তাদের সঞ্চিত ছুটির টাকা নগদায়ন করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-37",
@@ -8004,7 +10949,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acquaintance",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acquaintance",
+            "banglaPronunciation": "['অ্যাকোয়েন্টেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "চেনাশোনা ব্যক্তি বা পরিচয়",
+            "exampleEn": "She bumped into an old university acquaintance at the book fair.",
+            "exampleBn": "বইমেলায় তার বিশ্ববিদ্যালয়ের এক পুরোনো পরিচিত ব্যক্তির সাথে দেখা হয়েছিল।"
+          },
+          "verb": {
+            "word": "Acquaint",
+            "banglaPronunciation": "['অ্যাকোয়েন্ট]",
+            "pos": "verb",
+            "banglaMeaning": "পরিচিত করা বা জানানো",
+            "exampleEn": "Take time to acquaint yourself with laboratory safety procedures.",
+            "exampleBn": "ল্যাবরেটরির নিরাপত্তা পদ্ধতির সাথে নিজেকে পরিচিত করে নিতে সময় নিন।"
+          },
+          "adjective": {
+            "word": "Acquainted",
+            "banglaPronunciation": "['অ্যাকোয়েন্টেড]",
+            "pos": "adjective",
+            "banglaMeaning": "পরিচিত বা অবগত",
+            "exampleEn": "I am well acquainted with her published academic research.",
+            "exampleBn": "তার প্রকাশিত অ্যাকাডেমিক গবেষণার সাথে আমি বেশ পরিচিত।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-38",
@@ -8084,7 +11056,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acquit",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acquittal",
+            "banglaPronunciation": "['অ্যাকুইটাল]",
+            "pos": "noun",
+            "banglaMeaning": "বেখসুর খালাস বা দায়মুক্তি",
+            "exampleEn": "The trial ended in the complete acquittal of the defendant.",
+            "exampleBn": "বিচার প্রক্রিয়াটি আসামির পূর্ণ বেখসুর খালাসের মাধ্যমে শেষ হয়েছিল।"
+          },
+          "verb": {
+            "word": "Acquit",
+            "banglaPronunciation": "['অ্যাকুইট]",
+            "pos": "verb",
+            "banglaMeaning": "খালাস দেওয়া বা নির্দোষ ঘোষণা করা",
+            "exampleEn": "The jury voted to acquit the suspect after reviewing video proof.",
+            "exampleBn": "ভিডিও প্রমাণাদি পর্যালোচনার পর জুরিরা আসামিকে খালাস দেওয়ার পক্ষে মত দিয়েছিলেন।"
+          },
+          "adjective": {
+            "word": "Acquitted",
+            "banglaPronunciation": "['অ্যাকুইটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "খালাসপ্রাপ্ত",
+            "exampleEn": "The acquitted passenger walked out of the courtroom smiling.",
+            "exampleBn": "খালাসপ্রাপ্ত যাত্রী হাসিমুখে আদালত কক্ষ থেকে বেরিয়ে এসেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-39",
@@ -8164,7 +11163,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adept",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adeptness",
+            "banglaPronunciation": "['অ্যাডেপ্টনেস]",
+            "pos": "noun",
+            "banglaMeaning": "দক্ষতা বা নিপুণতা",
+            "exampleEn": "Her adeptness at multilingual translation impressed the foreign ministry.",
+            "exampleBn": "বহুভাষিক অনুবাদে তার নিপুণতা পররাষ্ট্র মন্ত্রণালয়কে মুগ্ধ করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adept",
+            "banglaPronunciation": "['অ্যাডেপ্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "দক্ষ বা নিপুণ",
+            "exampleEn": "He is remarkably adept at calming anxious patients before surgery.",
+            "exampleBn": "অস্ত্রোপচারের আগে উদ্বিগ্ন রোগীদের শান্ত করতে তিনি দারুণ দক্ষ।"
+          },
+          "adverb": {
+            "word": "Adeptly",
+            "banglaPronunciation": "['অ্যাডেপ্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দক্ষতার সাথে বা নিপুণভাবে",
+            "exampleEn": "The seasoned diplomat adeptly steered the delicate bilateral talks.",
+            "exampleBn": "অভিজ্ঞ কূটনীতিক দক্ষতার সাথে সংবেদনশীল দ্বিপাক্ষিক আলোচনা পরিচালনা করেছিলেন।"
+          }
+        }
       },
       {
         "id": "int-a-40",
@@ -8244,7 +11270,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adjoining",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adjunction",
+            "banglaPronunciation": "['অ্যাডজাঙ্কশন]",
+            "pos": "noun",
+            "banglaMeaning": "সংযোজন",
+            "exampleEn": "The architectural adjunction connected the old wing with the new tower.",
+            "exampleBn": "স্থাপত্য সংযোজনটি পুরোনো অংশের সাথে নতুন টাওয়ারটিকে সংযুক্ত করেছিল।"
+          },
+          "verb": {
+            "word": "Adjoin",
+            "banglaPronunciation": "['অ্যাডজয়েন]",
+            "pos": "verb",
+            "banglaMeaning": "সংলগ্ন হওয়া বা গা ঘেঁষে থাকা",
+            "exampleEn": "The peaceful public park adjoins the central university campus.",
+            "exampleBn": "মনোরম গণপার্কটি কেন্দ্রীয় বিশ্ববিদ্যালয় ক্যাম্পাসের গা ঘেঁষে অবস্থিত।"
+          },
+          "adjective": {
+            "word": "Adjoining",
+            "banglaPronunciation": "['অ্যাডজয়েনিং]",
+            "pos": "adjective",
+            "banglaMeaning": "সংলগ্ন বা পাশাপাশি",
+            "exampleEn": "The family booked two adjoining hotel suites with an interior door.",
+            "exampleBn": "পরিবারটি ভেতরের দরজাযুক্ত দুটি পাশাপাশি হোটেল স্যুট বুক করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-41",
@@ -8324,7 +11377,41 @@ const CURRICULUM_DATA = {
             "targetWord": "administer",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Administration",
+            "banglaPronunciation": "['অ্যাডমিনিস্ট্রেশন]",
+            "pos": "noun",
+            "banglaMeaning": "প্রশাসন বা পরিচালনা",
+            "exampleEn": "Hospital administration introduced digital appointment scheduling.",
+            "exampleBn": "হাসপাতাল প্রশাসন ডিজিটাল অ্যাপয়েন্টমেন্ট শিডিউলিং চালু করেছে।"
+          },
+          "verb": {
+            "word": "Administer",
+            "banglaPronunciation": "['অ্যাডমিনিস্টার]",
+            "pos": "verb",
+            "banglaMeaning": "পরিচালনা করা বা ওষুধ প্রয়োগ করা",
+            "exampleEn": "Registered nurses administer emergency medicine with gentle precision.",
+            "exampleBn": "নিবন্ধিত নার্সরা অত্যন্ত যত্নের সাথে জরুরি ওষুধ প্রয়োগ করেন।"
+          },
+          "adjective": {
+            "word": "Administrative",
+            "banglaPronunciation": "['অ্যাডমিনিস্ট্রেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রশাসনিক",
+            "exampleEn": "She handles complex administrative duties in the vice-chancellor's office.",
+            "exampleBn": "তিনি উপাচার্যের কার্যালয়ে জটিল প্রশাসনিক দায়িত্ব সামলান।"
+          },
+          "adverb": {
+            "word": "Administratively",
+            "banglaPronunciation": "['অ্যাডমিনিস্ট্রেটিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রশাসনিক দৃষ্টিকোণ থেকে",
+            "exampleEn": "The autonomous district is managed administratively by a regional council.",
+            "exampleBn": "স্বায়ত্তশাসিত জেলাটি প্রশাসনিকভাবে একটি আঞ্চলিক কাউন্সিল দ্বারা পরিচালিত হয়।"
+          }
+        }
       },
       {
         "id": "int-a-42",
@@ -8404,7 +11491,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adulterate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adulteration",
+            "banglaPronunciation": "['অ্যাডাল্টারেশন]",
+            "pos": "noun",
+            "banglaMeaning": "ভেজাল মেশানো বা দূষণ",
+            "exampleEn": "Food safety inspectors strictly penalize milk adulteration.",
+            "exampleBn": "খাদ্য নিরাপত্তা পরিদর্শকরা দুধে ভেজাল মেশানোর বিরুদ্ধে কঠোর শাস্তি দেন।"
+          },
+          "verb": {
+            "word": "Adulterate",
+            "banglaPronunciation": "['অ্যাডাল্টারেট]",
+            "pos": "verb",
+            "banglaMeaning": "ভেজাল মেশানো বা অপমিশ্রণ করা",
+            "exampleEn": "Unscrupulous dealers adulterate expensive spices with cheap fillers.",
+            "exampleBn": "অসাধু ব্যবসায়ীরা দামি মসলায় সস্তা উপাদানের ভেজাল মেশায়।"
+          },
+          "adjective": {
+            "word": "Adulterated",
+            "banglaPronunciation": "['অ্যাডাল্টারেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "ভেজালযুক্ত বা দূষিত",
+            "exampleEn": "Authorities seized consignments of adulterated cooking oil at port.",
+            "exampleBn": "কর্তৃপক্ষ বন্দরে ভেজাল রান্নার তেলের চালান বাজেয়াপ্ত করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-43",
@@ -8484,7 +11598,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adversary",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adversary",
+            "banglaPronunciation": "['অ্যাডভারসারি]",
+            "pos": "noun",
+            "banglaMeaning": "প্রতিপক্ষ বা শত্রু",
+            "exampleEn": "He shook hands with his chess adversary before the championship match.",
+            "exampleBn": "চ্যাম্পিয়নশিপ ম্যাচের আগে তিনি তার দাবা প্রতিপক্ষের সাথে করমর্দন করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adversarial",
+            "banglaPronunciation": "['অ্যাডভারসারিয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রতিদ্বন্দ্বিতাপূর্ণ বা বৈরী",
+            "exampleEn": "The legal trial featured an intense adversarial debate between attorneys.",
+            "exampleBn": "আইনি বিচারে আইনজীবীদের মাঝে এক তীব্র প্রতিদ্বন্দ্বিতাপূর্ণ বিতর্ক হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Adversely",
+            "banglaPronunciation": "['অ্যাডভার্সলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রতিকূলভাবে",
+            "exampleEn": "Unexpected torrential rain adversely disrupted outdoor market sales.",
+            "exampleBn": "অপ্রত্যাশিত মুষলধারে বৃষ্টি বাইরের বাজারের বিক্রিতে প্রতিকূল প্রভাব ফেলেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-44",
@@ -8564,7 +11705,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adversity",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adversity",
+            "banglaPronunciation": "['অ্যাডভার্সিটি]",
+            "pos": "noun",
+            "banglaMeaning": "বিপদ, দুর্যোগ বা প্রতিকূলতা",
+            "exampleEn": "He met sudden financial adversity with unwavering optimism.",
+            "exampleBn": "তিনি আকস্মিক আর্থিক প্রতিকূলতাকে অবিচল আশাবাদ নিয়ে মোকাবিলা করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adverse",
+            "banglaPronunciation": "['অ্যাডভার্স]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রতিকূল বা বৈরী",
+            "exampleEn": "Adverse weather conditions forced airport officials to ground flights.",
+            "exampleBn": "প্রতিকূল আবহাওয়ার কারণে বিমানবন্দর কর্তৃপক্ষ ফ্লাইট স্থগিত করতে বাধ্য হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Adversely",
+            "banglaPronunciation": "['অ্যাডভার্সলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রতিকূলভাবে বা ক্ষতিসাধন করে",
+            "exampleEn": "Prolonged droughts adversely hit paddy production across the province.",
+            "exampleBn": "দীর্ঘস্থায়ী খরা প্রদেশজুড়ে ধান উৎপাদনে মারাত্মক প্রতিকূল প্রভাব ফেলেছিল।"
+          }
+        }
       },
       {
         "id": "int-a-45",
@@ -8644,7 +11812,34 @@ const CURRICULUM_DATA = {
             "targetWord": "aestheticism",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aestheticism",
+            "banglaPronunciation": "['এসথেটিসিজম]",
+            "pos": "noun",
+            "banglaMeaning": "নান্দনিকতাবাদ বা সৌন্দর্যবাদ",
+            "exampleEn": "Oscar Wilde was a celebrated proponent of nineteenth-century aestheticism.",
+            "exampleBn": "অস্কার ওয়াইল্ড ছিলেন ঊনবিংশ শতাব্দীর সৌন্দর্যবাদের এক বিখ্যাত প্রবক্তা।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Aesthetic",
+            "banglaPronunciation": "['এসথেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "নান্দনিক বা শিল্পসম্মত",
+            "exampleEn": "The new auditorium combines functional acoustics with superior aesthetic beauty.",
+            "exampleBn": "নতুন মিলনায়তনটি ব্যবহারিক শব্দের সাথে চমৎকার নান্দনিক সৌন্দর্যের সমন্বয় ঘটিয়েছে।"
+          },
+          "adverb": {
+            "word": "Aesthetically",
+            "banglaPronunciation": "['এসথেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নান্দনিকভাবে বা দৃষ্টিনন্দনরূপে",
+            "exampleEn": "The botanical garden is aesthetically designed with flowering hedges.",
+            "exampleBn": "বোটানিক্যাল গার্ডেনটি ফুলের বেড়া দিয়ে দৃষ্টিনন্দনরূপে সাজানো হয়েছে।"
+          }
+        }
       },
       {
         "id": "int-a-46",
@@ -8724,7 +11919,34 @@ const CURRICULUM_DATA = {
             "targetWord": "affiliation",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affiliation",
+            "banglaPronunciation": "['অ্যাফিলিয়েশন]",
+            "pos": "noun",
+            "banglaMeaning": "অধিভুক্তি বা সংশ্লিষ্টতা",
+            "exampleEn": "Her institutional affiliation with Oxford granted her access to rare archives.",
+            "exampleBn": "অক্সফোর্ডের সাথে প্রাতিষ্ঠানিক অধিভুক্তি তাকে দুর্লভ আর্কাইভ ব্যবহারের সুযোগ দিয়েছিল।"
+          },
+          "verb": {
+            "word": "Affiliate",
+            "banglaPronunciation": "['অ্যাফিলিয়েট]",
+            "pos": "verb",
+            "banglaMeaning": "অধিভুক্ত করা বা যুক্ত হওয়া",
+            "exampleEn": "The regional college chose to affiliate with the national university.",
+            "exampleBn": "আঞ্চলিক কলেজটি জাতীয় বিশ্ববিদ্যালয়ের সাথে অধিভুক্ত হওয়ার সিদ্ধান্ত নেয়।"
+          },
+          "adjective": {
+            "word": "Affiliated",
+            "banglaPronunciation": "['অ্যাফিলিয়েটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "অধিভুক্ত বা সংশ্লিষ্ট",
+            "exampleEn": "She conducts research at an affiliated hospital laboratory.",
+            "exampleBn": "তিনি একটি অধিভুক্ত হাসপাতাল ল্যাবরেটরিতে গবেষণা পরিচালনা করেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-47",
@@ -8804,7 +12026,27 @@ const CURRICULUM_DATA = {
             "targetWord": "affinity",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affinity",
+            "banglaPronunciation": "['অ্যাফিনিটি]",
+            "pos": "noun",
+            "banglaMeaning": "সহজাত আকর্ষণ বা ঘনিষ্ঠ মিল",
+            "exampleEn": "From an early age, he felt a natural affinity for wildlife photography.",
+            "exampleBn": "ছোটবেলা থেকেই তিনি বন্যপ্রাণীর ছবির প্রতি এক সহজাত আকর্ষণ অনুভব করতেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Affinitive",
+            "banglaPronunciation": "['অ্যাফিনিটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "ঘনিষ্ঠ বা সাদৃশ্যপূর্ণ",
+            "exampleEn": "Linguists analyze the affinitive relationships among Romance tongues.",
+            "exampleBn": "ভাষাবিদরা রোমান্স ভাষাগুলোর পারস্পরিক সাদৃশ্যপূর্ণ সম্পর্ক বিশ্লেষণ করেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-48",
@@ -8884,7 +12126,41 @@ const CURRICULUM_DATA = {
             "targetWord": "affirm",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affirmation",
+            "banglaPronunciation": "['অ্যাফারমেশন]",
+            "pos": "noun",
+            "banglaMeaning": "দৃঢ় সমর্থন বা প্রত্যয়ন",
+            "exampleEn": "Daily positive affirmations build quiet inner confidence.",
+            "exampleBn": "প্রতিদিনের ইতিবাচক প্রত্যয়ন শান্ত মানসিক আত্মবিশ্বাস গড়ে তোলে।"
+          },
+          "verb": {
+            "word": "Affirm",
+            "banglaPronunciation": "['অ্যাফার্ম]",
+            "pos": "verb",
+            "banglaMeaning": "দৃঢ়ভাবে বলা বা নিশ্চিত করা",
+            "exampleEn": "The foreign minister affirmed the nation's commitment to climate action.",
+            "exampleBn": "পররাষ্ট্রমন্ত্রী জলবায়ু পদক্ষেপে দেশটির দৃঢ় অঙ্গীকার পুনর্ব্যক্ত করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Affirmative",
+            "banglaPronunciation": "['অ্যাফারমেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "ইতিবাচক বা সম্মতিসূচক",
+            "exampleEn": "The board returned an affirmative vote on the funding proposal.",
+            "exampleBn": "অর্থায়ন প্রস্তাবের পক্ষে বোর্ড একটি সম্মতিসূচক ভোট দিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Affirmatively",
+            "banglaPronunciation": "['অ্যাফারমেটিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "ইতিবাচকভাবে বা হ্যাঁ-সূচক সুরে",
+            "exampleEn": "She nodded affirmatively when asked if she could lead the project.",
+            "exampleBn": "প্রকল্পের নেতৃত্ব দিতে পারবেন কিনা জানতে চাইলে তিনি ইতিবাচকভাবে মাথা নাড়লেন।"
+          }
+        }
       },
       {
         "id": "int-a-49",
@@ -8964,7 +12240,34 @@ const CURRICULUM_DATA = {
             "targetWord": "afflict",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affliction",
+            "banglaPronunciation": "['অ্যাফ্লিকশন]",
+            "pos": "noun",
+            "banglaMeaning": "যন্ত্রণা, দুর্দশা বা রোগ",
+            "exampleEn": "Compassionate nurses comforted patients facing chronic affliction.",
+            "exampleBn": "সহানুভূতিশীল নার্সরা দীর্ঘমেয়াদী রোগে ভোগা রোগীদের সান্ত্বনা দিয়েছিলেন।"
+          },
+          "verb": {
+            "word": "Afflict",
+            "banglaPronunciation": "['অ্যাফ্লিক্ট]",
+            "pos": "verb",
+            "banglaMeaning": "পীড়িত করা বা যন্ত্রণা দেওয়া",
+            "exampleEn": "Severe seasonal droughts afflict rural farming communities periodically.",
+            "exampleBn": "তীব্র মৌসুমি খরা গ্রামীণ কৃষক সম্প্রদায়কে পর্যায়ক্রমে চরম যন্ত্রণায় ফেলে।"
+          },
+          "adjective": {
+            "word": "Afflicted",
+            "banglaPronunciation": "['অ্যাফ্লিক্টেড]",
+            "pos": "adjective",
+            "banglaMeaning": "পীড়িত বা যন্ত্রণাকাতর",
+            "exampleEn": "Medical charities sent mobile clinics to the afflicted drought zones.",
+            "exampleBn": "চিকিৎসা দাতব্য সংস্থাগুলো খরা-পীড়িত এলাকায় ভ্রাম্যমাণ ক্লিনিক পাঠিয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "int-a-50",
@@ -9044,7 +12347,106 @@ const CURRICULUM_DATA = {
             "targetWord": "afloat",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": {
+            "word": "Float",
+            "banglaPronunciation": "['ফ্লোট]",
+            "pos": "verb",
+            "banglaMeaning": "ভাসা বা ভেসে থাকা",
+            "exampleEn": "Dry timber logs float smoothly down the river current.",
+            "exampleBn": "শুকনো কাঠের গুঁড়ি নদীর স্রোতে মসৃণভাবে ভেসে যায়।"
+          },
+          "adjective": {
+            "word": "Afloat",
+            "banglaPronunciation": "['অ্যাফ্লোট]",
+            "pos": "adjective",
+            "banglaMeaning": "ভাসমান বা সংকটমুক্ত",
+            "exampleEn": "Emergency government micro-grants kept the family bookshop afloat.",
+            "exampleBn": "সরকারের জরুরি ক্ষুদ্র অনুদান পারিবারিক বইয়ের দোকানটিকে টিকিয়ে রেখেছিল।"
+          },
+          "adverb": null
+        }
+      },
+      {
+        "id": "int-agony",
+        "word": "Agony",
+        "imageQuery": "intense struggle marathon finish line",
+        "pos": "Noun",
+        "ipa": "/ˈæɡ.ə.ni/",
+        "meaningBn": "তীব্র যন্ত্রণা, নিদারুণ মানসিক বা শারীরিক কষ্ট",
+        "explanationEn": "Extreme physical or mental suffering.",
+        "example": "I have been feeling agony in my chest for the last few days.",
+        "exampleBn": "গত কয়েকদিন ধরে বুকের ব্যথায় আমি তীব্র যন্ত্রণা অনুভব করছি।",
+        "synonyms": [
+          {
+            "word": "Anguish",
+            "meaningBn": "তীব্র মনস্তাপ",
+            "explanationBn": "হৃদয়ের গভীর মর্মবেদনা বা মানসিক অস্থিরতা বোঝাতে ব্যবহৃত হয়।"
+          },
+          {
+            "word": "Torment",
+            "meaningBn": "অসহ্য যন্ত্রণা",
+            "explanationBn": "শারীরিক বা মানসিক তীব্র নির্যাতনতুল্য কষ্ট বোঝাতে ব্যবহৃত হয়।"
+          },
+          {
+            "word": "Suffering",
+            "meaningBn": "কষ্টভোগ",
+            "explanationBn": "দীর্ঘস্থায়ী ব্যথা বা দুর্দশার শিকার হওয়া বোঝাতে ব্যবহৃত হয়।"
+          }
+        ],
+        "antonyms": [
+          {
+            "word": "Ecstasy",
+            "meaningBn": "পরমানন্দ",
+            "explanationBn": "চরম আনন্দ বা উল্লাসপূর্ণ অনুভূতি বোঝাতে ব্যবহৃত হয়।"
+          },
+          {
+            "word": "Comfort",
+            "meaningBn": "আরাম বা স্বস্তি",
+            "explanationBn": "শারীরিক বা মানসিক কষ্টমুক্ত অবস্থা বোঝাতে ব্যবহৃত হয়।"
+          },
+          {
+            "word": "Joy",
+            "meaningBn": "আনন্দ",
+            "explanationBn": "মনে পরম প্রশান্তি ও সুখবোধ প্রকাশ করতে ব্যবহৃত হয়।"
+          }
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agony",
+            "banglaPronunciation": "['অ্যাগানি]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র যন্ত্রণা",
+            "exampleEn": "I have been feeling agony in my chest for the last few days.",
+            "exampleBn": "গত কয়েকদিন ধরে বুকের ব্যথায় আমি তীব্র যন্ত্রণা অনুভব করছি।"
+          },
+          "verb": {
+            "word": "Agonize",
+            "banglaPronunciation": "['অ্যাগোনাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "যন্ত্রণা ভোগ করা বা চরম উদ্বেগে থাকা",
+            "exampleEn": "Do not agonize over decisions you cannot change.",
+            "exampleBn": "যে সিদ্ধান্তগুলো আপনি পরিবর্তন করতে পারবেন না, সেগুলো নিয়ে চরম উদ্বেগে ভুগবেন না।"
+          },
+          "adjective": {
+            "word": "Agonizing",
+            "banglaPronunciation": "['অ্যাগোনাইজিং]",
+            "pos": "adjective",
+            "banglaMeaning": "মর্মান্তিক বা চরম যন্ত্রণাদায়ক",
+            "exampleEn": "Waiting for the medical test results was an agonizing experience.",
+            "exampleBn": "মেডিকেল টেস্টের ফলাফলের জন্য অপেক্ষা করা ছিল এক চরম যন্ত্রণাদায়ক অভিজ্ঞতা।"
+          },
+          "adverb": {
+            "word": "Agonizingly",
+            "banglaPronunciation": "['অ্যাগোনাইজিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "চরম যন্ত্রণার সাথে বা অতি ধীর ও কষ্টদায়কভাবে",
+            "exampleEn": "The rescue boat moved agonizingly slowly through the dense fog.",
+            "exampleBn": "ঘন কুয়াশার মধ্যে উদ্ধারকারী নৌকাটি অতি কষ্টদায়কভাবে মন্থর গতিতে এগিয়ে চলছিল।"
+          }
+        }
       }
     ],
     "practiceExtraWords": [
@@ -9056,7 +12458,20 @@ const CURRICULUM_DATA = {
         "meaningBn": "গতিবেগ, অগ্রগতির ধারা",
         "explanationEn": "The strength or force gained by continuous motion or progress.",
         "example": "Once you build study momentum, learning feels natural every day.",
-        "exampleBn": "একবার পড়াশোনার গতি তৈরি হয়ে গেলে প্রতিদিন শেখাটা স্বাভাবিক মনে হয়।"
+        "exampleBn": "একবার পড়াশোনার গতি তৈরি হয়ে গেলে প্রতিদিন শেখাটা স্বাভাবিক মনে হয়।",
+        "derivatives": {
+          "noun": {
+            "word": "Momentum",
+            "banglaPronunciation": "[মো'মেন্টাম]",
+            "pos": "noun",
+            "banglaMeaning": "ভরবেগ বা অগ্রগতির গতিবেগ",
+            "exampleEn": "The election campaign gained immense momentum.",
+            "exampleBn": "নির্বাচনী প্রচারণায় বিপুল গতিবেগ সঞ্চারিত হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "int-8",
@@ -9066,7 +12481,34 @@ const CURRICULUM_DATA = {
         "meaningBn": "বহুমুখী প্রতিভাধর বা ব্যবহারযোগ্য",
         "explanationEn": "Able to adapt or be used for many different functions or activities.",
         "example": "A versatile vocabulary helps you express ideas in any situation.",
-        "exampleBn": "একটি বহুমুখী শব্দভান্ডার যেকোনো পরিস্থিতিতে আপনার ভাব প্রকাশ করতে সাহায্য করে।"
+        "exampleBn": "একটি বহুমুখী শব্দভান্ডার যেকোনো পরিস্থিতিতে আপনার ভাব প্রকাশ করতে সাহায্য করে।",
+        "derivatives": {
+          "noun": {
+            "word": "Versatility",
+            "banglaPronunciation": "[,ভারসা'টিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "বহুমুখী প্রতিভা বা বহুমুখী ব্যবহারোপযোগিতা",
+            "exampleEn": "Her versatility as an actress is admired by all.",
+            "exampleBn": "অভিনেত্রী হিসেবে তার বহুমুখী প্রতিভা সবার প্রশংসিত।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Versatile",
+            "banglaPronunciation": "['ভারসাটাইল]",
+            "pos": "adjective",
+            "banglaMeaning": "বহুমুখী বা বহু ব্যবহারে সক্ষম",
+            "exampleEn": "Eggs are a wonderfully versatile cooking ingredient.",
+            "exampleBn": "ডিম রান্নার জন্য চমৎকার এক বহুমুখী উপকরণ।"
+          },
+          "adverb": {
+            "word": "Versatilely",
+            "banglaPronunciation": "['ভারসাটাইল-লি]",
+            "pos": "adverb",
+            "banglaMeaning": "বহুমুখী দক্ষতায়",
+            "exampleEn": "He performed versatilely across both comedy and tragedy.",
+            "exampleBn": "তিনি কমেডি ও ট্র্যাজেডি উভয় ক্ষেত্রেই বহুমুখী দক্ষতার সাথে অভিনয় করেছিলেন।"
+          }
+        }
       }
     ],
     "phrasalVerbs": [
@@ -9417,7 +12859,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "টেকসই",
             "explanationBn": "দীর্ঘ সময় ধরে প্রভাব বজায় রাখে এমন।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ephemerality",
+            "banglaPronunciation": "['ইফেমেরালিটি]",
+            "pos": "noun",
+            "banglaMeaning": "ক্ষণস্থায়িত্ব বা ক্ষণভঙ্গুরতা",
+            "exampleEn": "Poets often reflect on the poignant ephemerality of human youth.",
+            "exampleBn": "কবিরা প্রায়শই মানুষের যৌবনের মর্মস্পর্শী ক্ষণস্থায়িত্ব নিয়ে ভাবেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ephemeral",
+            "banglaPronunciation": "['ইফেমেরাল]",
+            "pos": "adjective",
+            "banglaMeaning": "ক্ষণস্থায়ী বা ক্ষণিক",
+            "exampleEn": "Cherry blossoms offer an ephemeral display of fragile spring beauty.",
+            "exampleBn": "চেরি ফুল বসন্তের এক ক্ষণস্থায়ী ভঙ্গুর সৌন্দর্য উপহার দেয়।"
+          },
+          "adverb": {
+            "word": "Ephemerally",
+            "banglaPronunciation": "['ইফেমেরালি]",
+            "pos": "adverb",
+            "banglaMeaning": "ক্ষণকালের জন্য বা ক্ষণস্থায়ীভাবে",
+            "exampleEn": "Morning dew glistened ephemerally on the rose petals before evaporating.",
+            "exampleBn": "বাষ্পীভূত হওয়ার আগে সকালের শিশির গোলাপের পাপড়িতে ক্ষণকালের জন্য ঝলমল করছিল।"
+          }
+        }
       },
       {
         "id": "adv-2",
@@ -9482,7 +12951,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "বিচ্ছিন্ন",
             "explanationBn": "মূল ধারা থেকে আলাদা হয়ে থাকা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ubiquity",
+            "banglaPronunciation": "['ইউবিকুইটি]",
+            "pos": "noun",
+            "banglaMeaning": "সর্বব্যাপিতা বা সর্বত্র উপস্থিতি",
+            "exampleEn": "The ubiquity of smartphones has reshaped modern human social interaction.",
+            "exampleBn": "স্মার্টফোনের সর্বব্যাপিতা আধুনিক মানুষের সামাজিক যোগাযোগকে নতুন রূপ দিয়েছে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ubiquitous",
+            "banglaPronunciation": "['ইউবিকুইটাস]",
+            "pos": "adjective",
+            "banglaMeaning": "সর্বব্যাপী বা সর্বত্র বিদ্যমান",
+            "exampleEn": "High-speed wireless internet has become ubiquitous in metropolitan cafes.",
+            "exampleBn": "মহানগরীর ক্যাফেগুলোতে দ্রুতগতির ওয়্যারলেস ইন্টারনেট এখন সর্বত্র বিদ্যমান।"
+          },
+          "adverb": {
+            "word": "Ubiquitously",
+            "banglaPronunciation": "['ইউবিকুইটাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সর্বত্র বা সর্বত্র বিরাজমানভাবে",
+            "exampleEn": "Plastic packaging is ubiquitously found even in remote mountain valleys.",
+            "exampleBn": "এমনকি দূরবর্তী পাহাড়ি উপত্যকাতেও প্লাস্টিক প্যাকেজিং সর্বত্র পাওয়া যায়।"
+          }
+        }
       },
       {
         "id": "adv-3",
@@ -9547,7 +13043,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "অতি কাল্পনিক",
             "explanationBn": "অবাস্তব ও রোমান্টিক কল্পনায় বিভোর।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Pragmatism",
+            "banglaPronunciation": "['প্র্যাগমাটিজম]",
+            "pos": "noun",
+            "banglaMeaning": "বাস্তববাদ বা উপযোগিতাবাদ",
+            "exampleEn": "Political leaders balanced visionary ideals with grounded pragmatism.",
+            "exampleBn": "রাজনৈতিক নেতারা দূরদর্শী আদর্শের সাথে বাস্তবধর্মী বাস্তববাদের ভারসাম্য রক্ষা করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Pragmatic",
+            "banglaPronunciation": "['প্র্যাগমাটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "বাস্তববাদী বা বাস্তবমুখী",
+            "exampleEn": "She adopted a pragmatic approach to budget allocation and cost control.",
+            "exampleBn": "বাজেট বরাদ্দ ও ব্যয় নিয়ন্ত্রণে তিনি এক বাস্তবমুখী দৃষ্টিভঙ্গি গ্রহণ করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Pragmatically",
+            "banglaPronunciation": "['প্র্যাগমাটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "বাস্তবসম্মতভাবে বা বাস্তবতার সাথে",
+            "exampleEn": "The committee pragmatically decided to stage the festival in phases.",
+            "exampleBn": "কমিটি বাস্তবসম্মতভাবে উৎসবটি ধাপে ধাপে আয়োজন করার সিদ্ধান্ত নিয়েছিল।"
+          }
+        }
       },
       {
         "id": "adv-4",
@@ -9612,7 +13135,41 @@ const CURRICULUM_DATA = {
             "meaningBn": "অবহেলা করা",
             "explanationBn": "যথাযথ যত্ন বা পরীক্ষা না করা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Scrutiny",
+            "banglaPronunciation": "['স্ক্রুটিনি]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র নজরদারি বা পুঙ্খানুপুঙ্খ পরীক্ষা",
+            "exampleEn": "Government spending came under intense public scrutiny this quarter.",
+            "exampleBn": "এই ত্রৈমাসিকে সরকারি খরচ জনগণের তীব্র নজরদারির মুখে পড়েছিল।"
+          },
+          "verb": {
+            "word": "Scrutinize",
+            "banglaPronunciation": "['স্ক্রুটিনাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "খুঁটিয়ে দেখা বা পুঙ্খানুপুঙ্খ পরীক্ষা করা",
+            "exampleEn": "Auditors scrutinize every balance sheet line to detect accounting irregularities.",
+            "exampleBn": "হিসাবের অনিয়ম ধরতে নিরীক্ষকরা ব্যালেন্স শিটের প্রতিটি লাইন খুঁটিয়ে দেখেন।"
+          },
+          "adjective": {
+            "word": "Scrutinizing",
+            "banglaPronunciation": "['স্ক্রুটিনাইজিং]",
+            "pos": "adjective",
+            "banglaMeaning": "সূক্ষ্ম পর্যবেক্ষক বা অনুসন্ধানী",
+            "exampleEn": "The investigator fixed a scrutinizing gaze on the nervous suspect.",
+            "exampleBn": "তদন্তকারী নার্ভাস আসামির দিকে এক অনুসন্ধানী দৃষ্টি ফেলেছিলেন।"
+          },
+          "adverb": {
+            "word": "Scrutinizingly",
+            "banglaPronunciation": "['স্ক্রুটিনাইজিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "পুঙ্খানুপুঙ্খভাবে",
+            "exampleEn": "She looked scrutinizingly at the signature on the vintage document.",
+            "exampleBn": "তিনি প্রাচীন দলিলের স্বাক্ষরের দিকে পুঙ্খানুপুঙ্খভাবে তাকিয়ে দেখলেন।"
+          }
+        }
       },
       {
         "id": "adv-5",
@@ -9677,7 +13234,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "ব্যতিক্রমধর্মী ও অসঙ্গত",
             "explanationBn": "স্বাভাবিক নিয়ম বা মানদণ্ড থেকে বিচ্যুত।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Quintessence",
+            "banglaPronunciation": "['কুইনটেসেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "সারবস্তু বা নিখুঁত প্রতিমূর্তি",
+            "exampleEn": "Her calm dignity was the quintessence of regal leadership.",
+            "exampleBn": "তার শান্ত গাম্ভীর্য ছিল রাজকীয় নেতৃত্বের এক নিখুঁত প্রতিমূর্তি।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Quintessential",
+            "banglaPronunciation": "['কুইনটেসেনশিয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "বিশুদ্ধতম, চরম বা আদর্শস্থানীয়",
+            "exampleEn": "Afternoon high tea in a rose garden is the quintessential English tradition.",
+            "exampleBn": "গোলাপ বাগানে বিকালের হাই টি হলো ব্রিটিশ সংস্কৃতির এক আদর্শ ঐতিহ্য।"
+          },
+          "adverb": {
+            "word": "Quintessentially",
+            "banglaPronunciation": "['কুইনটেসেনশিয়ালি]",
+            "pos": "adverb",
+            "banglaMeaning": "একান্তই বা খাঁটি রূপে",
+            "exampleEn": "The rustic mountain village looked quintessentially Alpine in the snow.",
+            "exampleBn": "বরফের মাঝে গ্রামীণ পাহাড়ি গ্রামটি খাঁটি আল্পসের রূপ ধারণ করেছিল।"
+          }
+        }
       },
       {
         "id": "adv-6",
@@ -9742,7 +13326,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "প্রাঞ্জল ও সহজবোধ্য",
             "explanationBn": "অত্যন্ত পরিষ্কার ও সাবলীলভাবে প্রকাশিত।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ambiguity",
+            "banglaPronunciation": "['অ্যাম্বিগুইটি]",
+            "pos": "noun",
+            "banglaMeaning": "দ্ব্যর্থবোধকতা বা অস্পষ্টতা",
+            "exampleEn": "Legal contracts must eliminate ambiguity to avoid future courtroom battles.",
+            "exampleBn": "ভবিষ্যতের আদালতের লড়াই এড়াতে আইনি চুক্তিতে অস্পষ্টতা দূর করা আবশ্যক।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ambiguous",
+            "banglaPronunciation": "['অ্যাম্বিগুয়াস]",
+            "pos": "adjective",
+            "banglaMeaning": "দ্ব্যর্থবোধক বা অস্পষ্ট",
+            "exampleEn": "The diplomat gave an ambiguous reply to questions about troop withdrawals.",
+            "exampleBn": "সৈন্য প্রত্যাহারের প্রশ্নে কূটনীতিক একটি দ্ব্যর্থবোধক উত্তর দিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Ambiguously",
+            "banglaPronunciation": "['অ্যাম্বিগুয়াসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দ্ব্যর্থবোধকভাবে বা অস্পষ্ট সুরে",
+            "exampleEn": "The policy document was ambiguously phrased regarding environmental penalties.",
+            "exampleBn": "পরিবেশ জরিমানার বিষয়ে নীতিপত্রটি অস্পষ্ট ভাষায় প্রণীত হয়েছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-01",
@@ -9822,7 +13433,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abatement",
+            "banglaPronunciation": "['অ্যাবেটমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "প্রশমন বা হ্রাস পাওয়া",
+            "exampleEn": "Tax abatement initiatives encouraged companies to build green factories.",
+            "exampleBn": "কর প্রশমন উদ্যোগ কোম্পানিগুলোকে সবুজ কারখানা নির্মাণে উৎসাহিত করেছিল।"
+          },
+          "verb": {
+            "word": "Abate",
+            "banglaPronunciation": "['অ্যাবেট]",
+            "pos": "verb",
+            "banglaMeaning": "প্রশমিত হওয়া বা তীব্রতা কমা",
+            "exampleEn": "Residents waited until the torrential hurricane rains began to abate.",
+            "exampleBn": "ঘূর্ণিঝড়ের মুষলধারে বৃষ্টির তীব্রতা কমে আসা পর্যন্ত বাসিন্দারা অপেক্ষা করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Abated",
+            "banglaPronunciation": "['অ্যাবেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "হ্রাসপ্রাপ্ত বা শান্ত",
+            "exampleEn": "With abated winds, fishing boats sailed back out to sea.",
+            "exampleBn": "বাতাস শান্ত হওয়ায় মাছ ধরার নৌকাগুলো আবারও সাগরে পাড়ি জমিয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-02",
@@ -9902,7 +13540,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abdicate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abdication",
+            "banglaPronunciation": "['অ্যাবডিকেশন]",
+            "pos": "noun",
+            "banglaMeaning": "সিংহাসন ত্যাগ বা পদত্যাগ",
+            "exampleEn": "The king's dramatic abdication shook the foundation of the monarchy.",
+            "exampleBn": "রাজার নাটকীয় সিংহাসন ত্যাগ রাজতন্ত্রের ভিত নাড়িয়ে দিয়েছিল।"
+          },
+          "verb": {
+            "word": "Abdicate",
+            "banglaPronunciation": "['অ্যাবডিকেট]",
+            "pos": "verb",
+            "banglaMeaning": "সিংহাসন বা দায়িত্ব ত্যাগ করা",
+            "exampleEn": "The elderly monarch chose to abdicate in favor of his reformist daughter.",
+            "exampleBn": "সংস্কারকামী কন্যার স্বার্থে বয়োজ্যেষ্ঠ রাজা সিংহাসন ত্যাগ করার সিদ্ধান্ত নিয়েছিলেন।"
+          },
+          "adjective": {
+            "word": "Abdicant",
+            "banglaPronunciation": "['অ্যাবডিক্যান্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "পদত্যাগী",
+            "exampleEn": "The abdicant sovereign retired quietly to a remote coastal villa.",
+            "exampleBn": "সিংহাসনত্যাগী রাজা নিরিবিলিতে এক দূরবর্তী উপকূলীয় ভিলায় অবসর নিয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-03",
@@ -9982,7 +13647,41 @@ const CURRICULUM_DATA = {
             "targetWord": "aberration",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aberration",
+            "banglaPronunciation": "['অ্যাবারেশন]",
+            "pos": "noun",
+            "banglaMeaning": "বিচ্যুতি বা অস্বাভাবিকতা",
+            "exampleEn": "A sudden drop in quarterly sales was deemed a seasonal aberration.",
+            "exampleBn": "ত্রৈমাসিক বিক্রিতে হঠাৎ পতনকে একটি সাময়িক বিচ্যুতি বলে গণ্য করা হয়েছিল।"
+          },
+          "verb": {
+            "word": "Aberrate",
+            "banglaPronunciation": "['অ্যাবরেট]",
+            "pos": "verb",
+            "banglaMeaning": "স্বাভাবিক পথ থেকে বিচ্যুত হওয়া",
+            "exampleEn": "Optical lenses may aberrate light rays unless coated with precision film.",
+            "exampleBn": "নিখুঁত আবরণ না থাকলে অপটিক্যাল লেন্স আলোর রশ্মিকে বিচ্যুত করতে পারে।"
+          },
+          "adjective": {
+            "word": "Aberrant",
+            "banglaPronunciation": "['অ্যাবারেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "বিচ্যুত বা অস্বাভাবিক",
+            "exampleEn": "Biologists isolated an aberrant genetic strain in the bacterial culture.",
+            "exampleBn": "জীববিজ্ঞানীরা ব্যাকটেরিয়া কালচারে এক অস্বাভাবিক জিনগত স্ট্রেন শনাক্ত করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Aberrantly",
+            "banglaPronunciation": "['অ্যাবারেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অস্বাভাবিকভাবে বা বিচ্যুত হয়ে",
+            "exampleEn": "The malfunctioning satellite beacon flashed aberrantly in orbit.",
+            "exampleBn": "ত্রুটিপূর্ণ স্যাটেলাইট বীকনটি কক্ষপথে অস্বাভাবিকভাবে জ্বলছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-04",
@@ -10062,7 +13761,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abhor",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abhorrence",
+            "banglaPronunciation": "['অ্যাবহরেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র ঘৃণা বা বিতৃষ্ণা",
+            "exampleEn": "She holds an ingrained abhorrence of cruelty in all its manifestations.",
+            "exampleBn": "তিনি যেকোনো রূপ নিষ্ঠুরতার প্রতি এক গভীর ঘৃণা পোষণ করেন।"
+          },
+          "verb": {
+            "word": "Abhor",
+            "banglaPronunciation": "['অ্যাবহর]",
+            "pos": "verb",
+            "banglaMeaning": "তীব্র ঘৃণা করা",
+            "exampleEn": "Human rights advocates abhor authoritarian censorship of open speech.",
+            "exampleBn": "মানবাধিকার কর্মীরা মুক্ত মতপ্রকাশে স্বৈরাচারী সেন্সরশিপকে তীব্র ঘৃণা করেন।"
+          },
+          "adjective": {
+            "word": "Abhorrent",
+            "banglaPronunciation": "['অ্যাবহরেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "ঘৃণ্য বা বিতৃষ্ণাদায়ক",
+            "exampleEn": "Child labor is utterly abhorrent to any civil and democratic society.",
+            "exampleBn": "শিশুশ্রম যেকোনো সভ্য ও গণতান্ত্রিক সমাজের কাছে এক পরম ঘৃণ্য অপরাধ।"
+          },
+          "adverb": {
+            "word": "Abhorrently",
+            "banglaPronunciation": "['অ্যাবহরেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "ঘৃণ্যভাবে",
+            "exampleEn": "The corrupt prison guards acted abhorrently toward peaceful detainees.",
+            "exampleBn": "দুর্নীতিগ্রস্ত কারারক্ষীরা শান্তিপূর্ণ বন্দিদের সাথে অত্যন্ত ঘৃণ্য আচরণ করেছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-05",
@@ -10142,7 +13875,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abridge",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abridgment",
+            "banglaPronunciation": "['অ্যাব্রিজমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "সংক্ষেপণ বা সারসংক্ষেপ",
+            "exampleEn": "The textbook editor prepared an accessible abridgment of the epic.",
+            "exampleBn": "পাঠ্যপুস্তক সম্পাদক মহাকাব্যটির একটি সহজবোধ্য সারসংক্ষেপ তৈরি করেছিলেন।"
+          },
+          "verb": {
+            "word": "Abridge",
+            "banglaPronunciation": "['অ্যাব্রিজ]",
+            "pos": "verb",
+            "banglaMeaning": "সংক্ষেপ করা বা ছোট করা",
+            "exampleEn": "Publishers often abridge voluminous classic novels for young readers.",
+            "exampleBn": "প্রকাশকরা প্রায়শই তরুণ পাঠকদের জন্য বিশালাকার ক্লাসিক উপন্যাস সংক্ষেপ করে থাকেন।"
+          },
+          "adjective": {
+            "word": "Abridged",
+            "banglaPronunciation": "['অ্যাব্রিজড]",
+            "pos": "adjective",
+            "banglaMeaning": "সংক্ষেপিত",
+            "exampleEn": "We consulted an abridged dictionary for quick spelling verification.",
+            "exampleBn": "বানান দ্রুত যাচাইয়ের জন্য আমরা একটি সংক্ষেপিত অভিধানের সাহায্য নিয়েছিলাম।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-06",
@@ -10222,7 +13982,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abscond",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Absconder",
+            "banglaPronunciation": "['অ্যাবসকন্ডার]",
+            "pos": "noun",
+            "banglaMeaning": "পলাতক ব্যক্তি",
+            "exampleEn": "Interpol issued an international red notice for the absconder.",
+            "exampleBn": "ইন্টারপোল পলাতক আসামির জন্য আন্তর্জাতিক রেড নোটিশ জারি করেছিল।"
+          },
+          "verb": {
+            "word": "Abscond",
+            "banglaPronunciation": "['অ্যাবসকন্ড]",
+            "pos": "verb",
+            "banglaMeaning": "পলায়ন করা বা চম্পট দেওয়া",
+            "exampleEn": "The corrupt accountant tried to abscond with stolen corporate funds.",
+            "exampleBn": "দুর্নীতিগ্রস্ত হিসাবরক্ষক চুরি করা করপোরেট অর্থ নিয়ে পালিয়ে যাওয়ার চেষ্টা করেছিল।"
+          },
+          "adjective": {
+            "word": "Absconding",
+            "banglaPronunciation": "['অ্যাবসকন্ডিং]",
+            "pos": "adjective",
+            "banglaMeaning": "পলাতক বা আত্মগোপনকারী",
+            "exampleEn": "Detectives tracked the absconding embezzler to a remote island.",
+            "exampleBn": "গোয়েন্দারা পলাতক অর্থ আত্মসাৎকারীকে একটি প্রত্যন্ত দ্বীপে ট্র্যাক করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-07",
@@ -10302,7 +14089,41 @@ const CURRICULUM_DATA = {
             "targetWord": "abstain",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abstention",
+            "banglaPronunciation": "['অ্যাবস্টেনশন]",
+            "pos": "noun",
+            "banglaMeaning": "ভোটদানে বিরত থাকা বা বিরত হওয়া",
+            "exampleEn": "The resolution passed with forty affirmative votes and five abstentions.",
+            "exampleBn": "প্রস্তাবটি চল্লিশটি হ্যাঁ-ভোট এবং পাঁচটি ভোটদানে বিরত থাকার মাধ্যমে পাস হয়েছিল।"
+          },
+          "verb": {
+            "word": "Abstain",
+            "banglaPronunciation": "['অ্যাবস্টেইন]",
+            "pos": "verb",
+            "banglaMeaning": "বিরত থাকা বা নিবৃত্ত থাকা",
+            "exampleEn": "Doctors advised the recovering patient to abstain from caffeinated beverages.",
+            "exampleBn": "চিকিৎসকরা সুস্থ হয়ে ওঠা রোগীকে ক্যাফেইনযুক্ত পানীয় থেকে বিরত থাকার পরামর্শ দিয়েছিলেন।"
+          },
+          "adjective": {
+            "word": "Abstinent",
+            "banglaPronunciation": "['অ্যাবস্টিনেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সংযমী",
+            "exampleEn": "Monks lead an abstinent lifestyle detached from worldly luxuries.",
+            "exampleBn": "ভিক্ষুরা পার্থিব বিলাসিতা থেকে দূরে এক সংযমী জীবনযাপন করেন।"
+          },
+          "adverb": {
+            "word": "Abstinently",
+            "banglaPronunciation": "['অ্যাবস্টিনেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সংযমের সাথে",
+            "exampleEn": "He lived abstinently while writing his philosophical treatise.",
+            "exampleBn": "দার্শনিক সন্দর্ভ রচনার সময় তিনি পরম সংযমের সাথে দিন কাটিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-08",
@@ -10382,7 +14203,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acrimony",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acrimony",
+            "banglaPronunciation": "['অ্যাক্রিমনি]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র তিক্ততা বা বিদ্বেষ",
+            "exampleEn": "The protracted corporate takeover ended in bitter courtroom acrimony.",
+            "exampleBn": "দীর্ঘস্থায়ী করপোরেট অধিগ্রহণ আদালতের তীব্র তিক্ততার মধ্যে সমাপ্ত হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Acrimonious",
+            "banglaPronunciation": "['অ্যাক্রিমোনিয়াস]",
+            "pos": "adjective",
+            "banglaMeaning": "তিক্ততাপূর্ণ বা বিদ্বেষমূলক",
+            "exampleEn": "Diplomats worked tirelessly to calm an acrimonious border dispute.",
+            "exampleBn": "কূটনীতিকরা একটি তিক্ততাপূর্ণ সীমান্ত বিরোধ শান্ত করতে অক্লান্ত পরিশ্রম করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Acrimoniously",
+            "banglaPronunciation": "['অ্যাক্রিমোনিয়াসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "তিক্ততার সাথে বা বিদ্বেষভরে",
+            "exampleEn": "Board members debated acrimoniously late into the midnight hours.",
+            "exampleBn": "পরিচালনা পর্ষদের সদস্যরা মধ্যরাত অবধি তীব্র তিক্ততার সাথে বিতর্ক করেছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-09",
@@ -10462,7 +14310,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acute",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acuteness",
+            "banglaPronunciation": "['অ্যাকিউটনেস]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্রতা বা প্রখরতা",
+            "exampleEn": "The acuteness of her analytical observation impressed the judges.",
+            "exampleBn": "তার বিশ্লেষণাত্মক পর্যবেক্ষণের প্রখরতা বিচারকদের মুগ্ধ করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Acute",
+            "banglaPronunciation": "['অ্যাকিউট]",
+            "pos": "adjective",
+            "banglaMeaning": "তীব্র বা প্রখর",
+            "exampleEn": "The patient complained of acute abdominal pain after lunch.",
+            "exampleBn": "দুপুরের খাবারের পর রোগী তীব্র পেটে ব্যথার অভিযোগ করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Acutely",
+            "banglaPronunciation": "['অ্যাকিউটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "তীব্রভাবে বা গভীরভাবে",
+            "exampleEn": "She was acutely aware of the delicate diplomatic tension in the hall.",
+            "exampleBn": "মিলনায়তনের সংবেদনশীল কূটনৈতিক উত্তেজনা সম্পর্কে তিনি গভীরভাবে সচেতন ছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-10",
@@ -10542,7 +14417,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adamant",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adamance",
+            "banglaPronunciation": "['অ্যাডামান্স]",
+            "pos": "noun",
+            "banglaMeaning": "অনমনীয়তা বা অবিচল সংকল্প",
+            "exampleEn": "Her moral adamance against corruption inspired grassroots activists.",
+            "exampleBn": "দুর্নীতির বিরুদ্ধে তার নৈতিক অনমনীয়তা তৃণমূল কর্মীদের অনুপ্রাণিত করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Adamant",
+            "banglaPronunciation": "['অ্যাডামান্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "অটল বা অনমনীয়",
+            "exampleEn": "The lead researcher remained adamant that all trial data be published.",
+            "exampleBn": "প্রধান গবেষক অটল ছিলেন যে পরীক্ষার সমস্ত তথ্য প্রকাশ করতে হবে।"
+          },
+          "adverb": {
+            "word": "Adamantly",
+            "banglaPronunciation": "['অ্যাডামান্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অটলভাবে বা অনমনীয় সুরে",
+            "exampleEn": "The union president adamantly refused the management's wage cuts.",
+            "exampleBn": "ইউনিয়ন সভাপতি কর্তৃপক্ষের বেতন কর্তনের প্রস্তাব অটলভাবে প্রত্যাখ্যান করেছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-11",
@@ -10622,7 +14524,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adjourn",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adjournment",
+            "banglaPronunciation": "['অ্যাডজার্নমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "মুলতবি বা সাময়িক স্থগিতকরণ",
+            "exampleEn": "The judge granted a brief adjournment to review newly submitted evidence.",
+            "exampleBn": "নতুন দাখিলকৃত প্রমাণাদি পর্যালোচনার জন্য বিচারক একটি সংক্ষিপ্ত মুলতবি মঞ্জুর করেছিলেন।"
+          },
+          "verb": {
+            "word": "Adjourn",
+            "banglaPronunciation": "['অ্যাডজার্ন]",
+            "pos": "verb",
+            "banglaMeaning": "মুলতবি করা বা সাময়িক স্থগিত রাখা",
+            "exampleEn": "Parliament voted to adjourn the contentious debate until Monday.",
+            "exampleBn": "সংসদ বিতর্কিত আলোচনাটি সোমবার পর্যন্ত মুলতবি করার পক্ষে ভোট দিয়েছিল।"
+          },
+          "adjective": {
+            "word": "Adjourned",
+            "banglaPronunciation": "['অ্যাডজার্নড]",
+            "pos": "adjective",
+            "banglaMeaning": "মুলতবিকৃত",
+            "exampleEn": "The adjourned tribunal session will reconvene in the central courtroom.",
+            "exampleBn": "মুলতবিকৃত ট্রাইব্যুনাল অধিবেশন কেন্দ্রীয় এজলাসে পুনরায় বসবে।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-12",
@@ -10702,7 +14631,41 @@ const CURRICULUM_DATA = {
             "targetWord": "admonish",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Admonition",
+            "banglaPronunciation": "['অ্যাডমোনিশন]",
+            "pos": "noun",
+            "banglaMeaning": "সতর্কবার্তা বা মৃদু তিরস্কার",
+            "exampleEn": "She listened carefully to her grandmother's gentle moral admonition.",
+            "exampleBn": "তিনি তার দাদির দেওয়া মৃদু উপদেশ ও সতর্কবার্তা মনোযোগ দিয়ে শুনলেন।"
+          },
+          "verb": {
+            "word": "Admonish",
+            "banglaPronunciation": "['অ্যাডমনিশ]",
+            "pos": "verb",
+            "banglaMeaning": "সতর্ক করা বা মৃদু তিরস্কার করা",
+            "exampleEn": "The headmaster took time to admonish students about playground safety.",
+            "exampleBn": "প্রধান শিক্ষক খেলার মাঠের নিরাপত্তা বিষয়ে শিক্ষার্থীদের স্নেহভরে সতর্ক করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Admonitory",
+            "banglaPronunciation": "['অ্যাডমনিটরি]",
+            "pos": "adjective",
+            "banglaMeaning": "সতর্কতামূলক বা উপদেশমূলক",
+            "exampleEn": "The traffic sign served an admonitory warning on the sharp bend.",
+            "exampleBn": "ট্রাফিক চিহ্নটি খাড়া বাঁকে একটি সতর্কতামূলক সংকেত দিচ্ছিল।"
+          },
+          "adverb": {
+            "word": "Admonishingly",
+            "banglaPronunciation": "['অ্যাডমনিশিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সতর্ক করে বা তিরস্কারের সুরে",
+            "exampleEn": "The teacher looked admonishingly at the whispering pupils in the back.",
+            "exampleBn": "পেছনের ফিসফিস করা শিক্ষার্থীদের দিকে শিক্ষক তিরস্কারের সুরে তাকালেন।"
+          }
+        }
       },
       {
         "id": "adv-a-13",
@@ -10782,7 +14745,34 @@ const CURRICULUM_DATA = {
             "targetWord": "aesthetic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aesthetics",
+            "banglaPronunciation": "['এসথেটিক্স]",
+            "pos": "noun",
+            "banglaMeaning": "নান্দনিকতা বা সৌন্দর্যতত্ত্ব",
+            "exampleEn": "Architects study aesthetics alongside structural physics to design landmarks.",
+            "exampleBn": "ঐতিহাসিক স্থাপনা নির্মাণের জন্য স্থপতিরা কাঠামোগত পদার্থবিদ্যার সাথে সাথে সৌন্দর্যতত্ত্ব নিয়ে পড়াশোনা করেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Aesthetic",
+            "banglaPronunciation": "['এসথেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "নান্দনিক বা শিল্পসম্মত",
+            "exampleEn": "The minimalist museum achieved great aesthetic harmony through soft natural light.",
+            "exampleBn": "মৃদু প্রাকৃতিক আলোর মাধ্যমে মিনিমালিস্ট জাদুঘরটি এক অপূর্ব নান্দনিক ভারসাম্য অর্জন করেছিল।"
+          },
+          "adverb": {
+            "word": "Aesthetically",
+            "banglaPronunciation": "['এসথেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নান্দনিকভাবে",
+            "exampleEn": "The landscape was aesthetically restored with indigenous trees and stone paths.",
+            "exampleBn": "দেশজ গাছ ও পাথরের পথ দিয়ে প্রাকৃতিক পরিবেশটি নান্দনিকভাবে পুনরুদ্ধার করা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-14",
@@ -10862,7 +14852,34 @@ const CURRICULUM_DATA = {
             "targetWord": "affable",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Affability",
+            "banglaPronunciation": "['অ্যাফ্যাবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "সদালাপ বা অমায়িক স্বভাব",
+            "exampleEn": "The diplomat's genuine affability won friends across diverse delegations.",
+            "exampleBn": "কূটনীতিকের খাঁটি অমায়িক স্বভাব বিভিন্ন দেশের প্রতিনিধিদের মন জয় করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Affable",
+            "banglaPronunciation": "['অ্যাফ্যাবল]",
+            "pos": "adjective",
+            "banglaMeaning": "সদালাপী বা অমায়িক",
+            "exampleEn": "Despite his celebrated fame, the visiting professor remained remarkably affable.",
+            "exampleBn": "বিপুল খ্যাতি থাকা সত্ত্বেও অতিথি অধ্যাপক অত্যন্ত অমায়িক ও সদালাপী ছিলেন।"
+          },
+          "adverb": {
+            "word": "Affably",
+            "banglaPronunciation": "['অ্যাফ্যাব্লি]",
+            "pos": "adverb",
+            "banglaMeaning": "অমায়িকতার সাথে বা বন্ধুবৎসলভাবে",
+            "exampleEn": "He greeted nervous young interns affably on their very first day.",
+            "exampleBn": "প্রথম দিনেই তিনি নার্ভাস তরুণ শিক্ষানবিসদের অত্যন্ত বন্ধুবৎসলভাবে বরণ করে নিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-15",
@@ -10942,7 +14959,34 @@ const CURRICULUM_DATA = {
             "targetWord": "alleviate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alleviation",
+            "banglaPronunciation": "['অ্যালিভিয়েশন]",
+            "pos": "noun",
+            "banglaMeaning": "উপশম বা লাঘব",
+            "exampleEn": "Poverty alleviation remains a central focus of international development aid.",
+            "exampleBn": "দারিদ্র্য দূরীকরণ আন্তর্জাতিক উন্নয়ন সহায়তার একটি কেন্দ্রীয় লক্ষ্য।"
+          },
+          "verb": {
+            "word": "Alleviate",
+            "banglaPronunciation": "['অ্যালিভিয়েট]",
+            "pos": "verb",
+            "banglaMeaning": "উপশম করা বা লাঘব করা",
+            "exampleEn": "Targeted food aid programs helped alleviate severe rural nutritional shortages.",
+            "exampleBn": "লক্ষ্যভিত্তিক খাদ্য সহায়তা গ্রামীণ অঞ্চলের তীব্র পুষ্টিহীনতা লাঘব করতে সাহায্য করেছিল।"
+          },
+          "adjective": {
+            "word": "Alleviative",
+            "banglaPronunciation": "['অ্যালিভিয়েটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "উপশমকারী",
+            "exampleEn": "The clinic introduced alleviative therapies for chronic arthritis pain.",
+            "exampleBn": "ক্লিনিকটি দীর্ঘমেয়াদী বাতের ব্যথার জন্য উপশমকারী থেরাপি চালু করেছে।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-16",
@@ -11022,7 +15066,41 @@ const CURRICULUM_DATA = {
             "targetWord": "allude",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allusion",
+            "banglaPronunciation": "['অ্যালুশন]",
+            "pos": "noun",
+            "banglaMeaning": "পরোক্ষ ইঙ্গিত বা ইশারা",
+            "exampleEn": "The poet's verse contained a subtle classical allusion to Homer's Odyssey.",
+            "exampleBn": "কবির পঙ্ক্তিতে হোমারের ওডিসির এক চমৎকার পরোক্ষ ইঙ্গিত ছিল।"
+          },
+          "verb": {
+            "word": "Allude",
+            "banglaPronunciation": "['অ্যালুড]",
+            "pos": "verb",
+            "banglaMeaning": "ইঙ্গিত করা বা পরোক্ষে উল্লেখ করা",
+            "exampleEn": "In her address, she chose to allude to earlier pioneering clinical trials.",
+            "exampleBn": "তার বক্তব্যে তিনি পূর্ববর্তী পথপ্রদর্শক ক্লিনিক্যাল ট্রায়ালের প্রতি পরোক্ষ ইঙ্গিত করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Allusive",
+            "banglaPronunciation": "['অ্যালুসিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "ইঙ্গিতপূর্ণ বা সাংকেতিক",
+            "exampleEn": "Her allusive writing style requires careful reflective reading.",
+            "exampleBn": "তার ইঙ্গিতপূর্ণ লিখনশৈলী গভীর ও মনোযোগী পাঠ দাবি করে।"
+          },
+          "adverb": {
+            "word": "Allusively",
+            "banglaPronunciation": "['অ্যালুসিভলি]",
+            "pos": "adverb",
+            "banglaMeaning": "ইঙ্গিত দিয়ে বা পরোক্ষভাবে",
+            "exampleEn": "He spoke allusively about the political crisis without naming parties.",
+            "exampleBn": "দলের নাম না নিয়ে তিনি রাজনৈতিক সংকট সম্পর্কে পরোক্ষভাবে ইঙ্গিতপূর্ণ কথা বলেছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-17",
@@ -11102,7 +15180,34 @@ const CURRICULUM_DATA = {
             "targetWord": "altruistic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Altruism",
+            "banglaPronunciation": "['অ্যালট্রুইজম]",
+            "pos": "noun",
+            "banglaMeaning": "পরার্থপরতা বা নিঃস্বার্থ পরোপকার",
+            "exampleEn": "Organ donation represents the ultimate gesture of human altruism.",
+            "exampleBn": "অঙ্গদান মানবজাতির পরার্থপরতার এক পরম নিদর্শন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Altruistic",
+            "banglaPronunciation": "['অ্যালট্রুইস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "পরার্থপর বা নিঃস্বার্থ",
+            "exampleEn": "Her altruistic donations funded village schools across remote districts.",
+            "exampleBn": "তার নিঃস্বার্থ অনুদান প্রত্যন্ত জেলাগুলোর গ্রামীণ বিদ্যালয়গুলোতে অর্থায়ন করেছিল।"
+          },
+          "adverb": {
+            "word": "Altruistically",
+            "banglaPronunciation": "['অ্যালট্রুইস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নিঃস্বার্থভাবে বা পরার্থে",
+            "exampleEn": "Doctors worked altruistically in the disaster relief zone without pay.",
+            "exampleBn": "চিকিৎসকরা দুর্যোগ কবলিত এলাকায় কোনো পারিশ্রমিক ছাড়াই নিঃস্বার্থভাবে সেবা দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-18",
@@ -11182,7 +15287,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ameliorate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amelioration",
+            "banglaPronunciation": "['অ্যামিলিওরেশন]",
+            "pos": "noun",
+            "banglaMeaning": "উন্নতি সাধন বা সংস্কার",
+            "exampleEn": "Urban tree planting drives resulted in steady amelioration of air quality.",
+            "exampleBn": "নগর বৃক্ষরোপণ কর্মসূচি বাতাসের মানের ধারাবাহিক উন্নতি সাধন করেছিল।"
+          },
+          "verb": {
+            "word": "Ameliorate",
+            "banglaPronunciation": "['অ্যামিলিওরেট]",
+            "pos": "verb",
+            "banglaMeaning": "উন্নত করা বা পরিস্থিতির উন্নতি ঘটানো",
+            "exampleEn": "The government launched new training initiatives to ameliorate rural unemployment.",
+            "exampleBn": "গ্রামীণ বেকারত্ব দূর করতে সরকার নতুন প্রশিক্ষণ কর্মসূচি চালু করেছিল।"
+          },
+          "adjective": {
+            "word": "Ameliorative",
+            "banglaPronunciation": "['অ্যামিলিওরেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "উন্নয়নমূলক বা সংস্কারক",
+            "exampleEn": "The commission recommended ameliorative policy reforms for migrant laborers.",
+            "exampleBn": "কমিশন অভিবাসী শ্রমিকদের জন্য উন্নয়নমূলক নীতি সংস্কারের সুপারিশ করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-19",
@@ -11262,7 +15394,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amenable",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amenability",
+            "banglaPronunciation": "['অ্যামেনিবিলিটি]",
+            "pos": "noun",
+            "banglaMeaning": "নমনীয়তা বা সম্মতি দেওয়ার প্রস্তুতি",
+            "exampleEn": "The engineer's amenability to constructive feedback speeded up design updates.",
+            "exampleBn": "গঠনমূলক মতামতে প্রকৌশলীর নমনীয়তা নকশা হালনাগাদকে দ্রুত করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Amenable",
+            "banglaPronunciation": "['অ্যামেনিভল]",
+            "pos": "adjective",
+            "banglaMeaning": "সম্মত হতে প্রস্তুত বা নমনীয়",
+            "exampleEn": "Management found workers amenable to adopting digital scheduling tools.",
+            "exampleBn": "কর্তৃপক্ষ দেখেছিল যে কর্মীরা ডিজিটাল সময়সূচি গ্রহণ করতে সানন্দে প্রস্তুত।"
+          },
+          "adverb": {
+            "word": "Amenably",
+            "banglaPronunciation": "['অ্যামেনিব্লি]",
+            "pos": "adverb",
+            "banglaMeaning": "নমনীয়ভাবে বা সম্মতির সাথে",
+            "exampleEn": "The delegates agreed amenably to the revised treaty wording.",
+            "exampleBn": "প্রতিনিধিরা সংশোধিত চুক্তির শব্দাবলীতে নমনীয়ভাবে সম্মতি দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-20",
@@ -11342,7 +15501,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anachronism",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anachronism",
+            "banglaPronunciation": "['অ্যানাক্রোনিজম]",
+            "pos": "noun",
+            "banglaMeaning": "কালভ্রান্তি বা সময়ের অনুপযুক্ত বিষয়",
+            "exampleEn": "Using a mechanical typewriter in a paperless artificial intelligence lab is an amusing anachronism.",
+            "exampleBn": "একটি কাগজহীন কৃত্রিম বুদ্ধিমত্তা ল্যাবে টাইপরাইটার ব্যবহার এক চমৎকার কালভ্রান্তি।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anachronistic",
+            "banglaPronunciation": "['অ্যানাক্রোনিস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "কালভ্রান্ত বা সেকেলে",
+            "exampleEn": "The film featured anachronistic electric lights in a medieval castle scene.",
+            "exampleBn": "চলচ্চিত্রে মধ্যযুগীয় দুর্গের দৃশ্যে কালভ্রান্ত বৈদ্যুতিক বাতি প্রদর্শিত হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Anachronistically",
+            "banglaPronunciation": "['অ্যানাক্রোনিস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "সময়ের অনুপযুক্তভাবে",
+            "exampleEn": "The play dressed ancient Roman senators anachronistically in Victorian suits.",
+            "exampleBn": "নাটকটিতে প্রাচীন রোমান সিনেটরদের সময়ের অনুপযুক্ত ভিক্টোরিয়ান স্যুটে সাজানো হয়েছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-21",
@@ -11422,7 +15608,41 @@ const CURRICULUM_DATA = {
             "targetWord": "analogous",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Analogy",
+            "banglaPronunciation": "['অ্যানালজি]",
+            "pos": "noun",
+            "banglaMeaning": "সাদৃশ্য বা তুলনা",
+            "exampleEn": "The teacher drew a clear analogy between the human heart and a water pump.",
+            "exampleBn": "শিক্ষক মানব হৃদযন্ত্র এবং একটি পানির পাম্পের মাঝে স্পষ্ট সাদৃশ্য তুলে ধরেছিলেন।"
+          },
+          "verb": {
+            "word": "Analogize",
+            "banglaPronunciation": "['অ্যানালজাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "সাদৃশ্য তুলনা করা",
+            "exampleEn": "Scientists analogize electrical power flow to hydraulic fluid dynamics.",
+            "exampleBn": "বিজ্ঞানীরা বৈদ্যুতিক প্রবাহকে তরল গতিবিদ্যার সাথে তুলনা করেন।"
+          },
+          "adjective": {
+            "word": "Analogous",
+            "banglaPronunciation": "['অ্যানালগাস]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুরূপ বা সদৃশ",
+            "exampleEn": "The wings of a bat are analogous to the front flippers of a dolphin.",
+            "exampleBn": "বাদুড়ের ডানা ডলফিনের সামনের পাখনার অনুরূপ।"
+          },
+          "adverb": {
+            "word": "Analogously",
+            "banglaPronunciation": "['অ্যানালগাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অনুরূপভাবে বা সদৃশ ধারায়",
+            "exampleEn": "The software treats network packets analogously to sorting mail.",
+            "exampleBn": "সফটওয়্যারটি নেটওয়ার্ক প্যাকেটগুলোকে চিঠি বাছাইয়ের অনুরূপভাবে পরিচালনা করে।"
+          }
+        }
       },
       {
         "id": "adv-a-22",
@@ -11502,7 +15722,20 @@ const CURRICULUM_DATA = {
             "targetWord": "animosity",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Animosity",
+            "banglaPronunciation": "['অ্যানিমসিটি]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র শত্রুতা বা বৈরিতা",
+            "exampleEn": "Decades of boundary negotiations failed to heal deep-seated animosity between clans.",
+            "exampleBn": "কয়েক দশকের সীমান্ত আলোচনা গোষ্ঠীগুলোর মাঝের গভীর বৈরিতা দূর করতে ব্যর্থ হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-23",
@@ -11582,7 +15815,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anomaly",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anomaly",
+            "banglaPronunciation": "['অ্যানোমালি]",
+            "pos": "noun",
+            "banglaMeaning": "ব্যতিক্রম বা অসঙ্গতি",
+            "exampleEn": "A sudden mid-winter heatwave was registered as a climate anomaly.",
+            "exampleBn": "মাঝশীতের হঠাৎ দাবদাহকে একটি জলবায়ুগত ব্যতিক্রম হিসেবে চিহ্নিত করা হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anomalous",
+            "banglaPronunciation": "['অ্যানোমালাস]",
+            "pos": "adjective",
+            "banglaMeaning": "অস্বাভাবিক বা নিয়মের বাইরে",
+            "exampleEn": "Forensic auditors flagged an anomalous series of overseas bank transactions.",
+            "exampleBn": "নিরীক্ষকরা বিদেশের বেশ কয়েকটি অস্বাভাবিক ব্যাংক লেনদেন চিহ্নিত করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Anomalously",
+            "banglaPronunciation": "['অ্যানোমালাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অস্বাভাবিকভাবে",
+            "exampleEn": "The lake's water temperature remained anomalously high throughout January.",
+            "exampleBn": "জানুয়ারি জুড়ে হ্রদের পানির তাপমাত্রা অস্বাভাবিকভাবে বেশি ছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-24",
@@ -11662,7 +15922,34 @@ const CURRICULUM_DATA = {
             "targetWord": "antipathy",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Antipathy",
+            "banglaPronunciation": "['অ্যান্টিপ্যাথি]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র বিতৃষ্ণা বা বিরাগ",
+            "exampleEn": "From an early age, she felt a natural antipathy toward crowded market spaces.",
+            "exampleBn": "ছোটবেলা থেকেই তিনি ভিড়ভাট্টাপূর্ণ বাজারের প্রতি এক সহজাত বিতৃষ্ণা অনুভব করতেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Antipathetic",
+            "banglaPronunciation": "['অ্যান্টিপ্যাথেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "বিতৃষ্ণাপূর্ণ বা বিরোধী ভাবাপন্ন",
+            "exampleEn": "The critic was openly antipathetic to modern avant-garde sculpture.",
+            "exampleBn": "সমালোচক আধুনিক সুররিয়ালিস্টিক ভাস্কর্যের প্রতি খোলাখুলিভাবে বিরোধী ভাবাপন্ন ছিলেন।"
+          },
+          "adverb": {
+            "word": "Antipathetically",
+            "banglaPronunciation": "['অ্যান্টিপ্যাথেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিতৃষ্ণাভরে",
+            "exampleEn": "He reacted antipathetically to the suggestion of relocating to a noisy city.",
+            "exampleBn": "কোলাহলময় শহরে স্থানান্তরিত হওয়ার প্রস্তাবে তিনি চরম বিতৃষ্ণাভরে প্রতিক্রিয়া জানিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-25",
@@ -11742,7 +16029,34 @@ const CURRICULUM_DATA = {
             "targetWord": "apathy",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Apathy",
+            "banglaPronunciation": "['অ্যাপ্যাথি]",
+            "pos": "noun",
+            "banglaMeaning": "উদাসীনতা বা অনীহা",
+            "exampleEn": "Community organizers fought against widespread voter apathy before elections.",
+            "exampleBn": "নির্বাচনের আগে সমাজকর্মীরা ভোটারদের ব্যাপক উদাসীনতার বিরুদ্ধে লড়াই করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Apathetic",
+            "banglaPronunciation": "['অ্যাপ্যাথেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "উদাসীন বা ভাবলেশহীন",
+            "exampleEn": "Young citizens cannot afford to remain apathetic toward local environmental policies.",
+            "exampleBn": "তরুণ নাগরিকরা স্থানীয় পরিবেশ নীতির প্রতি উদাসীন থাকতে পারেন না।"
+          },
+          "adverb": {
+            "word": "Apathetically",
+            "banglaPronunciation": "['অ্যাপ্যাথেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "উদাসীনভাবে",
+            "exampleEn": "He shrugged apathetically when asked about the company's restructuring plan.",
+            "exampleBn": "কোম্পানির পুনর্গঠন পরিকল্পনা সম্পর্কে জিজ্ঞাসা করা হলে তিনি উদাসীনভাবে কাঁধ ঝাঁকালেন।"
+          }
+        }
       },
       {
         "id": "adv-a-26",
@@ -11822,7 +16136,20 @@ const CURRICULUM_DATA = {
             "targetWord": "aftermath",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aftermath",
+            "banglaPronunciation": "['আফটারম্যাথ]",
+            "pos": "noun",
+            "banglaMeaning": "পরবর্তী পরিণতি বা ধ্বংসাবশেষ",
+            "exampleEn": "In the aftermath of the storm, volunteers rebuilt damaged coastal cottages.",
+            "exampleBn": "ঝড়ের পরবর্তী পরিণতিতে স্বেচ্ছাসেবকরা ক্ষতিগ্রস্ত উপকূলীয় কুটিরগুলো পুনর্নির্মাণ করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-27",
@@ -11902,7 +16229,34 @@ const CURRICULUM_DATA = {
             "targetWord": "agglomerate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agglomeration",
+            "banglaPronunciation": "['অ্যাগ্লোমারেশন]",
+            "pos": "noun",
+            "banglaMeaning": "পুঞ্জীভবন বা গুচ্ছ সমাহার",
+            "exampleEn": "The coastal metropolis is an agglomeration of historic trading towns.",
+            "exampleBn": "উপকূলীয় মহানগরীটি ঐতিহাসিক বাণিজ্যিক শহরগুলোর এক বিশাল পুঞ্জীভবন।"
+          },
+          "verb": {
+            "word": "Agglomerate",
+            "banglaPronunciation": "['অ্যাগ্লোমারেট]",
+            "pos": "verb",
+            "banglaMeaning": "পুঞ্জীভূত হওয়া বা দলা পাকানো",
+            "exampleEn": "Small industrial clusters began to agglomerate along the major railway corridor.",
+            "exampleBn": "রেললাইনের প্রধান করিডোর ধরে ছোট ছোট শিল্প কারখানাগুলো পুঞ্জীভূত হতে শুরু করেছিল।"
+          },
+          "adjective": {
+            "word": "Agglomerated",
+            "banglaPronunciation": "['অ্যাগ্লোমারেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "পুঞ্জীভূত",
+            "exampleEn": "Mining engineers inspected agglomerated ore pellets inside the blast furnace.",
+            "exampleBn": "খনির প্রকৌশলীরা চুল্লির ভেতরে পুঞ্জীভূত আকরিকের পিণ্ডগুলো পরীক্ষা করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-28",
@@ -11982,7 +16336,34 @@ const CURRICULUM_DATA = {
             "targetWord": "agnostic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agnosticism",
+            "banglaPronunciation": "['অ্যাগনস্টিসিজম]",
+            "pos": "noun",
+            "banglaMeaning": "অজ্ঞেয়বাদ বা সংশয়বাদ",
+            "exampleEn": "Agnosticism welcomes philosophical doubt while demanding empirical evidence.",
+            "exampleBn": "অজ্ঞেয়বাদ অভিজ্ঞতাভিত্তিক প্রমাণ দাবি করার পাশাপাশি দার্শনিক সন্দেহকে স্বাগত জানায়।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Agnostic",
+            "banglaPronunciation": "['অ্যাগনস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "অজ্ঞেয়বাদী বা প্ল্যাটফর্ম-নিরপেক্ষ",
+            "exampleEn": "The software framework is completely platform-agnostic across operating systems.",
+            "exampleBn": "সফটওয়্যার ফ্রেমওয়ার্কটি বিভিন্ন অপারেটিং সিস্টেমের মাঝে সম্পূর্ণ প্ল্যাটফর্ম-নিরপেক্ষ।"
+          },
+          "adverb": {
+            "word": "Agnostically",
+            "banglaPronunciation": "['অ্যাগনস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নিরপেক্ষভাবে বা সংশয় নিয়ে",
+            "exampleEn": "The historian approached metaphysical claims agnostically.",
+            "exampleBn": "ইতিহাসবিদ আধিভৌতিক দাবিগুলোকে নিরপেক্ষ সংশয়ের সাথে গ্রহণ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-29",
@@ -12062,7 +16443,27 @@ const CURRICULUM_DATA = {
             "targetWord": "agrarian",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Agrarianism",
+            "banglaPronunciation": "['অ্যাগ্রেরিয়ানিজম]",
+            "pos": "noun",
+            "banglaMeaning": "কৃষিবাদ বা কৃষিনীতি",
+            "exampleEn": "Thomas Jefferson was a passionate proponent of democratic agrarianism.",
+            "exampleBn": "টমাস জেফারসন ছিলেন গণতান্ত্রিক কৃষিবাদের এক উৎসাহী সমর্থক।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Agrarian",
+            "banglaPronunciation": "['অ্যাগ্রেরিয়ান]",
+            "pos": "adjective",
+            "banglaMeaning": "কৃষিভিত্তিক বা গ্রামীণ",
+            "exampleEn": "The region transitioned successfully from an agrarian economy to tech industry.",
+            "exampleBn": "অঞ্চলটি সফলভাবে একটি কৃষিভিত্তিক অর্থনীতি থেকে প্রযুক্তি শিল্পে রূপান্তরিত হয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-30",
@@ -12142,7 +16543,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ailment",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ailment",
+            "banglaPronunciation": "['এলমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "অসুস্থতা বা মৃদু ব্যাধি",
+            "exampleEn": "A warm cup of ginger and honey tea soothes minor throat ailments.",
+            "exampleBn": "এক কাপ উষ্ণ আদা ও মধুর চা গলার ছোটখাটো অসুস্থতা নিরাময় করে।"
+          },
+          "verb": {
+            "word": "Ail",
+            "banglaPronunciation": "['এল']",
+            "pos": "verb",
+            "banglaMeaning": "পীড়া দেওয়া বা অসুস্থ হওয়া",
+            "exampleEn": "Doctors worked to identify what might ail the weary traveling merchant.",
+            "exampleBn": "ক্লান্ত ভ্রমণকারী বণিকের কী রোগ হয়েছে তা শনাক্ত করতে চিকিৎসকরা কাজ করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Ailing",
+            "banglaPronunciation": "['এলিং]",
+            "pos": "adjective",
+            "banglaMeaning": "পীড়িত বা রুগ্ন",
+            "exampleEn": "Government subsidies helped revive the ailing national textile industry.",
+            "exampleBn": "সরকারি ভর্তুকি রুগ্ন জাতীয় বস্ত্র শিল্পকে পুনরুজ্জীবিত করতে সহায়তা করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-31",
@@ -12222,7 +16650,20 @@ const CURRICULUM_DATA = {
             "targetWord": "alibi",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alibi",
+            "banglaPronunciation": "['অ্যালিবাই]",
+            "pos": "noun",
+            "banglaMeaning": "অন্যত্র উপস্থিতির প্রমাণ",
+            "exampleEn": "Timestamped security camera footage provided the suspect an airtight alibi.",
+            "exampleBn": "সময় উল্লেখ করা সিসিটিভি ফুটেজ আসামিকে এক অকাট্য অন্যত্র উপস্থিতির প্রমাণ দিয়েছিল।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-32",
@@ -12302,7 +16743,34 @@ const CURRICULUM_DATA = {
             "targetWord": "alienate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alienation",
+            "banglaPronunciation": "['এলিয়েনেশন]",
+            "pos": "noun",
+            "banglaMeaning": "বিচ্ছিন্নতা বা পর হওয়া",
+            "exampleEn": "Sociologists study feelings of social alienation among urban migrants.",
+            "exampleBn": "সমাজবিজ্ঞানীরা শহুরে অভিবাসীদের মাঝে সামাজিক বিচ্ছিন্নতার অনুভূতি নিয়ে গবেষণা করেন।"
+          },
+          "verb": {
+            "word": "Alienate",
+            "banglaPronunciation": "['এলিয়েনেট]",
+            "pos": "verb",
+            "banglaMeaning": "পর করে দেওয়া বা দূরে ঠেলে দেওয়া",
+            "exampleEn": "Arrogant leadership tactics will only alienate dedicated team members.",
+            "exampleBn": "উদ্ধত নেতৃত্বের কৌশল কেবল নিবেদিত দলের সদস্যদেরই দূরে ঠেলে দেবে।"
+          },
+          "adjective": {
+            "word": "Alienated",
+            "banglaPronunciation": "['এলিয়েনেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "বিচ্ছিন্ন বা পর হয়ে যাওয়া",
+            "exampleEn": "The transferred employee felt alienated in the new corporate office.",
+            "exampleBn": "বদলি হওয়া কর্মী নতুন করপোরেট অফিসে নিজেকে বিচ্ছিন্ন মনে করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-33",
@@ -12382,7 +16850,34 @@ const CURRICULUM_DATA = {
             "targetWord": "align",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alignment",
+            "banglaPronunciation": "['অ্যালাইনমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "সংগতি বা সারিবদ্ধকরণ",
+            "exampleEn": "Proper wheel alignment ensures smooth highway driving and tire longevity.",
+            "exampleBn": "চাকার সঠিক সারিবদ্ধকরণ মহাসড়কে মসৃণ গাড়ি চালানো এবং টায়ারের স্থায়িত্ব নিশ্চিত করে।"
+          },
+          "verb": {
+            "word": "Align",
+            "banglaPronunciation": "['অ্যালাইন']",
+            "pos": "verb",
+            "banglaMeaning": "সারিবদ্ধ করা বা সংগতিপূর্ণ করা",
+            "exampleEn": "Executive leaders meet to align quarterly goals with corporate ethics.",
+            "exampleBn": "নির্বাহী নেতারা করপোরেট নীতিমালার সাথে ত্রৈমাসিক লক্ষ্য সংগতিপূর্ণ করতে সমবেত হন।"
+          },
+          "adjective": {
+            "word": "Aligned",
+            "banglaPronunciation": "['অ্যালাইন্ড]",
+            "pos": "adjective",
+            "banglaMeaning": "সারিবদ্ধ বা একাত্ম",
+            "exampleEn": "The two allied nations hold closely aligned environmental viewpoints.",
+            "exampleBn": "মিত্র দুই দেশ পরিবেশ বিষয়ে অত্যন্ত একাত্ম দৃষ্টিভঙ্গি পোষণ করে।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-34",
@@ -12462,7 +16957,34 @@ const CURRICULUM_DATA = {
             "targetWord": "allay",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allayer",
+            "banglaPronunciation": "['অ্যালায়ার']",
+            "pos": "noun",
+            "banglaMeaning": "উপশমকারী",
+            "exampleEn": "Clear scientific data served as a welcome allayer of public anxiety.",
+            "exampleBn": "স্পষ্ট বৈজ্ঞানিক তথ্য জনগণের উদ্বেগের এক পরম উপশমকারী হিসেবে কাজ করেছিল।"
+          },
+          "verb": {
+            "word": "Allay",
+            "banglaPronunciation": "['অ্যালে']",
+            "pos": "verb",
+            "banglaMeaning": "প্রশমিত করা বা ভয় দূর করা",
+            "exampleEn": "The health director appeared on television to allay unwarranted fears.",
+            "exampleBn": "স্বাস্থ্য পরিচালক অযাচিত ভয় দূর করতে টেলিভিশনে হাজির হয়েছিলেন।"
+          },
+          "adjective": {
+            "word": "Allayed",
+            "banglaPronunciation": "['অ্যালেইড]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রশমিত বা শান্ত",
+            "exampleEn": "With allayed fears, tourists returned happily to the coastal town.",
+            "exampleBn": "ভয় দূর হওয়ায় পর্যটকরা আনন্দের সাথে উপকূলীয় শহরে ফিরে এসেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-35",
@@ -12542,7 +17064,41 @@ const CURRICULUM_DATA = {
             "targetWord": "allegation",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allegation",
+            "banglaPronunciation": "['অ্যালিগেশন]",
+            "pos": "noun",
+            "banglaMeaning": "অভিযোগ বা দাবি",
+            "exampleEn": "Judicial committees investigate every formal allegation of fiscal bribery.",
+            "exampleBn": "বিচার বিভাগীয় কমিটি আর্থিক ঘুষের প্রতিটি আনুষ্ঠানিক অভিযোগ তদন্ত করে।"
+          },
+          "verb": {
+            "word": "Allege",
+            "banglaPronunciation": "['অ্যালেজ']",
+            "pos": "verb",
+            "banglaMeaning": "অভিযোগ আনা বা দাবি করা",
+            "exampleEn": "Prosecutors allege that the firm misled investors regarding profits.",
+            "exampleBn": "কৌঁসুলিরা অভিযোগ করেছেন যে প্রতিষ্ঠানটি মুনাফা সম্পর্কে বিনিয়োগকারীদের বিভ্রান্ত করেছে।"
+          },
+          "adjective": {
+            "word": "Alleged",
+            "banglaPronunciation": "['অ্যালেজড]",
+            "pos": "adjective",
+            "banglaMeaning": "অভিযুক্ত বা কথিত",
+            "exampleEn": "Police questioned the alleged suspect for several intensive hours.",
+            "exampleBn": "পুলিশ অভিযুক্ত আসামিকে কয়েক ঘণ্টা ধরে নিবিড় জিজ্ঞাসাবাদ করেছিল।"
+          },
+          "adverb": {
+            "word": "Allegedly",
+            "banglaPronunciation": "['অ্যালেজেডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অভিযোগ অনুযায়ী বা কথিতমতে",
+            "exampleEn": "The stolen painting was allegedly smuggled across the border.",
+            "exampleBn": "কথিতমতে চুরি যাওয়া চিত্রকর্মটি সীমান্ত পার করে পাচার করা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-36",
@@ -12622,7 +17178,34 @@ const CURRICULUM_DATA = {
             "targetWord": "allegiance",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allegiance",
+            "banglaPronunciation": "['অ্যালিজেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "আনুগত্য বা বিশ্বস্ততা",
+            "exampleEn": "New citizens recite a heartfelt pledge of allegiance to the republic.",
+            "exampleBn": "নতুন নাগরিকরা প্রজাতন্ত্রের প্রতি আন্তরিক আনুগত্যের শপথ পাঠ করেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Allegiant",
+            "banglaPronunciation": "['অ্যালিজেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুগত বা বিশ্বস্ত",
+            "exampleEn": "The general led an allegiant army steadfast in national defense.",
+            "exampleBn": "জেনারেল জাতীয় প্রতিরক্ষায় অবিচল এক অনুগত সেনাবাহিনীর নেতৃত্ব দিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Allegiantly",
+            "banglaPronunciation": "['অ্যালিজেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আনুগত্যের সাথে",
+            "exampleEn": "Troops served allegiantly through years of demanding border postings.",
+            "exampleBn": "কঠিন সীমান্ত দায়িত্বের বছরগুলোতে সৈন্যরা পরম আনুগত্যের সাথে সেবা দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-37",
@@ -12702,7 +17285,41 @@ const CURRICULUM_DATA = {
             "targetWord": "allegory",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allegory",
+            "banglaPronunciation": "['অ্যালিগোরি]",
+            "pos": "noun",
+            "banglaMeaning": "রূপক কাহিনি বা প্রতীকি গল্প",
+            "exampleEn": "George Orwell's Animal Farm is a brilliant political allegory.",
+            "exampleBn": "জর্জ অরওয়েলের অ্যানিম্যাল ফার্ম হলো এক অসাধারণ রাজনৈতিক রূপক কাহিনি।"
+          },
+          "verb": {
+            "word": "Allegorize",
+            "banglaPronunciation": "['অ্যালিগোরাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "রূপকে রূপান্তর করা",
+            "exampleEn": "Ancient poets allegorize moral dilemmas through fables.",
+            "exampleBn": "প্রাচীন কবিরা রূপকথার মাধ্যমে নৈতিক দ্বন্দ্বগুলোকে রূপকে ফুটিয়ে তুলেছেন।"
+          },
+          "adjective": {
+            "word": "Allegorical",
+            "banglaPronunciation": "['অ্যালিগরিক্যাল]",
+            "pos": "adjective",
+            "banglaMeaning": "রূপকধর্মী বা প্রতীকি",
+            "exampleEn": "The painter used allegorical figures to represent justice and liberty.",
+            "exampleBn": "চিত্রশিল্পী ন্যায়বিচার ও স্বাধীনতাকে ফুটিয়ে তুলতে রূপক চরিত্র ব্যবহার করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Allegorically",
+            "banglaPronunciation": "['অ্যালিগরিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "রূপকভাবে বা প্রতীকের মাধ্যমে",
+            "exampleEn": "The novel portrays the struggle between light and darkness allegorically.",
+            "exampleBn": "উপন্যাসটি আলো ও অন্ধকারের লড়াইকে রূপকভাবে চিত্রিত করেছে।"
+          }
+        }
       },
       {
         "id": "adv-a-38",
@@ -12782,7 +17399,34 @@ const CURRICULUM_DATA = {
             "targetWord": "allot",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allotment",
+            "banglaPronunciation": "['অ্যালটমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "বরাদ্দ বা অংশ",
+            "exampleEn": "Families tending garden allotments produce fresh organic vegetables.",
+            "exampleBn": "বরাদ্দকৃত জমিতে বাগান করা পরিবারগুলো তাজা জৈব সবজি উৎপাদন করে।"
+          },
+          "verb": {
+            "word": "Allot",
+            "banglaPronunciation": "['অ্যালট']",
+            "pos": "verb",
+            "banglaMeaning": "বরাদ্দ করা বা ভাগ করে দেওয়া",
+            "exampleEn": "Organizers allot twenty minutes for each scientific research presentation.",
+            "exampleBn": "আয়োজকরা প্রতিটি বৈজ্ঞানিক গবেষণা উপস্থাপনার জন্য বিশ মিনিট বরাদ্দ করেন।"
+          },
+          "adjective": {
+            "word": "Allotted",
+            "banglaPronunciation": "['অ্যালটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "বরাদ্দকৃত বা নির্ধারিত",
+            "exampleEn": "Students finished their exam essays well within the allotted time.",
+            "exampleBn": "শিক্ষার্থীরা নির্ধারিত সময়ের মধ্যেই তাদের পরীক্ষার প্রবন্ধ লেখা শেষ করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-39",
@@ -12862,7 +17506,41 @@ const CURRICULUM_DATA = {
             "targetWord": "allure",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Allure",
+            "banglaPronunciation": "['অ্যালুর']",
+            "pos": "noun",
+            "banglaMeaning": "আকর্ষণ বা মোহনীয় আবেদন",
+            "exampleEn": "The cultural allure of Paris attracts millions of enthusiastic travelers.",
+            "exampleBn": "প্যারিসের সাংস্কৃতিক মোহনীয় আবেদন লাখ লাখ উৎসুক ভ্রমণকারীকে আকর্ষণ করে।"
+          },
+          "verb": {
+            "word": "Allure",
+            "banglaPronunciation": "['অ্যালুর']",
+            "pos": "verb",
+            "banglaMeaning": "প্রলুব্ধ করা বা আকৃষ্ট করা",
+            "exampleEn": "Pristine sandy shores allure winter tourists from colder nations.",
+            "exampleBn": "নিষ্কলুষ বালুকাময় সমুদ্রতীর শীতপ্রধান দেশের পর্যটকদের দারুণভাবে আকৃষ্ট করে।"
+          },
+          "adjective": {
+            "word": "Alluring",
+            "banglaPronunciation": "['অ্যালুরিং]",
+            "pos": "adjective",
+            "banglaMeaning": "আকর্ষণীয় বা মনোহর",
+            "exampleEn": "The restaurant terrace offered an alluring panorama of the sunset.",
+            "exampleBn": "রেস্তোরাঁর ছাদ সূর্যাস্তের এক মনোহর দৃশ্য উপহার দিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Alluringly",
+            "banglaPronunciation": "['অ্যালুরিংলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আকর্ষণীয়ভাবে বা মোহনীয় ভঙ্গিতে",
+            "exampleEn": "Candlelight reflected alluringly on the polished mahogany dining table.",
+            "exampleBn": "পালিশ করা মেহগনি কাঠের খাবার টেবিলে মোমবাতির আলো আকর্ষণীয়ভাবে প্রতিফলিত হচ্ছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-40",
@@ -12942,7 +17620,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ally",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alliance",
+            "banglaPronunciation": "['অ্যালায়েন্স]",
+            "pos": "noun",
+            "banglaMeaning": "জোট বা মিত্রতা",
+            "exampleEn": "The two democratic nations formed an enduring defense alliance.",
+            "exampleBn": "গণতান্ত্রিক দুটি দেশ একটি দীর্ঘস্থায়ী প্রতিরক্ষা জোট গঠন করেছিল।"
+          },
+          "verb": {
+            "word": "Ally",
+            "banglaPronunciation": "['অ্যালাই']",
+            "pos": "verb",
+            "banglaMeaning": "মিত্রতা স্থাপন করা বা একজোট হওয়া",
+            "exampleEn": "Environmental groups ally with universities to preserve coastal wetlands.",
+            "exampleBn": "উপকূলীয় জলাভূমি রক্ষায় পরিবেশবাদী দলগুলো বিশ্ববিদ্যালয়ের সাথে একজোট হয়।"
+          },
+          "adjective": {
+            "word": "Allied",
+            "banglaPronunciation": "['অ্যালাইড]",
+            "pos": "adjective",
+            "banglaMeaning": "মিত্রভাবাপন্ন বা ঐক্যবদ্ধ",
+            "exampleEn": "Allied forces coordinated maritime rescue drills in the Pacific.",
+            "exampleBn": "মিত্র বাহিনী প্রশান্ত মহাসাগরে সামুদ্রিক উদ্ধার মহড়া সমন্বয় করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-41",
@@ -13022,7 +17727,34 @@ const CURRICULUM_DATA = {
             "targetWord": "aloof",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aloofness",
+            "banglaPronunciation": "['অ্যালুফনেস]",
+            "pos": "noun",
+            "banglaMeaning": "নির্লিপ্ততা বা উদাসীন দূরত্ব",
+            "exampleEn": "His aristocratic aloofness made him seem unapproachable to juniors.",
+            "exampleBn": "তার আভিজাত্যপূর্ণ নির্লিপ্ততা তাকে কনিষ্ঠদের কাছে অহংকারী করে তুলেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Aloof",
+            "banglaPronunciation": "['অ্যালুফ]",
+            "pos": "adjective",
+            "banglaMeaning": "নির্লিপ্ত বা দূরত্ব বজায় রাখা",
+            "exampleEn": "The author remained aloof from noisy political television debates.",
+            "exampleBn": "লেখক কোলাহলময় রাজনৈতিক টেলিভিশন বিতর্ক থেকে নির্লিপ্ত ও দূরে ছিলেন।"
+          },
+          "adverb": {
+            "word": "Aloofly",
+            "banglaPronunciation": "['অ্যালুফলি]",
+            "pos": "adverb",
+            "banglaMeaning": "নির্লিপ্তভাবে বা দূরত্ব বজায় রেখে",
+            "exampleEn": "The Persian cat sat aloofly on the mantelpiece, ignoring callers.",
+            "exampleBn": "পার্সিয়ান বিড়ালটি কাউকে তোয়াক্কা না করে তাকের ওপর নির্লিপ্তভাবে বসে ছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-42",
@@ -13102,7 +17834,34 @@ const CURRICULUM_DATA = {
             "targetWord": "alteration",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alteration",
+            "banglaPronunciation": "['অলটারেশন]",
+            "pos": "noun",
+            "banglaMeaning": "পরিবর্তন বা সংস্কার",
+            "exampleEn": "The tailor made a minor alteration to shorten the sleeve cuffs.",
+            "exampleBn": "দর্জি হাতা ছোট করার জন্য পোশাকে সামান্য পরিবর্তন এনেছিলেন।"
+          },
+          "verb": {
+            "word": "Alter",
+            "banglaPronunciation": "['অলটার']",
+            "pos": "verb",
+            "banglaMeaning": "পরিবর্তন করা বা বদলানো",
+            "exampleEn": "You can alter the screen brightness to ease night eye strain.",
+            "exampleBn": "রাতের চোখের চাপ কমাতে আপনি স্ক্রিনের উজ্জ্বলতা পরিবর্তন করতে পারেন।"
+          },
+          "adjective": {
+            "word": "Alterable",
+            "banglaPronunciation": "['অলটারেবল]",
+            "pos": "adjective",
+            "banglaMeaning": "পরিবর্তনযোগ্য",
+            "exampleEn": "Reservation dates remain alterable up to forty-eight hours prior.",
+            "exampleBn": "যাত্রার আটচল্লিশ ঘণ্টা পূর্ব পর্যন্ত বুকিংয়ের তারিখ পরিবর্তনযোগ্য থাকে।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-43",
@@ -13182,7 +17941,27 @@ const CURRICULUM_DATA = {
             "targetWord": "altercation",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Altercation",
+            "banglaPronunciation": "['অলটারকেশন]",
+            "pos": "noun",
+            "banglaMeaning": "উত্তপ্ত বাদানুবাদ বা বচসা",
+            "exampleEn": "Security intervened swiftly to de-escalate a heated verbal altercation.",
+            "exampleBn": "নিরাপত্তা কর্মীরা দ্রুত হস্তক্ষেপ করে উত্তপ্ত মৌখিক বচসা শান্ত করেছিলেন।"
+          },
+          "verb": {
+            "word": "Altercate",
+            "banglaPronunciation": "['অলটারকেট']",
+            "pos": "verb",
+            "banglaMeaning": "তর্কাতর্কি করা বা ঝগড়া করা",
+            "exampleEn": "Angry motorists began to altercate following the minor fender bender.",
+            "exampleBn": "সামান্য গাড়ির ধাক্কার পর ক্ষুব্ধ চালকরা তর্কাতর্কি শুরু করেছিলেন।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-44",
@@ -13262,7 +18041,27 @@ const CURRICULUM_DATA = {
             "targetWord": "altitude",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Altitude",
+            "banglaPronunciation": "['অ্যালটিটিউড]",
+            "pos": "noun",
+            "banglaMeaning": "উচ্চতা বা উচ্চস্থান",
+            "exampleEn": "The aircraft cruises comfortably at an altitude of thirty thousand feet.",
+            "exampleBn": "বিমানটি ত্রিশ হাজার ফুট উচ্চতায় অত্যন্ত স্বাচ্ছন্দ্যে উড়ে চলে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Altitudinal",
+            "banglaPronunciation": "['অ্যালটিটিউডিনাল]",
+            "pos": "adjective",
+            "banglaMeaning": "উচ্চতাজনিত বা উচ্চতা সংক্রান্ত",
+            "exampleEn": "Botanists study altitudinal variations in Himalayan alpine vegetation.",
+            "exampleBn": "উদ্ভিদবিজ্ঞানীরা হিমালয়ের আল্পাইন উদ্ভিদে উচ্চতাজনিত পরিবর্তন নিয়ে গবেষণা করেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-45",
@@ -13342,7 +18141,34 @@ const CURRICULUM_DATA = {
             "targetWord": "altruism",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Altruism",
+            "banglaPronunciation": "['অ্যালট্রুইজম]",
+            "pos": "noun",
+            "banglaMeaning": "পরার্থপরতা বা নিঃস্বার্থ মঙ্গলকামনা",
+            "exampleEn": "Volunteering at the hospice reflects genuine human altruism.",
+            "exampleBn": "হাসপাতালে বিনামূল্যে সেবা দেওয়া মানুষের খাঁটি পরার্থপরতার প্রতিফলন ঘটায়।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Altruistic",
+            "banglaPronunciation": "['অ্যালট্রুইস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "নিঃস্বার্থ বা পরোপকারী",
+            "exampleEn": "The foundation's altruistic initiatives provide free clean water to villages.",
+            "exampleBn": "ফাউন্ডেশনের নিঃস্বার্থ উদ্যোগ গ্রামীণ অঞ্চলে বিনামূল্যে বিশুদ্ধ পানি সরবরাহ করে।"
+          },
+          "adverb": {
+            "word": "Altruistically",
+            "banglaPronunciation": "['অ্যালট্রুইস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নিঃস্বার্থভাবে",
+            "exampleEn": "She acted altruistically by donating bone marrow to save a stranger.",
+            "exampleBn": "এক অচেনা মানুষের জীবন বাঁচাতে বোন ম্যারো দান করে তিনি নিঃস্বার্থভাবে কাজ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "adv-a-46",
@@ -13422,7 +18248,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amass",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amassment",
+            "banglaPronunciation": "['অ্যাম্যাসমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "পুঞ্জীভবন বা স্তূপীকরণ",
+            "exampleEn": "The rapid amassment of wealth did not change his modest humility.",
+            "exampleBn": "সম্পদের দ্রুত পুঞ্জীভবনও তার অমায়িক বিনয়কে বিন্দুমাত্র পরিবর্তন করেনি।"
+          },
+          "verb": {
+            "word": "Amass",
+            "banglaPronunciation": "['অ্যাম্যাস']",
+            "pos": "verb",
+            "banglaMeaning": "পুঞ্জীভূত করা বা বিপুল পরিমাণ জড়ো করা",
+            "exampleEn": "Through decades of scholarly study, he managed to amass thousands of rare books.",
+            "exampleBn": "কয়েক দশকের অ্যাকাডেমিক সাধনায় তিনি হাজার হাজার দুর্লভ বই জড়ো করতে পেরেছিলেন।"
+          },
+          "adjective": {
+            "word": "Amassed",
+            "banglaPronunciation": "['অ্যাম্যাসড]",
+            "pos": "adjective",
+            "banglaMeaning": "পুঞ্জীভূত বা সঞ্চিত",
+            "exampleEn": "The amassed historical archives are now open to international researchers.",
+            "exampleBn": "সঞ্চিত ঐতিহাসিক দলিলপত্র এখন আন্তর্জাতিক গবেষকদের জন্য উন্মুক্ত।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-47",
@@ -13502,7 +18355,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amateur",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amateur",
+            "banglaPronunciation": "['অ্যামেচার']",
+            "pos": "noun",
+            "banglaMeaning": "অপেশাদার বা শৌখিন ব্যক্তি",
+            "exampleEn": "An enthusiastic amateur built a backyard observatory and spotted a comet.",
+            "exampleBn": "এক শৌখিন ব্যক্তি পেছনের উঠোনে মানমন্দির বানিয়ে একটি নতুন ধূমকেতু আবিষ্কার করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Amateurish",
+            "banglaPronunciation": "['অ্যামেচারিশ']",
+            "pos": "adjective",
+            "banglaMeaning": "আনাড়ি বা অপেশাদারসুলভ",
+            "exampleEn": "The website had an amateurish design that failed to inspire customer trust.",
+            "exampleBn": "ওয়েবসাইটটির আনাড়ি নকশা গ্রাহকদের আস্থা অর্জনে ব্যর্থ হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Amateurishly",
+            "banglaPronunciation": "['অ্যামেচারিশলি]",
+            "pos": "adverb",
+            "banglaMeaning": "আনাড়িপনা করে বা অপেশাদারভাবে",
+            "exampleEn": "The stage backdrop was amateurishly painted by untrained volunteers.",
+            "exampleBn": "মঞ্চের পেছনের পর্দাটি অপ্রশিক্ষিত স্বেচ্ছাসেবকদের দ্বারা আনাড়িভাবে আঁকা হয়েছিল।"
+          }
+        }
       },
       {
         "id": "adv-a-48",
@@ -13582,7 +18462,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ambidextrous",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ambidexterity",
+            "banglaPronunciation": "['অ্যাম্বিডেক্সটেরিটি]",
+            "pos": "noun",
+            "banglaMeaning": "সব্যসাচী ক্ষমতা বা উভয়হস্ত দক্ষতা",
+            "exampleEn": "Ambidexterity allowed the tennis champion to switch hands during intense rallies.",
+            "exampleBn": "সব্যসাচী ক্ষমতা টেনিস চ্যাম্পিয়নকে খেলার উত্তেজনার মাঝে হাত বদল করার সুবিধা দিত।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ambidextrous",
+            "banglaPronunciation": "['অ্যাম্বিডেক্সট্রাস]",
+            "pos": "adjective",
+            "banglaMeaning": "সব্যসাচী বা উভয়হাতে সমান দক্ষ",
+            "exampleEn": "Being ambidextrous helped the surgeon operate effortlessly from either side.",
+            "exampleBn": "সব্যসাচী হওয়ায় সার্জন যেকোনো পাশ থেকে অনায়াসে অস্ত্রোপচার করতে পারতেন।"
+          },
+          "adverb": {
+            "word": "Ambidextrously",
+            "banglaPronunciation": "['অ্যাম্বিডেক্সট্রাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "উভয়হাতে সমান দক্ষতায়",
+            "exampleEn": "The artist painted ambidextrously, holding brushes in both hands.",
+            "exampleBn": "শিল্পী দুই হাতে তুলি ধরে উভয়হাতে সমান দক্ষতায় ছবি আঁকতেন।"
+          }
+        }
       },
       {
         "id": "adv-a-49",
@@ -13662,7 +18569,27 @@ const CURRICULUM_DATA = {
             "targetWord": "ambience",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ambience",
+            "banglaPronunciation": "['অ্যাম্বিয়েন্স]",
+            "pos": "noun",
+            "banglaMeaning": "পরিবেশ বা পারিপার্শ্বিক আবহ",
+            "exampleEn": "Soft acoustic guitar music created a relaxing ambience in the garden cafe.",
+            "exampleBn": "মৃদু অ্যাকোস্টিক গিটারের সুর বাগান ক্যাফেটিতে এক আরামদায়ক আবহ তৈরি করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ambient",
+            "banglaPronunciation": "['অ্যাম্বিয়েন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "পারিপার্শ্বিক বা আবহমান",
+            "exampleEn": "The studio monitors captured gentle ambient forest sounds at dawn.",
+            "exampleBn": "স্টুডিওর মাইকগুলো ভোরবেলা বনের মনোরম পারিপার্শ্বিক শব্দ ধারণ করেছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-a-50",
@@ -13742,7 +18669,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ambush",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ambush",
+            "banglaPronunciation": "['অ্যাম্বুশ]",
+            "pos": "noun",
+            "banglaMeaning": "ওত পেতে আক্রমণ বা ফাঁদ",
+            "exampleEn": "The patrol unit escaped a surprise ambush along the foggy gorge.",
+            "exampleBn": "টহল দলটি কুয়াশাচ্ছন্ন গিরিখাতের এক অতর্কিত আক্রমণ থেকে বেঁচে ফিরেছিল।"
+          },
+          "verb": {
+            "word": "Ambush",
+            "banglaPronunciation": "['অ্যাম্বুশ]",
+            "pos": "verb",
+            "banglaMeaning": "ওত পেতে হামলা করা",
+            "exampleEn": "Guerrilla fighters planned to ambush the hostile supply convoy at dusk.",
+            "exampleBn": "গেরিলা যোদ্ধারা সন্ধ্যায় শত্রু রসদ বহরের ওপর ওত পেতে হামলা করার পরিকল্পনা করেছিল।"
+          },
+          "adjective": {
+            "word": "Ambushed",
+            "banglaPronunciation": "['অ্যাম্বুশড]",
+            "pos": "adjective",
+            "banglaMeaning": "অতর্কিত আক্রান্ত",
+            "exampleEn": "The ambushed soldiers fought valiantly until reinforcements arrived.",
+            "exampleBn": "অতর্কিত আক্রান্ত সৈন্যরা সাহায্যকারী দল না আসা পর্যন্ত বীরত্বের সাথে লড়াই করেছিল।"
+          },
+          "adverb": null
+        }
       }
     ],
     "practiceExtraWords": [
@@ -13754,7 +18708,27 @@ const CURRICULUM_DATA = {
         "meaningBn": "সূক্ষ্ম পার্থক্য বা ভাবের সূক্ষ্মতা",
         "explanationEn": "A subtle difference in meaning, expression, or sound.",
         "example": "Mastering nuance allows writers to convey complex emotions effortlessly.",
-        "exampleBn": "ভাবের সূক্ষ্মতা আয়ত্ত করলে লেখকরা জটিল অনুভূতিগুলো অনায়াসে প্রকাশ করতে পারেন।"
+        "exampleBn": "ভাবের সূক্ষ্মতা আয়ত্ত করলে লেখকরা জটিল অনুভূতিগুলো অনায়াসে প্রকাশ করতে পারেন।",
+        "derivatives": {
+          "noun": {
+            "word": "Nuance",
+            "banglaPronunciation": "['নিউ-আন্স]",
+            "pos": "noun",
+            "banglaMeaning": "সূক্ষ্ম পার্থক্য",
+            "exampleEn": "He appreciated every subtle nuance of the musical performance.",
+            "exampleBn": "তিনি সংগীত পরিবেশনার প্রতিটি সূক্ষ্ম পার্থক্য উপলব্ধি করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Nuanced",
+            "banglaPronunciation": "['নিউ-আন্সড]",
+            "pos": "adjective",
+            "banglaMeaning": "সূক্ষ্ম অর্থবহ বা বহুমুখী তাৎপর্যপূর্ণ",
+            "exampleEn": "The report provided a nuanced analysis of the conflict.",
+            "exampleBn": "প্রতিবেদনটিতে সংঘাতের একটি সূক্ষ্ম ও বহুমুখী বিশ্লেষণ প্রদান করা হয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "adv-8",
@@ -13764,7 +18738,41 @@ const CURRICULUM_DATA = {
         "meaningBn": "সমন্বয়, সংশ্লেষণ",
         "explanationEn": "The combination of separate ideas or elements to form a coherent whole.",
         "example": "Her essay offers a brilliant synthesis of history and modern economics.",
-        "exampleBn": "তার প্রবন্ধটি ইতিহাস এবং আধুনিক অর্থনীতির এক চমৎকার সমন্বয় উপস্থাপন করে।"
+        "exampleBn": "তার প্রবন্ধটি ইতিহাস এবং আধুনিক অর্থনীতির এক চমৎকার সমন্বয় উপস্থাপন করে।",
+        "derivatives": {
+          "noun": {
+            "word": "Synthesis",
+            "banglaPronunciation": "['সিনথিসিস]",
+            "pos": "noun",
+            "banglaMeaning": "সংশ্লেষণ বা সমন্বয়",
+            "exampleEn": "His work is an impressive synthesis of art and science.",
+            "exampleBn": "তার কাজ শিল্প ও বিজ্ঞানের এক চিত্তাকর্ষক সমন্বয়।"
+          },
+          "verb": {
+            "word": "Synthesize",
+            "banglaPronunciation": "['সিনথিসাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "সংশ্লেষণ করা বা একীভূত করা",
+            "exampleEn": "Researchers synthesized a new compound in the laboratory.",
+            "exampleBn": "গবেষকরা গবেষণাগারে একটি নতুন যৌগ সংশ্লেষণ করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Synthetic",
+            "banglaPronunciation": "[সিন'থেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "কৃত্রিম বা সংশ্লেষিত",
+            "exampleEn": "Synthetic materials are often cheaper than natural fibers.",
+            "exampleBn": "কৃত্রিম উপকরণ প্রায়শই প্রাকৃতিক তন্তুর চেয়ে সস্তা হয়।"
+          },
+          "adverb": {
+            "word": "Synthetically",
+            "banglaPronunciation": "[সিন'থেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "কৃত্রিম উপায়ে",
+            "exampleEn": "The hormone is now produced synthetically for medical use.",
+            "exampleBn": "চিকিৎসা ব্যবহারের জন্য হরমোনটি এখন কৃত্রিম উপায়ে তৈরি করা হয়।"
+          }
+        }
       }
     ],
     "academicVocabulary": [
@@ -14098,7 +19106,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "আরও খারাপ হওয়া",
             "explanationBn": "অবস্থার অবনতি ঘটানো।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Mitigation",
+            "banglaPronunciation": "[,মিটি'গেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "উপশম বা তীব্রতা হ্রাস",
+            "exampleEn": "The mitigation of flood risks required long-term government planning.",
+            "exampleBn": "বন্যার ঝুঁকি হ্রাসের জন্য দীর্ঘমেয়াদী সরকারি পরিকল্পনার প্রয়োজন ছিল।"
+          },
+          "verb": {
+            "word": "Mitigate",
+            "banglaPronunciation": "['মিটিগেইট]",
+            "pos": "verb",
+            "banglaMeaning": "লাঘব বা তীব্রতা প্রশমিত করা",
+            "exampleEn": "Planting more trees can help mitigate global warming.",
+            "exampleBn": "বেশি করে গাছ লাগানো বৈশ্বিক উষ্ণতা লাঘব করতে সাহায্য করতে পারে।"
+          },
+          "adjective": {
+            "word": "Mitigative",
+            "banglaPronunciation": "['মিটিগেটিভ]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রশমনকারী বা উপশমমূলক",
+            "exampleEn": "The doctor prescribed a mitigative treatment for chronic pain.",
+            "exampleBn": "ডাক্তার দীর্ঘস্থায়ী ব্যথার জন্য একটি উপশমমূলক চিকিৎসার পরামর্শ দিয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-2",
@@ -14163,7 +19198,41 @@ const CURRICULUM_DATA = {
             "meaningBn": "স্থগিত বা আটকে রাখা",
             "explanationBn": "অগ্রগতি থামিয়ে দেওয়া।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Expedition",
+            "banglaPronunciation": "[,এক্সপি'ডিশন]",
+            "pos": "noun",
+            "banglaMeaning": "ত্বরান্বয়ন বা দ্রুতকরণ (অথবা অভিযান)",
+            "exampleEn": "The expedition of processing passport applications helped thousands.",
+            "exampleBn": "পাসপোর্ট আবেদন দ্রুত নিষ্পত্তির প্রক্রিয়া হাজার হাজার মানুষকে সহায়তা করেছিল।"
+          },
+          "verb": {
+            "word": "Expedite",
+            "banglaPronunciation": "['এক্সপিডাইট]",
+            "pos": "verb",
+            "banglaMeaning": "ত্বরান্বিত করা বা দ্রুত সম্পন্ন করা",
+            "exampleEn": "We need to expedite the delivery of emergency medical relief.",
+            "exampleBn": "আমাদের জরুরি চিকিৎসা ত্রাণের সরবরাহ ত্বরান্বিত করতে হবে।"
+          },
+          "adjective": {
+            "word": "Expeditious",
+            "banglaPronunciation": "[,এক্সপি'ডিশাস]",
+            "pos": "adjective",
+            "banglaMeaning": "দ্রুত ও কার্যকর",
+            "exampleEn": "The minister promised an expeditious response to citizen complaints.",
+            "exampleBn": "মন্ত্রী নাগরিকদের অভিযোগের দ্রুত ও কার্যকর জবাব দেওয়ার প্রতিশ্রুতি দিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Expeditiously",
+            "banglaPronunciation": "[,এক্সপি'ডিশাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দ্রুততার সাথে ও সুচারুভাবে",
+            "exampleEn": "The repairs were carried out expeditiously overnight.",
+            "exampleBn": "মেরামতের কাজটি রাতারাতি দ্রুততার সাথে সুচারুভাবে সম্পন্ন হয়েছিল।"
+          }
+        }
       },
       {
         "id": "pro-3",
@@ -14228,7 +19297,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "নির্বোধ",
             "explanationBn": "বিবেচনাহীন আচরণ বা সিদ্ধান্ত নেওয়া।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Astuteness",
+            "banglaPronunciation": "[আ'স্টিউটনেস]",
+            "pos": "noun",
+            "banglaMeaning": "তীক্ষ্ণবুদ্ধি বা বিচক্ষণতা",
+            "exampleEn": "Her business astuteness saved the company from bankruptcy.",
+            "exampleBn": "তার ব্যবসায়িক বিচক্ষণতা প্রতিষ্ঠানটিকে দেউলিয়া হওয়া থেকে বাঁচিয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Astute",
+            "banglaPronunciation": "[আ'স্টিউট]",
+            "pos": "adjective",
+            "banglaMeaning": "বিচক্ষণ বা ধূর্ত বুদ্ধিমান",
+            "exampleEn": "He is an astute investor who buys during market drops.",
+            "exampleBn": "তিনি একজন বিচক্ষণ বিনিয়োগকারী যিনি বাজারের মন্দায় ক্রয় করেন।"
+          },
+          "adverb": {
+            "word": "Astutely",
+            "banglaPronunciation": "[আ'স্টিউটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিচক্ষণতার সাথে",
+            "exampleEn": "She astutely foresaw the upcoming economic changes.",
+            "exampleBn": "তিনি বিচক্ষণতার সাথে আসন্ন অর্থনৈতিক পরিবর্তনের পূর্বাভাস দিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-4",
@@ -14293,7 +19389,27 @@ const CURRICULUM_DATA = {
             "meaningBn": "মামুলি, সাধারণ",
             "explanationBn": "বিশেষত্বহীন ও স্বাভাবিক।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": null,
+          "adjective": {
+            "word": "Unprecedented",
+            "banglaPronunciation": "[আন'প্রেসিডেনটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "নজিরবিহীন বা অভূতপূর্ব",
+            "exampleEn": "The pandemic brought unprecedented disruption to global transport.",
+            "exampleBn": "মহামারী বৈশ্বিক পরিবহনে নজিরবিহীন ব্যাঘাত সৃষ্টি করেছিল।"
+          },
+          "adverb": {
+            "word": "Unprecedentedly",
+            "banglaPronunciation": "[আন'প্রেসিডেনটেডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "নজিরবিহীনভাবে",
+            "exampleEn": "Stock prices rose unprecedentedly fast this morning.",
+            "exampleBn": "আজ সকালে শেয়ারের দাম নজিরবিহীনভাবে দ্রুত বৃদ্ধি পেয়েছিল।"
+          }
+        }
       },
       {
         "id": "pro-5",
@@ -14358,7 +19474,34 @@ const CURRICULUM_DATA = {
             "meaningBn": "বিভাজন",
             "explanationBn": "দলের মধ্যে মতের বিভক্তি।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Consensus",
+            "banglaPronunciation": "[কান'সেন্সাস]",
+            "pos": "noun",
+            "banglaMeaning": "সর্বসম্মত মতামত বা ঐক্যমত",
+            "exampleEn": "The committee finally reached a broad consensus on education reforms.",
+            "exampleBn": "কমিটি অবশেষে শিক্ষা সংস্কারে একটি বিস্তৃত ঐক্যমতে পৌঁছেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Consensual",
+            "banglaPronunciation": "[কান'সেনশুয়াল]",
+            "pos": "adjective",
+            "banglaMeaning": "পারস্পরিক সম্মতিসূচক",
+            "exampleEn": "All contractual agreements must be entirely consensual.",
+            "exampleBn": "সমস্ত চুক্তিভিত্তিক চুক্তি সম্পূর্ণ সম্মতিসূচক হতে হবে।"
+          },
+          "adverb": {
+            "word": "Consensually",
+            "banglaPronunciation": "[কান'সেনশুয়ালি]",
+            "pos": "adverb",
+            "banglaMeaning": "পারস্পরিক সম্মতিক্রমে",
+            "exampleEn": "The property dispute was settled consensually without litigation.",
+            "exampleBn": "মামলা ছাড়াই পারস্পরিক সম্মতিক্রমে সম্পত্তি বিরোধ নিষ্পত্তি হয়েছিল।"
+          }
+        }
       },
       {
         "id": "pro-6",
@@ -14423,7 +19566,41 @@ const CURRICULUM_DATA = {
             "meaningBn": "মিথ্যা প্রতিপন্ন করা",
             "explanationBn": "বাইরের ধারণার বিপরীত আচরণ করা।"
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Exemplification",
+            "banglaPronunciation": "[ইগ,জেমপ্লিফি'কেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "দৃষ্টান্ত স্থাপন বা উদাহরণ প্রদর্শন",
+            "exampleEn": "Her selfless charity is an exemplification of true compassion.",
+            "exampleBn": "তার নিঃস্বার্থ দান প্রকৃত সহানুভূতির একটি উজ্জ্বল দৃষ্টান্ত।"
+          },
+          "verb": {
+            "word": "Exemplify",
+            "banglaPronunciation": "[ইগ'জেমপ্লিফাই]",
+            "pos": "verb",
+            "banglaMeaning": "দৃষ্টান্ত বা উদাহরণ হিসেবে উপস্থাপন করা",
+            "exampleEn": "His brave actions exemplify the true values of our company.",
+            "exampleBn": "তার সাহসী কর্মকাণ্ড আমাদের প্রতিষ্ঠানের প্রকৃত মূল্যবোধের দৃষ্টান্ত তুলে ধরে।"
+          },
+          "adjective": {
+            "word": "Exemplary",
+            "banglaPronunciation": "[ইগ'জেমপ্লারি]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুকরণীয় বা দৃষ্টান্তমূলক",
+            "exampleEn": "The student was awarded a medal for exemplary attendance.",
+            "exampleBn": "অনুকরণীয় উপস্থিতির জন্য শিক্ষার্থীটিকে পদক প্রদান করা হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Exemplarily",
+            "banglaPronunciation": "[ইগ'জেমপ্লারিলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দৃষ্টান্তমূলকভাবে",
+            "exampleEn": "The peacekeeper served exemplarily in foreign conflict zones.",
+            "exampleBn": "শান্তিরক্ষী বিদেশি সংঘাতপূর্ণ অঞ্চলে দৃষ্টান্তমূলকভাবে দায়িত্ব পালন করেছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-01",
@@ -14503,7 +19680,20 @@ const CURRICULUM_DATA = {
             "targetWord": "abeyance",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abeyance",
+            "banglaPronunciation": "[আ'বেইয়ান্স]",
+            "pos": "noun",
+            "banglaMeaning": "সাময়িক স্থগিতাবস্থা",
+            "exampleEn": "The merger project was held in abeyance pending regulatory review.",
+            "exampleBn": "নিয়ামক পর্যালোচনার অপেক্ষায় একীভূতকরণ প্রকল্পটি সাময়িক স্থগিতাবস্থায় রাখা হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-02",
@@ -14583,7 +19773,27 @@ const CURRICULUM_DATA = {
             "targetWord": "abjure",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abjuration",
+            "banglaPronunciation": "[,অ্যাবজু'রিশান]",
+            "pos": "noun",
+            "banglaMeaning": "শপথপূর্বক ত্যাগ",
+            "exampleEn": "His formal abjuration of royal titles stunned the kingdom.",
+            "exampleBn": "রাজকীয় খেতাব আনুষ্ঠানিকভাবে শপথপূর্বক ত্যাগ পুরো রাজ্যকে স্তম্ভিত করেছিল।"
+          },
+          "verb": {
+            "word": "Abjure",
+            "banglaPronunciation": "[অ্যাব'জিউর]",
+            "pos": "verb",
+            "banglaMeaning": "শপথ করে পরিত্যাগ করা",
+            "exampleEn": "The rebel agreed to abjure all acts of political violence.",
+            "exampleBn": "বিদ্রোহী রাজনৈতিক সহিংসতার সমস্ত কর্মকাণ্ড শপথ করে পরিত্যাগ করতে সম্মত হয়েছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-03",
@@ -14663,7 +19873,27 @@ const CURRICULUM_DATA = {
             "targetWord": "abnegation",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abnegation",
+            "banglaPronunciation": "[,অ্যাবনি'গেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "আত্মত্যাগ বা স্বার্থত্যাগ",
+            "exampleEn": "Monks live a secluded life of prayer and self-abnegation.",
+            "exampleBn": "ভিক্ষুরা প্রার্থনা ও আত্মত্যাগের নির্জন জীবনযাপন করেন।"
+          },
+          "verb": {
+            "word": "Abnegate",
+            "banglaPronunciation": "['অ্যাবনিগেইট]",
+            "pos": "verb",
+            "banglaMeaning": "উপেক্ষা করা বা ত্যাগ করা",
+            "exampleEn": "A true leader will not abnegate responsibility in crisis.",
+            "exampleBn": "একজন সত্যিকারের নেতা সংকটের মুহূর্তে দায়িত্ব উপেক্ষা করবেন না।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-04",
@@ -14743,7 +19973,34 @@ const CURRICULUM_DATA = {
             "targetWord": "abstemious",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Abstemiousness",
+            "banglaPronunciation": "[অ্যাব'স্টিমিয়াসনেস]",
+            "pos": "noun",
+            "banglaMeaning": "মিতাহার বা সংযমশীলতা",
+            "exampleEn": "His abstemiousness contributed greatly to his longevity and health.",
+            "exampleBn": "তার মিতাহার তার দীর্ঘায়ু ও স্বাস্থ্যে বিরাট ভূমিকা রেখেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Abstemious",
+            "banglaPronunciation": "[অ্যাব'স্টিমিয়াস]",
+            "pos": "adjective",
+            "banglaMeaning": "সংযমী বা মিতাহারী",
+            "exampleEn": "Athletes must lead an abstemious lifestyle during training.",
+            "exampleBn": "প্রশিক্ষণের সময় ক্রীড়াবিদদের একটি সংযমী জীবনযাপন করতে হয়।"
+          },
+          "adverb": {
+            "word": "Abstemiously",
+            "banglaPronunciation": "[অ্যাব'স্টিমিয়াসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "সংযমের সাথে",
+            "exampleEn": "She ate and drank abstemiously at the banquet.",
+            "exampleBn": "তিনি ভোজসভায় অত্যন্ত সংযমের সাথে পানাহার করেছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-05",
@@ -14823,7 +20080,20 @@ const CURRICULUM_DATA = {
             "targetWord": "accolade",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Accolade",
+            "banglaPronunciation": "['অ্যাকোলেইড]",
+            "pos": "noun",
+            "banglaMeaning": "প্রশংসা বা সম্মাননা",
+            "exampleEn": "The film director received the highest accolade at the festival.",
+            "exampleBn": "চলচ্চিত্র নির্মাতা উৎসবে সর্বোচ্চ সম্মাননা পেয়েছিলেন।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-06",
@@ -14903,7 +20173,20 @@ const CURRICULUM_DATA = {
             "targetWord": "accost",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": {
+            "word": "Accost",
+            "banglaPronunciation": "[আ'কস্ট]",
+            "pos": "verb",
+            "banglaMeaning": "আক্রমণাত্মক ভঙ্গিতে কথা বলতে এগিয়ে আসা",
+            "exampleEn": "A stranger tried to accost the witness outside the courtroom.",
+            "exampleBn": "আদালত কক্ষের বাইরে এক অপরিচিত ব্যক্তি সাক্ষীর কাছে তেড়ে এসে কথা বলার চেষ্টা করেছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-07",
@@ -14983,7 +20266,34 @@ const CURRICULUM_DATA = {
             "targetWord": "acerbic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acerbity",
+            "banglaPronunciation": "[আ'সারবিটি]",
+            "pos": "noun",
+            "banglaMeaning": "তিক্ততা বা কর্কশতা",
+            "exampleEn": "The acerbity of her criticism wounded the young writer.",
+            "exampleBn": "তার সমালোচনার তীব্র তিক্ততা তরুণ লেখককে ব্যথিত করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Acerbic",
+            "banglaPronunciation": "[আ'সারবিক]",
+            "pos": "adjective",
+            "banglaMeaning": "তীব্র তিক্ত বা কটাক্ষপূর্ণ",
+            "exampleEn": "He made an acerbic remark regarding the candidate's qualification.",
+            "exampleBn": "প্রার্থীর যোগ্যতা নিয়ে তিনি এক কটাক্ষপূর্ণ ও তিক্ত মন্তব্য করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Acerbically",
+            "banglaPronunciation": "[আ'সারবিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "কটাক্ষপূর্ণভাবে বা তিক্তভাবে",
+            "exampleEn": "The columnist wrote acerbically about political corruption.",
+            "exampleBn": "কলামিস্ট রাজনৈতিক দুর্নীতির বিরুদ্ধে তিক্ত তীব্রতায় লিখেছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-08",
@@ -15063,7 +20373,41 @@ const CURRICULUM_DATA = {
             "targetWord": "acquiesce",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acquiescence",
+            "banglaPronunciation": "[,অ্যাকউই'এসেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "নীরব সম্মতি বা বিনা প্রতিবাদে মেনে নেওয়া",
+            "exampleEn": "Silence was mistaken for tacit acquiescence to the proposal.",
+            "exampleBn": "নীরবতাকে প্রস্তাবটির প্রতি একরকম মৌন সম্মতি বলে ধরে নেওয়া হয়েছিল।"
+          },
+          "verb": {
+            "word": "Acquiesce",
+            "banglaPronunciation": "[,অ্যাকউই'এস]",
+            "pos": "verb",
+            "banglaMeaning": "বিনা প্রতিবাদে মেনে নেওয়া বা সম্মতি দেওয়া",
+            "exampleEn": "The board had to acquiesce to the workers' wage demands.",
+            "exampleBn": "বোর্ডকে শ্রমিকদের মজুরি দাবির কাছে বিনা প্রতিবাদে নতি স্বীকার করতে হয়েছিল।"
+          },
+          "adjective": {
+            "word": "Acquiescent",
+            "banglaPronunciation": "[,অ্যাকউই'এসেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "সহজেই সম্মত বা অনুগত",
+            "exampleEn": "An acquiescent electorate rarely questions bad governance.",
+            "exampleBn": "সহজেই মেনে নেওয়া ভোটাররা খুব কমই খারাপ শাসনের বিরুদ্ধে প্রশ্ন তোলে।"
+          },
+          "adverb": {
+            "word": "Acquiescently",
+            "banglaPronunciation": "[,অ্যাকউই'এসেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "মৌনভাবে সম্মতি দিয়ে",
+            "exampleEn": "He nodded acquiescently to avoid starting another heated quarrel.",
+            "exampleBn": "আরেকটি উত্তপ্ত ঝগড়া এড়াতে তিনি মৌনভাবে সম্মতি জানিয়ে মাথা নাড়লেন।"
+          }
+        }
       },
       {
         "id": "pro-a-09",
@@ -15143,7 +20487,20 @@ const CURRICULUM_DATA = {
             "targetWord": "acumen",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Acumen",
+            "banglaPronunciation": "['অ্যাকিউমেন]",
+            "pos": "noun",
+            "banglaMeaning": "সূক্ষ্ম বুদ্ধি বা প্রত্যুৎপন্নমতিত্ব",
+            "exampleEn": "Her financial acumen helped the startup turn profitable in months.",
+            "exampleBn": "তার আর্থিক সূক্ষ্ম বুদ্ধি স্টার্টআপটিকে কয়েক মাসেই লাভজনক করতে সাহায্য করেছিল।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-10",
@@ -15223,7 +20580,34 @@ const CURRICULUM_DATA = {
             "targetWord": "adulation",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Adulation",
+            "banglaPronunciation": "[,অ্যাজু'লেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "অতি প্রশংসা বা চাটুকারিতা",
+            "exampleEn": "The rock star grew weary of constant public adulation.",
+            "exampleBn": "রক তারকা জনগণের অবিরাম স্তুতি ও অতি প্রশংসায় ক্লান্ত হয়ে পড়েছিলেন।"
+          },
+          "verb": {
+            "word": "Adulate",
+            "banglaPronunciation": "['অ্যাজুলেট]",
+            "pos": "verb",
+            "banglaMeaning": "তোষামোদ বা অতি প্রশংসা করা",
+            "exampleEn": "Sycophants always adulate powerful leaders to gain favors.",
+            "exampleBn": "সুবিধাবাদীরা সুযোগ নিতে সবসময় ক্ষমতাধর নেতাদের তোষামোদ করে।"
+          },
+          "adjective": {
+            "word": "Adulatory",
+            "banglaPronunciation": "['অ্যাজুলাটোরি]",
+            "pos": "adjective",
+            "banglaMeaning": "চাটুকারিতাপূর্ণ বা অতিরিক্ত প্রশংসামূলক",
+            "exampleEn": "The author received several adulatory fan letters.",
+            "exampleBn": "লেখক বেশ কয়েকটি অতি প্রশংসামূলক ভক্তিমূলক চিঠি পেয়েছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-11",
@@ -15303,7 +20687,27 @@ const CURRICULUM_DATA = {
             "targetWord": "aggrandize",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aggrandizement",
+            "banglaPronunciation": "[আ'গ্র্যান্ডিজমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "ক্ষমতা বা প্রতিপত্তি বৃদ্ধি",
+            "exampleEn": "The dictator cared only for personal aggrandizement.",
+            "exampleBn": "স্বৈরশাসক কেবল ব্যক্তিগত ক্ষমতা ও প্রতিপত্তি বৃদ্ধির পরোয়া করতেন।"
+          },
+          "verb": {
+            "word": "Aggrandize",
+            "banglaPronunciation": "[আ'গ্র্যান্ডাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "মর্যাদা বা শক্তি বৃদ্ধি করা",
+            "exampleEn": "The king sought to aggrandize his territory through conquest.",
+            "exampleBn": "রাজা বিজয়ের মাধ্যমে নিজের রাজ্য ও মর্যাদা বৃদ্ধি করতে চেয়েছিলেন।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-12",
@@ -15383,7 +20787,20 @@ const CURRICULUM_DATA = {
             "targetWord": "alacrity",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Alacrity",
+            "banglaPronunciation": "[আ'ল্যাক্রিটি]",
+            "pos": "noun",
+            "banglaMeaning": "তৎপরতা বা সানন্দ ক্ষিপ্রতা",
+            "exampleEn": "The volunteers accepted the humanitarian assignment with alacrity.",
+            "exampleBn": "স্বেচ্ছাসেবকরা অত্যন্ত তৎপরতা ও আনন্দের সাথে মানবিক দায়িত্বটি গ্রহণ করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-13",
@@ -15463,7 +20880,27 @@ const CURRICULUM_DATA = {
             "targetWord": "amalgam",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amalgam",
+            "banglaPronunciation": "[আ'ম্যালগাম]",
+            "pos": "noun",
+            "banglaMeaning": "মিশ্রণ বা ধাতুর সংকর",
+            "exampleEn": "The cuisine is a delightful amalgam of Eastern and Western flavors.",
+            "exampleBn": "রান্নাটি প্রাচ্য ও পাশ্চাত্যের স্বাদের এক অপূর্ব সংমিশ্রণ।"
+          },
+          "verb": {
+            "word": "Amalgamate",
+            "banglaPronunciation": "[আ'ম্যালগামেইট]",
+            "pos": "verb",
+            "banglaMeaning": "একত্রিত বা মিশ্রিত করা",
+            "exampleEn": "The two independent charities amalgamated into one large organization.",
+            "exampleBn": "দুটি স্বতন্ত্র দাতব্য সংস্থা একত্রিত হয়ে একটি বৃহৎ সংস্থায় রূপ নিয়েছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-14",
@@ -15543,7 +20980,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ambivalent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ambivalence",
+            "banglaPronunciation": "[অ্যাম'বিভ্যালেন্স]",
+            "pos": "noun",
+            "banglaMeaning": "দোটানা বা দ্বিধাগ্রস্ত মানসিক অবস্থা",
+            "exampleEn": "She felt deep ambivalence about moving abroad for higher study.",
+            "exampleBn": "উচ্চশিক্ষার জন্য বিদেশে যাওয়ার বিষয়ে তিনি তীব্র দোটানা অনুভব করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ambivalent",
+            "banglaPronunciation": "[অ্যাম'বিভ্যালেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "দ্বিধাগ্রস্ত বা বিপরীতমুখী অনুভূতিসম্পন্ন",
+            "exampleEn": "Voters remain ambivalent regarding the proposed tax reform policy.",
+            "exampleBn": "প্রস্তাবিত কর সংস্কার নীতি সম্পর্কে ভোটাররা দ্বিধাগ্রস্ত রয়ে গেছেন।"
+          },
+          "adverb": {
+            "word": "Ambivalently",
+            "banglaPronunciation": "[অ্যাম'বিভ্যালেন্টলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দ্বিধাগ্রস্তভাবে",
+            "exampleEn": "He shrugged ambivalently when asked to make a final choice.",
+            "exampleBn": "চূড়ান্ত সিদ্ধান্ত নিতে বলা হলে তিনি দ্বিধাগ্রস্তভাবে কাঁধ ঝাঁকালেন।"
+          }
+        }
       },
       {
         "id": "pro-a-15",
@@ -15623,7 +21087,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amorphous",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amorphousness",
+            "banglaPronunciation": "[আ'মরফাসনেস]",
+            "pos": "noun",
+            "banglaMeaning": "আকারহীনতা বা অনির্দিষ্টতা",
+            "exampleEn": "The amorphousness of the business plan worried the bank.",
+            "exampleBn": "ব্যবসায়িক পরিকল্পনার অনির্দিষ্টতা ব্যাংকটিকে চিন্তিত করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Amorphous",
+            "banglaPronunciation": "[আ'মরফাস]",
+            "pos": "adjective",
+            "banglaMeaning": "নির্দিষ্ট রূপহীন বা আকৃতিহীন",
+            "exampleEn": "An amorphous cloud of dark smoke hovered above the industrial district.",
+            "exampleBn": "শিল্পাঞ্চলের উপর এক আকারহীন কালো ধোঁয়ার মেঘ ভেসে বেড়াচ্ছিল।"
+          },
+          "adverb": {
+            "word": "Amorphously",
+            "banglaPronunciation": "[আ'মরফাসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "অনির্দিষ্ট আকারে",
+            "exampleEn": "The ideas drifted amorphously through his wandering thoughts.",
+            "exampleBn": "ভাবনাগুলো তার বিক্ষিপ্ত চিন্তায় অনির্দিষ্ট আকারে ভাসছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-16",
@@ -15703,7 +21194,27 @@ const CURRICULUM_DATA = {
             "targetWord": "anathema",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anathema",
+            "banglaPronunciation": "[আ'ন্যাথামা]",
+            "pos": "noun",
+            "banglaMeaning": "ঘৃণিত বস্তু বা অভিশাপ",
+            "exampleEn": "Racial discrimination is anathema to any modern democratic society.",
+            "exampleBn": "বর্ণবৈষম্য যেকোনো আধুনিক গণতান্ত্রিক সমাজের কাছে তীব্র ঘৃণিত বস্তু।"
+          },
+          "verb": {
+            "word": "Anathematize",
+            "banglaPronunciation": "[আ'ন্যাথামাটাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "অভিশাপ দেওয়া বা তীব্র নিন্দা করা",
+            "exampleEn": "The council anathematized those who violated the sacred treaty.",
+            "exampleBn": "পবিত্র চুক্তি লঙ্ঘনকারীদের পরিষদ তীব্র নিন্দা ও অভিশাপ দিয়েছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-17",
@@ -15783,7 +21294,27 @@ const CURRICULUM_DATA = {
             "targetWord": "ancillary",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ancillary",
+            "banglaPronunciation": "[অ্যান'সিলারি]",
+            "pos": "noun",
+            "banglaMeaning": "সহায়ক ব্যক্তি বা আনুষঙ্গিক উপাদান",
+            "exampleEn": "The company sells medical hardware alongside various software ancillaries.",
+            "exampleBn": "কোম্পানিটি বিভিন্ন সফটওয়্যার সহযোগীর সাথে মেডিকেল হার্ডওয়্যার বিক্রি করে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ancillary",
+            "banglaPronunciation": "[অ্যান'সিলারি]",
+            "pos": "adjective",
+            "banglaMeaning": "সহায়ক বা আনুসঙ্গিক",
+            "exampleEn": "Ancillary staff members ensure the hospital runs smoothly round the clock.",
+            "exampleBn": "সহায়ক কর্মীরা চব্বিশ ঘণ্টা হাসপাতালটি সুশৃঙ্খলভাবে সচল রাখা নিশ্চিত করেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-18",
@@ -15863,7 +21394,20 @@ const CURRICULUM_DATA = {
             "targetWord": "antediluvian",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": null,
+          "adjective": {
+            "word": "Antediluvian",
+            "banglaPronunciation": "[,অ্যান্টিডি'লুভিয়ান]",
+            "pos": "adjective",
+            "banglaMeaning": "নূহের প্লাবনের পূর্ববর্তী বা অত্যন্ত সেকেলে",
+            "exampleEn": "The school used antediluvian computers that crashed constantly.",
+            "exampleBn": "স্কুলটি অত্যন্ত সেকেলে কম্পিউটার ব্যবহার করত যা ক্রমাগত ক্র্যাশ করত।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-19",
@@ -15943,7 +21487,34 @@ const CURRICULUM_DATA = {
             "targetWord": "antithesis",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Antithesis",
+            "banglaPronunciation": "[অ্যান'টিথিসিস]",
+            "pos": "noun",
+            "banglaMeaning": "সরাসরি বিপরীত বা বৈপরীত্য",
+            "exampleEn": "His reckless behavior is the exact antithesis of his sister's caution.",
+            "exampleBn": "তার বেপরোয়া আচরণ তার বোনের সতর্কতার সম্পূর্ণ বিপরীত।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Antithetical",
+            "banglaPronunciation": "[,অ্যান্টি'থেটিক্যাল]",
+            "pos": "adjective",
+            "banglaMeaning": "সম্পূর্ণ বিপরীতধর্মী",
+            "exampleEn": "Censorship is fundamentally antithetical to freedom of expression.",
+            "exampleBn": "সেন্সরশিপ বা নিয়ন্ত্রণ মৌলিকভাবেই বাকস্বাধীনতার সম্পূর্ণ বিপরীতধর্মী।"
+          },
+          "adverb": {
+            "word": "Antithetically",
+            "banglaPronunciation": "[,অ্যান্টি'থেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিপরীতধর্মীভাবে",
+            "exampleEn": "Their approaches to management were antithetically opposed.",
+            "exampleBn": "ব্যবস্থাপনায় তাদের দৃষ্টিভঙ্গি বিপরীতধর্মীভাবে ভিন্ন ছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-20",
@@ -16023,7 +21594,27 @@ const CURRICULUM_DATA = {
             "targetWord": "apocryphal",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": null,
+          "adjective": {
+            "word": "Apocryphal",
+            "banglaPronunciation": "[আ'পক্রিফাল]",
+            "pos": "adjective",
+            "banglaMeaning": "সন্দেহজনক সত্যতাসম্পন্ন বা কাল্পনিক গল্প",
+            "exampleEn": "Most urban legends are purely apocryphal tales.",
+            "exampleBn": "অধিকাংশ শহুরে লোকগাথাই সম্পূর্ণ কাল্পনিক ও সন্দেহজনক সত্যতাসম্পন্ন গল্প।"
+          },
+          "adverb": {
+            "word": "Apocryphally",
+            "banglaPronunciation": "[আ'পক্রিফালি]",
+            "pos": "adverb",
+            "banglaMeaning": "কাল্পনিক উপায়ে",
+            "exampleEn": "The quote was apocryphally attributed to Albert Einstein.",
+            "exampleBn": "উদ্ধৃতিটি কাল্পনিকভাবে অ্যালবার্ট আইনস্টাইনের নামে জুড়ে দেওয়া হয়েছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-21",
@@ -16103,7 +21694,27 @@ const CURRICULUM_DATA = {
             "targetWord": "appease",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Appeasement",
+            "banglaPronunciation": "[আ'পাইজমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "তুষ্টকরণ বা শান্ত করার নীতি",
+            "exampleEn": "History shows appeasement of aggressive invaders seldom brings peace.",
+            "exampleBn": "ইতিহাস দেখায় যে আগ্রাসী আক্রমণকারীদের তোষণ নীতি খুব কমই শান্তি আনে।"
+          },
+          "verb": {
+            "word": "Appease",
+            "banglaPronunciation": "[আ'পাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "শান্ত করা বা তুষ্ট করা",
+            "exampleEn": "The company lowered rates to appease angry subscribers.",
+            "exampleBn": "ক্ষুব্ধ গ্রাহকদের শান্ত করতে কোম্পানি ফি কমিয়ে দিয়েছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-22",
@@ -16183,7 +21794,27 @@ const CURRICULUM_DATA = {
             "targetWord": "approbation",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Approbation",
+            "banglaPronunciation": "[,অ্যাপ্রো'बেশন]",
+            "pos": "noun",
+            "banglaMeaning": "অনুমোদন বা ভূয়সী প্রশংসা",
+            "exampleEn": "The architectural design met with unanimous official approbation.",
+            "exampleBn": "স্থাপত্য নকশাটি সর্বসম্মত সরকারি অনুমোদন ও প্রশংসা লাভ করেছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Approbatory",
+            "banglaPronunciation": "[আ'প্রোবাটোরি]",
+            "pos": "adjective",
+            "banglaMeaning": "অনুমোদনসূচক বা প্রশংসাসূচক",
+            "exampleEn": "The committee greeted the proposal with approbatory nods.",
+            "exampleBn": "কমিটি প্রশংসাসূচক মাথা নেড়ে প্রস্তাবটিকে অভ্যর্থনা জানিয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-23",
@@ -16263,7 +21894,34 @@ const CURRICULUM_DATA = {
             "targetWord": "arduous",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Arduousness",
+            "banglaPronunciation": "['আর্ডুয়াসনেস]",
+            "pos": "noun",
+            "banglaMeaning": "কঠিনতা বা শ্রমসাধ্যতা",
+            "exampleEn": "The arduousness of mountain climbing tests every reserve of stamina.",
+            "exampleBn": "পাহাড়ে ওঠার শ্রমসাধ্যতা সহনশীলতার প্রতিটি স্তর পরীক্ষা করে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Arduous",
+            "banglaPronunciation": "['আর্ডুয়াস]",
+            "pos": "adjective",
+            "banglaMeaning": "কঠোর বা শ্রমসাধ্য",
+            "exampleEn": "Hiking up the snow-covered ridge was an arduous journey.",
+            "exampleBn": "বরফে ঢাকা পাহাড়ি পথ বেয়ে ওঠা ছিল এক অত্যন্ত শ্রমসাধ্য যাত্রা।"
+          },
+          "adverb": {
+            "word": "Arduously",
+            "banglaPronunciation": "['আর্ডুয়াসলি]",
+            "pos": "adverb",
+            "banglaMeaning": "কঠোর পরিশ্রমে",
+            "exampleEn": "The miners worked arduously underground for ten straight hours.",
+            "exampleBn": "খনিকর্মীরা মাটির নিচে টানা দশ ঘণ্টা কঠোর পরিশ্রমে কাজ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-24",
@@ -16343,7 +22001,41 @@ const CURRICULUM_DATA = {
             "targetWord": "articulate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Articulation",
+            "banglaPronunciation": "[আর,টিকিউ'লেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "স্পষ্ট উচ্চারণ বা ভাবপ্রকাশ",
+            "exampleEn": "Clear articulation is vital for professional public speaking.",
+            "exampleBn": "পেশাদার বক্তৃতার জন্য স্পষ্ট ভাবপ্রকাশ ও উচ্চারণ অত্যন্ত গুরুত্বপূর্ণ।"
+          },
+          "verb": {
+            "word": "Articulate",
+            "banglaPronunciation": "[আর'টিকিউলেইট]",
+            "pos": "verb",
+            "banglaMeaning": "স্পষ্টভাবে প্রকাশ করা",
+            "exampleEn": "She struggled to articulate her deep feelings in foreign words.",
+            "exampleBn": "বিদেশি ভাষায় নিজের গভীর অনুভূতিগুলো স্পষ্টভাবে প্রকাশ করতে তিনি হিমশিম খাচ্ছিলেন।"
+          },
+          "adjective": {
+            "word": "Articulate",
+            "banglaPronunciation": "[আর'টিকিউলিট]",
+            "pos": "adjective",
+            "banglaMeaning": "স্পষ্টভাষী বা সুন্দর বক্তা",
+            "exampleEn": "He is an articulate advocate for environmental conservation.",
+            "exampleBn": "তিনি পরিবেশ সংরক্ষণের এক স্পষ্টভাষী সমর্থক।"
+          },
+          "adverb": {
+            "word": "Articulately",
+            "banglaPronunciation": "[আর'টিকিউলিটলি]",
+            "pos": "adverb",
+            "banglaMeaning": "স্পষ্ট ভাষায় বা প্রাঞ্জলভাবে",
+            "exampleEn": "The lawyer argued articulately before the high court judges.",
+            "exampleBn": "আইনজীবী উচ্চ আদালতের বিচারকদের সামনে প্রাঞ্জলভাবে যুক্তি উপস্থাপন করেছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-25",
@@ -16423,7 +22115,34 @@ const CURRICULUM_DATA = {
             "targetWord": "ascetic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Ascetic",
+            "banglaPronunciation": "[আ'সেটিক]",
+            "pos": "noun",
+            "banglaMeaning": "তপস্বী বা সংসারত্যাগী",
+            "exampleEn": "The ascetic spent twenty years meditating in a Himalayan cave.",
+            "exampleBn": "তপস্বী হিমালয়ের এক গুহায় বিশ বছর ধরে ধ্যান করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Ascetic",
+            "banglaPronunciation": "[আ'সেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "তপস্যাপূর্ণ বা কঠোর সংযমী",
+            "exampleEn": "He gave up worldly luxury to lead a simple, ascetic existence.",
+            "exampleBn": "তিনি পার্থিব বিলাসিতা ছেড়ে এক সাধারণ ও কঠোর সংযমী জীবন বেছে নিয়েছিলেন।"
+          },
+          "adverb": {
+            "word": "Ascetically",
+            "banglaPronunciation": "[আ'সেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "কঠোর সংযমের সাথে",
+            "exampleEn": "The monks lived ascetically on simple vegetarian fare.",
+            "exampleBn": "ভিক্ষুরা সাধারণ নিরামিষ আহারে কঠোর সংযমের সাথে জীবনযাপন করতেন।"
+          }
+        }
       },
       {
         "id": "pro-a-26",
@@ -16503,7 +22222,20 @@ const CURRICULUM_DATA = {
             "targetWord": "amenity",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amenity",
+            "banglaPronunciation": "[আ'মেনিটি]",
+            "pos": "noun",
+            "banglaMeaning": "সুযোগ-সুবিধা বা আরামদায়ক ব্যবস্থা",
+            "exampleEn": "The luxury apartment complex offers a swimming pool and other amenities.",
+            "exampleBn": "বিলাসবহুল অ্যাপার্টমেন্ট কমপ্লেক্সটি সুইমিং পুল এবং অন্যান্য সুযোগ-সুবিধা প্রদান করে।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-27",
@@ -16583,7 +22315,27 @@ const CURRICULUM_DATA = {
             "targetWord": "amnesty",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amnesty",
+            "banglaPronunciation": "['অ্যামনেসটি]",
+            "pos": "noun",
+            "banglaMeaning": "সাধারণ ক্ষমা",
+            "exampleEn": "The president granted amnesty to non-violent political prisoners.",
+            "exampleBn": "রাষ্ট্রপতি অহিংস রাজনৈতিক বন্দীদের সাধারণ ক্ষমা ঘোষণা করেছিলেন।"
+          },
+          "verb": {
+            "word": "Amnesty",
+            "banglaPronunciation": "['অ্যামনেসটি]",
+            "pos": "verb",
+            "banglaMeaning": "সাধারণ ক্ষমা প্রদান করা",
+            "exampleEn": "The government amnestied thousands of displaced refugees.",
+            "exampleBn": "সরকার হাজার হাজার বাস্তুচ্যুত শরণার্থীকে সাধারণ ক্ষমা প্রদান করেছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-28",
@@ -16663,7 +22415,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amoral",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amorality",
+            "banglaPronunciation": "[,এইমো'র‌্যালিটি]",
+            "pos": "noun",
+            "banglaMeaning": "নৈতিকতাবিহীনতা",
+            "exampleEn": "Critics criticized the corporate culture for its ruthless amorality.",
+            "exampleBn": "সমালোচকরা নির্মম নৈতিকতাবিহীনতার জন্য কর্পোরেট সংস্কৃতির সমালোচনা করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Amoral",
+            "banglaPronunciation": "[এই'মোরাল]",
+            "pos": "adjective",
+            "banglaMeaning": "নৈতিকতাবোধহীন",
+            "exampleEn": "Purely financial calculations are often amoral in nature.",
+            "exampleBn": "নিছক আর্থিক গণনাগুলো প্রায়শই স্বভাবগতভাবে নৈতিকতাবোধহীন হয়।"
+          },
+          "adverb": {
+            "word": "Amorally",
+            "banglaPronunciation": "[এই'মোরালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নৈতিকতাবোধহীনভাবে",
+            "exampleEn": "The firm acted amorally to maximize short-term shareholder gain.",
+            "exampleBn": "সংস্থাটি স্বল্পমেয়াদী শেয়ারহোল্ডারদের মুনাফা বাড়াতে নৈতিকতাবোধহীনভাবে কাজ করেছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-29",
@@ -16743,7 +22522,34 @@ const CURRICULUM_DATA = {
             "targetWord": "amplify",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amplification",
+            "banglaPronunciation": "[,অ্যামপ্লিফি'কেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "বিবর্ধন বা পরিবর্ধন",
+            "exampleEn": "The amplification of sound filled the grand concert auditorium.",
+            "exampleBn": "শব্দের বিবর্ধন বিশাল কনসার্ট মিলনায়তনটি পূর্ণ করে তুলেছিল।"
+          },
+          "verb": {
+            "word": "Amplify",
+            "banglaPronunciation": "['অ্যামপ্লিফাই]",
+            "pos": "verb",
+            "banglaMeaning": "বাড়িয়ে তোলা বা বিবর্ধিত করা",
+            "exampleEn": "Social media algorithms amplify outrageous sensational headlines.",
+            "exampleBn": "সোশ্যাল মিডিয়া অ্যালগরিদমগুলো চোখ ধাঁধানো চমকপ্রদ শিরোনামগুলোকে বহুগুণ বাড়িয়ে দেয়।"
+          },
+          "adjective": {
+            "word": "Amplified",
+            "banglaPronunciation": "['অ্যামপ্লিফাইড]",
+            "pos": "adjective",
+            "banglaMeaning": "বিবর্ধিত",
+            "exampleEn": "The singer performed with an amplified acoustic guitar.",
+            "exampleBn": "গায়ক একটি বিবর্ধিত অ্যাকোস্টিক গিটার নিয়ে সংগীত পরিবেশন করেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-30",
@@ -16823,7 +22629,27 @@ const CURRICULUM_DATA = {
             "targetWord": "amputate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Amputation",
+            "banglaPronunciation": "[,অ্যাম্পিউ'টেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "অঙ্গচ্ছেদ বা অঙ্গ কেটে বাদ দেওয়া",
+            "exampleEn": "Modern surgical methods have reduced the necessity of limb amputation.",
+            "exampleBn": "আধুনিক শল্যচিকিৎসা পদ্ধতি অঙ্গচ্ছেদের প্রয়োজনীয়তা হ্রাস করেছে।"
+          },
+          "verb": {
+            "word": "Amputate",
+            "banglaPronunciation": "['অ্যাম্পিউটেইট]",
+            "pos": "verb",
+            "banglaMeaning": "অঙ্গচ্ছেদ করা বা কেটে ফেলা",
+            "exampleEn": "Surgeons had to amputate the soldier's severely wounded arm.",
+            "exampleBn": "শল্য চিকিৎসকদের সৈনিকটির গুরুতর আহত হাতটি কেটে বাদ দিতে হয়েছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-31",
@@ -16903,7 +22729,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anarchy",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anarchy",
+            "banglaPronunciation": "['অ্যানার্কি]",
+            "pos": "noun",
+            "banglaMeaning": "নৈরাজ্য বা অরাজকতা",
+            "exampleEn": "When the government collapsed, the capital descended into anarchy.",
+            "exampleBn": "সরকারের পতন ঘটলে রাজধানী অরাজকতায় নিমজ্জিত হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anarchic",
+            "banglaPronunciation": "[অ্যান'আর্কিক]",
+            "pos": "adjective",
+            "banglaMeaning": "নৈরাজ্যজনক বা বিশৃঙ্খল",
+            "exampleEn": "The war-torn province fell into an anarchic state.",
+            "exampleBn": "যুদ্ধবিধ্বস্ত প্রদেশটি একটি বিশৃঙ্খল নৈরাজ্যজনক অবস্থায় পতিত হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Anarchically",
+            "banglaPronunciation": "[অ্যান'আর্কিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "নৈরাজ্যজনকভাবে বা বিশৃঙ্খলভাবে",
+            "exampleEn": "Traffic flowed anarchically across the intersection without signal lights.",
+            "exampleBn": "ট্র্যাফিক সিগন্যাল ছাড়া মোড়জুড়ে গাড়িগুলো চরম বিশৃঙ্খলভাবে চলাচল করছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-32",
@@ -16983,7 +22836,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anatomy",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anatomy",
+            "banglaPronunciation": "[আ'ন্যাটামি]",
+            "pos": "noun",
+            "banglaMeaning": "শারীরস্থান বা শারীরবিদ্যা",
+            "exampleEn": "Medical students must master human anatomy before clinical practice.",
+            "exampleBn": "মেডিকেল শিক্ষার্থীদের ক্লিনিকাল অনুশীলনের আগে মানব শারীরস্থান আয়ত্ত করতে হবে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anatomical",
+            "banglaPronunciation": "[,অ্যানা'টমিকাল]",
+            "pos": "adjective",
+            "banglaMeaning": "শারীরবৃত্তীয় বা অঙ্গসংস্থানগত",
+            "exampleEn": "The museum exhibited detailed anatomical models of the heart.",
+            "exampleBn": "জাদুঘরটি হৃৎপিণ্ডের বিশদ শারীরবৃত্তীয় মডেল প্রদর্শন করেছিল।"
+          },
+          "adverb": {
+            "word": "Anatomically",
+            "banglaPronunciation": "[,অ্যানা'টমিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "শারীরবৃত্তীয়ভাবে",
+            "exampleEn": "Birds and reptiles are anatomically related through evolutionary history.",
+            "exampleBn": "বিবর্তনীয় ইতিহাসে পাখি এবং সরীসৃপ শারীরবৃত্তীয়ভাবে সম্পর্কিত।"
+          }
+        }
       },
       {
         "id": "pro-a-33",
@@ -17063,7 +22943,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anecdote",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anecdote",
+            "banglaPronunciation": "['অ্যানিকডোট]",
+            "pos": "noun",
+            "banglaMeaning": "ছোট মজাদার গল্প বা বাস্তব কাহিনী",
+            "exampleEn": "The speaker began his lecture with an amusing personal anecdote.",
+            "exampleBn": "বক্তা একটি চমৎকার ব্যক্তিগত বাস্তব গল্প দিয়ে তার বক্তৃতা শুরু করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anecdotal",
+            "banglaPronunciation": "[,অ্যানিক'ডোটাল]",
+            "pos": "adjective",
+            "banglaMeaning": "উপাখ্যানমূলক বা অপ্রমাণিত গল্পভিত্তিক",
+            "exampleEn": "Scientists require empirical evidence rather than mere anecdotal claims.",
+            "exampleBn": "বিজ্ঞানীদের কেবল উপাখ্যানমূলক দাবির পরিবর্তে বাস্তব পরীক্ষিত প্রমাণের প্রয়োজন হয়।"
+          },
+          "adverb": {
+            "word": "Anecdotally",
+            "banglaPronunciation": "[,অ্যানিক'ডোটালি]",
+            "pos": "adverb",
+            "banglaMeaning": "গল্পচ্ছলে বা উদাহরণস্বরূপ",
+            "exampleEn": "Anecdotally, many patients reported immediate symptom relief.",
+            "exampleBn": "অভিজ্ঞতার বর্ণনায় বহু রোগী তাৎক্ষণিক উপসর্গ উপশমের কথা জানিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-34",
@@ -17143,7 +23050,34 @@ const CURRICULUM_DATA = {
             "targetWord": "anguish",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anguish",
+            "banglaPronunciation": "['অ্যাংগুইশ]",
+            "pos": "noun",
+            "banglaMeaning": "তীব্র মনস্তাপ বা মানসিক যন্ত্রণা",
+            "exampleEn": "She cried out in unbearable anguish after hearing the tragic news.",
+            "exampleBn": "মর্মান্তিক সংবাদ শুনে তিনি অসহ্য মানসিক যন্ত্রণায় কেঁদে উঠেছিলেন।"
+          },
+          "verb": {
+            "word": "Anguish",
+            "banglaPronunciation": "['অ্যাংগুইশ]",
+            "pos": "verb",
+            "banglaMeaning": "তীব্র মানসিক কষ্টে ভোগা",
+            "exampleEn": "Parents anguished over the fate of their missing children.",
+            "exampleBn": "অভিভাবকেরা তাদের নিখোঁজ সন্তানদের ভাগ্য নিয়ে তীব্র মনস্তাপে ভুগেছিলেন।"
+          },
+          "adjective": {
+            "word": "Anguished",
+            "banglaPronunciation": "['অ্যাংগুইশড]",
+            "pos": "adjective",
+            "banglaMeaning": "বেদনার্ত বা যন্ত্রণাক্লিষ্ট",
+            "exampleEn": "An anguished cry echoed across the quiet hospital corridor.",
+            "exampleBn": "হাসপাতালের শান্ত করিডোরজুড়ে একটি যন্ত্রণাক্লিষ্ট আর্তনাদ প্রতিধ্বনিত হয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-35",
@@ -17223,7 +23157,41 @@ const CURRICULUM_DATA = {
             "targetWord": "animate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Animation",
+            "banglaPronunciation": "[,অ্যানি'মেশন]",
+            "pos": "noun",
+            "banglaMeaning": "প্রাণবন্ততা বা অ্যানিমেশন",
+            "exampleEn": "He spoke with exceptional animation and infectious humor.",
+            "exampleBn": "তিনি অসাধারণ প্রাণবন্ততা এবং সংক্রামক হাস্যরসের সাথে কথা বলেছিলেন।"
+          },
+          "verb": {
+            "word": "Animate",
+            "banglaPronunciation": "['অ্যানিমেইট]",
+            "pos": "verb",
+            "banglaMeaning": "প্রাণবন্ত করা বা সজীব করা",
+            "exampleEn": "A shared noble purpose animated the entire volunteer team.",
+            "exampleBn": "একটি অভিন্ন মহৎ উদ্দেশ্য গোটা স্বেচ্ছাসেবক দলকে প্রাণবন্ত করে তুলেছিল।"
+          },
+          "adjective": {
+            "word": "Animated",
+            "banglaPronunciation": "['অ্যানিমেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "প্রাণবন্ত বা জীবন্ত",
+            "exampleEn": "They had an animated debate regarding current world events.",
+            "exampleBn": "বর্তমান বিশ্ব পরিস্থিতি নিয়ে তাদের মধ্যে এক প্রাণবন্ত বিতর্ক হয়েছিল।"
+          },
+          "adverb": {
+            "word": "Animatedly",
+            "banglaPronunciation": "['অ্যানিমেটেডলি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রাণবন্তভাবে",
+            "exampleEn": "The children chatted animatedly about their upcoming zoo field trip.",
+            "exampleBn": "শিশুরা তাদের আসন্ন চিড়িয়াখানা ভ্রমণ সম্পর্কে প্রাণবন্তভাবে আড্ডা দিচ্ছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-36",
@@ -17303,7 +23271,27 @@ const CURRICULUM_DATA = {
             "targetWord": "annihilate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Annihilation",
+            "banglaPronunciation": "[আ,নাইহি'লেইশন]",
+            "pos": "noun",
+            "banglaMeaning": "সম্পূর্ণ ধ্বংস বা নিশ্চিহ্নকরণ",
+            "exampleEn": "Nuclear weapons threaten humanity with total planetary annihilation.",
+            "exampleBn": "পারমাণবিক অস্ত্র মানবজাতিকে সম্পূর্ণ গ্রহ নিশ্চিহ্ন হওয়ার ঝুঁকিতে ফেলে।"
+          },
+          "verb": {
+            "word": "Annihilate",
+            "banglaPronunciation": "[আ'নাইহিলেইট]",
+            "pos": "verb",
+            "banglaMeaning": "সম্পূর্ণ ধ্বংস বা সমূলে বিনাশ করা",
+            "exampleEn": "The defending champion annihilated his challenger in three straight rounds.",
+            "exampleBn": "ডিফেন্ডিং চ্যাম্পিয়ন টানা তিন রাউন্ডে তার প্রতিদ্বন্দ্বীকে সম্পূর্ণ পরাস্ত করেছিলেন।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-37",
@@ -17383,7 +23371,34 @@ const CURRICULUM_DATA = {
             "targetWord": "annotate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Annotation",
+            "banglaPronunciation": "[,অ্যানো'টেশন]",
+            "pos": "noun",
+            "banglaMeaning": "টীকা বা টীকাটিপ্পনী",
+            "exampleEn": "The scholarly edition includes extensive footnotes and annotations.",
+            "exampleBn": "পাণ্ডিত্যপূর্ণ সংস্করণটিতে বিস্তারিত পাদটীকা এবং টীকাটিপ্পনী অন্তর্ভুক্ত রয়েছে।"
+          },
+          "verb": {
+            "word": "Annotate",
+            "banglaPronunciation": "['অ্যানোটেইট]",
+            "pos": "verb",
+            "banglaMeaning": "টীকা লেখা বা ব্যাখ্যা সংযোজন করা",
+            "exampleEn": "Students were instructed to annotate the complex historical poem.",
+            "exampleBn": "শিক্ষার্থীদের জটিল ঐতিহাসিক কবিতাটিতে টীকা সংযোজন করার নির্দেশ দেওয়া হয়েছিল।"
+          },
+          "adjective": {
+            "word": "Annotated",
+            "banglaPronunciation": "['অ্যানোটেটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "টীকাযুক্ত বা ব্যাখ্যাসমৃদ্ধ",
+            "exampleEn": "He bought an annotated copy of Shakespeare's Macbeth.",
+            "exampleBn": "তিনি শেক্সপিয়ারের ম্যাকবেথের একটি টীকাযুক্ত কপি কিনেছিলেন।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-38",
@@ -17463,7 +23478,27 @@ const CURRICULUM_DATA = {
             "targetWord": "annul",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Annulment",
+            "banglaPronunciation": "[আ'নালমেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "বাতিলকরণ বা রদকরণ",
+            "exampleEn": "She petitioned the court for an immediate legal annulment of marriage.",
+            "exampleBn": "তিনি আদালতের কাছে অবিলম্বে বিবাহ বাতিলের আবেদন জানিয়েছিলেন।"
+          },
+          "verb": {
+            "word": "Annul",
+            "banglaPronunciation": "[আ'নাল]",
+            "pos": "verb",
+            "banglaMeaning": "বাতিল বা অকার্যকর করা",
+            "exampleEn": "The election commission moved to annul the rigged voting outcome.",
+            "exampleBn": "নির্বাচন কমিশন কারচুপিপূর্ণ ভোটের ফলাফল বাতিল করার পদক্ষেপ নিয়েছিল।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-39",
@@ -17543,7 +23578,41 @@ const CURRICULUM_DATA = {
             "targetWord": "antagonist",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Antagonist",
+            "banglaPronunciation": "[অ্যান'ট্যাগনিস্ট]",
+            "pos": "noun",
+            "banglaMeaning": "বিরোধী পক্ষ বা শত্রুচরিত্র",
+            "exampleEn": "The villain in the novel is a brilliant and calculating antagonist.",
+            "exampleBn": "উপন্যাসের খলনায়ক একজন অত্যন্ত বুদ্ধিমান ও কৌশলী শত্রুচরিত্র।"
+          },
+          "verb": {
+            "word": "Antagonize",
+            "banglaPronunciation": "[অ্যান'ট্যাগনাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "শত্রুভাবাপন্ন বা ক্ষুব্ধ করা",
+            "exampleEn": "Do not antagonize your colleagues during heated office disputes.",
+            "exampleBn": "উত্তপ্ত অফিস বিরোধের সময় আপনার সহকর্মীদের ক্ষুব্ধ বা শত্রুভাবাপন্ন করবেন না।"
+          },
+          "adjective": {
+            "word": "Antagonistic",
+            "banglaPronunciation": "[অ্যান,ট্যাগো'নিস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "শত্রুভাবাপন্ন বা বিদ্বেষপূর্ণ",
+            "exampleEn": "The two opposing political factions took an antagonistic stance.",
+            "exampleBn": "দুটি বিরোধী রাজনৈতিক দল শত্রুভাবাপন্ন অবস্থান নিয়েছিল।"
+          },
+          "adverb": {
+            "word": "Antagonistically",
+            "banglaPronunciation": "[অ্যান,ট্যাগো'নিস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "বিদ্বেষমূলকভাবে",
+            "exampleEn": "He reacted antagonistically to any suggestion of compromise.",
+            "exampleBn": "আপসের যেকোনো প্রস্তাবে তিনি বিদ্বেষমূলকভাবে প্রতিক্রিয়া জানিয়েছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-40",
@@ -17623,7 +23692,27 @@ const CURRICULUM_DATA = {
             "targetWord": "antecedent",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Antecedent",
+            "banglaPronunciation": "[,অ্যান্টি'সিডেন্ট]",
+            "pos": "noun",
+            "banglaMeaning": "পূর্ববর্তী ঘটনা বা ব্যাকরণে পূর্বপদ",
+            "exampleEn": "Historical antecedents help us understand modern diplomatic alliances.",
+            "exampleBn": "ঐতিহাসিক পূর্ববর্তী ঘটনাগুলো আমাদের আধুনিক কূটনৈতিক মিত্রতা বুঝতে সাহায্য করে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Antecedent",
+            "banglaPronunciation": "[,অ্যান্টি'সিডেন্ট]",
+            "pos": "adjective",
+            "banglaMeaning": "পূর্ববর্তী বা অগ্রগামী",
+            "exampleEn": "Events antecedent to the rebellion were carefully recorded.",
+            "exampleBn": "বিদ্রোহের পূর্ববর্তী ঘটনাগুলো সতর্কতার সাথে লিপিবদ্ধ করা হয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-41",
@@ -17703,7 +23792,27 @@ const CURRICULUM_DATA = {
             "targetWord": "anthology",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Anthology",
+            "banglaPronunciation": "[অ্যান'থলজি]",
+            "pos": "noun",
+            "banglaMeaning": "সাহিত্য সংকলন বা চয়নিকা",
+            "exampleEn": "The professor published an anthology of 20th-century Asian poetry.",
+            "exampleBn": "অধ্যাপক বিংশ শতাব্দীর এশীয় কবিতার একটি সাহিত্য সংকলন প্রকাশ করেছিলেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Anthological",
+            "banglaPronunciation": "[,অ্যান্থো'লজিক্যাল]",
+            "pos": "adjective",
+            "banglaMeaning": "সংকলনমূলক",
+            "exampleEn": "The series adopted an anthological format with new characters every season.",
+            "exampleBn": "ধারাবাহিকটি প্রতি মৌসুমে নতুন চরিত্র নিয়ে সংকলনমূলক রূপ নিয়েছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-42",
@@ -17783,7 +23892,27 @@ const CURRICULUM_DATA = {
             "targetWord": "arcane",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": null,
+          "adjective": {
+            "word": "Arcane",
+            "banglaPronunciation": "[আর'কেইন]",
+            "pos": "adjective",
+            "banglaMeaning": "রহস্যময় বা দুর্বোধ্য",
+            "exampleEn": "He possessed arcane knowledge of ancient alchemical formulas.",
+            "exampleBn": "তার প্রাচীন আলকেমি সূত্রের রহস্যময় ও দুর্বোধ্য জ্ঞান ছিল।"
+          },
+          "adverb": {
+            "word": "Arcanely",
+            "banglaPronunciation": "[আর'কেইনলি]",
+            "pos": "adverb",
+            "banglaMeaning": "দুর্বোধ্যভাবে বা রহস্যজনকভাবে",
+            "exampleEn": "The law was phrased arcanely, confusing ordinary citizens.",
+            "exampleBn": "আইনটি দুর্বোধ্যভাবে রচিত হওয়ায় সাধারণ নাগরিকদের বিভ্রান্ত করেছিল।"
+          }
+        }
       },
       {
         "id": "pro-a-43",
@@ -17863,7 +23992,27 @@ const CURRICULUM_DATA = {
             "targetWord": "antidote",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Antidote",
+            "banglaPronunciation": "['অ্যান্টিডোট]",
+            "pos": "noun",
+            "banglaMeaning": "বিষনাশক বা প্রতিষেধক",
+            "exampleEn": "Laughter is often the best antidote to stress and sorrow.",
+            "exampleBn": "হাসি প্রায়শই মানসিক চাপ এবং দুঃখের সেরা প্রতিষেধক।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Antidotal",
+            "banglaPronunciation": "['অ্যান্টিডোটাল]",
+            "pos": "adjective",
+            "banglaMeaning": "বিষনাশক গুণসম্পন্ন বা প্রতিষেধক",
+            "exampleEn": "The plant contains antidotal properties effective against snake venom.",
+            "exampleBn": "গাছটিতে সাপের বিষের বিরুদ্ধে কার্যকর প্রতিষেধক গুণাবলী রয়েছে।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-44",
@@ -17943,7 +24092,20 @@ const CURRICULUM_DATA = {
             "targetWord": "antiquated",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": null,
+          "verb": null,
+          "adjective": {
+            "word": "Antiquated",
+            "banglaPronunciation": "['অ্যান্টিকুয়েটেড]",
+            "pos": "adjective",
+            "banglaMeaning": "পুরনো বা সেকেলে",
+            "exampleEn": "The factory struggled to compete with antiquated machinery.",
+            "exampleBn": "কারখানাটি সেকেলে যন্ত্রপাতি নিয়ে প্রতিযোগিতা করতে হিমশিম খাচ্ছিল।"
+          },
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-45",
@@ -18023,7 +24185,20 @@ const CURRICULUM_DATA = {
             "targetWord": "apex",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Apex",
+            "banglaPronunciation": "['এইপেক্স]",
+            "pos": "noun",
+            "banglaMeaning": "শীর্ষবিন্দু বা সর্বোচ্চ চূড়া",
+            "exampleEn": "Winning the Nobel Prize marked the absolute apex of her scientific career.",
+            "exampleBn": "নোবেল পুরস্কার জয় তার বৈজ্ঞানিক কর্মজীবনের চূড়ান্ত শীর্ষবিন্দু চিহ্নিত করেছিল।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-46",
@@ -18103,7 +24278,34 @@ const CURRICULUM_DATA = {
             "targetWord": "aphorism",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aphorism",
+            "banglaPronunciation": "['অ্যাফোরিজম]",
+            "pos": "noun",
+            "banglaMeaning": "নীতিবাক্য বা সারগর্ভ প্রবচন",
+            "exampleEn": "She loved collecting witty aphorisms about truth and human nature.",
+            "exampleBn": "তিনি সত্য এবং মানব প্রকৃতি সম্পর্কিত বুদ্ধিদীপ্ত প্রবচন সংগ্রহ করতে ভালোবাসতেন।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Aphoristic",
+            "banglaPronunciation": "[,অ্যাফো'রিস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "সারগর্ভ বা সংক্ষিপ্ত প্রবচনধর্মী",
+            "exampleEn": "The philosopher was famed for his concise, aphoristic writing style.",
+            "exampleBn": "দার্শনিক তার সংক্ষিপ্ত ও সারগর্ভ প্রবচনধর্মী লেখার শৈলীর জন্য বিখ্যাত ছিলেন।"
+          },
+          "adverb": {
+            "word": "Aphoristically",
+            "banglaPronunciation": "[,অ্যাফো'রিস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "প্রবচনাকারে বা সংক্ষেপে সারগর্ভভাবে",
+            "exampleEn": "He summarized the lesson aphoristically in just four memorable words.",
+            "exampleBn": "তিনি মাত্র চারটি স্মরণীয় শব্দে প্রবচনাকারে পাঠটির সারসংক্ষেপ তুলে ধরলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-47",
@@ -18183,7 +24385,20 @@ const CURRICULUM_DATA = {
             "targetWord": "aplomb",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Aplomb",
+            "banglaPronunciation": "[আ'প্লাম]",
+            "pos": "noun",
+            "banglaMeaning": "আত্মবিশ্বাস ও অবিচলতা",
+            "exampleEn": "The young diplomat handled the hostile press interview with great aplomb.",
+            "exampleBn": "তরুণ কূটনীতিক চরম আত্মবিশ্বাস ও অবিচলতার সাথে প্রতিকূল সাংবাদিক সাক্ষাৎকার সামলেছিলেন।"
+          },
+          "verb": null,
+          "adjective": null,
+          "adverb": null
+        }
       },
       {
         "id": "pro-a-48",
@@ -18263,7 +24478,34 @@ const CURRICULUM_DATA = {
             "targetWord": "apocalyptic",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Apocalypse",
+            "banglaPronunciation": "[আ'পকালিপ্স]",
+            "pos": "noun",
+            "banglaMeaning": "মহাপ্রলয় বা জগৎ ধ্বংস",
+            "exampleEn": "The novel paints a horrifying vision of nuclear apocalypse.",
+            "exampleBn": "উপন্যাসটিতে পারমাণবিক মহাপ্রলয়ের এক ভয়াবহ দৃশ্য তুলে ধরা হয়েছে।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Apocalyptic",
+            "banglaPronunciation": "[আ,পকা'লিপ্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "মহাপ্রলয়ঙ্করী বা ধ্বংসাত্মক",
+            "exampleEn": "Fierce forest fires created an apocalyptic skyline over the capital.",
+            "exampleBn": "ভয়াবহ বনাঞ্চলের আগুন রাজধানীর আকাশে এক মহাপ্রলয়ঙ্করী দৃশ্য তৈরি করেছিল।"
+          },
+          "adverb": {
+            "word": "Apocalyptically",
+            "banglaPronunciation": "[আ,পকা'লিপ্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "মহাপ্রলয়ঙ্করী রূপে",
+            "exampleEn": "The sky turned dark red and rained ash apocalyptically.",
+            "exampleBn": "আকাশ গাঢ় লাল রূপ নিল এবং মহাপ্রলয়ঙ্করী রূপে ছাই বর্ষণ শুরু হলো।"
+          }
+        }
       },
       {
         "id": "pro-a-49",
@@ -18343,7 +24585,34 @@ const CURRICULUM_DATA = {
             "targetWord": "apologist",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Apologist",
+            "banglaPronunciation": "[আ'পলজিস্ট]",
+            "pos": "noun",
+            "banglaMeaning": "পক্ষসমর্থনকারী বা সাফাই গাওয়াকারী",
+            "exampleEn": "He was criticized for acting as an apologist for the corrupt regime.",
+            "exampleBn": "দুর্নীতিগ্রস্ত শাসনের পক্ষসমর্থনকারী হিসেবে কাজ করার জন্য তাকে সমালোচনা করা হয়েছিল।"
+          },
+          "verb": null,
+          "adjective": {
+            "word": "Apologetic",
+            "banglaPronunciation": "[আ,পোলো'জেটিক]",
+            "pos": "adjective",
+            "banglaMeaning": "দুঃখপ্রকাশক বা আত্মপক্ষ সমর্থনকারী",
+            "exampleEn": "He offered an apologetic gesture for arriving thirty minutes late.",
+            "exampleBn": "ত্রিশ মিনিট দেরি করে আসার জন্য তিনি দুঃখপ্রকাশের ভঙ্গি করেছিলেন।"
+          },
+          "adverb": {
+            "word": "Apologetically",
+            "banglaPronunciation": "[আ,পোলো'জেটিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "দুঃখপ্রকাশ করে বা সাফাই দিয়ে",
+            "exampleEn": "She smiled apologetically as she explained her unexpected delay.",
+            "exampleBn": "অনাকাঙ্ক্ষিত দেরির কারণ ব্যাখ্যা করার সময় তিনি দুঃখপ্রকাশ করে হাসলেন।"
+          }
+        }
       },
       {
         "id": "pro-a-50",
@@ -18423,7 +24692,34 @@ const CURRICULUM_DATA = {
             "targetWord": "apostate",
             "approxDuration": 4.5
           }
-        ]
+        ],
+        "derivatives": {
+          "noun": {
+            "word": "Apostate",
+            "banglaPronunciation": "[আ'পস্টেট]",
+            "pos": "noun",
+            "banglaMeaning": "ধর্মত্যাগী বা স্বদলত্যাগী",
+            "exampleEn": "The party leadership denounced him as a treacherous political apostate.",
+            "exampleBn": "দলের শীর্ষ নেতৃত্ব তাকে এক বিশ্বাসঘাতক স্বদলত্যাগী হিসেবে আখ্যায়িত করেছিল।"
+          },
+          "verb": {
+            "word": "Amostatize",
+            "banglaPronunciation": "[আ'পস্টাটাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "ধর্ম বা আদর্শ ত্যাগ করা",
+            "exampleEn": "History records few leaders who openly apostatized from their faith.",
+            "exampleBn": "ইতিহাসে খুব কম নেতার রেকর্ড আছে যারা প্রকাশ্যে নিজেদের বিশ্বাস ত্যাগ করেছিলেন।"
+          },
+          "adjective": {
+            "word": "Apostate",
+            "banglaPronunciation": "[আ'পস্টেট]",
+            "pos": "adjective",
+            "banglaMeaning": "ধর্মত্যাগী বা নীতিভ্রষ্ট",
+            "exampleEn": "The apostate members were expelled from the organization.",
+            "exampleBn": "নীতিভ্রষ্ট সদস্যদের সংগঠন থেকে বহিষ্কার করা হয়েছিল।"
+          },
+          "adverb": null
+        }
       }
     ],
     "practiceExtraWords": [
@@ -18435,7 +24731,41 @@ const CURRICULUM_DATA = {
         "meaningBn": "সম্মিলিত শক্তি ও সমন্বয়",
         "explanationEn": "Combined effort producing a greater result than the sum of individual parts.",
         "example": "Cross-functional synergy accelerates innovation across global product teams.",
-        "exampleBn": "আন্তঃবিভাগীয় সম্মিলিত সমন্বয় বৈশ্বিক পণ্য দলগুলোতে উদ্ভাবনকে ত্বরান্বিত করে।"
+        "exampleBn": "আন্তঃবিভাগীয় সম্মিলিত সমন্বয় বৈশ্বিক পণ্য দলগুলোতে উদ্ভাবনকে ত্বরান্বিত করে।",
+        "derivatives": {
+          "noun": {
+            "word": "Synergy",
+            "banglaPronunciation": "['সিনার্জি]",
+            "pos": "noun",
+            "banglaMeaning": "যৌথ শক্তি বা সমন্বয়জনিত বাড়তি ফলাফল",
+            "exampleEn": "The merger created synergy between marketing and distribution teams.",
+            "exampleBn": "একত্রীকরণ বিপণন ও বিতরণ দলগুলোর মধ্যে যৌথ শক্তি সৃষ্টি করেছিল।"
+          },
+          "verb": {
+            "word": "Synergize",
+            "banglaPronunciation": "['সিনার্জাইজ]",
+            "pos": "verb",
+            "banglaMeaning": "সমন্বিতভাবে কাজ করা",
+            "exampleEn": "The two departments worked together to synergize their operations.",
+            "exampleBn": "উভয় বিভাগ তাদের কার্যক্রম সমন্বিত করতে একসাথে কাজ করেছিল।"
+          },
+          "adjective": {
+            "word": "Synergistic",
+            "banglaPronunciation": "[,সিনার'জিস্টিক]",
+            "pos": "adjective",
+            "banglaMeaning": "যৌথ ক্রিয়াশীল বা যৌথ শক্তিসম্পন্ন",
+            "exampleEn": "The two drugs produce a synergistic effect when taken together.",
+            "exampleBn": "একসাথে সেবন করলে দুটি ওষুধ একটি যৌথ শক্তিশালী প্রভাব ফেলে।"
+          },
+          "adverb": {
+            "word": "Synergistically",
+            "banglaPronunciation": "[,সিনার'জিস্টিক্যালি]",
+            "pos": "adverb",
+            "banglaMeaning": "সমন্বিত যৌথ শক্তিতে",
+            "exampleEn": "The team members worked synergistically to hit the quarterly target.",
+            "exampleBn": "ত্রৈমাসিক লক্ষ্যমাত্রা অর্জনে দলের সদস্যরা সমন্বিত শক্তিতে কাজ করেছিলেন।"
+          }
+        }
       },
       {
         "id": "pro-8",
@@ -18445,7 +24775,27 @@ const CURRICULUM_DATA = {
         "meaningBn": "মানদণ্ড, উৎকর্ষের মাপকাঠি",
         "explanationEn": "A standard or point of reference against which things may be compared.",
         "example": "Their customer service set a new industry benchmark for reliability.",
-        "exampleBn": "তাদের গ্রাহক সেবা নির্ভরযোগ্যতার ক্ষেত্রে শিল্পে একটি নতুন মানদণ্ড স্থাপন করেছে।"
+        "exampleBn": "তাদের গ্রাহক সেবা নির্ভরযোগ্যতার ক্ষেত্রে শিল্পে একটি নতুন মানদণ্ড স্থাপন করেছে।",
+        "derivatives": {
+          "noun": {
+            "word": "Benchmark",
+            "banglaPronunciation": "['বেঞ্চমার্ক]",
+            "pos": "noun",
+            "banglaMeaning": "মানদণ্ড বা মান যাচাইয়ের মাপকাঠি",
+            "exampleEn": "This product sets a high benchmark for quality in the market.",
+            "exampleBn": "এই পণ্যটি বাজারে মানের জন্য একটি উচ্চ মানদণ্ড স্থাপন করেছে।"
+          },
+          "verb": {
+            "word": "Benchmark",
+            "banglaPronunciation": "['বেঞ্চমার্ক]",
+            "pos": "verb",
+            "banglaMeaning": "মানদণ্ড অনুযায়ী পরিমাপ বা মূল্যায়ন করা",
+            "exampleEn": "The company benchmarks its performance against top global rivals.",
+            "exampleBn": "প্রতিষ্ঠানটি শীর্ষ বৈশ্বিক প্রতিদ্বন্দ্বীদের সাথে নিজের পারফরম্যান্স পরিমাপ করে।"
+          },
+          "adjective": null,
+          "adverb": null
+        }
       }
     ],
     "businessTemplates": [
@@ -50794,6 +57144,84 @@ const WORD_CARTOON_CONVERSATIONS = {
         "en": "I love that example! Practicing \"Apostate\" regularly in conversations will help us master it forever.",
         "bn": "উদাহরণটি আমার খুব পছন্দ হয়েছে! প্রতিদিন কথোপকথনে \"Apostate\" চর্চা করলে এটি আমাদের মনে স্থায়ী হয়ে যাবে।",
         "targetWord": "apostate",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "int-agony": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "agony",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Leo, why are you holding your shoulder in such agony today?",
+        "bn": "লিও, আজ তুমি তীব্র যন্ত্রণায় এভাবে কাঁধ ধরে আছো কেন?",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I pulled a tendon at the sports center; the agony was overwhelming!",
+        "bn": "স্পোর্টস সেন্টারে আমার টেন্ডনে টান লেগেছিল; তীব্র যন্ত্রণা কোনোভাবেই সহ্য হচ্ছিল না!",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "I have been feeling agony in my chest for the last few days, so I know how hard it is.",
+        "bn": "গত কয়েকদিন ধরে বুকের ব্যথায় আমিও তীব্র যন্ত্রণা অনুভব করছি, তাই বুঝি এটা কত কষ্টের।",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us visit the clinic together to alleviate this agony once and for all.",
+        "bn": "চলো আমরা একসাথেই ক্লিনিকে যাই যাতে এই নিদারুণ কষ্ট চিরতরে দূর হয়।",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      }
+    ]
+  },
+  "agony": {
+    "theme": "cafe",
+    "duration": 18,
+    "targetWord": "agony",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "Leo, why are you holding your shoulder in such agony today?",
+        "bn": "লিও, আজ তুমি তীব্র যন্ত্রণায় এভাবে কাঁধ ধরে আছো কেন?",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "I pulled a tendon at the sports center; the agony was overwhelming!",
+        "bn": "স্পোর্টস সেন্টারে আমার টেন্ডনে টান লেগেছিল; তীব্র যন্ত্রণা কোনোভাবেই সহ্য হচ্ছিল না!",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Maya",
+        "avatar": "maya",
+        "en": "I have been feeling agony in my chest for the last few days, so I know how hard it is.",
+        "bn": "গত কয়েকদিন ধরে বুকের ব্যথায় আমিও তীব্র যন্ত্রণা অনুভব করছি, তাই বুঝি এটা কত কষ্টের।",
+        "targetWord": "agony",
+        "approxDuration": 4.5
+      },
+      {
+        "speaker": "Leo",
+        "avatar": "leo",
+        "en": "Let us visit the clinic together to alleviate this agony once and for all.",
+        "bn": "চলো আমরা একসাথেই ক্লিনিকে যাই যাতে এই নিদারুণ কষ্ট চিরতরে দূর হয়।",
+        "targetWord": "agony",
         "approxDuration": 4.5
       }
     ]

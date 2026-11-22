@@ -64,12 +64,22 @@
   <script src="words-data.js"></script>
   <script src="js/common.js"></script>
   <script>
-    // Read level from query param if provided
+    // Read level and mode from query param
     const urlParams = new URLSearchParams(window.location.search);
     const paramLevel = urlParams.get('level');
     if (paramLevel && typeof CURRICULUM_DATA !== 'undefined' && CURRICULUM_DATA[paramLevel]) {
       AppState.selectedLevel = paramLevel;
       saveSetupToStorage(paramLevel, AppState.assessmentIndex);
+    }
+
+    let assessmentMode = urlParams.get('mode') === 'derivatives' ? 'derivatives' : 'onboarding';
+
+    function setAssessmentMode(mode) {
+      assessmentMode = mode;
+      if (mode === 'derivatives') {
+        initDerivativesExam();
+      }
+      renderAssessmentPage();
     }
 
     function chooseAssessmentOption(optId) {
@@ -84,6 +94,411 @@
       window.location.href = 'learn.html';
     }
 
+    // =========================================================================
+    // DERIVATIVES TRANSFORMATION EXAM STATE & ENGINE
+    // =========================================================================
+    const DerivExam = {
+      questions: [],
+      currentIdx: 0,
+      score: 0,
+      answered: false,
+      selectedChoice: null,
+      isComplete: false,
+      userAnswers: []
+    };
+
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function initDerivativesExam() {
+      const levelId = AppState.selectedLevel || 'beginner';
+      const lvl = (typeof CURRICULUM_DATA !== 'undefined' && CURRICULUM_DATA[levelId]) ? CURRICULUM_DATA[levelId] : null;
+
+      // Pool of all words with rich derivatives
+      let pool = [];
+      if (lvl && Array.isArray(lvl.words)) {
+        pool = lvl.words.filter(w => w.derivatives && (w.derivatives.noun || w.derivatives.verb || w.derivatives.adjective || w.derivatives.adverb));
+      }
+      if (pool.length < 10 && typeof CURRICULUM_DATA !== 'undefined') {
+        Object.keys(CURRICULUM_DATA).forEach(k => {
+          const l = CURRICULUM_DATA[k];
+          if (l && Array.isArray(l.words)) {
+            l.words.forEach(w => {
+              if (w.derivatives && (w.derivatives.noun || w.derivatives.verb || w.derivatives.adjective || w.derivatives.adverb)) {
+                if (!pool.some(p => p.word.toLowerCase() === w.word.toLowerCase())) {
+                  pool.push(w);
+                }
+              }
+            });
+          }
+        });
+      }
+
+      // Pick 10 random words
+      const shuffledPool = shuffleArray(pool);
+      const targetWords = shuffledPool.slice(0, 10);
+
+      const posLabels = {
+        noun: { bn: 'Noun (বিশেষ্য)', en: 'Noun' },
+        verb: { bn: 'Verb (ক্রিয়া)', en: 'Verb' },
+        adjective: { bn: 'Adjective (বিশেষণ)', en: 'Adjective' },
+        adverb: { bn: 'Adverb (ক্রিয়া বিশেষণ)', en: 'Adverb' }
+      };
+
+      const questions = [];
+      targetWords.forEach((tw, qIdx) => {
+        const d = tw.derivatives;
+        const validForms = [];
+        ['noun', 'verb', 'adjective', 'adverb'].forEach(p => {
+          if (d[p] && d[p].word && d[p].word.toLowerCase() !== tw.word.toLowerCase()) {
+            validForms.push({ posKey: p, form: d[p], posBn: posLabels[p].bn, posEn: posLabels[p].en });
+          }
+        });
+
+        // Fallback if root word is same
+        if (validForms.length === 0) {
+          ['noun', 'verb', 'adjective', 'adverb'].forEach(p => {
+            if (d[p] && d[p].word) {
+              validForms.push({ posKey: p, form: d[p], posBn: posLabels[p].bn, posEn: posLabels[p].en });
+            }
+          });
+        }
+
+        const target = validForms[qIdx % validForms.length] || validForms[0];
+        const correctWord = target.form.word;
+
+        // Distractors
+        const distractors = [];
+        pool.forEach(w => {
+          if (w.derivatives && w.derivatives[target.posKey] && w.derivatives[target.posKey].word) {
+            const dw = w.derivatives[target.posKey].word;
+            if (dw.toLowerCase() !== correctWord.toLowerCase() && dw.toLowerCase() !== tw.word.toLowerCase()) {
+              distractors.push(dw);
+            }
+          }
+        });
+
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push(`${tw.word}ly`);
+        }
+
+        const choices = shuffleArray([
+          { text: correctWord, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          wordObj: tw,
+          posKey: target.posKey,
+          posBn: target.posBn,
+          posEn: target.posEn,
+          correctWord: correctWord,
+          correctMeaning: target.form.banglaMeaning || '',
+          exampleEn: target.form.exampleEn || '',
+          exampleBn: target.form.exampleBn || '',
+          choices: choices
+        });
+      });
+
+      DerivExam.questions = questions;
+      DerivExam.currentIdx = 0;
+      DerivExam.score = 0;
+      DerivExam.answered = false;
+      DerivExam.selectedChoice = null;
+      DerivExam.isComplete = false;
+      DerivExam.userAnswers = [];
+    }
+
+    function answerDerivQuestion(choiceIdx) {
+      if (DerivExam.answered || DerivExam.isComplete) return;
+      const q = DerivExam.questions[DerivExam.currentIdx];
+      DerivExam.answered = true;
+      DerivExam.selectedChoice = choiceIdx;
+
+      const isCorrect = q.choices[choiceIdx].isCorrect;
+      if (isCorrect) {
+        DerivExam.score++;
+      }
+
+      DerivExam.userAnswers.push({
+        question: q,
+        selectedChoiceIdx: choiceIdx,
+        isCorrect: isCorrect
+      });
+
+      renderAssessmentPage();
+    }
+
+    function nextDerivQuestion() {
+      if (DerivExam.currentIdx + 1 >= DerivExam.questions.length) {
+        DerivExam.isComplete = true;
+      } else {
+        DerivExam.currentIdx++;
+        DerivExam.answered = false;
+        DerivExam.selectedChoice = null;
+      }
+      renderAssessmentPage();
+    }
+
+    function renderDerivativesExamHTML() {
+      if (DerivExam.questions.length === 0) {
+        initDerivativesExam();
+      }
+
+      if (DerivExam.isComplete) {
+        const total = DerivExam.questions.length;
+        const pct = Math.round((DerivExam.score / total) * 100);
+        const isMaster = pct >= 80;
+
+        return `
+          <div class="rounded-3xl p-6 sm:p-9 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+            <!-- Score Banner -->
+            <div class="text-center space-y-3 pb-6 border-b" style="border-color: var(--border-subtle);">
+              <div class="inline-flex items-center justify-center w-20 h-20 rounded-full text-3xl font-bold font-editorial mx-auto shadow-md" style="background-color: ${isMaster ? 'var(--accent-sage-soft)' : 'var(--accent-terracotta-soft)'}; color: ${isMaster ? 'var(--accent-sage)' : 'var(--accent-terracotta)'}; border: 2px solid ${isMaster ? 'var(--accent-sage)' : 'var(--accent-terracotta)'};">
+                ${pct}%
+              </div>
+              <div>
+                <span class="badge-${AppState.selectedLevel || 'beginner'} text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full inline-block mb-1.5">
+                  DERIVATIVES TRANSFORMATION EXAM RESULT
+                </span>
+                <h2 class="font-editorial text-2xl sm:text-3xl font-bold" style="color: var(--ink-primary);">
+                  ${isMaster ? '🎉 চমৎকার পারফরম্যান্স!' : '👍 ভালো প্রচেষ্টা! আরও অনুশীলন করুন'}
+                </h2>
+                <p class="font-bengali text-sm mt-1" style="color: var(--ink-secondary);">
+                  আপনি ১০টি প্রশ্নের মধ্যে <strong>${DerivExam.score}</strong>টি সঠিক উত্তর দিয়েছেন।
+                </p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onclick="initDerivativesExam(); renderAssessmentPage();"
+                  class="vw-btn-primary font-bengali px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold inline-flex items-center gap-2 cursor-pointer shadow-sm"
+                >
+                  <span>🔄 পুনরায় কুইজ দিন (Retake Quiz)</span>
+                </button>
+                <a
+                  href="learn.html?tab=derivatives"
+                  class="font-bengali px-6 py-3 rounded-2xl border text-xs sm:text-sm font-bold inline-flex items-center gap-2 hover:border-[#2D5A4C] transition-colors"
+                  style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-primary);"
+                >
+                  <span>📖 Derivatives স্টাডি শিটে ফিরুন</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Detailed Question Review List -->
+            <div class="space-y-4">
+              <h3 class="font-editorial text-lg font-bold uppercase tracking-wider" style="color: var(--accent-sage);">
+                পরীক্ষার পূর্ণাঙ্গ রিভিউ ও সমাধান (Full Review)
+              </h3>
+              <div class="space-y-4">
+                ${DerivExam.userAnswers.map((ua, idx) => {
+                  const q = ua.question;
+                  const item = q.wordObj;
+                  const d = item.derivatives || {};
+                  return `
+                    <div class="rounded-2xl p-4 sm:p-5 border space-y-3" style="background-color: var(--bg-ivory); border-color: ${ua.isCorrect ? 'rgba(45, 90, 76, 0.3)' : 'rgba(194, 109, 83, 0.3)'};">
+                      <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                          <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${ua.isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                            ${ua.isCorrect ? '✓' : '✕'}
+                          </span>
+                          <span class="font-editorial text-base font-bold" style="color: var(--ink-primary);">
+                            ${idx + 1}. "${item.word}" &rarr; ${q.posBn}
+                          </span>
+                        </div>
+                        <span class="text-xs font-bold ${ua.isCorrect ? 'text-emerald-700' : 'text-rose-700'}">
+                          ${ua.isCorrect ? 'সঠিক উত্তর' : 'ভুল উত্তর'}
+                        </span>
+                      </div>
+
+                      <div class="text-xs sm:text-sm">
+                        <p class="font-bengali"><strong>সঠিক উত্তর:</strong> <span class="font-bold text-[#2D5A4C]">${escapeHtml(q.correctWord)}</span> (${escapeHtml(q.correctMeaning)})</p>
+                        ${q.exampleEn ? `<p class="mt-1 text-gray-600"><em>&ldquo;${escapeHtml(q.exampleEn)}&rdquo;</em></p>` : ''}
+                      </div>
+
+                      <!-- 4-Column Table for this word -->
+                      <div class="grid grid-cols-4 gap-1 text-center bg-white rounded-xl p-2 border border-gray-200 text-xs">
+                        <div>
+                          <div class="text-[9px] font-bold text-gray-500 uppercase">Noun</div>
+                          <div class="font-bold ${q.posKey === 'noun' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${d.noun ? escapeHtml(d.noun.word) : '—'}</div>
+                        </div>
+                        <div class="border-l border-gray-200">
+                          <div class="text-[9px] font-bold text-gray-500 uppercase">Verb</div>
+                          <div class="font-bold ${q.posKey === 'verb' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${d.verb ? escapeHtml(d.verb.word) : '—'}</div>
+                        </div>
+                        <div class="border-l border-gray-200">
+                          <div class="text-[9px] font-bold text-gray-500 uppercase">Adj</div>
+                          <div class="font-bold ${q.posKey === 'adjective' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${d.adjective ? escapeHtml(d.adjective.word) : '—'}</div>
+                        </div>
+                        <div class="border-l border-gray-200">
+                          <div class="text-[9px] font-bold text-gray-500 uppercase">Adv</div>
+                          <div class="font-bold ${q.posKey === 'adverb' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${d.adverb ? escapeHtml(d.adverb.word) : '—'}</div>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const q = DerivExam.questions[DerivExam.currentIdx];
+      const total = DerivExam.questions.length;
+      const currentNum = DerivExam.currentIdx + 1;
+      const pct = Math.round((currentNum / total) * 100);
+
+      return `
+        <div class="rounded-3xl p-6 sm:p-9 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <!-- Exam Header & Progress -->
+          <div class="space-y-2 pb-2 border-b" style="border-color: var(--border-subtle);">
+            <div class="flex items-center justify-between text-xs">
+              <span class="badge-${AppState.selectedLevel || 'beginner'} text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                DERIVATIVES TRANSFORMATION EXAM &bull; প্রশ্ন ${currentNum} / ${total}
+              </span>
+              <span class="font-editorial font-bold text-sm" style="color: var(--accent-sage);">
+                স্কোর: ${DerivExam.score} / ${DerivExam.currentIdx}
+              </span>
+            </div>
+            <div class="vw-progress-track h-2 w-full rounded-full overflow-hidden">
+              <div class="vw-progress-bar h-full rounded-full bg-[#2D5A4C]" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+
+          <!-- Question Prompt -->
+          <div class="space-y-1.5">
+            <span class="text-xs font-mono tracking-wider opacity-60 uppercase" style="color: var(--ink-muted);">
+              Question ${currentNum} of ${total} &bull; Target Word: ${escapeHtml(q.wordObj.word)}
+            </span>
+            <h2 class="font-editorial text-2xl sm:text-3xl font-bold" style="color: var(--ink-primary);">
+              &ldquo;${escapeHtml(q.wordObj.word)}&rdquo; শব্দটির সঠিক <span class="text-[#2D5A4C]">${escapeHtml(q.posBn)}</span> রূপ কোনটি?
+            </h2>
+            <p class="text-xs sm:text-sm" style="color: var(--ink-secondary);">
+              What is the correct <strong>${escapeHtml(q.posEn)}</strong> form of the word &ldquo;${escapeHtml(q.wordObj.word)}&rdquo;?
+            </p>
+          </div>
+
+          <!-- 4 Multiple Choice Options -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${q.choices.map((choice, cIdx) => {
+              let btnClass = 'vw-assessment-option';
+              let badgeText = '';
+
+              if (DerivExam.answered) {
+                if (choice.isCorrect) {
+                  btnClass += ' is-correct vw-correct-glow';
+                  badgeText = '✓ সঠিক উত্তর';
+                } else if (DerivExam.selectedChoice === cIdx) {
+                  btnClass += ' is-wrong';
+                  badgeText = '✕ ভুল উত্তর';
+                }
+              }
+
+              return `
+                <button
+                  type="button"
+                  onclick="answerDerivQuestion(${cIdx})"
+                  ${DerivExam.answered ? 'disabled' : ''}
+                  class="${btnClass} w-full text-left rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 focus:outline-none transition-all cursor-pointer"
+                >
+                  <div class="flex items-center gap-3">
+                    <span class="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold shrink-0">
+                      ${String.fromCharCode(65 + cIdx)}
+                    </span>
+                    <span class="font-editorial text-base sm:text-lg font-bold" style="color: var(--ink-primary);">
+                      ${escapeHtml(choice.text)}
+                    </span>
+                  </div>
+                  ${badgeText ? `<span class="text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0 ${choice.isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${badgeText}</span>` : ''}
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Answer Explanation & Derivatives Table (Revealed after answering) -->
+          ${
+            DerivExam.answered
+              ? `
+                <div class="rounded-2xl p-4 sm:p-5 border space-y-3 vw-panel-reveal" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25);">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bengali text-xs font-bold uppercase tracking-wider" style="color: var(--accent-sage);">
+                      💡 ব্যাখ্যা ও Derivatives চার্ট
+                    </span>
+                    <button
+                      type="button"
+                      onclick="speakDerivative('${escapeHtml(q.correctWord).replace(/'/g, "\\'")}', this)"
+                      class="vw-speak-btn p-1 rounded-full text-xs hover:scale-110 cursor-pointer"
+                      title="Pronounce ${escapeHtml(q.correctWord)}"
+                    >
+                      ${speakerIconSvg('w-3.5 h-3.5')}
+                    </button>
+                  </div>
+
+                  <p class="font-bengali text-sm font-semibold" style="color: var(--ink-primary);">
+                    "${escapeHtml(q.wordObj.word)}" এর ${escapeHtml(q.posBn)} হলো <strong>${escapeHtml(q.correctWord)}</strong> — ${escapeHtml(q.correctMeaning)}।
+                  </p>
+                  ${
+                    q.exampleEn
+                      ? `
+                        <p class="text-xs leading-relaxed" style="color: var(--ink-secondary);">
+                          = &ldquo;${escapeHtml(q.exampleEn)}&rdquo; (${escapeHtml(q.exampleBn)})
+                        </p>
+                      `
+                      : ''
+                  }
+
+                  <!-- 4-Column Table for this word -->
+                  <div class="grid grid-cols-4 gap-1 text-center bg-white rounded-xl p-2 border border-gray-200 text-xs">
+                    <div>
+                      <div class="text-[9px] font-bold text-gray-500 uppercase">Noun</div>
+                      <div class="font-bold ${q.posKey === 'noun' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${q.wordObj.derivatives?.noun ? escapeHtml(q.wordObj.derivatives.noun.word) : '—'}</div>
+                    </div>
+                    <div class="border-l border-gray-200">
+                      <div class="text-[9px] font-bold text-gray-500 uppercase">Verb</div>
+                      <div class="font-bold ${q.posKey === 'verb' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${q.wordObj.derivatives?.verb ? escapeHtml(q.wordObj.derivatives.verb.word) : '—'}</div>
+                    </div>
+                    <div class="border-l border-gray-200">
+                      <div class="text-[9px] font-bold text-gray-500 uppercase">Adj</div>
+                      <div class="font-bold ${q.posKey === 'adjective' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${q.wordObj.derivatives?.adjective ? escapeHtml(q.wordObj.derivatives.adjective.word) : '—'}</div>
+                    </div>
+                    <div class="border-l border-gray-200">
+                      <div class="text-[9px] font-bold text-gray-500 uppercase">Adv</div>
+                      <div class="font-bold ${q.posKey === 'adverb' ? 'text-[#2D5A4C]' : 'text-gray-800'} truncate">${q.wordObj.derivatives?.adverb ? escapeHtml(q.wordObj.derivatives.adverb.word) : '—'}</div>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onclick="nextDerivQuestion()"
+                      class="vw-btn-primary font-bengali px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-sm"
+                    >
+                      <span>${currentNum === total ? 'ফলাফল দেখুন' : 'পরবর্তী প্রশ্ন'}</span>
+                      <span>&rarr;</span>
+                    </button>
+                  </div>
+                </div>
+              `
+              : ''
+          }
+        </div>
+      `;
+    }
+
     function renderAssessmentPage() {
       const mount = document.getElementById('assessment-page-mount');
       const levelId = AppState.selectedLevel || 'beginner';
@@ -92,15 +507,33 @@
 
       mount.innerHTML = `
         <div class="max-w-3xl mx-auto space-y-6">
-          <!-- Top Back Navigation -->
+          <!-- Top Back Navigation & Mode Switcher -->
           <div class="flex flex-wrap items-center justify-between gap-3">
             <a
               href="index.html"
-              class="font-bengali inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl border text-xs sm:text-sm font-bold transition-colors hover:border-[#2D5A4C]"
+              class="font-bengali inline-flex items-center gap-2 px-4 py-2 rounded-2xl border text-xs sm:text-sm font-bold transition-colors hover:border-[#2D5A4C]"
               style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-primary);"
             >
               &larr; লেভেল নির্বাচনে ফিরুন (Back to Levels)
             </a>
+
+            <!-- Mode Switcher Pills -->
+            <div class="inline-flex items-center rounded-2xl p-1 border shadow-xs" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+              <button
+                type="button"
+                onclick="setAssessmentMode('onboarding')"
+                class="font-bengali px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${assessmentMode === 'onboarding' ? 'vw-btn-primary shadow-xs' : 'text-gray-600 hover:text-black'}"
+              >
+                🎯 লেভেল অনবোর্ডিং
+              </button>
+              <button
+                type="button"
+                onclick="setAssessmentMode('derivatives')"
+                class="font-bengali px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${assessmentMode === 'derivatives' ? 'vw-btn-primary shadow-xs' : 'text-gray-600 hover:text-black'}"
+              >
+                ⚡ পদ রূপান্তর কুইজ (১০ MCQs)
+              </button>
+            </div>
 
             <span
               class="badge-${meta.id} px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider"
@@ -109,97 +542,104 @@
             </span>
           </div>
 
-          <!-- Assessment Card -->
-          <div class="rounded-3xl p-6 sm:p-9 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
-            <!-- Onboarding Step Progress -->
-            <div class="space-y-1.5 pb-2">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-bengali font-semibold" style="color: var(--ink-secondary);">
-                  ধাপ ২/২: প্রাথমিক জ্ঞান মূল্যায়ন (Step 2 of 2)
-                </span>
-                <span class="font-editorial font-bold" style="color: var(--accent-sage);">
-                  ${AppState.assessmentIndex ? '100%' : '50%'}
-                </span>
-              </div>
-              <div class="vw-progress-track h-2 w-full rounded-full overflow-hidden">
-                <div class="vw-progress-bar h-full rounded-full bg-[#2D5A4C]" style="width: ${AppState.assessmentIndex ? '100%' : '50%'};"></div>
-              </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row sm:items-center gap-4 pb-5 border-b" style="border-color: var(--border-subtle);">
-              <div class="shrink-0">${meta.svg}</div>
-              <div>
-                <span class="badge-${meta.id} text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full inline-block mb-1.5">
-                  SELECTED LEVEL: ${meta.title.toUpperCase()} (${meta.bengaliSubtitle})
-                </span>
-                <h1 class="font-bengali text-xl sm:text-2xl font-bold leading-snug" style="color: var(--ink-primary);">
-                  তোমার বর্তমান English Vocabulary Knowledge কেমন?
-                </h1>
-                <p class="font-bengali text-xs sm:text-sm mt-1" style="color: var(--ink-secondary);">
-                  নিচের ৪টি অপশন থেকে তোমার বর্তমান অবস্থার সাথে সবচেয়ে মানানসই উত্তরটি নির্বাচন করো:
-                </p>
-              </div>
-            </div>
-
-            <!-- 4 Single-Select Option Cards -->
-            <div role="radiogroup" aria-label="Vocabulary Knowledge Options" class="space-y-3">
-              ${ASSESSMENT_OPTIONS.map((opt) => {
-                const isSelected = AppState.assessmentIndex === opt.id;
-                return `
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked="${isSelected ? 'true' : 'false'}"
-                    onclick="chooseAssessmentOption(${opt.id})"
-                    class="vw-assessment-option ${isSelected ? 'is-selected vw-correct-glow' : ''} w-full text-left rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 focus:outline-none transition-all"
-                  >
-                    <div class="flex items-center gap-3.5">
-                      <span
-                        class="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold shrink-0"
-                        style="
-                          border-color: ${isSelected ? 'var(--accent-sage)' : 'var(--border-hover)'};
-                          background-color: ${isSelected ? 'var(--accent-sage)' : 'var(--surface-white)'};
-                          color: ${isSelected ? '#FFFFFF' : 'var(--ink-secondary)'};
-                        "
-                      >
-                        ${isSelected ? '✓' : opt.id}
+          <!-- Mode-Based Content -->
+          ${
+            assessmentMode === 'derivatives'
+              ? renderDerivativesExamHTML()
+              : `
+                <!-- Assessment Onboarding Card -->
+                <div class="rounded-3xl p-6 sm:p-9 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+                  <!-- Onboarding Step Progress -->
+                  <div class="space-y-1.5 pb-2">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="font-bengali font-semibold" style="color: var(--ink-secondary);">
+                        ধাপ ২/২: প্রাথমিক জ্ঞান মূল্যায়ন (Step 2 of 2)
                       </span>
-                      <span class="font-bengali text-sm sm:text-base font-bold" style="color: var(--ink-primary);">
-                        ${opt.text}
+                      <span class="font-editorial font-bold" style="color: var(--accent-sage);">
+                        ${AppState.assessmentIndex ? '100%' : '50%'}
                       </span>
                     </div>
+                    <div class="vw-progress-track h-2 w-full rounded-full overflow-hidden">
+                      <div class="vw-progress-bar h-full rounded-full bg-[#2D5A4C]" style="width: ${AppState.assessmentIndex ? '100%' : '50%'};"></div>
+                    </div>
+                  </div>
 
-                    ${
-                      isSelected
-                        ? `<span class="font-bengali text-xs font-bold px-2.5 py-1 rounded-full shrink-0" style="background-color: var(--surface-white); color: var(--accent-sage);">নির্বাচিত</span>`
-                        : ''
-                    }
-                  </button>
-                `;
-              }).join('')}
-            </div>
+                  <div class="flex flex-col sm:flex-row sm:items-center gap-4 pb-5 border-b" style="border-color: var(--border-subtle);">
+                    <div class="shrink-0">${meta.svg}</div>
+                    <div>
+                      <span class="badge-${meta.id} text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full inline-block mb-1.5">
+                        SELECTED LEVEL: ${meta.title.toUpperCase()} (${meta.bengaliSubtitle})
+                      </span>
+                      <h1 class="font-bengali text-xl sm:text-2xl font-bold leading-snug" style="color: var(--ink-primary);">
+                        তোমার বর্তমান English Vocabulary Knowledge কেমন?
+                      </h1>
+                      <p class="font-bengali text-xs sm:text-sm mt-1" style="color: var(--ink-secondary);">
+                        নিচের ৪টি অপশন থেকে তোমার বর্তমান অবস্থার সাথে সবচেয়ে মানানসই উত্তরটি নির্বাচন করো:
+                      </p>
+                    </div>
+                  </div>
 
-            <!-- Continue Button (Saves answer and redirects to learn.html) -->
-            <div class="pt-4 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: var(--border-subtle);">
-              <p class="font-bengali text-xs" style="color: var(--ink-muted);">
-                ${
-                  AppState.assessmentIndex
-                    ? 'Continue বাটনে ক্লিক করলে সরাসরি তোমার নির্বাচিত Level-এর পাঠ্যক্রম শুরু হবে।'
-                    : 'এগিয়ে যেতে ওপরের যেকোনো একটি অপশন নির্বাচন করো।'
-                }
-              </p>
+                  <!-- 4 Single-Select Option Cards -->
+                  <div role="radiogroup" aria-label="Vocabulary Knowledge Options" class="space-y-3">
+                    ${ASSESSMENT_OPTIONS.map((opt) => {
+                      const isSelected = AppState.assessmentIndex === opt.id;
+                      return `
+                        <button
+                          type="button"
+                          role="radio"
+                          aria-checked="${isSelected ? 'true' : 'false'}"
+                          onclick="chooseAssessmentOption(${opt.id})"
+                          class="vw-assessment-option ${isSelected ? 'is-selected vw-correct-glow' : ''} w-full text-left rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 focus:outline-none transition-all"
+                        >
+                          <div class="flex items-center gap-3.5">
+                            <span
+                              class="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold shrink-0"
+                              style="
+                                border-color: ${isSelected ? 'var(--accent-sage)' : 'var(--border-hover)'};
+                                background-color: ${isSelected ? 'var(--accent-sage)' : 'var(--surface-white)'};
+                                color: ${isSelected ? '#FFFFFF' : 'var(--ink-secondary)'};
+                              "
+                            >
+                              ${isSelected ? '✓' : opt.id}
+                            </span>
+                            <span class="font-bengali text-sm sm:text-base font-bold" style="color: var(--ink-primary);">
+                              ${opt.text}
+                            </span>
+                          </div>
 
-              <button
-                type="button"
-                onclick="submitAssessmentAndRedirect()"
-                ${!AppState.assessmentIndex ? 'disabled' : ''}
-                class="vw-btn-primary px-7 py-3.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shrink-0"
-              >
-                <span>Continue</span>
-                <span>&rarr;</span>
-              </button>
-            </div>
-          </div>
+                          ${
+                            isSelected
+                              ? `<span class="font-bengali text-xs font-bold px-2.5 py-1 rounded-full shrink-0" style="background-color: var(--surface-white); color: var(--accent-sage);">নির্বাচিত</span>`
+                              : ''
+                          }
+                        </button>
+                      `;
+                    }).join('')}
+                  </div>
+
+                  <!-- Continue Button (Saves answer and redirects to learn.html) -->
+                  <div class="pt-4 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: var(--border-subtle);">
+                    <p class="font-bengali text-xs" style="color: var(--ink-muted);">
+                      ${
+                        AppState.assessmentIndex
+                          ? 'Continue বাটনে ক্লিক করলে সরাসরি তোমার নির্বাচিত Level-এর পাঠ্যক্রম শুরু হবে।'
+                          : 'এগিয়ে যেতে ওপরের যেকোনো একটি অপশন নির্বাচন করো।'
+                      }
+                    </p>
+
+                    <button
+                      type="button"
+                      onclick="submitAssessmentAndRedirect()"
+                      ${!AppState.assessmentIndex ? 'disabled' : ''}
+                      class="vw-btn-primary px-7 py-3.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shrink-0"
+                    >
+                      <span>Continue</span>
+                      <span>&rarr;</span>
+                    </button>
+                  </div>
+                </div>
+              `
+          }
         </div>
       `;
     }

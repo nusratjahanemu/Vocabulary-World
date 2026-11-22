@@ -69,6 +69,22 @@ function speakById(id, btnEl, accentId) {
   }
 }
 
+function speakDerivative(text, btnEl) {
+  const cleanText = String(text || '').trim();
+  if (!cleanText) return;
+  if (typeof speakEnglish === 'function') {
+    speakEnglish(cleanText, btnEl);
+  } else if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(cleanText);
+    u.lang = 'en-US';
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }
+}
+if (typeof window !== 'undefined') {
+  window.speakDerivative = speakDerivative;
+}
+
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
   return String(str)
@@ -596,11 +612,81 @@ function syncCustomWordsIntoCurriculum() {
         wordObj.cartoonConversation = convData;
       }
     }
+    if (!wordObj.derivatives) {
+      if (typeof generateSafeDerivatives === 'function') {
+        wordObj.derivatives = generateSafeDerivatives(wordObj);
+      }
+    }
     const targetLvl = (wordObj.level && CURRICULUM_DATA[wordObj.level]) ? wordObj.level : 'beginner';
     if (CURRICULUM_DATA[targetLvl] && Array.isArray(CURRICULUM_DATA[targetLvl].words)) {
       CURRICULUM_DATA[targetLvl].words.push(wordObj);
     }
   });
+}
+
+function generateSafeDerivatives(wordObj) {
+  if (!wordObj || typeof wordObj !== 'object') {
+    return { noun: null, verb: null, adjective: null, adverb: null };
+  }
+  if (wordObj.derivatives && typeof wordObj.derivatives === 'object') {
+    const d = wordObj.derivatives;
+    if (d.noun || d.verb || d.adjective || d.adverb) {
+      return {
+        noun: d.noun || null,
+        verb: d.verb || null,
+        adjective: d.adjective || null,
+        adverb: d.adverb || null
+      };
+    }
+  }
+
+  // Check global CURRICULUM_DATA if present
+  const cleanWord = String(wordObj.word || '').trim().toLowerCase();
+  if (typeof CURRICULUM_DATA !== 'undefined' && CURRICULUM_DATA) {
+    for (const lvlKey of ['beginner', 'intermediate', 'advanced', 'pro']) {
+      const lvl = CURRICULUM_DATA[lvlKey];
+      if (lvl && Array.isArray(lvl.words)) {
+        const found = lvl.words.find(w => w && w.word && w.word.toLowerCase() === cleanWord);
+        if (found && found.derivatives) return found.derivatives;
+      }
+      if (lvl && Array.isArray(lvl.practiceExtraWords)) {
+        const found = lvl.practiceExtraWords.find(w => w && w.word && w.word.toLowerCase() === cleanWord);
+        if (found && found.derivatives) return found.derivatives;
+      }
+    }
+  }
+
+  // Graceful fallback based on word's part of speech
+  const word = String(wordObj.word || 'Word').trim();
+  const capWord = word.charAt(0).toUpperCase() + word.slice(1);
+  const pos = String(wordObj.pos || '').toLowerCase();
+  const meaning = String(wordObj.meaningBn || wordObj.meaning || 'শব্দার্থ').trim();
+  const exampleEn = String(wordObj.example || `The student practiced using "${capWord}" in context.`).trim();
+  const exampleBn = String(wordObj.exampleBn || `শিক্ষার্থীটি প্রসঙ্গের সাথে "${capWord}" শব্দটি প্রয়োগ করেছিল।`).trim();
+
+  const isNoun = pos.includes('noun');
+  const isVerb = pos.includes('verb');
+  const isAdj = pos.includes('adj');
+  const isAdv = pos.includes('adv');
+
+  const baseItem = {
+    word: capWord,
+    banglaPronunciation: `['${capWord}]`,
+    pos: isVerb ? 'verb' : isAdj ? 'adjective' : isAdv ? 'adverb' : 'noun',
+    banglaMeaning: meaning,
+    exampleEn: exampleEn,
+    exampleBn: exampleBn
+  };
+
+  return {
+    noun: isNoun || (!isVerb && !isAdj && !isAdv) ? { ...baseItem, pos: 'noun' } : null,
+    verb: isVerb ? { ...baseItem, pos: 'verb' } : null,
+    adjective: isAdj ? { ...baseItem, pos: 'adjective' } : null,
+    adverb: isAdv ? { ...baseItem, pos: 'adverb' } : null
+  };
+}
+if (typeof window !== 'undefined') {
+  window.generateSafeDerivatives = generateSafeDerivatives;
 }
 
 function formatWordEntry(rawWord, targetLevel = 'beginner') {
@@ -654,6 +740,9 @@ function formatWordEntry(rawWord, targetLevel = 'beginner') {
     entry.conversation = convData.lines;
     entry.cartoonConversation = convData;
   }
+
+  // Attach Derivatives (Word Family) data safely
+  entry.derivatives = generateSafeDerivatives(rawWord || entry);
 
   return entry;
 }
@@ -4837,9 +4926,38 @@ const WarmupExam = {
       const hasSyn = Array.isArray(tw.synonyms) && tw.synonyms.length > 0;
       const hasAnt = Array.isArray(tw.antonyms) && tw.antonyms.length > 0;
 
-      let qType = idx % 4; // 0: Word->Meaning, 1: Meaning->Word, 2: Synonym, 3: Antonym
+      let hasDeriv = false;
+      let derivTarget = null;
+      if (tw.derivatives && typeof tw.derivatives === 'object') {
+        const candidateForms = [];
+        const posLabels = {
+          noun: { bn: 'Noun (বিশেষ্য)', en: 'Noun' },
+          verb: { bn: 'Verb (ক্রিয়া)', en: 'Verb' },
+          adjective: { bn: 'Adjective (বিশেষণ)', en: 'Adjective' },
+          adverb: { bn: 'Adverb (ক্রিয়া বিশেষণ)', en: 'Adverb' }
+        };
+        ['noun', 'verb', 'adjective', 'adverb'].forEach(p => {
+          const item = tw.derivatives[p];
+          if (item && item.word && item.word.toLowerCase() !== tw.word.toLowerCase()) {
+            candidateForms.push({
+              posKey: p,
+              posBn: posLabels[p].bn,
+              posEn: posLabels[p].en,
+              word: item.word,
+              meaning: item.banglaMeaning || ''
+            });
+          }
+        });
+        if (candidateForms.length > 0) {
+          hasDeriv = true;
+          derivTarget = candidateForms[Math.floor(Math.random() * candidateForms.length)];
+        }
+      }
+
+      let qType = idx % 5; // 0: Word->Meaning, 1: Meaning->Word, 2: Synonym, 3: Antonym, 4: Derivative
       if (qType === 2 && !hasSyn) qType = 0;
       if (qType === 3 && !hasAnt) qType = 1;
+      if (qType === 4 && !hasDeriv) qType = 0;
 
       if (qType === 0) {
         // Word -> Meaning
@@ -4919,7 +5037,7 @@ const WarmupExam = {
           choices: choices,
           explanation: `"${tw.word}" এর সমার্থক শব্দ: ${correctSyn}`
         });
-      } else {
+      } else if (qType === 3 && hasAnt) {
         // Antonym Match
         const correctAnt = typeof tw.antonyms[0] === 'string' ? tw.antonyms[0] : (tw.antonyms[0].word || tw.antonyms[0]);
         const distractors = allPool
@@ -4944,6 +5062,64 @@ const WarmupExam = {
           subtitle: `Identify the correct antonym for "${tw.word}":`,
           choices: choices,
           explanation: `"${tw.word}" এর বিপরীতার্থক শব্দ: ${correctAnt}`
+        });
+      } else if (qType === 4 && hasDeriv && derivTarget) {
+        // Derivative Transformation Question
+        const correctWord = derivTarget.word;
+        const distractors = [];
+        allPool.forEach(w => {
+          if (w.derivatives && w.derivatives[derivTarget.posKey] && w.derivatives[derivTarget.posKey].word) {
+            const dw = w.derivatives[derivTarget.posKey].word;
+            if (dw.toLowerCase() !== correctWord.toLowerCase() && dw.toLowerCase() !== tw.word.toLowerCase()) {
+              distractors.push(dw);
+            }
+          }
+        });
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push(`${tw.word}ly`);
+        }
+
+        const choices = shuffleArray([
+          { text: correctWord, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          type: 'derivative-transformation',
+          targetWord: tw,
+          title: `"${tw.word}" শব্দটির সঠিক ${derivTarget.posBn} রূপ কোনটি?`,
+          subtitle: `What is the correct ${derivTarget.posEn} form of "${tw.word}"?`,
+          choices: choices,
+          explanation: `"${tw.word}" এর ${derivTarget.posBn} হলো: ${correctWord} (${derivTarget.meaning || ''})`
+        });
+      } else {
+        // Fallback: Word -> Meaning
+        const correctMeaning = tw.meaning || tw.meaningBn || 'সঠিক অর্থ';
+        const distractors = allPool
+          .filter(w => w.word.toLowerCase() !== tw.word.toLowerCase() && (w.meaningBn || w.meaning) && (w.meaningBn || w.meaning) !== correctMeaning)
+          .map(w => w.meaningBn || w.meaning);
+        const uniqueDistractors = Array.from(new Set(distractors)).slice(0, 3);
+        while (uniqueDistractors.length < 3) {
+          uniqueDistractors.push('বিকল্প অর্থ ' + (uniqueDistractors.length + 1));
+        }
+
+        const choices = shuffleArray([
+          { text: correctMeaning, isCorrect: true },
+          { text: uniqueDistractors[0], isCorrect: false },
+          { text: uniqueDistractors[1], isCorrect: false },
+          { text: uniqueDistractors[2], isCorrect: false }
+        ]);
+
+        questions.push({
+          type: 'word-to-meaning',
+          targetWord: tw,
+          title: `"${tw.word}" শব্দটির সঠিক বাংলা অর্থ কোনটি?`,
+          subtitle: `What is the correct Bengali meaning of "${tw.word}"?`,
+          choices: choices,
+          explanation: `"${tw.word}" এর অর্থ হলো: ${correctMeaning}`
         });
       }
     });

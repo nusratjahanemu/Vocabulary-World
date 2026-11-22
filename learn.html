@@ -64,15 +64,37 @@
   <script src="words-data.js"></script>
   <script src="js/common.js"></script>
   <script>
-    let activeTab = 'all'; // 'all' | 'vocab' | 'curriculum' | 'stories'
+    let activeTab = 'all'; // 'all' | 'vocab' | 'my-vocab' | 'curriculum' | 'stories' | 'newspaper' | 'derivatives'
+    let derivativesActiveListIdx = 0;
+    let derivativesSearchQuery = '';
     const openRelations = {}; // { [wordId]: { type, word, meaningBn, explanationBn } }
 
-    // Support query param ?level=xxx
+    // Support query param ?level=xxx and ?tab=xxx
     const urlParams = new URLSearchParams(window.location.search);
     const paramLevel = urlParams.get('level');
     if (paramLevel && typeof CURRICULUM_DATA !== 'undefined' && CURRICULUM_DATA[paramLevel]) {
       AppState.selectedLevel = paramLevel;
       saveSetupToStorage(paramLevel, AppState.assessmentIndex);
+    }
+    const paramTab = urlParams.get('tab');
+    if (paramTab) {
+      activeTab = paramTab;
+    }
+
+    function setDerivativesListIdx(idx) {
+      derivativesActiveListIdx = idx;
+      derivativesSearchQuery = '';
+      renderLearnPage();
+    }
+
+    function setDerivativesSearch(val) {
+      derivativesSearchQuery = val;
+      renderLearnPage();
+    }
+
+    function clearDerivativesSearch() {
+      derivativesSearchQuery = '';
+      renderLearnPage();
     }
 
     function switchLevel(newLevel) {
@@ -362,7 +384,346 @@
               ${inlineExplanationBox}
             </div>
           </div>
+
+          <!-- DERIVATIVES (Word Family) Section Full Width at Bottom -->
+          ${buildDerivativesBlockHTML(item)}
         </article>
+      `;
+    }
+
+    function highlightWordInSentence(sentence, targetWord) {
+      if (!sentence || !targetWord) return escapeHtml(sentence || '');
+      const cleanWord = String(targetWord).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const escapedSentence = escapeHtml(sentence);
+      const regex = new RegExp(`\\b(${cleanWord})\\b`, 'gi');
+      return escapedSentence.replace(regex, `<strong class="vw-derivative-highlight-word font-bold">$1</strong>`);
+    }
+
+    function buildDerivativesBlockHTML(item) {
+      const d = item.derivatives;
+      if (!d || typeof d !== 'object' || (!d.noun && !d.verb && !d.adjective && !d.adverb)) {
+        return '';
+      }
+
+      const forms = [
+        { key: 'noun', label: 'Noun (বিশেষ্য)', form: d.noun },
+        { key: 'verb', label: 'Verb (ক্রিয়া)', form: d.verb },
+        { key: 'adjective', label: 'Adjective (বিশেষণ)', form: d.adjective },
+        { key: 'adverb', label: 'Adverb (ক্রিয়া বিশেষণ)', form: d.adverb }
+      ];
+
+      const tableRowsHTML = `
+        <div class="vw-derivatives-table-wrap rounded-2xl border overflow-hidden mt-3" style="border-color: var(--border-subtle); background-color: var(--surface-white);">
+          <table class="vw-derivatives-table">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Noun (বিশেষ্য)</th>
+                <th style="width: 25%;">Verb (ক্রিয়া)</th>
+                <th style="width: 25%;">Adjective (বিশেষণ)</th>
+                <th style="width: 25%;">Adverb (ক্রিয়া বিশেষণ)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                ${forms.map(f => {
+                  if (f.form && f.form.word) {
+                    return `
+                      <td>
+                        <div class="vw-derivative-cell-word">${escapeHtml(f.form.word)}</div>
+                        <div class="vw-derivative-cell-pron">${escapeHtml(f.form.banglaPronunciation || '')}</div>
+                      </td>
+                    `;
+                  }
+                  return `<td><span class="vw-derivative-cell-empty">—</span></td>`;
+                }).join('')}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      const breakdownHTML = forms
+        .filter(f => f.form && f.form.word)
+        .map(f => {
+          const form = f.form;
+          return `
+            <div class="vw-derivative-entry space-y-1.5">
+              <!-- Line 1: Word + Pronunciation + (pos) + — Meaning + Audio -->
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                  <span class="font-editorial text-base sm:text-lg font-bold" style="color: var(--ink-primary);">
+                    ${escapeHtml(form.word)}
+                  </span>
+                  <span class="font-mono text-xs text-gray-500">
+                    ${escapeHtml(form.banglaPronunciation || '')}
+                  </span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                    (${escapeHtml(form.pos || f.key)})
+                  </span>
+                  <span class="font-bengali text-xs sm:text-sm font-semibold" style="color: var(--ink-secondary);">
+                    — ${escapeHtml(form.banglaMeaning || '')}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); speakDerivative('${escapeHtml(form.word).replace(/'/g, "\\'")}', this)"
+                  class="vw-speak-btn p-1.5 rounded-full text-xs hover:scale-110 transition-transform cursor-pointer"
+                  title="Pronounce ${escapeHtml(form.word)}"
+                  aria-label="Pronounce ${escapeHtml(form.word)}"
+                >
+                  ${speakerIconSvg('w-3.5 h-3.5')}
+                </button>
+              </div>
+
+              <!-- Line 2: English Example with Target Word Bolded in Sage -->
+              <div class="text-xs sm:text-sm font-medium leading-relaxed" style="color: var(--ink-primary);">
+                <span class="font-mono font-bold mr-1" style="color: var(--accent-sage);">=</span>
+                ${highlightWordInSentence(form.exampleEn, form.word)}
+              </div>
+
+              <!-- Line 3: Bangla Translation of Example -->
+              <div class="font-bengali text-xs leading-relaxed" style="color: var(--ink-muted);">
+                <span class="font-bold mr-1" style="color: var(--ink-secondary);">অর্থ:</span>
+                ${escapeHtml(form.exampleBn || '')}
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+
+      return `
+        <div class="mt-6 pt-5 border-t border-[var(--border-subtle)] space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                🔀
+              </span>
+              <div>
+                <h4 class="font-editorial text-sm sm:text-base font-bold uppercase tracking-wider" style="color: var(--accent-sage);">
+                  DERIVATIVES (পদ রূপান্তর — Word Family)
+                </h4>
+                <p class="font-bengali text-[11px]" style="color: var(--ink-muted);">
+                  একটি শব্দের বিভিন্ন Part of Speech (Noun, Verb, Adjective, Adverb) রূপ ও বাক্যে সঠিক প্রয়োগ
+                </p>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
+              Academic Breakdown
+            </span>
+          </div>
+
+          <!-- Top 4-Column Table -->
+          ${tableRowsHTML}
+
+          <!-- Detailed Breakdown Below -->
+          <div class="space-y-2.5 pt-1">
+            ${breakdownHTML}
+          </div>
+        </div>
+      `;
+    }
+
+    function buildDerivativesTabHTML(lvl) {
+      const allWords = (lvl.words || []).filter(w => w.derivatives && typeof w.derivatives === 'object');
+      const listSize = 10;
+      const totalLists = Math.ceil(allWords.length / listSize);
+
+      let displayedWords = [];
+      let isSearching = false;
+      const q = (derivativesSearchQuery || '').trim().toLowerCase();
+
+      if (q) {
+        isSearching = true;
+        displayedWords = allWords.filter(w => {
+          if (w.word && w.word.toLowerCase().includes(q)) return true;
+          if (w.meaningBn && w.meaningBn.toLowerCase().includes(q)) return true;
+          const d = w.derivatives;
+          if (d) {
+            for (const posKey of ['noun', 'verb', 'adjective', 'adverb']) {
+              if (d[posKey] && d[posKey].word && d[posKey].word.toLowerCase().includes(q)) return true;
+              if (d[posKey] && d[posKey].banglaMeaning && d[posKey].banglaMeaning.toLowerCase().includes(q)) return true;
+            }
+          }
+          return false;
+        });
+      } else {
+        const start = derivativesActiveListIdx * listSize;
+        const end = start + listSize;
+        displayedWords = allWords.slice(start, end);
+      }
+
+      // Word list selector pills
+      const listPillsHTML = Array.from({ length: totalLists }).map((_, idx) => {
+        const start = idx * listSize + 1;
+        const end = Math.min((idx + 1) * listSize, allWords.length);
+        const isActive = !isSearching && derivativesActiveListIdx === idx;
+        const label = `Word list-${String(idx + 1).padStart(2, '0')}`;
+        return `
+          <button
+            type="button"
+            onclick="setDerivativesListIdx(${idx})"
+            class="vw-deriv-list-pill ${isActive ? 'is-active' : ''}"
+          >
+            <span>${label}</span>
+            <span class="opacity-75 text-[10px] ml-1">(${start}-${end})</span>
+          </button>
+        `;
+      }).join('');
+
+      // Cards list
+      const cardsHTML = displayedWords.length > 0
+        ? displayedWords.map((item, idx) => {
+            const listOffset = isSearching ? idx + 1 : (derivativesActiveListIdx * listSize + idx + 1);
+            return `
+              <div class="rounded-3xl p-5 sm:p-7 border space-y-4" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+                <!-- Word Card Header -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b" style="border-color: var(--border-subtle);">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold text-xs" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                      #${listOffset}
+                    </span>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <h3 class="font-editorial text-2xl sm:text-3xl font-bold" style="color: var(--ink-primary);">
+                          ${escapeHtml(item.word)}
+                        </h3>
+                        <button
+                          type="button"
+                          onclick="speakDerivative('${escapeHtml(item.word).replace(/'/g, "\\'")}', this)"
+                          class="vw-speak-btn p-1.5 rounded-full text-xs hover:scale-110 transition-transform cursor-pointer"
+                          title="Pronounce ${escapeHtml(item.word)}"
+                        >
+                          ${speakerIconSvg('w-3.5 h-3.5')}
+                        </button>
+                      </div>
+                      <p class="font-bengali text-xs sm:text-sm font-semibold mt-0.5" style="color: var(--ink-secondary);">
+                        মূল অর্থ: ${escapeHtml(item.meaningBn || '')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
+                    ${escapeHtml(item.pos || 'Word')} &bull; ${escapeHtml(lvl.title)}
+                  </span>
+                </div>
+
+                <!-- Derivatives Block -->
+                ${buildDerivativesBlockHTML(item)}
+              </div>
+            `;
+          }).join('')
+        : `
+          <div class="rounded-3xl p-8 border text-center space-y-3" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+            <div class="text-3xl">🔍</div>
+            <h4 class="font-bengali text-lg font-bold" style="color: var(--ink-primary);">
+              "${escapeHtml(derivativesSearchQuery)}" এর সাথে কোনো Derivatives মেলেনি
+            </h4>
+            <p class="font-bengali text-xs text-gray-500">
+              অনুগ্রহ করে অন্য কোনো ইংরেজি শব্দ বা বাংলা অর্থ দিয়ে খুঁজুন অথবা সার্চ ক্লিয়ার করুন।
+            </p>
+            <button
+              type="button"
+              onclick="clearDerivativesSearch()"
+              class="vw-btn-primary px-4 py-2 rounded-xl text-xs font-bold font-bengali cursor-pointer inline-flex items-center gap-1.5 mt-2"
+            >
+              <span>✕ সার্চ ক্লিয়ার করুন</span>
+            </button>
+          </div>
+        `;
+
+      return `
+        <div class="rounded-3xl p-5 sm:p-7 border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <!-- Section Title & Description -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b" style="border-color: var(--border-subtle);">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                  🔀
+                </span>
+                <span class="badge-${lvl.id} text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                  ${lvl.title.toUpperCase()} &bull; DERIVATIVES
+                </span>
+              </div>
+              <h2 class="font-editorial text-xl sm:text-2xl font-bold" style="color: var(--ink-primary);">
+                Derivatives Word Family Study Sets
+              </h2>
+              <p class="font-bengali text-xs sm:text-sm mt-0.5" style="color: var(--ink-secondary);">
+                একটি মূল শব্দ থেকে Noun, Verb, Adjective ও Adverb গঠন, সঠিক উচ্চারণ ও পরীক্ষায় আসার মতো বাস্তব বাক্যে প্রয়োগ।
+              </p>
+            </div>
+
+            <!-- Quiz CTA -->
+            <a
+              href="assessment.html?mode=derivatives"
+              class="vw-btn-primary font-bengali px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shrink-0 self-start sm:self-auto cursor-pointer"
+            >
+              <span>⚡ পদ রূপান্তর কুইজ দিন</span>
+            </a>
+          </div>
+
+          <!-- Controls Bar: Study Sets Pills + Live Search -->
+          <div class="space-y-3">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <!-- Numbered Study Sets Pills -->
+              <div class="flex flex-wrap items-center gap-2 overflow-x-auto pb-1">
+                ${listPillsHTML}
+              </div>
+
+              <!-- Live Search Input -->
+              <div class="relative w-full md:w-72 shrink-0">
+                <input
+                  type="text"
+                  id="derivatives-search-input"
+                  value="${escapeHtml(derivativesSearchQuery)}"
+                  placeholder="শব্দ বা অর্থ দিয়ে খুঁজুন..."
+                  oninput="setDerivativesSearch(this.value)"
+                  class="w-full px-3.5 py-2 pl-9 rounded-xl border text-xs font-medium focus:outline-none transition-all"
+                  style="background-color: var(--bg-ivory); border-color: var(--border-subtle); color: var(--ink-primary);"
+                />
+                <svg class="w-4 h-4 absolute left-3 top-2.5 opacity-50" style="color: var(--ink-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                ${
+                  derivativesSearchQuery
+                    ? `
+                      <button
+                        type="button"
+                        onclick="clearDerivativesSearch()"
+                        class="absolute right-2.5 top-2 text-xs opacity-60 hover:opacity-100 font-bold"
+                        style="color: var(--ink-muted);"
+                      >✕</button>
+                    `
+                    : ''
+                }
+              </div>
+            </div>
+
+            ${
+              isSearching
+                ? `
+                  <div class="flex items-center justify-between text-xs px-1" style="color: var(--ink-muted);">
+                    <span class="font-bengali">
+                      "<strong>${escapeHtml(derivativesSearchQuery)}</strong>" দিয়ে <strong>${displayedWords.length}</strong>টি শব্দ পাওয়া গেছে
+                    </span>
+                    <button
+                      type="button"
+                      onclick="clearDerivativesSearch()"
+                      class="text-xs font-bold hover:underline"
+                      style="color: var(--accent-sage);"
+                    >
+                      সব লিস্ট দেখুন
+                    </button>
+                  </div>
+                `
+                : ''
+            }
+          </div>
+
+          <!-- Cards Stack -->
+          <div class="space-y-6">
+            ${cardsHTML}
+          </div>
+        </div>
       `;
     }
 
@@ -1050,6 +1411,7 @@
       const tabItems = [
         { id: 'all', label: 'All Sections (সবগুলো)' },
         { id: 'vocab', label: `Vocabulary Cards (${lvl.words.length}টি শব্দ)` },
+        { id: 'derivatives', label: `Derivatives (পদ রূপান্তর — ${lvl.words.length}টি শব্দ)` },
         { id: 'my-vocab', label: `My Vocab List (${myVocabCount}টি সেভ করা শব্দ)` },
         { id: 'curriculum', label: 'Curriculum (পাঠ্যক্রম)' },
         { id: 'stories', label: `Big Stories (${lvl.stories ? lvl.stories.length : 0}টি বড় গল্প)` }
@@ -1063,6 +1425,7 @@
       }
 
       const showVocab = activeTab === 'all' || activeTab === 'vocab';
+      const showDerivatives = activeTab === 'all' || activeTab === 'derivatives';
       const showMyVocab = activeTab === 'my-vocab';
       const showCurriculum = activeTab === 'all' || activeTab === 'curriculum';
       const showStories = activeTab === 'all' || activeTab === 'stories';
@@ -1243,6 +1606,17 @@
               ? `
                 <section aria-label="${lvl.title} Newspaper Sentences" class="space-y-6">
                   ${buildNewspaperSentencesHTML(lvl)}
+                </section>
+              `
+              : ''
+          }
+
+          <!-- 5. DERIVATIVES (WORD FAMILY) ACADEMIC STUDY SETS -->
+          ${
+            showDerivatives
+              ? `
+                <section aria-label="${lvl.title} Derivatives Word Family" class="space-y-6" id="derivatives-section">
+                  ${buildDerivativesTabHTML(lvl)}
                 </section>
               `
               : ''
