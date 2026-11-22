@@ -310,6 +310,16 @@
                       </button>
                       ${renderCardAccentSwitcherHTML(wordSpeakId, item.id)}
                       ${typeof renderMyVocabCardButtonHTML === 'function' ? renderMyVocabCardButtonHTML(item.id) : ''}
+                      <button
+                        type="button"
+                        onclick="askAITutorAboutWord('${escapeHtml(item.word)}')"
+                        class="vw-card-ask-tutor-btn"
+                        title="Ask Vocab AI Tutor about ${escapeHtml(item.word)}"
+                        aria-label="Ask Vocab AI Tutor about ${escapeHtml(item.word)}"
+                      >
+                        <span class="text-amber-500 text-xs">✨</span>
+                        <span class="font-bengali text-xs font-bold">Ask Tutor</span>
+                      </button>
                     </div>
 
                     <div class="flex items-center gap-1.5 shrink-0">

@@ -2031,4 +2031,352 @@ button:active:not(:disabled),
   border-color: rgba(74, 222, 128, 0.35);
 }
 
+/* =====================================================================
+   VOCAB AI TUTOR (Two-Button Floating Stack & Slide-Over Chat Drawer)
+   ===================================================================== */
+.vw-ai-tutor-floating-btn {
+  position: fixed;
+  bottom: 82px;
+  right: 20px;
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 9999px;
+  background-color: var(--accent-sage, #2D5A4C);
+  color: #FFFFFF !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px -4px rgba(45, 90, 76, 0.38), 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              background-color 0.2s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vw-ai-tutor-floating-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  background-color: #24493D;
+  box-shadow: 0 12px 30px -4px rgba(45, 90, 76, 0.5);
+}
+
+.vw-ai-tutor-sparkle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #F59E0B;
+  font-size: 1rem;
+  filter: drop-shadow(0 1px 2px rgba(217, 119, 6, 0.5));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vw-ai-tutor-floating-btn:hover .vw-ai-tutor-sparkle-badge {
+  transform: rotate(15deg) scale(1.25);
+}
+
+/* Ensure feedback button stays anchored at bottom: 20px; right: 20px */
+.vw-feedback-floating-btn {
+  bottom: 20px !important;
+  right: 20px !important;
+}
+
+@media (max-width: 640px) {
+  .vw-feedback-floating-btn {
+    bottom: 16px !important;
+    right: 16px !important;
+    padding: 0.55rem 0.9rem !important;
+    font-size: 0.78rem !important;
+  }
+  .vw-ai-tutor-floating-btn {
+    bottom: 74px !important;
+    right: 16px !important;
+    padding: 0.55rem 0.95rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Learn Card Ask Tutor Button */
+.vw-card-ask-tutor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background-color: var(--accent-sage-soft, #EEF4F1);
+  color: var(--accent-sage, #2D5A4C);
+  border: 1px solid rgba(45, 90, 76, 0.25);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.vw-card-ask-tutor-btn:hover {
+  background-color: var(--accent-sage, #2D5A4C);
+  color: #FFFFFF !important;
+  border-color: var(--accent-sage, #2D5A4C);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -2px rgba(45, 90, 76, 0.25);
+}
+
+/* Slide-Over Chat Drawer */
+.vw-ai-tutor-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(14, 33, 27, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.vw-ai-tutor-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.vw-ai-tutor-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 460px;
+  max-width: 100vw;
+  background-color: var(--surface-white, #FFFFFF);
+  box-shadow: -10px 0 40px rgba(14, 33, 27, 0.25);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vw-ai-tutor-drawer.is-open {
+  transform: translateX(0);
+}
+
+.vw-ai-tutor-header {
+  padding: 1rem 1.25rem;
+  background-color: var(--bg-ivory, #FAF8F5);
+  border-bottom: 1px solid var(--border-subtle, #E5DFD3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.vw-ai-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--surface-white, #FFFFFF);
+}
+
+.vw-ai-msg-bubble {
+  max-width: 90%;
+  font-size: 0.825rem;
+  line-height: 1.6;
+  border-radius: 1.25rem;
+  padding: 0.85rem 1.05rem;
+  word-break: break-word;
+}
+
+.vw-ai-msg-user {
+  align-self: flex-end;
+  background-color: var(--accent-sage, #2D5A4C);
+  color: #FFFFFF;
+  border-bottom-right-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(45, 90, 76, 0.2);
+}
+
+.vw-ai-msg-tutor {
+  align-self: flex-start;
+  background-color: var(--bg-ivory, #FAF8F5);
+  color: var(--ink-primary, #1E2421);
+  border: 1px solid var(--border-subtle, #E5DFD3);
+  border-top-left-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.vw-ai-msg-tutor strong {
+  color: var(--accent-sage, #2D5A4C);
+  font-weight: 700;
+}
+
+.vw-ai-chips-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.6rem 1.25rem;
+  border-top: 1px solid var(--border-subtle, #E5DFD3);
+  background-color: var(--bg-ivory, #FAF8F5);
+  scrollbar-width: none;
+}
+
+.vw-ai-chips-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.vw-ai-chip {
+  white-space: nowrap;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background-color: var(--surface-white, #FFFFFF);
+  border: 1px solid var(--border-subtle, #E5DFD3);
+  color: var(--ink-primary, #1E2421);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.vw-ai-chip:hover {
+  background-color: var(--accent-sage-soft, #EEF4F1);
+  border-color: var(--accent-sage, #2D5A4C);
+  color: var(--accent-sage, #2D5A4C);
+  transform: translateY(-1px);
+}
+
+.vw-ai-input-area {
+  padding: 0.75rem 1.25rem 1rem;
+  background-color: var(--bg-ivory, #FAF8F5);
+  border-top: 1px solid var(--border-subtle, #E5DFD3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.vw-ai-textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 1rem;
+  border: 1.5px solid var(--border-subtle, #E5DFD3);
+  background-color: var(--surface-white, #FFFFFF);
+  color: var(--ink-primary, #1E2421);
+  font-size: 0.825rem;
+  line-height: 1.5;
+  resize: none;
+  max-height: 120px;
+  min-height: 42px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vw-ai-textarea:focus {
+  border-color: var(--accent-sage, #2D5A4C);
+  box-shadow: 0 0 0 3px rgba(45, 90, 76, 0.15);
+}
+
+.vw-ai-send-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 0.85rem;
+  background-color: var(--accent-sage, #2D5A4C);
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-end;
+}
+
+.vw-ai-send-btn:hover {
+  background-color: #24493D;
+  transform: translateY(-1px);
+}
+
+.vw-ai-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.vw-ai-speak-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 9999px;
+  background-color: var(--accent-sage-soft, #EEF4F1);
+  color: var(--accent-sage, #2D5A4C);
+  border: 1px solid rgba(45, 90, 76, 0.2);
+  font-size: 0.7rem;
+  cursor: pointer;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+  transition: all 0.15s ease;
+}
+
+.vw-ai-speak-inline:hover {
+  background-color: var(--accent-sage, #2D5A4C);
+  color: #FFFFFF;
+  transform: scale(1.12);
+}
+
+/* Dark mode support */
+[data-theme="dark"] .vw-ai-tutor-drawer {
+  background-color: #171E1B;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .vw-ai-tutor-header,
+[data-theme="dark"] .vw-ai-chips-wrap,
+[data-theme="dark"] .vw-ai-input-area {
+  background-color: #1D2622;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .vw-ai-chat-body {
+  background-color: #171E1B;
+}
+
+[data-theme="dark"] .vw-ai-msg-tutor {
+  background-color: #212C27;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #E2E8E4;
+}
+
+[data-theme="dark"] .vw-ai-msg-tutor strong {
+  color: #4ADE80;
+}
+
+[data-theme="dark"] .vw-ai-chip {
+  background-color: #212C27;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #E2E8E4;
+}
+
+[data-theme="dark"] .vw-ai-chip:hover {
+  background-color: rgba(45, 90, 76, 0.35);
+  border-color: #4ADE80;
+  color: #4ADE80;
+}
+
+[data-theme="dark"] .vw-ai-textarea {
+  background-color: #212C27;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+
 

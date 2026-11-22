@@ -542,7 +542,9 @@ const STORAGE_KEYS = {
   CUSTOM_WORDS: 'vw_custom_words_v1',
   FEEDBACKS: 'vw_user_feedbacks_v1',
   MY_VOCAB: 'vw_my_vocab_list',
-  LAST_WARMUP_DATE: 'vw_last_warmup_date'
+  LAST_WARMUP_DATE: 'vw_last_warmup_date',
+  AI_TUTOR_HISTORY: 'vw_ai_tutor_history',
+  AI_TUTOR_API_KEY: 'vw_ai_tutor_api_key'
 };
 if (typeof window !== 'undefined') {
   window.STORAGE_KEYS = STORAGE_KEYS;
@@ -4312,6 +4314,7 @@ function closeFeedbackModal() {
 
 function ensureFeedbackWidget() {
   if (typeof document === 'undefined' || !document.body) return;
+  ensureAITutorWidget();
 
   // 1. Floating Trigger Button
   if (!document.getElementById('vw-feedback-floating-btn')) {
@@ -4673,6 +4676,1043 @@ if (typeof window !== 'undefined') {
 
 
 /* =====================================================================
+   8.5 VOCAB AI TUTOR — PERSONAL STUDY MENTOR (HYBRID ENGINE WITH OFFLINE FALLBACK)
+   ===================================================================== */
+
+let aiTutorChatHistory = null;
+let isAITutorThinking = false;
+let activeTutorWordContext = null;
+
+function getAITutorIconSvg(classes = 'w-5 h-5') {
+  return `<svg class="${classes}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="48" height="48" rx="14" fill="#2D5A4C"/>
+    <path d="M24 35C21.8 32.5 16 30.5 12 31.8L15 17C18.5 16 22 18.5 24 21C26 18.5 29.5 16 33 17L36 31.8C32 30.5 26.2 32.5 24 35Z" fill="#FAF8F5"/>
+    <path d="M23.75 21V35C23.75 35 24 35.3 24.25 35V21H23.75Z" fill="#2D5A4C" fill-opacity="0.3"/>
+    <path d="M37 9L38.2 12.8L42 14L38.2 15.2L37 19L35.8 15.2L32 14L35.8 12.8L37 9Z" fill="#F59E0B"/>
+    <circle cx="15" cy="12" r="1.5" fill="#FAF8F5" fill-opacity="0.7"/>
+  </svg>`;
+}
+
+function getStoredAITutorHistory() {
+  if (aiTutorChatHistory !== null) return aiTutorChatHistory;
+  try {
+    const raw = (typeof localStorage !== 'undefined') ? localStorage.getItem(STORAGE_KEYS.AI_TUTOR_HISTORY) : null;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        aiTutorChatHistory = parsed;
+        return aiTutorChatHistory;
+      }
+    }
+  } catch (e) {}
+  aiTutorChatHistory = [];
+  return aiTutorChatHistory;
+}
+
+function saveStoredAITutorHistory(history) {
+  aiTutorChatHistory = Array.isArray(history) ? history : [];
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.AI_TUTOR_HISTORY, JSON.stringify(aiTutorChatHistory));
+    }
+  } catch (e) {}
+}
+
+function getStoredAITutorApiKey() {
+  try {
+    if (typeof localStorage !== 'undefined') {
+      return (localStorage.getItem(STORAGE_KEYS.AI_TUTOR_API_KEY) || '').trim();
+    }
+  } catch (e) {}
+  return '';
+}
+
+function saveAITutorKey() {
+  if (typeof document === 'undefined') return;
+  const input = document.getElementById('vw-ai-key-input');
+  if (!input) return;
+  const key = (input.value || '').trim();
+  try {
+    if (typeof localStorage !== 'undefined') {
+      if (key) {
+        localStorage.setItem(STORAGE_KEYS.AI_TUTOR_API_KEY, key);
+        if (typeof showToast === 'function') showToast('✓ AI Key সংরক্ষিত হয়েছে!', 'success');
+      } else {
+        localStorage.removeItem(STORAGE_KEYS.AI_TUTOR_API_KEY);
+        if (typeof showToast === 'function') showToast('AI Key মুছে ফেলা হয়েছে (অফলাইন মোড সক্রিয়)', 'info');
+      }
+    }
+  } catch (e) {}
+  const panel = document.getElementById('vw-ai-key-panel');
+  if (panel) panel.classList.add('hidden');
+}
+
+function removeAITutorKey() {
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(STORAGE_KEYS.AI_TUTOR_API_KEY);
+    }
+  } catch (e) {}
+  const input = document.getElementById('vw-ai-key-input');
+  if (input) input.value = '';
+  if (typeof showToast === 'function') showToast('AI Key মুছে ফেলা হয়েছে (বিল্ট-ইন অফলাইন মেন্টর সক্রিয়)', 'info');
+  const panel = document.getElementById('vw-ai-key-panel');
+  if (panel) panel.classList.add('hidden');
+}
+
+function toggleAITutorKeyModal() {
+  if (typeof document === 'undefined') return;
+  const panel = document.getElementById('vw-ai-key-panel');
+  if (!panel) return;
+  panel.classList.toggle('hidden');
+  if (!panel.classList.contains('hidden')) {
+    const input = document.getElementById('vw-ai-key-input');
+    if (input) {
+      input.value = getStoredAITutorApiKey();
+      input.focus();
+    }
+  }
+}
+
+function ensureAITutorWidget() {
+  if (typeof document === 'undefined' || !document.body) return;
+
+  // 1. Floating Action Button directly above Feedback button
+  if (!document.getElementById('vw-ai-tutor-floating-btn')) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'vw-ai-tutor-floating-btn';
+    btn.onclick = () => openAITutorModal();
+    btn.className = 'vw-ai-tutor-floating-btn';
+    btn.title = 'Vocab AI Tutor • আপনার পার্সোনাল স্টাডি মেন্টর';
+    btn.setAttribute('aria-label', 'Ask Vocab AI Tutor');
+    btn.innerHTML = `
+      <span class="vw-ai-tutor-sparkle-badge" aria-hidden="true">✨</span>
+      <span class="vw-ai-tutor-btn-text">Ask Vocab AI</span>
+    `;
+    document.body.appendChild(btn);
+  }
+
+  // 2. Overlay Backdrop
+  if (!document.getElementById('vw-ai-tutor-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.id = 'vw-ai-tutor-overlay';
+    overlay.className = 'vw-ai-tutor-overlay';
+    overlay.onclick = () => closeAITutorModal();
+    document.body.appendChild(overlay);
+  }
+
+  // 3. Slide-Over Chat Drawer
+  if (!document.getElementById('vw-ai-tutor-drawer')) {
+    const drawer = document.createElement('aside');
+    drawer.id = 'vw-ai-tutor-drawer';
+    drawer.className = 'vw-ai-tutor-drawer';
+    drawer.setAttribute('role', 'dialog');
+    drawer.setAttribute('aria-modal', 'true');
+    drawer.setAttribute('aria-labelledby', 'vw-ai-tutor-title');
+    drawer.innerHTML = `
+      <!-- 1. Header Bar -->
+      <div class="vw-ai-tutor-header">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+            ${getAITutorIconSvg('w-6 h-6')}
+          </div>
+          <div class="min-w-0">
+            <h3 id="vw-ai-tutor-title" class="font-editorial text-base sm:text-lg font-bold truncate leading-tight" style="color: var(--ink-primary);">
+              Vocab AI Tutor
+            </h3>
+            <p class="font-bengali text-xs flex items-center gap-1.5 mt-0.5" style="color: var(--ink-muted);">
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Bangla &amp; English Study Mentor</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            id="vw-ai-key-btn"
+            onclick="toggleAITutorKeyModal()"
+            class="p-1.5 rounded-full border text-xs text-gray-500 hover:text-[#2D5A4C] hover:border-[#2D5A4C] transition-colors cursor-pointer"
+            style="border-color: var(--border-subtle);"
+            title="API Key Settings (ঐচ্ছিক)"
+            aria-label="API Key Settings"
+          >
+            🔑
+          </button>
+          <button
+            type="button"
+            id="vw-ai-clear-btn"
+            onclick="clearAITutorChat()"
+            class="px-2.5 py-1 rounded-full border text-xs font-bold text-gray-600 hover:text-red-600 hover:border-red-300 transition-colors cursor-pointer"
+            style="border-color: var(--border-subtle); background-color: var(--surface-white);"
+            title="Clear Chat History"
+          >
+            Clear Chat
+          </button>
+          <button
+            type="button"
+            id="vw-ai-close-btn"
+            onclick="closeAITutorModal()"
+            class="w-8 h-8 rounded-full border flex items-center justify-center text-gray-500 hover:text-[#2D5A4C] hover:border-[#2D5A4C] transition-colors cursor-pointer"
+            style="border-color: var(--border-subtle);"
+            title="Close Drawer (Esc)"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <!-- Optional API Key Settings Panel -->
+      <div id="vw-ai-key-panel" class="hidden px-4 py-3 border-b text-xs space-y-2" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+        <div class="flex items-center justify-between font-bold" style="color: var(--ink-primary);">
+          <span>Custom AI Key (Optional)</span>
+          <span class="font-normal text-[11px] text-gray-500">বিনা কীতেও অফলাইনে স্টাডি মেন্টর চলবে</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input
+            id="vw-ai-key-input"
+            type="password"
+            placeholder="Paste Gemini API key here..."
+            class="flex-1 px-3 py-1.5 rounded-xl border text-xs bg-white text-gray-800 outline-none"
+          />
+          <button
+            type="button"
+            onclick="saveAITutorKey()"
+            class="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#2D5A4C] text-white cursor-pointer hover:bg-[#23483D]"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            onclick="removeAITutorKey()"
+            class="px-2 py-1.5 rounded-xl text-xs text-red-600 hover:bg-red-50 cursor-pointer"
+            title="Clear Key"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Chat Messages Body -->
+      <div id="vw-ai-chat-body" class="vw-ai-chat-body">
+        <!-- Messages rendered dynamically -->
+      </div>
+
+      <!-- 3. Quick-Ask Suggestion Chips -->
+      <div class="vw-ai-chips-wrap" id="vw-ai-chips-wrap">
+        <button
+          type="button"
+          class="vw-ai-chip"
+          onclick="sendQuickAITutorPrompt('সহজ বাংলায় মনে রাখার ট্রিক দাও 🧠')"
+        >
+          সহজ বাংলায় মনে রাখার ট্রিক দাও 🧠
+        </button>
+        <button
+          type="button"
+          class="vw-ai-chip"
+          onclick="sendQuickAITutorPrompt('দৈনন্দিন জীবনের উদাহরণ দাও 💬')"
+        >
+          দৈনন্দিন জীবনের উদাহরণ দাও 💬
+        </button>
+        <button
+          type="button"
+          class="vw-ai-chip"
+          onclick="sendQuickAITutorPrompt('Noun, Verb, Adj রূপগুলো দেখাও 📊')"
+        >
+          Noun, Verb, Adj রূপগুলো দেখাও 📊
+        </button>
+        <button
+          type="button"
+          class="vw-ai-chip"
+          onclick="sendQuickAITutorPrompt('Accept vs Except পার্থক্য কী? 🤔')"
+        >
+          Accept vs Except পার্থক্য কী? 🤔
+        </button>
+      </div>
+
+      <!-- 4. Input Area -->
+      <div class="vw-ai-input-area">
+        <div class="flex items-end gap-2">
+          <textarea
+            id="vw-ai-chat-input"
+            class="vw-ai-textarea"
+            rows="1"
+            placeholder="যেকোনো শব্দ, গ্রামার বা কনফিউশন জিজ্ঞেস করো..."
+          ></textarea>
+          <button
+            type="button"
+            id="vw-ai-send-btn"
+            onclick="submitAITutorMessage()"
+            class="vw-ai-send-btn"
+            aria-label="Send message"
+          >
+            <span>Send</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </button>
+        </div>
+        <div class="text-[10px] text-center font-medium opacity-65 flex items-center justify-center gap-1.5" style="color: var(--ink-muted);">
+          <span>🌿 Vocab AI Tutor &bull; Vocabulary World's Personal Study Mentor</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(drawer);
+
+    // Auto-grow textarea handler
+    const input = typeof drawer.querySelector === 'function' ? drawer.querySelector('#vw-ai-chat-input') : null;
+    if (input) {
+      input.addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+      });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          submitAITutorMessage();
+        }
+      });
+    }
+
+    // Escape key listener to close drawer
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const d = document.getElementById('vw-ai-tutor-drawer');
+        if (d && d.classList.contains('is-open')) {
+          closeAITutorModal();
+        }
+      }
+    });
+  }
+}
+
+function openAITutorModal(preloadedPrompt = null) {
+  ensureAITutorWidget();
+  const drawer = document.getElementById('vw-ai-tutor-drawer');
+  const overlay = document.getElementById('vw-ai-tutor-overlay');
+  if (drawer && overlay) {
+    overlay.classList.add('is-open');
+    drawer.classList.add('is-open');
+  }
+
+  renderAITutorChatHistory();
+
+  const input = document.getElementById('vw-ai-chat-input');
+  if (input) {
+    if (preloadedPrompt) {
+      input.value = preloadedPrompt;
+      submitAITutorMessage();
+    } else {
+      setTimeout(() => input.focus(), 250);
+    }
+  }
+}
+
+function closeAITutorModal() {
+  const drawer = document.getElementById('vw-ai-tutor-drawer');
+  const overlay = document.getElementById('vw-ai-tutor-overlay');
+  if (drawer && overlay) {
+    drawer.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+  }
+  const keyPanel = document.getElementById('vw-ai-key-panel');
+  if (keyPanel) keyPanel.classList.add('hidden');
+}
+
+function toggleAITutorModal() {
+  const drawer = document.getElementById('vw-ai-tutor-drawer');
+  if (drawer && drawer.classList.contains('is-open')) {
+    closeAITutorModal();
+  } else {
+    openAITutorModal();
+  }
+}
+
+function askAITutorAboutWord(wordName) {
+  if (!wordName) return;
+  activeTutorWordContext = wordName;
+  const prompt = `আমাকে "${wordName}" শব্দটি সম্পর্কে বুঝিয়ে বলো। এর বাংলা অর্থ, সহজে মনে রাখার ট্রিক, দৈনন্দিন ব্যবহারের উদাহরণ এবং Derivatives (Noun/Verb/Adj/Adv) বুঝিয়ে দাও।`;
+  openAITutorModal(prompt);
+}
+
+function sendQuickAITutorPrompt(promptText) {
+  if (!promptText) return;
+  const input = document.getElementById('vw-ai-chat-input');
+  if (input) {
+    if (activeTutorWordContext && !promptText.toLowerCase().includes(activeTutorWordContext.toLowerCase())) {
+      input.value = `"${activeTutorWordContext}" শব্দটির ${promptText}`;
+    } else {
+      input.value = promptText;
+    }
+    submitAITutorMessage();
+  }
+}
+
+function clearAITutorChat() {
+  saveStoredAITutorHistory([]);
+  activeTutorWordContext = null;
+  renderAITutorChatHistory();
+  if (typeof showToast === 'function') {
+    showToast('✓ চ্যাট হিস্ট্রি ক্লিয়ার করা হয়েছে', 'info');
+  }
+}
+
+function renderAITutorChatHistory() {
+  const chatBody = document.getElementById('vw-ai-chat-body');
+  if (!chatBody) return;
+
+  const history = getStoredAITutorHistory();
+  chatBody.innerHTML = '';
+
+  if (history.length === 0) {
+    // Welcome Greeting Card
+    const welcome = document.createElement('div');
+    welcome.className = 'vw-ai-msg-bubble vw-ai-msg-tutor space-y-2';
+    welcome.innerHTML = `
+      <div class="flex items-center gap-2 mb-1.5">
+        <span class="text-base">🌿✨</span>
+        <strong class="font-editorial font-bold text-sm" style="color: var(--accent-sage);">
+          স্বাগতম! আমি Vocab AI Tutor
+        </strong>
+      </div>
+      <p class="text-xs leading-relaxed">
+        আমি <strong>Vocabulary World</strong>-এর তোমার পার্সোনাল স্টাডি মেন্টর। ইংরেজি শব্দভান্ডার, বাংলা অর্থ, সহজে মনে রাখার ট্রিক (Mnemonic), গ্রামার, বা বিসিএস/আইইএলটিএস পরীক্ষার যেকোনো প্রশ্ন আমাকে নির্দ্বিধায় জিজ্ঞেস করো!
+      </p>
+      <div class="rounded-xl p-2.5 text-[11px] border mt-2 space-y-1" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+        <span class="font-bold block" style="color: var(--accent-sage);">💡 সহজে যা যা জানতে পারো:</span>
+        <p>• যেকোনো শব্দের অর্থ, Noun/Verb/Adj রূপ ও ট্রিক</p>
+        <p>• কনফিউজিং শব্দের পার্থক্য (যেমন: Accept vs Except)</p>
+        <p>• বাস্তব জীবনে বাক্যে ব্যবহারের উদাহরণ ও উচ্চারণ</p>
+      </div>
+    `;
+    chatBody.appendChild(welcome);
+  } else {
+    history.forEach((msg) => {
+      appendChatMessageToDOM(msg.sender, msg.text);
+    });
+  }
+
+  scrollAITutorChatToBottom();
+}
+
+function appendChatMessageToDOM(sender, text) {
+  const chatBody = document.getElementById('vw-ai-chat-body');
+  if (!chatBody) return;
+
+  const bubble = document.createElement('div');
+  bubble.className = `vw-ai-msg-bubble ${sender === 'user' ? 'vw-ai-msg-user' : 'vw-ai-msg-tutor'}`;
+
+  if (sender === 'user') {
+    bubble.textContent = text;
+  } else {
+    bubble.innerHTML = formatAITutorMarkdown(text);
+  }
+
+  chatBody.appendChild(bubble);
+  scrollAITutorChatToBottom();
+}
+
+function scrollAITutorChatToBottom() {
+  const chatBody = document.getElementById('vw-ai-chat-body');
+  if (chatBody) {
+    setTimeout(() => {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 50);
+  }
+}
+
+function formatAITutorMarkdown(text) {
+  if (!text) return '';
+  let html = String(text);
+
+  // Escape basic HTML tags
+  html = html
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Bold **text**
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Headers (### Header)
+  html = html.replace(/^### (.*$)/gim, '<h4 class="font-editorial text-sm font-bold text-[#2D5A4C] mt-2 mb-1">$1</h4>');
+
+  // Bullet items
+  html = html.replace(/^\s*• (.*$)/gim, '<div class="flex items-start gap-1.5 my-1"><span class="text-[#2D5A4C] font-bold">•</span><div class="flex-1">$1</div></div>');
+  html = html.replace(/^\s*- (.*$)/gim, '<div class="flex items-start gap-1.5 my-1"><span class="text-[#2D5A4C] font-bold">•</span><div class="flex-1">$1</div></div>');
+
+  // Line breaks
+  html = html.replace(/\n\n/g, '<div class="h-2"></div>');
+  html = html.replace(/\n/g, '<br/>');
+
+  // Replace 🔊 with interactive audio speaker buttons
+  html = html.replace(/🔊/g, `<button type="button" class="vw-ai-speak-inline" onclick="speakFromChat(this)" title="উচ্চারণ শুনুন" aria-label="Listen">🔊</button>`);
+
+  return html;
+}
+
+function speakFromChat(btn) {
+  if (!btn) return;
+  // Find preceding text or word
+  const parent = btn.parentElement || btn;
+  let textToSpeak = parent.textContent.replace(/🔊/g, '').trim();
+  // If text is long, extract the English sentence or word
+  const match = textToSpeak.match(/["“]([^"”]+)["”]/) || textToSpeak.match(/\b([A-Za-z\s]{2,40})\b/);
+  if (match && match[1]) {
+    textToSpeak = match[1].trim();
+  }
+  if (typeof speakEnglish === 'function') {
+    speakEnglish(textToSpeak, btn, 'en-US');
+  } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(textToSpeak);
+    u.lang = 'en-US';
+    window.speechSynthesis.speak(u);
+  }
+}
+
+async function submitAITutorMessage() {
+  if (isAITutorThinking) return;
+  const input = document.getElementById('vw-ai-chat-input');
+  if (!input) return;
+  const message = (input.value || '').trim();
+  if (!message) return;
+
+  // Clear input
+  input.value = '';
+  input.style.height = 'auto';
+
+  // Add user message to history & DOM
+  const history = getStoredAITutorHistory();
+  history.push({ sender: 'user', text: message });
+  saveStoredAITutorHistory(history);
+  appendChatMessageToDOM('user', message);
+
+  // Show typing indicator
+  showAITutorTypingIndicator();
+
+  try {
+    const reply = await callAITutorEngine(message, history);
+    hideAITutorTypingIndicator();
+    history.push({ sender: 'tutor', text: reply });
+    saveStoredAITutorHistory(history);
+    appendChatMessageToDOM('tutor', reply);
+  } catch (err) {
+    hideAITutorTypingIndicator();
+    // Fallback to local response
+    const fallback = generateLocalAITutorResponse(message);
+    history.push({ sender: 'tutor', text: fallback });
+    saveStoredAITutorHistory(history);
+    appendChatMessageToDOM('tutor', fallback);
+  }
+}
+
+function showAITutorTypingIndicator() {
+  isAITutorThinking = true;
+  const sendBtn = document.getElementById('vw-ai-send-btn');
+  if (sendBtn) sendBtn.disabled = true;
+
+  const chatBody = document.getElementById('vw-ai-chat-body');
+  if (!chatBody) return;
+
+  let indicator = document.getElementById('vw-ai-typing-indicator');
+  if (!indicator) {
+    indicator = document.createElement('div');
+    indicator.id = 'vw-ai-typing-indicator';
+    indicator.className = 'vw-ai-msg-bubble vw-ai-msg-tutor flex items-center gap-2 text-xs';
+    indicator.innerHTML = `
+      <span class="inline-flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#2D5A4C] animate-bounce"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#2D5A4C] animate-bounce" style="animation-delay: 0.15s;"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#2D5A4C] animate-bounce" style="animation-delay: 0.3s;"></span>
+      </span>
+      <span class="font-bengali text-xs" style="color: var(--ink-muted);">Vocab AI Tutor ভাবছে...</span>
+    `;
+    chatBody.appendChild(indicator);
+    scrollAITutorChatToBottom();
+  }
+}
+
+function hideAITutorTypingIndicator() {
+  isAITutorThinking = false;
+  const sendBtn = document.getElementById('vw-ai-send-btn');
+  if (sendBtn) sendBtn.disabled = false;
+
+  const indicator = document.getElementById('vw-ai-typing-indicator');
+  if (indicator) indicator.remove();
+}
+
+async function callAITutorEngine(userPrompt, history) {
+  const apiKey = getStoredAITutorApiKey();
+  const isOnline = (typeof navigator !== 'undefined' && navigator.onLine !== false);
+
+  if (apiKey && isOnline) {
+    try {
+      return await callAITutorAPI(userPrompt, history, apiKey);
+    } catch (apiErr) {
+      console.warn('[Vocab AI Tutor] API call failed, falling back to local study mentor:', apiErr);
+      return generateLocalAITutorResponse(userPrompt);
+    }
+  }
+
+  // Smart Local Fallback Responder
+  return generateLocalAITutorResponse(userPrompt);
+}
+
+async function callAITutorAPI(prompt, chatHistory, apiKey) {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+  const contents = [];
+  if (Array.isArray(chatHistory)) {
+    // Only pass last 6 messages
+    const recent = chatHistory.slice(-6);
+    recent.forEach((m) => {
+      if (m.sender === 'user') {
+        contents.push({ role: 'user', parts: [{ text: m.text }] });
+      } else if (m.sender === 'tutor') {
+        contents.push({ role: 'model', parts: [{ text: m.text }] });
+      }
+    });
+  }
+  contents.push({ role: 'user', parts: [{ text: prompt }] });
+
+  const payload = {
+    systemInstruction: {
+      parts: [{
+        text: `You are 'Vocab AI Tutor', the exclusive built-in personal study mentor of Vocabulary World (an interactive English-Bangla vocabulary platform). You were created by Vocabulary World to help students and candidates (BCS, HSC, SSC, Bank, IELTS) master English vocabulary, grammar, and sentence structures.
+
+CRITICAL IDENTITY RULES:
+- NEVER mention Google, Gemini, OpenAI, or any third-party company or AI model. Always identify yourself as 'Vocab AI Tutor', Vocabulary World's built-in personal study mentor.
+- Teach in an encouraging, friendly, and structured bilingual (Bangla + English) style.
+- When explaining a word or vocabulary concept, structure your response clearly:
+  1. 🌿 বাংলা অর্থ ও উচ্চারণ (Bangla meaning & pronunciation)
+  2. 🧠 সহজে মনে রাখার ট্রিক (Mnemonic / clever memory hook)
+  3. 📊 Derivatives / Word Family (Noun, Verb, Adjective, Adverb forms)
+  4. 💬 দৈনন্দিন ও পরীক্ষার উদাহরণ বাক্য (Daily life & exam examples with Bangla translations)
+  5. 🔄 Synonyms & Antonyms (সমার্থক ও বিপরীত শব্দ)
+- Use warm emojis (🌿, 💡, 🧠, 💬, 📌, 📊).
+- Keep explanations clear, engaging, and mobile-friendly.`
+      }]
+    },
+    contents: contents,
+    generationConfig: {
+      temperature: 0.6,
+      maxOutputTokens: 1200
+    }
+  };
+
+  // Exponential backoff retry logic (up to 2 attempts)
+  let lastErr = null;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      if (attempt > 0) {
+        await new Promise((r) => setTimeout(r, 1200 * attempt));
+      }
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 14000);
+
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (!resp.ok) {
+        throw new Error(`HTTP ${resp.status}`);
+      }
+
+      const data = await resp.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (text) {
+        return text;
+      }
+      throw new Error('Empty response');
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  throw lastErr || new Error('API connection failed');
+}
+
+function getMnemonicForWord(word, meaningBn) {
+  const w = String(word || '').toLowerCase();
+  const mnemonics = {
+    abandon: 'a + band + on -> ব্যান্ড দল ফেলে একা চলে যাওয়া = পরিত্যাগ করা।',
+    abate: 'at + ate -> খেয়ে পেট ভরে যাওয়ার পর ক্ষুধা কমে গেল = তীব্রতা হ্রাস পাওয়া।',
+    abbreviate: 'brevity / brief -> কোনো কিছু সংক্ষেপ করা।',
+    abdicate: 'ab (away) + dicate (declare) -> পদ ছেড়ে দেওয়া বা সিংহাসন ত্যাগ করা।',
+    aberration: 'ab (away) + err (ভুল করা) -> স্বাভাবিক পথ থেকে বিচ্যুতি।',
+    abhor: 'ab + horror -> হরর বা ভয়ের কিছু দেখে তীব্র ঘৃণা করা।',
+    abide: 'বিপদেও বন্ধুর পাশে দৃঢ়ভাবে অবস্থান করা বা নিয়ম মেনে চলা।',
+    abode: 'বসবাসের জায়গা বা বাসস্থান (Home / Dwelling)।',
+    abolish: 'বিলুপ্ত করা বা রদ করা (A + polish -> পুরোনো প্রথা মুছে ফেলা)।',
+    abrupt: 'হঠাৎ বা অপ্রত্যাশিত (Erupt-এর মতো আকস্মিক)।',
+    absorb: 'স্পঞ্জের মতো শুষে নেওয়া বা গভীর মনোযোগ দেওয়া।',
+    abstract: 'বাস্তব নয় এমন বিমূর্ত ধারণা (Extract of thought)।',
+    absurd: 'হাস্যকর বা অযৌক্তিক।',
+    abundant: 'A + bun (রুটি) প্রচুর পরিমাণে থাকা = প্রাচুর্যময় বা বিপুল।',
+    accelerate: 'গাড়ির accelerator চাপলে যেমন গতি বাড়ে = গতি বাড়ানো বা ত্বরান্বিত করা।',
+    accept: 'A + cept (গ্রহণ) -> হাত বাড়িয়ে হাসিমুখে গ্রহণ করা।',
+    access: 'প্রবেশাধিকার বা নাগাল পাওয়া (Access to information)।',
+    acclaim: 'উচ্ছ্বসিত প্রশংসা করা (Claim applause)।',
+    accommodate: 'আবাসন দেওয়া বা খাপ খাইয়ে নেওয়া।',
+    accomplish: 'সফলভাবে সম্পন্ন করা বা অর্জন করা।',
+    accurate: 'সঠিক ও নির্ভুল (Cure করে নিখুঁত করা)।',
+    accuse: 'অভিযোগ আনা বা দোষারোপ করা।',
+    acquire: 'অর্জন করা বা আয়ত্তে আনা (Acquire knowledge)।',
+    acute: 'তীব্র বা সূক্ষ্ম (Acute angle / acute pain)।',
+    adamant: 'অনমনীয় বা অটল (Diamond-এর মতো শক্ত সংকল্প)।',
+    adapt: 'নতুন পরিবেশে নিজেকে মানিয়ে নেওয়া।',
+    adequate: 'পর্যাপ্ত বা যথেষ্ট (Equal to requirement)।',
+    adhere: 'দৃঢ়ভাবে লেগে থাকা বা নীতি মেনে চলা (Adhesive-এর মতো আঠার মতো লেগে থাকা)।',
+    adjourn: 'মুলতবি করা (Ad + journal -> আজকের মতো বন্ধ রাখা)।',
+    admire: 'শ্রদ্ধা বা প্রশংসা করা।',
+    admonish: 'মৃদু তিরস্কার করা বা সতর্ক করা।',
+    adolescent: 'কৈশোর বা বয়ঃসন্ধিকালের তরুণ।',
+    adverse: 'প্রতিকূল বা ক্ষতিকর (Reverse / বিরোধী অবস্থা)।',
+    advocate: 'কারও পক্ষে কথা বলা বা সমর্থন করা।',
+    aesthetic: 'নান্দনিক বা সৌন্দর্যবোধ সংক্রান্ত।',
+    affable: 'মিশুক ও অমায়িক স্বভাবের (Easy to talk to)।',
+    affection: 'স্নেহ, মায়া বা ভালোবাসা।',
+    afford: 'সামর্থ্য থাকা (Can afford the cost)।',
+    affluent: 'বিত্তবান বা সমৃদ্ধিশালী (Flowing with wealth)।',
+    afraid: 'ভীত বা শঙ্কিত।',
+    aggravate: 'পরিস্থিতি আরও খারাপ বা অবনতি করা (Grave = গম্ভীর থেকে অবনতি)।',
+    agile: 'চটপটে, দ্রুত ও ক্ষিপ্র গতির।',
+    agony: 'তীব্র শারীরিক বা মানসিক যন্ত্রণা (Agonize / যন্ত্রণায় কাতড়ানো)।',
+    agree: 'একমত হওয়া বা সম্মতি দেওয়া।',
+    alleviate: 'কষ্ট বা ব্যথা লাঘব করা (Relieve-এর মতো হালকা করা)।',
+    allude: 'পরোক্ষভাবে ইঙ্গিত করা।',
+    allocate: 'বরাদ্দ করা (Localize / ভাগ করে দেওয়া)।',
+    allow: 'অনুমতি দেওয়া।',
+    alter: 'পরিবর্তন করা (Alternative খোঁজা)।',
+    altruistic: 'পরোপকারী বা নিঃস্বার্থ (All + true care for others)।',
+    ambiguous: 'অস্পষ্ট বা দ্ব্যর্থবোধক (Ambi = উভয় দিকে অর্থ যেতে পারে)।',
+    ambition: 'উচ্চাকাঙ্ক্ষা বা লক্ষ্য।',
+    ameliorate: 'উন্নতি সাধন করা (Make better)।',
+    amenable: 'বাধ্য বা পরামর্শ গ্রহণ করতে প্রস্তুত।',
+    amiable: 'বন্ধুভাবাপন্ন ও অমায়িক (Amigo = বন্ধু)।',
+    amuse: 'আনন্দ দেওয়া বা কৌতুক করা।',
+    anachronism: 'কালবৈষম্য বা সেকেলে ব্যাপার (Ana + Chronos/Time)।',
+    analogous: 'সাদৃশ্যপূর্ণ বা অনুরূপ (Analogy থেকে)।',
+    analyze: 'বিশ্লেষণ করা বা পুঙ্খানুপুঙ্খ পরীক্ষা করা।',
+    ancient: 'প্রাচীন বা অতি পুরোনো।',
+    animosity: 'তীব্র শত্রুতা বা বিদ্বেষ (Enemy-like feeling)।',
+    anomaly: 'ব্যতিক্রম বা অসঙ্গতি (Not normal)।',
+    anonymous: 'বেনামী বা অজ্ঞাতনামা (Without a name)।',
+    antipathy: 'তীব্র অপছন্দ বা অনীহা (Anti + Pathos/feeling)।',
+    anxious: 'উদ্বিগ্ন বা চিন্তিত।',
+    apologize: 'ক্ষমা চাওয়া বা দুঃখ প্রকাশ করা।',
+    appear: 'উপস্থিত হওয়া বা দৃশ্যমান হওয়া।',
+    appease: 'শান্ত বা তুষ্ট করা (Peace আনা)।',
+    appreciate: 'মূল্যায়ন বা কদর করা।',
+    apprehensive: 'উদ্বিগ্ন বা শঙ্কিত।',
+    approach: 'কাছে যাওয়া বা পদক্ষেপ নেওয়া।',
+    appropriate: 'উপযুক্ত বা মানানসই।',
+    approve: 'অনুমোদন দেওয়া বা পছন্দ করা।',
+    apathy: 'উদাসীনতা বা অনীহা (No feeling)।',
+    apex: 'সর্বোচ্চ চূড়া বা শীর্ষবিন্দু (Peak)।',
+    arbitrary: 'স্বেচ্ছাচারী বা খেয়ালখুশিমতো করা।',
+    arcane: 'রহস্যময় বা গুপ্ত (Hard to understand)।',
+    archaic: 'অতি প্রাচীন বা অপ্রচলিত।',
+    ardent: 'উগ্র উৎসাহী বা তীব্র আবেগপূর্ণ।',
+    arduous: 'অত্যন্ত শ্রমসাধ্য বা কঠিন (Hard for us)।',
+    argue: 'তর্ক করা বা যুক্তি দেওয়া।',
+    aroma: 'সুগন্ধ বা সুবাস।',
+    arrange: 'সাজানো বা আয়োজন করা।',
+    arrogant: 'অহংকারী বা উদ্ধত।',
+    articulate: 'স্পষ্টভাবে মনের ভাব প্রকাশ করতে সক্ষম।',
+    ascend: 'উপরে ওঠা বা আরোহণ করা।',
+    ascertain: 'নিশ্চিত করা বা সত্য খুঁজে বের করা (Make certain)।',
+    aspire: 'কোনো উচ্চ লক্ষ্য অর্জনের তীব্র আকাঙ্ক্ষা করা।',
+    assert: 'দৃঢ়তার সাথে দাবি করা বা ব্যক্ত করা।',
+    assess: 'মূল্যায়ন বা পরিমাপ করা।',
+    assist: 'সাহায্য বা সহযোগিতা করা।',
+    assuage: 'তীব্র অনুভূতি বা যন্ত্রণা প্রশমিত করা (Sweeten / calm down)।',
+    astute: 'তীক্ষ্ণবুদ্ধিসম্পন্ন বা চতুর (Acute + smart)।',
+    audacious: 'দুঃসাহসী বা স্পর্ধিত।',
+    augment: 'বৃদ্ধি করা বা বাড়ানো (August = মহৎ থেকে বৃদ্ধি)।',
+    auspicious: 'শুভ বা অনুকূল লক্ষণযুক্ত।',
+    austere: 'কঠোর বা সাদাসিধে (Strict lifestyle)।',
+    authentic: 'খাঁটি বা আসল (Genuine)।',
+    autonomous: 'স্বায়ত্তশাসিত বা স্বাধীন (Auto = স্বয়ং)।',
+    avid: 'অত্যন্ত আগ্রহী বা অনুসন্ধিৎসু (Eager reader)।'
+  };
+
+  if (mnemonics[w]) return mnemonics[w];
+
+  return `শব্দটিকে ছোট অংশে ভাগ করে ভিজ্যুয়াল কল্পনা করো: "${word}" শব্দের অর্থ "${meaningBn || 'শব্দার্থ'}"। শব্দটির অর্থ নিজের জীবনের পরিচিত কোনো ঘটনার সাথে লিংক করে মনে রাখো।`;
+}
+
+function getConfusingPairComparison(text) {
+  const t = String(text || '').toLowerCase();
+
+  if (t.includes('accept') && t.includes('except')) {
+    return `### 💡 Accept vs Except — সহজ পার্থক্য ও ট্রিক
+
+1. **Accept (Verb — গ্রহণ করা / মেনে নেওয়া):**
+   • **অর্থ:** কোনো প্রস্তাব, উপহার বা মতামত স্বেচ্ছায় গ্রহণ করা।
+   • **উদাহরণ:** "The committee unanimously **accepted** her research proposal." 🔊
+   • **Mnemonic:** **A**ccept শুরু হয় **A** দিয়ে, যেমন **A**gree to receive!
+
+2. **Except (Preposition / Conjunction — ছাড়া / ব্যতীত):**
+   • **অর্থ:** কোনো কিছুকে বাদ দিয়ে বা অতিরিক্ত হিসেবে উল্লেখ করা।
+   • **উদাহরণ:** "All students completed the assignment **except** Leo." 🔊
+   • **Mnemonic:** **Ex**cept শুরু হয় **Ex** দিয়ে, যেমন **Ex**clude (বাদ দেওয়া)!
+
+📌 **পরীক্ষার কমন বাক্য:** "I **accept** all conditions **except** the last clause." — দুটি শব্দ একসাথে মনে রাখলে কনফিউশন দূর হয়ে যাবে!`;
+  }
+
+  if (t.includes('affect') && t.includes('effect')) {
+    return `### 💡 Affect vs Effect — সহজ পার্থক্য ও ট্রিক
+
+1. **Affect (সাধারণত Verb — প্রভাবিত করা):**
+   • **অর্থ:** কোনো কিছুর উপর প্রভাব বিস্তার করা বা পরিবর্তন আনা।
+   • **উদাহরণ:** "Irregular study habits will negatively **affect** your exam scores." 🔊
+   • **Mnemonic:** **A**ffect = **A**ction (ক্রিয়া বা Verb)!
+
+2. **Effect (সাধারণত Noun — ফলাফল বা প্রভাব):**
+   • **অর্থ:** কোনো কাজের চূড়ান্ত পরিণতি বা ফলাফল।
+   • **উদাহরণ:** "The positive **effect** of daily revision is clearly noticeable." 🔊
+   • **Mnemonic:** **E**ffect = **E**nd result (ফলাফল বা Noun)!
+
+📌 **শর্টকাট ফর্মুলা (RAVEN):**
+• **R**emember: **A**ffect is a **V**erb, **E**ffect is a **N**oun!`;
+  }
+
+  if (t.includes('advice') && t.includes('advise')) {
+    return `### 💡 Advice vs Advise — সহজ পার্থক্য ও ট্রিক
+
+1. **Advice (Noun — উপদেশ বা পরামর্শ):**
+   • **অর্থ:** কাউকে দেওয়া পথনির্দেশ বা সুপরামর্শ (উচ্চারণ: অ্যাডভাউস /s/)
+   • **উদাহরণ:** "My teacher gave me brilliant **advice** for the BCS exam." 🔊
+   • **Mnemonic:** **C** for **C**ounsel (Noun)।
+
+2. **Advise (Verb — উপদেশ দেওয়া):**
+   • **অর্থ:** কাউকে কোনো কাজের জন্য পরামর্শ প্রদান করা (উচ্চারণ: অ্যাডভায়জ /z/)
+   • **উদাহরণ:** "Doctors strongly **advise** drinking plenty of clean water." 🔊
+   • **Mnemonic:** **S** for **S**uggest (Verb)।`;
+  }
+
+  if (t.includes('compliment') && t.includes('complement')) {
+    return `### 💡 Compliment vs Complement — সহজ পার্থক্য ও ট্রিক
+
+1. **Compliment (Noun/Verb — প্রশংসা করা):**
+   • **অর্থ:** কারও গুণ বা সৌন্দর্যের প্রশংসা করা।
+   • **উদাহরণ:** "Maya received a lovely **compliment** on her presentation." 🔊
+   • **Mnemonic:** **I** love compliments (মাঝখানে **i** আছে)!
+
+2. **Complement (Noun/Verb — পরিপূরক হওয়া):**
+   • **অর্থ:** কোনো কিছুকে পূর্ণাঙ্গ বা সমৃদ্ধ করা।
+   • **উদাহরণ:** "Leo's critical thinking **complements** Maya's creativity." 🔊
+   • **Mnemonic:** **E** for compl**E**te (পরিপূর্ণ করা)!`;
+  }
+
+  if (t.includes('principal') && t.includes('principle')) {
+    return `### 💡 Principal vs Principle — সহজ পার্থক্য ও ট্রিক
+
+1. **Principal (Noun/Adj — প্রধান / অধ্যক্ষ / মূলধন):**
+   • **অর্থ:** শিক্ষা প্রতিষ্ঠানের প্রধান অথবা প্রধান বিষয়।
+   • **উদাহরণ:** "The college **principal** addressed the annual assembly." 🔊
+   • **Mnemonic:** The princi**pal** is your **pal** (বন্ধু)!
+
+2. **Principle (Noun — নীতি বা আদর্শ):**
+   • **অর্থ:** জীবনের মূল নিয়ম, সত্য বা নৈতিক আদর্শ।
+   • **উদাহরণ:** "A true scholar never compromises on ethical **principles**." 🔊
+   • **Mnemonic:** Princi**ple** = **ru**le (দুটির শেষেই le আছে)!`;
+  }
+
+  return null;
+}
+
+function generateLocalAITutorResponse(userPrompt) {
+  const prompt = String(userPrompt || '').trim();
+  const lower = prompt.toLowerCase();
+
+  // 1. Identity Query ("who are you" / "কে তুমি")
+  if (lower.includes('who are you') || lower.includes('ke tumi') || lower.includes('কে তুমি') || lower.includes('তোমার পরিচয়')) {
+    return `🌿 **স্বাগতম! আমি Vocab AI Tutor**
+
+আমি **Vocabulary World**-এর তোমার পার্সোনাল স্টাডি মেন্টর 🎓✨
+আমাকে বিশেষভাবে তৈরি করা হয়েছে ইংরেজি শব্দভান্ডার, ব্যাকরণ, উচ্চারণ এবং প্রতিযোগিতামূলক পরীক্ষার (BCS, Bank, HSC, IELTS) প্রস্তুতিতে তোমাকে হাতে-কলমে সাহায্য করার জন্য।
+
+📌 **আমার সাথে যা যা প্র্যাকটিস করতে পারো:**
+• যেকোনো শব্দের বাংলা অর্থ, উচ্চারণ ও সহজে মনে রাখার ট্রিক (Mnemonic)
+• একই শব্দের Noun, Verb, Adjective ও Adverb রূপান্তর (Derivatives)
+• বিভ্রান্তিকর শব্দের সহজ তুলনা (যেমন: Accept vs Except, Affect vs Effect)
+• পরীক্ষায় আসার মতো আদর্শ বাক্য ও উচ্চারণ (🔊 স্পিকার বাটনে চাপো!)
+
+তোমার যেকোনো জিজ্ঞাসা নিচে লিখে পাঠাও, আমি সুন্দর করে বুঝিয়ে দিচ্ছি!`;
+  }
+
+  // 2. Confusing Pairs Check
+  const confusingPairResp = getConfusingPairComparison(prompt);
+  if (confusingPairResp) {
+    return confusingPairResp;
+  }
+
+  // 3. Quick-ask: Memory Tricks General
+  if (lower.includes('মনে রাখার ট্রিক') || lower.includes('memory trick') || lower.includes('mnemonic')) {
+    return `### 🧠 ভোকাবুলারি সহজে মনে রাখার ৪টি মোক্ষম কৌশল (Vocabulary Hacks)
+
+1. **Prefix ও Root Word টেকনিক (শব্দমূল চেনা):**
+   • কোনো শব্দের রুট জানলে ১০টি নতুন শব্দ সহজে বোঝা যায়।
+   • যেমন: **Bene-** (ভালো) -> Benefit, Benevolent, Beneficial।
+   • **Mal-** (খারাপ) -> Malice, Malfunction, Malnutrition।
+
+2. **Visual Association বা ছবির সাথে লিংক:**
+   • শব্দটি মুখস্থ না করে নিজের জীবনের মজার কোনো ঘটনার সাথে ভিজ্যুয়ালাইজ করো।
+   • যেমন: **Abundant** -> বাজারে প্রচুর **A + bun** (পাউরুটি) রাখা আছে!
+
+3. **Derivatives (Word Family) শিট:**
+   • এক শব্দ দিয়ে চারটি পদ একসাথে শেখা। যেমন:
+   • **Agony** (Noun: যন্ত্রণা) -> **Agonize** (Verb) -> **Agonizing** (Adj) -> **Agonizingly** (Adv)।
+
+4. **Spaced Repetition (পরবর্তী দিনের ওয়ার্ম-আপ):**
+   • আজ পড়া শব্দগুলো কাল সকালে একবার রিভিশন দাও। আমাদের **My Vocab List** ও **Warm-up Mini Exam** এই নিয়মে ডিজাইন করা!`;
+  }
+
+  // 4. Quick-ask: Daily Life Examples
+  if (lower.includes('দৈনন্দিন জীবনের উদাহরণ') || lower.includes('daily life example')) {
+    return `### 💬 স্পোকেন ও দৈনন্দিন জীবনে ভোকাবুলারি ব্যবহারের নিয়ম
+
+ইংরেজি শব্দ কেবল পরীক্ষার খাতায় নয়, প্রতিদিনের ছোট ছোট কথায় ব্যবহার করলে তা স্মৃতিতে চিরস্থায়ী হয়।
+
+📌 **৩টি চমৎকার স্পোকেন ব্যবহারের উদাহরণ:**
+1. **Appreciate (কদর করা / ধন্যবাদ জানানো):**
+   • &ldquo;I really **appreciate** your timely guidance and support.&rdquo; 🔊
+   • *অর্থ:* আপনার সময়োপযোগী পথনির্দেশনা ও সহযোগিতার জন্য আমি সত্যিই কৃতজ্ঞ।
+
+2. **Hesitate (দ্বিধা করা):**
+   • &ldquo;Please do not **hesitate** to ask if you face any difficulty.&rdquo; 🔊
+   • *অর্থ:* কোনো সমস্যায় পড়লে নির্দ্বিধায় জিজ্ঞাসা করো।
+
+3. **Adequate (পর্যাপ্ত / উপযুক্ত):**
+   • &ldquo;Ensure an **adequate** amount of sleep before the final exam.&rdquo; 🔊
+   • *অর্থ:* চূড়ান্ত পরীক্ষার আগে পর্যাপ্ত পরিমাণ ঘুম নিশ্চিত করো।`;
+  }
+
+  // 5. Quick-ask: Derivatives Transformation
+  if (lower.includes('noun, verb') || lower.includes('রূপগুলো দেখাও') || lower.includes('derivatives')) {
+    return `### 📊 Derivatives (Word Family) রূপান্তরের ম্যাজিক রুলস
+
+শব্দের শেষের প্রত্যয় (Suffix) দেখে সহজেই পদ পরিবর্তন ও চেনা যায়:
+
+1. **Noun গঠন করার কমন Suffix:**
+   • **-tion / -sion:** Educate -> Educa**tion**, Decide -> Deci**sion**
+   • **-ment:** Achieve -> Achieve**ment**, Agree -> Agree**ment**
+   • **-ance / -ence:** Abound -> Abund**ance**, Differ -> Differ**ence**
+
+2. **Verb গঠন করার কমন Suffix:**
+   • **-ize / -ise:** Agony -> Agon**ize**, Real -> Real**ize**
+   • **-ate:** Active -> Activ**ate**, Alien -> Alien**ate**
+   • **-ify:** Pure -> Pur**ify**, Simple -> Simpl**ify**
+
+3. **Adjective গঠন করার কমন Suffix:**
+   • **-ous:** Danger -> Danger**ous**, Ambition -> Ambiti**ous**
+   • **-ful:** Care -> Care**ful**, Peace -> Peace**ful**
+   • **-ive:** Act -> Act**ive**, Attract -> Attract**ive**
+
+4. **Adverb গঠন করার সাধারণ নিয়ম:**
+   • Adjective-এর সাথে **-ly** যুক্ত করা:
+   • Quick -> Quick**ly**, Agonizing -> Agonizing**ly**, Abundant -> Abundant**ly**।
+
+💡 *টিপ:* আমাদের প্রতিটি ওয়ার্ড কার্ডের নিচে সম্পূর্ণ Derivatives টেবিল পেয়ে যাবে!`;
+  }
+
+  // 6. Look for a specific word in prompt
+  // Remove punctuation and clean tokens
+  const cleanTokens = prompt.replace(/[^\w\s-]/g, ' ').split(/\s+/).filter(t => t.length > 2);
+  let matchedWord = null;
+
+  for (const token of cleanTokens) {
+    if (typeof findWordAnywhere === 'function') {
+      const found = findWordAnywhere(token);
+      if (found) {
+        matchedWord = found;
+        break;
+      }
+    }
+  }
+
+  if (matchedWord) {
+    activeTutorWordContext = matchedWord.word;
+    if ((!matchedWord.derivatives || typeof matchedWord.derivatives !== 'object') && typeof generateSafeDerivatives === 'function') {
+      matchedWord.derivatives = generateSafeDerivatives(matchedWord);
+    }
+    let resp = `🌿 **${matchedWord.word}** (${matchedWord.pos || 'Word'})\n`;
+    resp += `🗣️ **উচ্চারণ:** ${matchedWord.ipa || matchedWord.word} 🔊\n`;
+    resp += `📌 **বাংলা অর্থ:** ${matchedWord.meaningBn || matchedWord.meaning || ''}\n\n`;
+
+    resp += `🧠 **সহজে মনে রাখার ট্রিক (Mnemonic):**\n`;
+    resp += `${getMnemonicForWord(matchedWord.word, matchedWord.meaningBn)}\n\n`;
+
+    if (matchedWord.derivatives) {
+      resp += `📊 **Derivatives (Word Family):**\n`;
+      const d = matchedWord.derivatives;
+      if (d.noun) resp += `• **Noun:** ${d.noun.word} (${d.noun.banglaMeaning || ''})\n`;
+      if (d.verb) resp += `• **Verb:** ${d.verb.word} (${d.verb.banglaMeaning || ''})\n`;
+      if (d.adjective) resp += `• **Adjective:** ${d.adjective.word} (${d.adjective.banglaMeaning || ''})\n`;
+      if (d.adverb) resp += `• **Adverb:** ${d.adverb.word} (${d.adverb.banglaMeaning || ''})\n`;
+      resp += `\n`;
+    }
+
+    if (matchedWord.example) {
+      resp += `💬 **বাস্তব জীবনের উদাহরণ বাক্য:**\n`;
+      resp += `• &ldquo;${matchedWord.example}&rdquo; 🔊\n`;
+      if (matchedWord.exampleBn) {
+        resp += `  *বাংলা:* ${matchedWord.exampleBn}\n\n`;
+      }
+    }
+
+    if (Array.isArray(matchedWord.synonyms) && matchedWord.synonyms.length > 0) {
+      resp += `🔄 **Synonyms (সমার্থক শব্দ):** ${matchedWord.synonyms.slice(0, 4).join(', ')}\n`;
+    }
+    if (Array.isArray(matchedWord.antonyms) && matchedWord.antonyms.length > 0) {
+      resp += `⚡ **Antonyms (বিপরীত শব্দ):** ${matchedWord.antonyms.slice(0, 4).join(', ')}\n`;
+    }
+
+    resp += `\n💡 *টিপ:* উপরের বাক্যের পাশের 🔊 বাটনে চাপ দিলে স্পষ্ট উচ্চারণ শুনতে পাবে!`;
+    return resp;
+  }
+
+  // 7. General Friendly Fallback Mentor response
+  return `🌿 **চমৎকার প্রশ্ন!**
+
+আমি **Vocab AI Tutor**, তোমার সাথে আছি ইংরেজি শব্দভান্ডার ও ব্যাকরণ সহজ করতে।
+
+তুমি চাইলে:
+1. আমাদের কারিকুলামের যেকোনো শব্দ (যেমন: **Abundant, Agony, Abandon, Acquire**) সম্পর্কে জানতে পারো।
+2. দুটি শব্দের পার্থক্য বুঝতে পারো (যেমন: **Accept vs Except**, **Affect vs Effect**)।
+3. নিচের সাজেশনের যেকোনো বাটনে ট্যাপ করতে পারো।
+
+💡 *টিপ:* তুমি চাইলে উপরের 🔑 বাটনে চাপ দিয়ে তোমার ব্যক্তিগত AI Key যুক্ত করে যেকোনো নতুন বিষয়ের সম্পূর্ণ ব্যাখ্যাও পেতে পারো!`;
+}
+
+
+// Global window registrations for Vocab AI Tutor
+if (typeof window !== 'undefined') {
+  window.getAITutorIconSvg = getAITutorIconSvg;
+  window.ensureAITutorWidget = ensureAITutorWidget;
+  window.openAITutorModal = openAITutorModal;
+  window.closeAITutorModal = closeAITutorModal;
+  window.toggleAITutorModal = toggleAITutorModal;
+  window.askAITutorAboutWord = askAITutorAboutWord;
+  window.sendQuickAITutorPrompt = sendQuickAITutorPrompt;
+  window.clearAITutorChat = clearAITutorChat;
+  window.submitAITutorMessage = submitAITutorMessage;
+  window.speakFromChat = speakFromChat;
+  window.toggleAITutorKeyModal = toggleAITutorKeyModal;
+  window.saveAITutorKey = saveAITutorKey;
+  window.removeAITutorKey = removeAITutorKey;
+  window.generateLocalAITutorResponse = generateLocalAITutorResponse;
+}
+
+
+/* =====================================================================
    9. "MY VOCAB LIST" DAILY TRACKING & WARM-UP REVISION ENGINE
 ====================================================================== */
 
@@ -4736,7 +5776,8 @@ function findWordAnywhere(wordId) {
             pos: found.pos || 'noun',
             ipa: found.ipa || '',
             level: lvlKey,
-            levelTitle: lvl.title || lvlKey
+            levelTitle: lvl.title || lvlKey,
+            derivatives: found.derivatives || null
           };
         }
       }
@@ -4756,7 +5797,8 @@ function findWordAnywhere(wordId) {
             pos: found.pos || 'noun',
             ipa: found.ipa || '',
             level: lvlKey,
-            levelTitle: lvl.title || lvlKey
+            levelTitle: lvl.title || lvlKey,
+            derivatives: found.derivatives || null
           };
         }
       }
@@ -5806,7 +6848,17 @@ if (typeof module !== 'undefined' && module.exports) {
     renderMyVocabListMarkup,
     groupMyVocabByDate,
     WarmupExam,
-    trackWordExplored
+    trackWordExplored,
+    openAITutorModal,
+    closeAITutorModal,
+    toggleAITutorModal,
+    askAITutorAboutWord,
+    sendQuickAITutorPrompt,
+    clearAITutorChat,
+    submitAITutorMessage,
+    ensureAITutorWidget,
+    generateLocalAITutorResponse,
+    getAITutorIconSvg
   };
 }
 
@@ -6321,6 +7373,7 @@ if (typeof document !== 'undefined') {
     WordImageLoader.init();
     ensureToastElement();
     ensureFeedbackWidget();
+    ensureAITutorWidget();
     updateTrackerDisplay();
     updateMyVocabPillCounters();
     registerServiceWorker();
