@@ -1,9 +1,9 @@
 /* =====================================================================
    VOCABULARY WORLD — SERVICE WORKER (PWA)
-   Cache Version: vw-cache-v24
+   Cache Version: vw-cache-v22
 ====================================================================== */
 
-const CACHE_NAME = 'vw-cache-v24';
+const CACHE_NAME = 'vw-cache-v22';
 
 const PRECACHE_ASSETS = [
   './',
@@ -53,14 +53,16 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 2. ACTIVATE: Clean up older cache versions automatically
+// 2. ACTIVATE: Clean up older cache versions automatically while strictly protecting Auth & User Data
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((name) => {
-            if (name !== CACHE_NAME) {
+            // ONLY delete old static asset caches starting with 'vw-cache-' that do not match current version
+            // NEVER delete IndexedDB ('firebaseLocalStorageDb') or localStorage keys during an update
+            if (name.startsWith('vw-cache-') && name !== CACHE_NAME) {
               console.log('[SW] Deleting stale cache:', name);
               return caches.delete(name);
             }

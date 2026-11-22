@@ -54,6 +54,17 @@
       } catch (e) {}
     })();
   </script>
+  <!-- Instant Google Auth & User Session Zero-Flicker Restore -->
+  <script>
+    (function () {
+      try {
+        const raw = localStorage.getItem('vw_persistent_user_profile') || localStorage.getItem('vw_user_profile');
+        if (raw) {
+          window.__vwRestoredUser = JSON.parse(raw);
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body class="min-h-screen flex flex-col">
 
