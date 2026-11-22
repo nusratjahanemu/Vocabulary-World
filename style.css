@@ -1954,4 +1954,74 @@ button:active:not(:disabled),
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+/* =====================================================================
+   FULL-WIDTH WORD CARD VIDEO ROW & 2-PART WIDESCREEN GRID
+====================================================================== */
+.vw-word-card-top-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .vw-word-card-top-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.vw-card-video-row {
+  grid-column: 1 / -1;
+  width: 100%;
+  border-top: 1px solid #E5DFD3;
+  padding-top: 20px;
+  margin-top: 1.5rem;
+}
+
+[data-theme="dark"] .vw-card-video-row {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.vw-video-widescreen-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .vw-video-widescreen-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.vw-card-dialogue-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+}
+
+.vw-card-dialogue-row {
+  transition: all 0.15s ease;
+}
+
+.vw-card-dialogue-row:hover {
+  transform: translateY(-1px);
+  border-color: rgba(45, 90, 76, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.vw-card-dialogue-row.is-first-line {
+  border-color: rgba(45, 90, 76, 0.35);
+  background-color: rgba(45, 90, 76, 0.05) !important;
+}
+
+[data-theme="dark"] .vw-card-dialogue-row.is-first-line {
+  background-color: rgba(45, 90, 76, 0.2) !important;
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
 

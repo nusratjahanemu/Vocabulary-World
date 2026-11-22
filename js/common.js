@@ -3086,9 +3086,11 @@ function renderCartoonSceneSvg(theme = 'cafe', speaker = 'Maya', isSpeaking = fa
 function renderCartoonThumbnailCardHTML(wordItem) {
   if (!wordItem) return '';
   const conv = getWordCartoonConversation(wordItem);
-  const theme = (conv && conv.theme) || 'cafe';
+  const theme = (conv && (conv.sceneTheme || conv.theme)) || 'cafe';
   const duration = (conv && conv.duration) ? '0:' + String(conv.duration).padStart(2, '0') : '0:18';
-  const firstLine = (conv && conv.lines && conv.lines[0]) ? conv.lines[0] : null;
+  const lines = (conv && Array.isArray(conv.lines)) ? conv.lines : [];
+  const firstLine = (lines && lines[0]) ? lines[0] : null;
+  const firstSpeaker = firstLine ? escapeHtml(firstLine.speaker || 'Maya') : 'Maya';
   const previewSnippet = firstLine ? escapeHtml(firstLine.en) : 'Practice ' + escapeHtml(wordItem.word) + ' with Maya & Leo.';
   const previewBn = firstLine ? escapeHtml(firstLine.bn) : '';
   const wordId = escapeHtml(wordItem.id || wordItem.word);
@@ -3100,74 +3102,184 @@ function renderCartoonThumbnailCardHTML(wordItem) {
     studio: 'Study Studio • পড়ার ঘর',
     study: 'Study Studio • পড়ার ঘর'
   };
-  const themeLabel = themeLabels[theme] || 'Cozy Café';
+  const themeLabel = themeLabels[theme] || 'Cozy Café • কফি শপ';
+
+  const dialogueRowsHTML = lines.map((line, idx) => {
+    const isMaya = line.avatar === 'maya' || line.speaker === 'Maya';
+    const speakerName = escapeHtml(line.speaker || (isMaya ? 'Maya' : 'Leo'));
+    const speakerInitial = isMaya ? 'M' : 'L';
+    const speakerBg = isMaya ? 'var(--accent-sage-soft)' : 'var(--accent-terracotta-soft)';
+    const speakerColor = isMaya ? 'var(--accent-sage)' : 'var(--accent-terracotta)';
+    const highlightedEn = typeof highlightTargetWordInSubtitle === 'function'
+      ? highlightTargetWordInSubtitle(line.en, line.targetWord || wordItem.word)
+      : escapeHtml(line.en);
+    const isActive = idx === 0;
+
+    return `
+      <div
+        class="vw-card-dialogue-row flex items-start gap-2.5 p-2 rounded-xl border transition-all cursor-pointer ${isActive ? 'is-first-line' : ''}"
+        onclick="openCartoonVideoModal('${wordId}', ${idx})"
+        title="Click to play dialogue from line ${idx + 1}"
+        style="border-color: var(--border-subtle); background-color: var(--surface-white);"
+      >
+        <span
+          class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 shadow-2xs"
+          style="background-color: ${speakerBg}; color: ${speakerColor};"
+        >
+          ${speakerInitial}
+        </span>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center justify-between gap-1 mb-0.5">
+            <span class="text-[10px] font-bold uppercase tracking-wider" style="color: ${speakerColor};">
+              ${speakerName}
+            </span>
+            <span class="text-[9px] font-mono opacity-60" style="color: var(--ink-muted);">
+              0:${String(Math.round(idx * 4.5)).padStart(2, '0')}
+            </span>
+          </div>
+          <p class="text-xs font-semibold leading-snug" style="color: var(--ink-primary);">
+            ${highlightedEn}
+          </p>
+          <p class="font-bengali text-[11px] mt-0.5 leading-snug" style="color: var(--ink-secondary);">
+            (${escapeHtml(line.bn)})
+          </p>
+        </div>
+      </div>
+    `;
+  }).join('');
 
   return `
-    <div class="mt-4 pt-3.5 border-t" style="border-color: var(--border-subtle);">
-      <!-- Card Section Header -->
-      <div class="flex items-center justify-between gap-2 mb-2.5">
-        <div class="flex items-center gap-2">
-          <div class="w-6 h-6 rounded-lg flex items-center justify-center shrink-0" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="vw-card-video-section w-full">
+      <!-- Section Title & Topic Location Pill -->
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect width="20" height="15" x="2" y="7" rx="2" ry="2"/>
               <polyline points="17 2 12 7 7 2"/>
             </svg>
           </div>
           <div>
-            <span class="text-xs font-bold block leading-none" style="color: var(--ink-primary);">
+            <span class="font-editorial text-sm sm:text-base font-bold block leading-none" style="color: var(--ink-primary);">
               AI Cartoon Conversation Video
             </span>
-            <span class="font-bengali text-[10px] block mt-0.5" style="color: var(--ink-muted);">
+            <span class="font-bengali text-[10px] sm:text-[11px] block mt-0.5" style="color: var(--ink-muted);">
               মায়া ও লিওর বাস্তব অ্যানিমেটেড ইংরেজি কথোপকথন
             </span>
           </div>
         </div>
-        <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
-          ${themeLabel}
-        </span>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="font-bengali text-[11px] font-bold px-3 py-1 rounded-full border shadow-2xs" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.2); color: var(--accent-sage);">
+            ${themeLabel}
+          </span>
+        </div>
       </div>
 
-      <!-- 16:9 Thumbnail Card -->
-      <div
-        class="vw-cartoon-video-card group rounded-2xl overflow-hidden border cursor-pointer relative shadow-xs"
-        onclick="openCartoonVideoModal('${wordId}')"
-        title="Watch Maya & Leo in AI Cartoon Conversation for ${escapeHtml(wordItem.word)}"
-        style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
-      >
-        <div class="relative w-full aspect-video overflow-hidden">
-          ${renderCartoonSceneSvg(theme, 'Maya', false)}
+      <!-- Spacious 2-Part Widescreen Grid (1.35fr : 1fr) -->
+      <div class="vw-video-widescreen-grid">
+        <!-- Left Side: 2D Flat-Vector Cartoon Stage (16:9) -->
+        <div
+          class="vw-cartoon-stage-card group rounded-2xl overflow-hidden border cursor-pointer relative shadow-xs flex flex-col justify-center"
+          onclick="openCartoonVideoModal('${wordId}', 0)"
+          title="Watch Maya & Leo in AI Cartoon Conversation for ${escapeHtml(wordItem.word)}"
+          style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
+        >
+          <div class="relative w-full aspect-video overflow-hidden">
+            ${renderCartoonSceneSvg(theme, 'Maya', false)}
 
-          <!-- Centered Play Button Overlay -->
-          <div class="absolute inset-0 flex items-center justify-center bg-black/15 group-hover:bg-black/25 transition-colors">
-            <div class="vw-cartoon-play-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 shadow-xl flex items-center justify-center transition-transform">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-0.5" style="color: var(--accent-sage);" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
+            <!-- Centered Play Button Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+              <div class="vw-cartoon-play-btn w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white/95 shadow-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7 ml-0.5" style="color: var(--accent-sage);" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Top-Left Badge: Watch Cartoon Conversation + pulsing dot -->
+            <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs shadow-xs text-[#2D5A4C] text-[10px] sm:text-[11px] font-bold">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span>Watch Cartoon Conversation</span>
+            </div>
+
+            <!-- Top-Right: Location Badge & Timer Pill -->
+            <div class="absolute top-2.5 right-2.5 flex items-center gap-1.5">
+              <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-white/90 text-[10px] font-medium font-bengali">
+                ${themeLabel}
+              </span>
+              <span class="px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-xs text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-wider">
+                ${duration}
+              </span>
+            </div>
+
+            <!-- Bottom Subtitle / Caption Bar Overlay -->
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-2.5 sm:p-3 pt-6 text-white flex items-center justify-between gap-2">
+              <div class="min-w-0 flex-1">
+                <p class="text-[11px] sm:text-xs truncate font-medium">
+                  <span class="font-bold text-[#FDE68A]">${firstSpeaker}:</span> &ldquo;${previewSnippet}&rdquo;
+                </p>
+                ${previewBn ? `<p class="font-bengali text-[10px] sm:text-[11px] truncate text-gray-300 mt-0.5">(${previewBn})</p>` : ''}
+              </div>
+              <span class="text-[10px] sm:text-xs font-bold text-emerald-300 shrink-0 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                <span>Play Scene</span> &rarr;
+              </span>
             </div>
           </div>
+        </div>
 
-          <!-- Top-Left Pill -->
-          <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-xs shadow-xs text-[#2D5A4C] text-[10px] font-bold">
-            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span>Watch Cartoon Conversation</span>
-          </div>
-
-          <!-- Top-Right Duration Pill -->
-          <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-xs text-white text-[10px] font-mono font-bold tracking-wider">
-            ${duration}
-          </div>
-
-          <!-- Bottom Caption Preview Bar -->
-          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-2.5 pt-6 text-white flex items-center justify-between gap-2">
-            <div class="min-w-0 flex-1">
-              <p class="text-[11px] truncate font-medium">
-                <span class="font-bold text-[#FDE68A]">Maya:</span> &ldquo;${previewSnippet}&rdquo;
-              </p>
-              ${previewBn ? `<p class="font-bengali text-[10px] truncate text-gray-300">${previewBn}</p>` : ''}
-            </div>
-            <span class="text-[10px] font-bold text-emerald-300 shrink-0 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-              <span>Play</span> &rarr;
+        <!-- Right Side: Synchronized Dialogue Script List + Controls Bar -->
+        <div
+          class="vw-card-dialogue-panel rounded-2xl border p-3 sm:p-3.5 flex flex-col justify-between shadow-2xs"
+          style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
+        >
+          <div class="mb-2 flex items-center justify-between gap-2">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style="color: var(--ink-secondary);">
+              Dialogue Script &bull; কথোপকথন স্ক্রিপ্ট
             </span>
+            <span class="font-bengali text-[10px] text-gray-500">
+              ক্লিক করে সরাসরি শুনুন
+            </span>
+          </div>
+
+          <!-- Dialogue Rows Container -->
+          <div class="space-y-1.5 overflow-y-auto max-h-[220px] sm:max-h-[260px] pr-1">
+            ${dialogueRowsHTML}
+          </div>
+
+          <!-- Controls Bar Alongside / Below -->
+          <div class="flex items-center justify-between pt-2.5 px-0.5 border-t mt-2" style="border-color: var(--border-subtle);">
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                onclick="openCartoonVideoModal('${wordId}', 0)"
+                class="vw-btn-primary px-3 py-1 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer whitespace-nowrap"
+                title="Play Video Conversation"
+              >
+                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span>Play</span>
+              </button>
+
+              <button
+                type="button"
+                onclick="openCartoonVideoModal('${wordId}', 0)"
+                class="px-2.5 py-1 rounded-xl text-xs font-bold flex items-center gap-1 border transition-all cursor-pointer hover:bg-black/5 whitespace-nowrap"
+                style="border-color: var(--border-subtle); color: var(--ink-secondary); background-color: var(--surface-white);"
+                title="Replay from start"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>Replay</span>
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onclick="openCartoonVideoModal('${wordId}', 0)"
+              class="px-2.5 py-1 rounded-xl text-[10px] sm:text-xs font-mono font-bold border transition-colors hover:border-[#2D5A4C] cursor-pointer whitespace-nowrap"
+              style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--ink-secondary);"
+              title="Playback Speed"
+            >
+              Speed: 1.0x / 0.8x
+            </button>
           </div>
         </div>
       </div>
@@ -3407,7 +3519,7 @@ const CartoonPlayer = {
     });
   },
 
-  open(wordId) {
+  open(wordId, startLineIdx = 0) {
     this.ensureModal();
     let foundWord = null;
     if (typeof CURRICULUM_DATA !== 'undefined') {
@@ -3444,7 +3556,8 @@ const CartoonPlayer = {
     if (!this.conv || !Array.isArray(this.conv.lines) || this.conv.lines.length === 0) {
       this.conv = generateCartoonConversation(foundWord);
     }
-    this.lineIdx = 0;
+    const initialLine = (typeof startLineIdx === 'number' && startLineIdx >= 0) ? startLineIdx : 0;
+    this.lineIdx = initialLine;
     this.isPlaying = true;
     this.isOpen = true;
     this.accent = (typeof getActiveAccent === 'function') ? getActiveAccent().id : 'US';
@@ -3479,7 +3592,7 @@ const CartoonPlayer = {
     const modal = document.getElementById('vw-cartoon-video-modal');
     if (modal) modal.classList.remove('hidden');
 
-    this.playLine(0);
+    this.playLine(this.lineIdx);
   },
 
   renderTranscriptList() {
@@ -3725,8 +3838,8 @@ const CartoonPlayer = {
 };
 window.CartoonPlayer = CartoonPlayer;
 
-function openCartoonVideoModal(wordId) {
-  CartoonPlayer.open(wordId);
+function openCartoonVideoModal(wordId, startLineIdx = 0) {
+  CartoonPlayer.open(wordId, startLineIdx);
 }
 
 function closeCartoonVideoModal() {

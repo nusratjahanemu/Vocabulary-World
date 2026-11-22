@@ -990,16 +990,6 @@
                 <p class="text-xs sm:text-sm font-medium" style="color: var(--ink-primary);">&ldquo;${escapeHtml(example)}&rdquo;</p>
                 <p class="font-bengali text-xs" style="color: var(--ink-secondary);">(${escapeHtml(exampleBn)})</p>
               </div>
-
-              <!-- 16:9 AI Cartoon Conversation Video Card Preview -->
-              ${typeof renderCartoonThumbnailCardHTML === 'function' ? renderCartoonThumbnailCardHTML({
-                id: 'preview-' + word,
-                word: word,
-                pos: pos,
-                meaningBn: meaning,
-                example: example,
-                exampleBn: exampleBn
-              }) : ''}
             </div>
 
             <!-- Right Col: Synonyms & Antonyms -->
@@ -1030,6 +1020,18 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Full-Width AI Cartoon Conversation Video Row Preview -->
+          <div class="vw-card-video-row mt-6 pt-5" style="border-top: 1px solid #E5DFD3; width: 100%;">
+            ${typeof renderCartoonThumbnailCardHTML === 'function' ? renderCartoonThumbnailCardHTML({
+              id: 'preview-' + word,
+              word: word,
+              pos: pos,
+              meaningBn: meaning,
+              example: example,
+              exampleBn: exampleBn
+            }) : ''}
           </div>
         </article>
       `;

@@ -349,9 +349,6 @@
                   (${escapeHtml(item.exampleBn)})
                 </p>
               </div>
-
-              <!-- 16:9 YouTube-Style AI Cartoon Conversation Video Card -->
-              ${renderCartoonThumbnailCardHTML(item)}
             </div>
 
             <!-- Right Column: 5 Synonyms + 5 Antonyms + Inline Bengali Meaning & Explanation -->
@@ -383,6 +380,11 @@
 
               ${inlineExplanationBox}
             </div>
+          </div>
+
+          <!-- Full-Width AI Cartoon Conversation Video Row (Spans 100% width across both columns) -->
+          <div class="vw-card-video-row mt-6 pt-5" style="border-top: 1px solid #E5DFD3; width: 100%;">
+            ${renderCartoonThumbnailCardHTML(item)}
           </div>
 
           <!-- DERIVATIVES (Word Family) Section Full Width at Bottom -->
