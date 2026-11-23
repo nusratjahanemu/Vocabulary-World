@@ -5707,7 +5707,6 @@ function closeFeedbackModal() {
 
 function ensureFeedbackWidget() {
   if (typeof document === 'undefined' || !document.body) return;
-  ensureAITutorWidget();
 
   // 1. Floating Trigger Button
   if (!document.getElementById('vw-feedback-floating-btn')) {
@@ -6168,266 +6167,39 @@ function toggleAITutorKeyModal() {
 }
 
 function ensureAITutorWidget() {
-  if (typeof document === 'undefined' || !document.body) return;
-
-  // 1. Floating Action Button directly above Feedback button
-  if (!document.getElementById('vw-ai-tutor-floating-btn')) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.id = 'vw-ai-tutor-floating-btn';
-    btn.onclick = () => openAITutorModal();
-    btn.className = 'vw-ai-tutor-floating-btn';
-    btn.title = 'Vocab AI Tutor • আপনার পার্সোনাল স্টাডি মেন্টর';
-    btn.setAttribute('aria-label', 'Ask Vocab AI Tutor');
-    btn.innerHTML = `
-      <span class="vw-ai-tutor-sparkle-badge" aria-hidden="true">✨</span>
-      <span class="vw-ai-tutor-btn-text">Ask Vocab AI</span>
-    `;
-    document.body.appendChild(btn);
-  }
-
-  // 2. Overlay Backdrop
-  if (!document.getElementById('vw-ai-tutor-overlay')) {
-    const overlay = document.createElement('div');
-    overlay.id = 'vw-ai-tutor-overlay';
-    overlay.className = 'vw-ai-tutor-overlay';
-    overlay.onclick = () => closeAITutorModal();
-    document.body.appendChild(overlay);
-  }
-
-  // 3. Slide-Over Chat Drawer
-  if (!document.getElementById('vw-ai-tutor-drawer')) {
-    const drawer = document.createElement('aside');
-    drawer.id = 'vw-ai-tutor-drawer';
-    drawer.className = 'vw-ai-tutor-drawer';
-    drawer.setAttribute('role', 'dialog');
-    drawer.setAttribute('aria-modal', 'true');
-    drawer.setAttribute('aria-labelledby', 'vw-ai-tutor-title');
-    drawer.innerHTML = `
-      <!-- 1. Header Bar -->
-      <div class="vw-ai-tutor-header">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
-            ${getAITutorIconSvg('w-6 h-6')}
-          </div>
-          <div class="min-w-0">
-            <h3 id="vw-ai-tutor-title" class="font-editorial text-base sm:text-lg font-bold truncate leading-tight" style="color: var(--ink-primary);">
-              Vocab AI Tutor
-            </h3>
-            <p class="font-bengali text-xs flex items-center gap-1.5 mt-0.5" style="color: var(--ink-muted);">
-              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Bangla &amp; English Study Mentor</span>
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-1.5 shrink-0">
-          <button
-            type="button"
-            id="vw-ai-key-btn"
-            onclick="toggleAITutorKeyModal()"
-            class="p-1.5 rounded-full border text-xs text-gray-500 hover:text-[#2D5A4C] hover:border-[#2D5A4C] transition-colors cursor-pointer"
-            style="border-color: var(--border-subtle);"
-            title="API Key Settings (ঐচ্ছিক)"
-            aria-label="API Key Settings"
-          >
-            🔑
-          </button>
-          <button
-            type="button"
-            id="vw-ai-clear-btn"
-            onclick="clearAITutorChat()"
-            class="px-2.5 py-1 rounded-full border text-xs font-bold text-gray-600 hover:text-red-600 hover:border-red-300 transition-colors cursor-pointer"
-            style="border-color: var(--border-subtle); background-color: var(--surface-white);"
-            title="Clear Chat History"
-          >
-            Clear Chat
-          </button>
-          <button
-            type="button"
-            id="vw-ai-close-btn"
-            onclick="closeAITutorModal()"
-            class="w-8 h-8 rounded-full border flex items-center justify-center text-gray-500 hover:text-[#2D5A4C] hover:border-[#2D5A4C] transition-colors cursor-pointer"
-            style="border-color: var(--border-subtle);"
-            title="Close Drawer (Esc)"
-            aria-label="Close"
-          >
-            &times;
-          </button>
-        </div>
-      </div>
-
-      <!-- Optional API Key Settings Panel -->
-      <div id="vw-ai-key-panel" class="hidden px-4 py-3 border-b text-xs space-y-2" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
-        <div class="flex items-center justify-between font-bold" style="color: var(--ink-primary);">
-          <span>Custom AI Key (Optional)</span>
-          <span class="font-normal text-[11px] text-gray-500">বিনা কীতেও অফলাইনে স্টাডি মেন্টর চলবে</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <input
-            id="vw-ai-key-input"
-            type="password"
-            placeholder="Paste Gemini API key here..."
-            class="flex-1 px-3 py-1.5 rounded-xl border text-xs bg-white text-gray-800 outline-none"
-          />
-          <button
-            type="button"
-            onclick="saveAITutorKey()"
-            class="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#2D5A4C] text-white cursor-pointer hover:bg-[#23483D]"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            onclick="removeAITutorKey()"
-            class="px-2 py-1.5 rounded-xl text-xs text-red-600 hover:bg-red-50 cursor-pointer"
-            title="Clear Key"
-          >
-            Clear
-          </button>
-        </div>
-      </div>
-
-      <!-- 2. Chat Messages Body -->
-      <div id="vw-ai-chat-body" class="vw-ai-chat-body">
-        <!-- Messages rendered dynamically -->
-      </div>
-
-      <!-- 3. Quick-Ask Suggestion Chips -->
-      <div class="vw-ai-chips-wrap" id="vw-ai-chips-wrap">
-        <button
-          type="button"
-          class="vw-ai-chip"
-          onclick="sendQuickAITutorPrompt('সহজ বাংলায় মনে রাখার ট্রিক দাও 🧠')"
-        >
-          সহজ বাংলায় মনে রাখার ট্রিক দাও 🧠
-        </button>
-        <button
-          type="button"
-          class="vw-ai-chip"
-          onclick="sendQuickAITutorPrompt('দৈনন্দিন জীবনের উদাহরণ দাও 💬')"
-        >
-          দৈনন্দিন জীবনের উদাহরণ দাও 💬
-        </button>
-        <button
-          type="button"
-          class="vw-ai-chip"
-          onclick="sendQuickAITutorPrompt('Noun, Verb, Adj রূপগুলো দেখাও 📊')"
-        >
-          Noun, Verb, Adj রূপগুলো দেখাও 📊
-        </button>
-        <button
-          type="button"
-          class="vw-ai-chip"
-          onclick="sendQuickAITutorPrompt('Accept vs Except পার্থক্য কী? 🤔')"
-        >
-          Accept vs Except পার্থক্য কী? 🤔
-        </button>
-      </div>
-
-      <!-- 4. Input Area -->
-      <div class="vw-ai-input-area">
-        <div class="flex items-end gap-2">
-          <textarea
-            id="vw-ai-chat-input"
-            class="vw-ai-textarea"
-            rows="1"
-            placeholder="যেকোনো শব্দ, গ্রামার বা কনফিউশন জিজ্ঞেস করো..."
-          ></textarea>
-          <button
-            type="button"
-            id="vw-ai-send-btn"
-            onclick="submitAITutorMessage()"
-            class="vw-ai-send-btn"
-            aria-label="Send message"
-          >
-            <span>Send</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
-          </button>
-        </div>
-        <div class="text-[10px] text-center font-medium opacity-65 flex items-center justify-center gap-1.5" style="color: var(--ink-muted);">
-          <span>🌿 Vocab AI Tutor &bull; Vocabulary World's Personal Study Mentor</span>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(drawer);
-
-    // Auto-grow textarea handler
-    const input = typeof drawer.querySelector === 'function' ? drawer.querySelector('#vw-ai-chat-input') : null;
-    if (input) {
-      input.addEventListener('input', function () {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-      });
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          submitAITutorMessage();
-        }
-      });
-    }
-
-    // Escape key listener to close drawer
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const d = document.getElementById('vw-ai-tutor-drawer');
-        if (d && d.classList.contains('is-open')) {
-          closeAITutorModal();
-        }
-      }
+  if (typeof document === 'undefined') return;
+  // Permanently removed: ensure no floating button, overlay, or drawer exist in DOM
+  const ids = [
+    'vw-ai-tutor-floating-btn',
+    'vw-ai-tutor-overlay',
+    'vw-ai-tutor-drawer',
+    'vw-ask-tutor'
+  ];
+  ids.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
+  if (document.querySelectorAll) {
+    document.querySelectorAll('.vw-card-ask-tutor-btn, .vw-ai-tutor-floating-btn, .vw-ai-tutor-overlay, .vw-ai-tutor-drawer, [id*="ask-tutor"], [class*="ask-tutor"]').forEach((el) => {
+      el.remove();
     });
   }
 }
 
-function openAITutorModal(preloadedPrompt = null) {
+function openAITutorModal() {
   ensureAITutorWidget();
-  const drawer = document.getElementById('vw-ai-tutor-drawer');
-  const overlay = document.getElementById('vw-ai-tutor-overlay');
-  if (drawer && overlay) {
-    overlay.classList.add('is-open');
-    drawer.classList.add('is-open');
-  }
-
-  renderAITutorChatHistory();
-
-  const input = document.getElementById('vw-ai-chat-input');
-  if (input) {
-    if (preloadedPrompt) {
-      input.value = preloadedPrompt;
-      submitAITutorMessage();
-    } else {
-      setTimeout(() => input.focus(), 250);
-    }
-  }
 }
 
 function closeAITutorModal() {
-  const drawer = document.getElementById('vw-ai-tutor-drawer');
-  const overlay = document.getElementById('vw-ai-tutor-overlay');
-  if (drawer && overlay) {
-    drawer.classList.remove('is-open');
-    overlay.classList.remove('is-open');
-  }
-  const keyPanel = document.getElementById('vw-ai-key-panel');
-  if (keyPanel) keyPanel.classList.add('hidden');
+  ensureAITutorWidget();
 }
 
 function toggleAITutorModal() {
-  const drawer = document.getElementById('vw-ai-tutor-drawer');
-  if (drawer && drawer.classList.contains('is-open')) {
-    closeAITutorModal();
-  } else {
-    openAITutorModal();
-  }
+  ensureAITutorWidget();
 }
 
-function askAITutorAboutWord(wordName) {
-  if (!wordName) return;
-  activeTutorWordContext = wordName;
-  const prompt = `আমাকে "${wordName}" শব্দটি সম্পর্কে বুঝিয়ে বলো। এর বাংলা অর্থ, সহজে মনে রাখার ট্রিক, দৈনন্দিন ব্যবহারের উদাহরণ এবং Derivatives (Noun/Verb/Adj/Adv) বুঝিয়ে দাও।`;
-  openAITutorModal(prompt);
+function askAITutorAboutWord() {
+  ensureAITutorWidget();
 }
 
 function sendQuickAITutorPrompt(promptText) {

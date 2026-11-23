@@ -2778,3 +2778,208 @@ button:active:not(:disabled),
   background-color: rgba(45, 90, 76, 0.2);
   border-radius: 9999px;
 }
+
+
+/* =====================================================================
+   1. PERMANENT REMOVAL OF ASK TUTOR WIDGET & BUTTONS
+====================================================================== */
+#vw-ask-tutor,
+.vw-ask-tutor,
+#vw-ai-tutor-floating-btn,
+.vw-ai-tutor-floating-btn,
+.vw-card-ask-tutor-btn,
+#vw-ai-tutor-overlay,
+.vw-ai-tutor-overlay,
+#vw-ai-tutor-drawer,
+.vw-ai-tutor-drawer,
+[id*="ask-tutor"],
+[class*="ask-tutor"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  z-index: -9999 !important;
+}
+
+/* =====================================================================
+   2. GLOBAL READABLE DARK INK ACROSS ALL LIGHT CARDS & CONTAINERS
+====================================================================== */
+/* Headings inside light cards, panels, tabs, and white/ivory containers */
+.card h1, .card h2, .card h3, .card h4,
+.tool-card h1, .tool-card h2, .tool-card h3, .tool-card h4,
+.quiz-card h1, .quiz-card h2, .quiz-card h3, .quiz-card h4,
+.tab-panel h1, .tab-panel h2, .tab-panel h3, .tab-panel h4,
+.word-card h1, .word-card h2, .word-card h3, .word-card h4,
+.vw-word-card h1, .vw-word-card h2, .vw-word-card h3, .vw-word-card h4,
+[style*="background:#fff"] h1, [style*="background:#fff"] h2, [style*="background:#fff"] h3, [style*="background:#fff"] h4,
+[style*="background: #fff"] h1, [style*="background: #fff"] h2, [style*="background: #fff"] h3, [style*="background: #fff"] h4,
+[style*="background:#FAF8F5"] h1, [style*="background:#FAF8F5"] h2, [style*="background:#FAF8F5"] h3, [style*="background:#FAF8F5"] h4,
+[style*="background: #FAF8F5"] h1, [style*="background: #FAF8F5"] h2, [style*="background: #FAF8F5"] h3, [style*="background: #FAF8F5"] h4,
+[style*="background-color:#fff"] h1, [style*="background-color:#fff"] h2, [style*="background-color:#fff"] h3, [style*="background-color:#fff"] h4,
+[style*="background-color: #fff"] h1, [style*="background-color: #fff"] h2, [style*="background-color: #fff"] h3, [style*="background-color: #fff"] h4,
+[style*="background-color:#FAF8F5"] h1, [style*="background-color:#FAF8F5"] h2, [style*="background-color:#FAF8F5"] h3, [style*="background-color:#FAF8F5"] h4,
+[style*="background-color: #FAF8F5"] h1, [style*="background-color: #FAF8F5"] h2, [style*="background-color: #FAF8F5"] h3, [style*="background-color: #FAF8F5"] h4 {
+  color: #1A2421 !important;
+}
+
+/* Body & structural text inside all light cards, panels, tabs, and white/ivory containers */
+.card p, .card span, .card div, .card label, .card li, .card td, .card th,
+.tool-card p, .tool-card span, .tool-card div, .tool-card label, .tool-card li, .tool-card td, .tool-card th,
+.quiz-card p, .quiz-card span, .quiz-card div, .quiz-card label, .quiz-card li, .quiz-card td, .quiz-card th,
+.tab-panel p, .tab-panel span, .tab-panel div, .tab-panel label, .tab-panel li, .tab-panel td, .tab-panel th,
+.word-card p, .word-card span, .word-card div, .word-card label, .word-card li, .word-card td, .word-card th,
+.vw-word-card p, .vw-word-card span, .vw-word-card div, .vw-word-card label, .vw-word-card li, .vw-word-card td, .vw-word-card th,
+[style*="background:#fff"] p, [style*="background:#fff"] span, [style*="background:#fff"] div, [style*="background:#fff"] label, [style*="background:#fff"] li, [style*="background:#fff"] td, [style*="background:#fff"] th,
+[style*="background: #fff"] p, [style*="background: #fff"] span, [style*="background: #fff"] div, [style*="background: #fff"] label, [style*="background: #fff"] li, [style*="background: #fff"] td, [style*="background: #fff"] th,
+[style*="background:#FAF8F5"] p, [style*="background:#FAF8F5"] span, [style*="background:#FAF8F5"] div, [style*="background:#FAF8F5"] label, [style*="background:#FAF8F5"] li, [style*="background:#FAF8F5"] td, [style*="background:#FAF8F5"] th,
+[style*="background: #FAF8F5"] p, [style*="background: #FAF8F5"] span, [style*="background: #FAF8F5"] div, [style*="background: #FAF8F5"] label, [style*="background: #FAF8F5"] li, [style*="background: #FAF8F5"] td, [style*="background: #FAF8F5"] th,
+[style*="background-color:#fff"] p, [style*="background-color:#fff"] span, [style*="background-color:#fff"] div, [style*="background-color:#fff"] label, [style*="background-color:#fff"] li, [style*="background-color:#fff"] td, [style*="background-color:#fff"] th,
+[style*="background-color: #fff"] p, [style*="background-color: #fff"] span, [style*="background-color: #fff"] div, [style*="background-color: #fff"] label, [style*="background-color: #fff"] li, [style*="background-color: #fff"] td, [style*="background-color: #fff"] th,
+[style*="background-color:#FAF8F5"] p, [style*="background-color:#FAF8F5"] span, [style*="background-color:#FAF8F5"] div, [style*="background-color:#FAF8F5"] label, [style*="background-color:#FAF8F5"] li, [style*="background-color:#FAF8F5"] td, [style*="background-color:#FAF8F5"] th,
+[style*="background-color: #FAF8F5"] p, [style*="background-color: #FAF8F5"] span, [style*="background-color: #FAF8F5"] div, [style*="background-color: #FAF8F5"] label, [style*="background-color: #FAF8F5"] li, [style*="background-color: #FAF8F5"] td, [style*="background-color: #FAF8F5"] th {
+  color: #2D3A35 !important;
+}
+
+/* Maintain crisp white text (#FFFFFF) on all dark #2D5A4C or #18221F buttons and badges */
+button.btn-primary,
+button.vw-btn-primary,
+button.vw-btn-sage,
+button[style*="background:#2D5A4C"],
+button[style*="background: #2D5A4C"],
+button[style*="background-color:#2D5A4C"],
+button[style*="background-color: #2D5A4C"],
+button[style*="background:#18221F"],
+button[style*="background: #18221F"],
+button[style*="background-color:#18221F"],
+button[style*="background-color: #18221F"],
+button[style*="background-color: var(--accent-sage)"],
+button[style*="background: var(--accent-sage)"],
+.btn-primary,
+.vw-btn-primary,
+.vw-btn-sage,
+.badge-beginner,
+.badge-intermediate,
+.badge-advanced,
+.badge-pro,
+.badge-primary,
+.filter-pill.active,
+.is-pill-target,
+[class*="bg-[#2D5A4C]"],
+[class*="bg-[#18221F]"],
+.bg-[#2D5A4C],
+.bg-[#18221F],
+button.btn-primary *,
+button.vw-btn-primary *,
+button.vw-btn-sage *,
+button[style*="background:#2D5A4C"] *,
+button[style*="background: #2D5A4C"] *,
+button[style*="background-color:#2D5A4C"] *,
+button[style*="background-color: #2D5A4C"] *,
+button[style*="background:#18221F"] *,
+button[style*="background: #18221F"] *,
+button[style*="background-color:#18221F"] *,
+button[style*="background-color: #18221F"] *,
+button[style*="background-color: var(--accent-sage)"] *,
+button[style*="background: var(--accent-sage)"] *,
+.btn-primary *,
+.vw-btn-primary *,
+.vw-btn-sage *,
+.badge-beginner *,
+.badge-intermediate *,
+.badge-advanced *,
+.badge-pro *,
+.badge-primary *,
+.filter-pill.active *,
+.is-pill-target *,
+[class*="bg-[#2D5A4C]"] *,
+[class*="bg-[#18221F]"] *,
+.bg-[#2D5A4C] *,
+.bg-[#18221F] * {
+  color: #FFFFFF !important;
+}
+
+/* Explicit accent color integrity */
+[style*="color: var(--accent-sage)"],
+[style*="color:var(--accent-sage)"] {
+  color: #2D5A4C !important;
+}
+[style*="color: var(--accent-terracotta)"],
+[style*="color:var(--accent-terracotta)"] {
+  color: #C05638 !important;
+}
+[style*="color: var(--ink-muted)"],
+[style*="color:var(--ink-muted)"] {
+  color: #6B7280 !important;
+}
+
+/* =====================================================================
+   3. STOP WORD & PILL OVERFLOW OUTSIDE CARDS
+====================================================================== */
+/* Enforce bounded box model and word-wrapping on all card containers */
+.card,
+.tool-card,
+.quiz-card,
+.tab-panel,
+.word-card,
+.vw-word-card,
+.vw-card,
+article,
+.card-container,
+[style*="background:#fff"],
+[style*="background: #fff"],
+[style*="background:#FAF8F5"],
+[style*="background: #FAF8F5"],
+[style*="background-color:#fff"],
+[style*="background-color: #fff"],
+[style*="background-color:#FAF8F5"],
+[style*="background-color: #FAF8F5"] {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+/* Enforce flex wrapping and max-width on all pill, chip, and button rows */
+.vw-pill-row,
+.pill-row,
+.chip-row,
+.pills-container,
+.chips-container,
+.tags-row,
+.tags-container,
+.button-row,
+.btn-row,
+.flex-wrap,
+[class*="pill-row"],
+[class*="chip-row"],
+[class*="pill-group"],
+[class*="chip-group"],
+div:has(> .vw-pill-syn),
+div:has(> .vw-pill-ant),
+div:has(> .filter-pill),
+div:has(> [class*="pill"]) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Guarantee pills, chips, and buttons themselves never overflow their container */
+.vw-pill-syn,
+.vw-pill-ant,
+.filter-pill,
+[class*="pill-"],
+[class*="-pill"],
+[class*="chip-"],
+[class*="-chip"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
