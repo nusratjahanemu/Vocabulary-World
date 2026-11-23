@@ -157,10 +157,13 @@
       renderGamesPage();
     }
 
-    function recordScore(points, isQuiz = false) {
+    function recordScore(points, isQuiz = false, wordId = null) {
       GameState.score += points;
       GameState.streak += 1;
       awardGamePoints(points, isQuiz);
+      if (wordId && typeof recordWordLearnedToday === 'function') {
+        try { recordWordLearnedToday(wordId); } catch (e) {}
+      }
     }
 
     function resetStreak() {
@@ -197,7 +200,7 @@
         GameState.justMatchedId = leftId;
         GameState.matchSelectedLeft = null;
         GameState.matchWrongPair = null;
-        recordScore(10, false);
+        recordScore(10, false, leftId);
       } else {
         GameState.justMatchedId = null;
         GameState.matchWrongPair = { left: leftId, right: rightWordId };
@@ -281,7 +284,7 @@
       );
       if (allCorrect) {
         if (GameState.mlFeedback !== 'correct') {
-          recordScore(GameState.mlHintUsed ? 5 : 10, false);
+          recordScore(GameState.mlHintUsed ? 5 : 10, false, item.id);
         }
         GameState.mlFeedback = 'correct';
       } else {
@@ -321,7 +324,7 @@
       const current = GameState.gmDeck[GameState.gmIndex];
       GameState.gmSelected = chosenId;
       if (chosenId === current.id) {
-        recordScore(10, true);
+        recordScore(10, true, current.id);
       } else {
         AppState.tracker.quizAnswered += 1;
         saveTrackerToStorage();
@@ -405,7 +408,7 @@
 
       if (built === current.word.toUpperCase()) {
         if (GameState.wsFeedback !== 'correct') {
-          recordScore(GameState.wsHintShown ? 5 : 10, false);
+          recordScore(GameState.wsHintShown ? 5 : 10, false, current.id);
         }
         GameState.wsFeedback = 'correct';
       } else {

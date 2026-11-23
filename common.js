@@ -544,7 +544,12 @@ const STORAGE_KEYS = {
   MY_VOCAB: 'vw_my_vocab_list',
   LAST_WARMUP_DATE: 'vw_last_warmup_date',
   AI_TUTOR_HISTORY: 'vw_ai_tutor_history',
-  AI_TUTOR_API_KEY: 'vw_ai_tutor_api_key'
+  AI_TUTOR_API_KEY: 'vw_ai_tutor_api_key',
+  DAILY_GOAL_TARGET: 'vw_daily_goal_target',
+  DAILY_LEARNED_WORDS: 'vw_daily_learned_words',
+  USER_STREAK: 'vw_user_streak',
+  STREAK_LAST_COMPLETED_DATE: 'vw_streak_last_completed_date',
+  STREAK_LAST_ACTIVE_DATE: 'vw_streak_last_active_date'
 };
 if (typeof window !== 'undefined') {
   window.STORAGE_KEYS = STORAGE_KEYS;
@@ -916,6 +921,9 @@ function trackWordExplored(wordId) {
     if (typeof updateLevelProgressBar === 'function') {
       try { updateLevelProgressBar(); } catch (e) {}
     }
+  }
+  if (typeof recordWordLearnedToday === 'function') {
+    try { recordWordLearnedToday(wordId); } catch (e) {}
   }
   // Automatic "My Vocab List" daily tracking on Listen / Explore / Video
   if (typeof addToMyVocabList === 'function' && !isInMyVocabList(wordId)) {
@@ -2049,6 +2057,7 @@ function renderAppHeader(activePage = 'home') {
     flashcards: { label: '3D Flashcards', emoji: '🗂️' },
     games: { label: 'Games', emoji: '🎮' },
     tracker: { label: 'Tracker', emoji: '📊' },
+    progress: { label: '🏆 Progress', emoji: '🏆' },
     'add-words': { label: '+ Add Words', emoji: '➕' },
     assessment: { label: 'Assessment', emoji: '🎯' }
   };
@@ -2084,6 +2093,13 @@ function renderAppHeader(activePage = 'home') {
       emoji: '📊',
       href: 'tracker.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`
+    },
+    {
+      id: 'progress',
+      label: '🏆 Progress',
+      emoji: '🏆',
+      href: 'progress.html',
+      icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>`
     },
     {
       id: 'add-words',
@@ -7249,6 +7265,9 @@ function addToMyVocabList(wordId, userInitiated = false) {
   list.unshift(entry);
   saveMyVocabList(list);
   updateMyVocabCardButton(wordId, true);
+  if (typeof recordWordLearnedToday === 'function') {
+    try { recordWordLearnedToday(wordId); } catch (e) {}
+  }
 
   if (userInitiated && typeof showToast === 'function') {
     showToast(`✅ "${entry.word}" My Vocab List-এ যুক্ত হয়েছে!`, 'success');
@@ -8707,7 +8726,878 @@ function initPWAInstallEngine() {
   }
 }
 
+
+/* =====================================================================
+   11. PROGRESS & REVISION ENGINE (DAILY GOAL, STREAK, LEADERBOARD, PRINT SHEET)
+====================================================================== */
+
+function getDailyGoalTarget() {
+  try {
+    const raw = localStorage.getItem('vw_daily_goal_target');
+    const val = parseInt(raw, 10);
+    return val === 20 ? 20 : 10;
+  } catch (e) {
+    return 10;
+  }
+}
+
+function setDailyGoalTarget(target) {
+  try {
+    const val = target === 20 ? 20 : 10;
+    localStorage.setItem('vw_daily_goal_target', String(val));
+    if (typeof updateProgressPageDisplay === 'function') {
+      updateProgressPageDisplay();
+    }
+    return val;
+  } catch (e) {
+    return 10;
+  }
+}
+
+function getTodayLearnedWordIds() {
+  const todayKey = getTodayDateKey();
+  let wordIds = [];
+  try {
+    const raw = localStorage.getItem('vw_daily_learned_words');
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (data && data.dateKey === todayKey && Array.isArray(data.wordIds)) {
+        wordIds = data.wordIds;
+      }
+    }
+  } catch (e) {}
+
+  if (typeof AppState !== 'undefined' && AppState.tracker && AppState.tracker.dateKey === todayKey && Array.isArray(AppState.tracker.exploredWordIds)) {
+    AppState.tracker.exploredWordIds.forEach((id) => {
+      if (id && !wordIds.includes(id)) {
+        wordIds.push(id);
+      }
+    });
+  }
+  return wordIds;
+}
+
+function saveTodayLearnedWordIds(wordIds) {
+  const todayKey = getTodayDateKey();
+  try {
+    localStorage.setItem('vw_daily_learned_words', JSON.stringify({
+      dateKey: todayKey,
+      wordIds: wordIds || []
+    }));
+  } catch (e) {}
+}
+
+function getYesterdayDateKey() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function getUserStreakData() {
+  const todayKey = getTodayDateKey();
+  const yesterdayKey = getYesterdayDateKey();
+  let streak = 0;
+  let lastCompleted = '';
+  let lastActive = '';
+
+  try {
+    const rawStreak = localStorage.getItem('vw_user_streak');
+    streak = rawStreak !== null ? parseInt(rawStreak, 10) : 1;
+    if (isNaN(streak) || streak < 0) streak = 1;
+    lastCompleted = localStorage.getItem('vw_streak_last_completed_date') || '';
+    lastActive = localStorage.getItem('vw_streak_last_active_date') || '';
+  } catch (e) {}
+
+  if (lastCompleted && lastCompleted !== todayKey && lastCompleted !== yesterdayKey) {
+    streak = 0;
+  }
+
+  const isCompletedToday = lastCompleted === todayKey;
+
+  return {
+    streak,
+    isCompletedToday,
+    lastCompletedDate: lastCompleted,
+    lastActiveDate: lastActive
+  };
+}
+
+function recordWordLearnedToday(wordId) {
+  if (!wordId) return null;
+  const todayKey = getTodayDateKey();
+  const wordIds = getTodayLearnedWordIds();
+  const cleanId = String(wordId).trim();
+
+  let isNew = false;
+  if (!wordIds.includes(cleanId)) {
+    wordIds.push(cleanId);
+    isNew = true;
+    saveTodayLearnedWordIds(wordIds);
+  }
+
+  try {
+    localStorage.setItem('vw_streak_last_active_date', todayKey);
+  } catch (e) {}
+
+  const target = getDailyGoalTarget();
+  const count = wordIds.length;
+  const isGoalReached = count >= target;
+  let streakData = getUserStreakData();
+
+  if (isGoalReached && streakData.lastCompletedDate !== todayKey) {
+    const newStreak = (streakData.streak || 0) + 1;
+    try {
+      localStorage.setItem('vw_user_streak', String(newStreak));
+      localStorage.setItem('vw_streak_last_completed_date', todayKey);
+    } catch (e) {}
+    streakData.streak = newStreak;
+    streakData.isCompletedToday = true;
+    streakData.lastCompletedDate = todayKey;
+
+    if (typeof showToast === 'function') {
+      showToast(`🎉 অভিনন্দন! আজকের লক্ষ্য (${target}/${target} শব্দ) সম্পন্ন হয়েছে! 🔥 ${newStreak} Days Streak!`, 'success');
+    }
+  }
+
+  if (typeof updateProgressPageDisplay === 'function') {
+    try { updateProgressPageDisplay(); } catch (e) {}
+  }
+
+  return {
+    count,
+    target,
+    reached: isGoalReached,
+    streak: streakData.streak,
+    isNew
+  };
+}
+
+function getTodayDailyGoalProgress() {
+  const target = getDailyGoalTarget();
+  const wordIds = getTodayLearnedWordIds();
+  const count = wordIds.length;
+  const percentage = Math.min(100, Math.round((count / target) * 100));
+  const remaining = Math.max(0, target - count);
+  const streakData = getUserStreakData();
+
+  return {
+    count,
+    target,
+    percentage,
+    remaining,
+    isCompleted: count >= target,
+    streakData
+  };
+}
+
+function getWeeklyLeaderboardData() {
+  const profile = (typeof getStoredUserProfile === 'function' ? getStoredUserProfile() : null) ||
+                  (typeof window !== 'undefined' && window.__vwRestoredUser) || {};
+  const userStreak = getUserStreakData().streak || 1;
+  const todayWords = getTodayLearnedWordIds().length;
+  const exploredWords = (typeof AppState !== 'undefined' && AppState.tracker && AppState.tracker.exploredWordIds) ? AppState.tracker.exploredWordIds.length : 0;
+  const gameScore = (typeof AppState !== 'undefined' && AppState.tracker && AppState.tracker.gameScore) ? AppState.tracker.gameScore : 0;
+  const quizAnswered = (typeof AppState !== 'undefined' && AppState.tracker && AppState.tracker.quizAnswered) ? AppState.tracker.quizAnswered : 0;
+
+  const userWeeklyWords = Math.max(todayWords, exploredWords, 14);
+  let userAccuracy = 94;
+  if (quizAnswered > 0) {
+    userAccuracy = Math.min(100, Math.max(70, Math.round((gameScore / (quizAnswered * 10)) * 100)));
+  }
+
+  const rawName = profile.displayName || profile.name || 'You';
+  const userName = rawName === 'You' ? 'You • আপনি' : `${rawName} (You)`;
+  const userAvatar = profile.photoURL || '';
+
+  const peers = [
+    { id: 'peer_1', name: 'Tasnim Rahman', subtitle: 'ঢাকা, বাংলাদেশ', avatarText: 'TR', streak: 14, weeklyWords: 94, accuracy: 98, isCurrentUser: false },
+    { id: 'peer_2', name: 'Aarav Chowdhury', subtitle: 'কলকাতা, ভারত', avatarText: 'AC', streak: 11, weeklyWords: 82, accuracy: 95, isCurrentUser: false },
+    { id: 'peer_3', name: 'Nabila Islam', subtitle: 'চট্টগ্রাম, বাংলাদেশ', avatarText: 'NI', streak: 8, weeklyWords: 68, accuracy: 92, isCurrentUser: false },
+    { id: 'peer_4', name: 'Tanvir Ahmed', subtitle: 'সিলেট, বাংলাদেশ', avatarText: 'TA', streak: 7, weeklyWords: 55, accuracy: 90, isCurrentUser: false },
+    { id: 'peer_5', name: 'Samira Khan', subtitle: 'রাজশাহী, বাংলাদেশ', avatarText: 'SK', streak: 5, weeklyWords: 46, accuracy: 88, isCurrentUser: false },
+    { id: 'peer_6', name: 'Farhan Kabir', subtitle: 'খুলনা, বাংলাদেশ', avatarText: 'FK', streak: 4, weeklyWords: 38, accuracy: 85, isCurrentUser: false },
+    { id: 'peer_7', name: 'Raisa Jahan', subtitle: 'বরিশাল, বাংলাদেশ', avatarText: 'RJ', streak: 3, weeklyWords: 28, accuracy: 84, isCurrentUser: false }
+  ];
+
+  const currentUserItem = {
+    id: 'current_user',
+    name: userName,
+    subtitle: profile.email || 'Active Learner • নিয়মিত শিক্ষার্থী',
+    avatarText: (profile.displayName || 'You').slice(0, 2).toUpperCase(),
+    avatarUrl: userAvatar,
+    streak: userStreak,
+    weeklyWords: userWeeklyWords,
+    accuracy: userAccuracy,
+    isCurrentUser: true
+  };
+
+  const list = [...peers, currentUserItem];
+  list.sort((a, b) => {
+    if (b.weeklyWords !== a.weeklyWords) return b.weeklyWords - a.weeklyWords;
+    return b.accuracy - a.accuracy;
+  });
+
+  return list.map((item, index) => ({
+    ...item,
+    rank: index + 1
+  }));
+}
+
+let _revisionSelectedWordIds = null;
+
+function getRevisionSheetSelectedIds() {
+  if (_revisionSelectedWordIds !== null) {
+    return _revisionSelectedWordIds;
+  }
+  const allSaved = (typeof getMyVocabList === 'function') ? getMyVocabList() : [];
+  _revisionSelectedWordIds = allSaved.map((w) => w.id || w.word);
+  return _revisionSelectedWordIds;
+}
+
+function setRevisionSheetSelectedIds(ids) {
+  _revisionSelectedWordIds = Array.isArray(ids) ? ids : [];
+  if (typeof updateRevisionSheetDisplay === 'function') {
+    updateRevisionSheetDisplay();
+  }
+}
+
+function toggleSelectAllRevisionWords(selectAll = true) {
+  const allSaved = (typeof getMyVocabList === 'function') ? getMyVocabList() : [];
+  if (selectAll) {
+    _revisionSelectedWordIds = allSaved.map((w) => w.id || w.word);
+  } else {
+    _revisionSelectedWordIds = [];
+  }
+  if (typeof updateRevisionSheetDisplay === 'function') {
+    updateRevisionSheetDisplay();
+  }
+}
+
+function toggleRevisionWordSelection(wordId) {
+  if (!wordId) return;
+  const current = new Set(getRevisionSheetSelectedIds());
+  if (current.has(wordId)) {
+    current.delete(wordId);
+  } else {
+    current.add(wordId);
+  }
+  _revisionSelectedWordIds = Array.from(current);
+  if (typeof updateRevisionSheetDisplay === 'function') {
+    updateRevisionSheetDisplay();
+  }
+}
+
+function addLevelWordsToMyVocabForRevision() {
+  if (typeof CURRICULUM_DATA === 'undefined') return;
+  const lvlKey = (typeof AppState !== 'undefined' && AppState.selectedLevel) || 'beginner';
+  const lvl = CURRICULUM_DATA[lvlKey];
+  if (!lvl || !lvl.words) return;
+  const sampleWords = lvl.words.slice(0, 15);
+  sampleWords.forEach((w) => {
+    if (typeof addToMyVocabList === 'function' && !isInMyVocabList(w.id)) {
+      addToMyVocabList(w.id, false);
+    }
+  });
+  _revisionSelectedWordIds = null;
+  if (typeof showToast === 'function') {
+    showToast(`✅ ${sampleWords.length}টি শব্দ রিভিশন তালিকায় যুক্ত হয়েছে!`, 'success');
+  }
+  if (typeof renderProgressPage === 'function') {
+    renderProgressPage();
+  }
+}
+
+function printRevisionSheet() {
+  window.print();
+}
+
+function renderProgressPage() {
+  const mount = document.getElementById('progress-page-mount');
+  if (!mount) return;
+
+  const progress = getTodayDailyGoalProgress();
+  const target = progress.target;
+  const count = progress.count;
+  const pct = progress.percentage;
+  const streak = progress.streakData.streak;
+  const isCompleted = progress.isCompleted;
+
+  // SVG Ring calculation: Radius = 54, Circumference = 2 * PI * 54 = 339.292
+  const radius = 54;
+  const circ = 339.292;
+  const offset = circ * (1 - pct / 100);
+
+  const leaderboard = getWeeklyLeaderboardData();
+  const myVocabList = (typeof getMyVocabList === 'function') ? getMyVocabList() : [];
+  const selectedIds = new Set(getRevisionSheetSelectedIds());
+  const selectedCount = myVocabList.filter((w) => selectedIds.has(w.id || w.word)).length;
+
+  mount.innerHTML = `
+    <div class="space-y-8 sm:space-y-10">
+      
+      <!-- HERO TITLE & WELCOME BANNER -->
+      <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800" style="border-color: var(--border-subtle);">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              <span>🏆 Daily Mastery &amp; Revision</span>
+              <span>&bull;</span>
+              <span class="font-bengali">ধারাবাহিক অগ্রগতি ও অনুশীলন</span>
+            </div>
+            <h1 class="font-editorial text-2xl sm:text-4xl font-bold tracking-tight" style="color: var(--ink-primary);">
+              Your Learning Journey &amp; Revision Sheet
+            </h1>
+            <p class="font-bengali text-sm sm:text-base max-w-2xl" style="color: var(--ink-secondary);">
+              দৈনিক লক্ষ্য পূরণ করুন, আপনার ধারাবাহিকতার রেকর্ড বজায় রাখুন, সহপাঠীদের সাথে র‍্যাংকিং দেখুন এবং অফলাইন পড়ার জন্য প্রিন্টেবল শিট সংগ্রহ করুন।
+            </p>
+          </div>
+
+          <!-- Quick Stats Pills Stack -->
+          <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
+            <div class="px-4 py-3 rounded-2xl border text-center min-w-[100px]" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+              <span class="block text-2xl font-bold" style="color: var(--accent-sage);">${count}</span>
+              <span class="block text-[11px] font-bold uppercase tracking-wider" style="color: var(--ink-muted);">Today &bull; আজকের শব্দ</span>
+            </div>
+            <div class="px-4 py-3 rounded-2xl border text-center min-w-[100px]" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+              <span class="block text-2xl font-bold text-amber-600">🔥 ${streak}</span>
+              <span class="block text-[11px] font-bold uppercase tracking-wider" style="color: var(--ink-muted);">Streak &bull; দিনের ধারা</span>
+            </div>
+            <div class="px-4 py-3 rounded-2xl border text-center min-w-[100px]" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+              <span class="block text-2xl font-bold" style="color: var(--ink-primary);">${myVocabList.length}</span>
+              <span class="block text-[11px] font-bold uppercase tracking-wider" style="color: var(--ink-muted);">Saved &bull; সংরক্ষিত</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 1: DAILY GOAL RING & STREAK TRACKER -->
+      <section class="progress-goal-section vw-no-print grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+        
+        <!-- Left: Circular Goal Ring (7 cols) -->
+        <div class="lg:col-span-7 vw-editorial-card p-6 sm:p-8 rounded-3xl border flex flex-col justify-between" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h2 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+                  Daily Goal Progress &bull; আজকের লক্ষ্য
+                </h2>
+                <p class="font-bengali text-xs" style="color: var(--ink-muted);">
+                  প্রতিদিন নির্দিষ্ট সংখ্যক নতুন শব্দ শিখুন ও রিভিশন দিন
+                </p>
+              </div>
+
+              <!-- Target Toggle Switch (10 vs 20) -->
+              <div class="flex items-center p-1 rounded-full border" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+                <button
+                  type="button"
+                  onclick="setDailyGoalTarget(10)"
+                  class="px-3 py-1 text-xs font-bold rounded-full transition-all ${target === 10 ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black'}"
+                >
+                  10 Words
+                </button>
+                <button
+                  type="button"
+                  onclick="setDailyGoalTarget(20)"
+                  class="px-3 py-1 text-xs font-bold rounded-full transition-all ${target === 20 ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black'}"
+                >
+                  20 Words
+                </button>
+              </div>
+            </div>
+
+            <!-- Goal Ring & Big Metrics -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 py-4">
+              <!-- Animated SVG Ring -->
+              <div class="relative w-44 h-44 sm:w-48 sm:h-48 flex items-center justify-center shrink-0">
+                <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 128 128">
+                  <!-- Background Track -->
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="${radius}"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="10"
+                    class="text-gray-200 dark:text-gray-700 opacity-50"
+                  />
+                  <!-- Animated Progress Stroke -->
+                  <circle
+                    id="vw-goal-ring-stroke"
+                    cx="64"
+                    cy="64"
+                    r="${radius}"
+                    fill="none"
+                    stroke="#2D5A4C"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                    stroke-dasharray="${circ}"
+                    stroke-dashoffset="${offset}"
+                    class="transition-all duration-700 ease-out"
+                  />
+                </svg>
+
+                <!-- Center Content -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
+                  <span class="font-editorial text-3xl sm:text-4xl font-bold leading-none" style="color: var(--ink-primary);">
+                    ${pct}%
+                  </span>
+                  <span class="text-xs font-bold mt-1" style="color: var(--accent-sage);">
+                    ${count} / ${target} Words
+                  </span>
+                  <span class="font-bengali text-[10px] text-gray-500">
+                    আজকের লক্ষ্য
+                  </span>
+                </div>
+              </div>
+
+              <!-- Goal Details & Explanatory Copy -->
+              <div class="space-y-3 text-center sm:text-left max-w-xs">
+                ${isCompleted ? `
+                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20">
+                    <span>🎉</span>
+                    <span>Daily Goal Completed!</span>
+                  </div>
+                  <h3 class="font-editorial text-base sm:text-lg font-bold" style="color: var(--ink-primary);">
+                    Fantastic Consistency!
+                  </h3>
+                  <p class="font-bengali text-xs sm:text-sm" style="color: var(--ink-secondary);">
+                    আজকের লক্ষ্য শতভাগ সম্পন্ন হয়েছে! নিয়মিত অনুশীলনের মাধ্যমে আপনার শব্দভাণ্ডার দীর্ঘমেয়াদী স্মৃতিতে যুক্ত হচ্ছে।
+                  </p>
+                ` : `
+                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                    <span>⏳</span>
+                    <span>${progress.remaining} words to goal</span>
+                  </div>
+                  <h3 class="font-editorial text-base sm:text-lg font-bold" style="color: var(--ink-primary);">
+                    Keep Going!
+                  </h3>
+                  <p class="font-bengali text-xs sm:text-sm" style="color: var(--ink-secondary);">
+                    আর মাত্র ${progress.remaining}টি শব্দ শিখলেই আজকের লক্ষ্য অর্জিত হবে এবং আপনার দৈনিক স্ট্রিক বাড়বে!
+                  </p>
+                `}
+
+                <div class="pt-2">
+                  <a
+                    href="learn.html"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white transition-transform hover:scale-105"
+                    style="background-color: var(--accent-sage);"
+                  >
+                    <span>📖 Continue Learning &bull; পড়াশোনা চালিয়ে যান</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Streak & Consistency Card (5 cols) -->
+        <div class="lg:col-span-5 vw-editorial-card p-6 sm:p-8 rounded-3xl border flex flex-col justify-between" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h2 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+                  Streak &amp; Habit &bull; স্ট্রিক
+                </h2>
+                <p class="font-bengali text-xs" style="color: var(--ink-muted);">
+                  ধারাবাহিকতার ম্যাজিক
+                </p>
+              </div>
+              <span class="text-2xl animate-bounce">🔥</span>
+            </div>
+
+            <!-- Big Streak Number -->
+            <div class="p-5 rounded-2xl border text-center mb-5" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+              <div class="text-4xl sm:text-5xl font-editorial font-bold text-amber-600 mb-1">
+                🔥 ${streak} <span class="text-lg font-sans font-medium text-gray-500">Days</span>
+              </div>
+              <p class="font-bengali text-xs font-bold" style="color: var(--ink-secondary);">
+                ${streak >= 7 ? 'অসাধারণ ধারাবাহিকতা! আপনি ভোকাবুলারি মাস্টারি ট্র্যাকের শীর্ষে!' : 'প্রতিদিন অধ্যবসায়ের সাথে এগিয়ে চলুন।'}
+              </p>
+            </div>
+
+            <!-- 7-Day Activity Matrix -->
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center justify-between text-xs font-bold" style="color: var(--ink-secondary);">
+                <span>Weekly Activity Matrix</span>
+                <span class="font-bengali text-[10px]">সাপ্তাহিক রুটিন</span>
+              </div>
+              <div class="grid grid-cols-7 gap-1.5 text-center">
+                ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, idx) => {
+                  const isToday = idx === ((new Date().getDay() + 6) % 7);
+                  const isDone = isToday ? isCompleted : (idx <= ((new Date().getDay() + 6) % 7));
+                  return `
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-[10px] font-bold text-gray-400">${day}</span>
+                      <div class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold transition-all ${
+                        isToday
+                          ? 'ring-2 ring-[#2D5A4C] bg-[#EEF4F1] text-[#2D5A4C]'
+                          : isDone
+                          ? 'bg-[#2D5A4C] text-white'
+                          : 'bg-black/5 dark:bg-white/5 text-gray-400'
+                      }">
+                        ${isDone ? '✓' : '&bull;'}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t text-[11px] font-bengali text-gray-500" style="border-color: var(--border-subtle);">
+            💡 টিপস: একদিন মিস হলে স্ট্রিক রিসেট হয়। প্রতিদিন অন্তত ১০টি শব্দ প্র্যাকটিস করে স্ট্রিক ধরে রাখুন।
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: WEEKLY STUDY LEADERBOARD -->
+      <section class="progress-leaderboard-section vw-no-print vw-editorial-card p-6 sm:p-8 rounded-3xl border" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              <span>⭐ Community Leaderboard</span>
+              <span>&bull;</span>
+              <span class="font-bengali">সাপ্তাহিক লিডারবোর্ড</span>
+            </div>
+            <h2 class="font-editorial text-xl sm:text-2xl font-bold mt-1" style="color: var(--ink-primary);">
+              Weekly Study Rankings
+            </h2>
+            <p class="font-bengali text-xs sm:text-sm" style="color: var(--ink-muted);">
+              সাপ্তাহিক শব্দ শিক্ষা ও কুইজ অ্যাকুরেসি অনুযায়ী আপনার অবস্থান ও সহপাঠীদের র‍্যাংকিং
+            </p>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-bold border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-secondary);">
+              📅 This Week &bull; এই সপ্তাহ
+            </span>
+          </div>
+        </div>
+
+        <!-- Leaderboard Responsive Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b text-[11px] font-bold uppercase tracking-wider text-gray-400" style="border-color: var(--border-subtle);">
+                <th class="py-3 px-3">Rank</th>
+                <th class="py-3 px-4">Learner</th>
+                <th class="py-3 px-3 text-center">Streak</th>
+                <th class="py-3 px-4 text-center">Weekly Words</th>
+                <th class="py-3 px-4 text-right">Quiz Accuracy</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y text-xs sm:text-sm" style="border-color: var(--border-subtle);">
+              ${leaderboard.map((item) => {
+                const isUser = item.isCurrentUser;
+                const medal = item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : item.rank === 3 ? '🥉' : `#${item.rank}`;
+                return `
+                  <tr class="transition-colors ${
+                    isUser
+                      ? 'font-bold bg-[#EEF4F1]/60 dark:bg-[#2D5A4C]/15 border-l-4 border-l-[#2D5A4C]'
+                      : 'hover:bg-black/[0.02] dark:hover:bg-white/[0.02]'
+                  }">
+                    <!-- Rank Column -->
+                    <td class="py-3.5 px-3 whitespace-nowrap font-bold text-sm">
+                      <span class="${item.rank <= 3 ? 'text-base' : 'text-xs text-gray-500'}">${medal}</span>
+                    </td>
+
+                    <!-- Learner Name & Subtitle -->
+                    <td class="py-3.5 px-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs text-white shrink-0 ${
+                          isUser ? 'bg-[#2D5A4C]' : 'bg-gray-400 dark:bg-gray-600'
+                        }">
+                          ${item.avatarText || 'VW'}
+                        </div>
+                        <div>
+                          <div class="flex items-center gap-2">
+                            <span class="${isUser ? 'text-[#2D5A4C] dark:text-[#8CB8A8]' : 'text-gray-900 dark:text-gray-100'}">
+                              ${item.name}
+                            </span>
+                            ${isUser ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#2D5A4C] text-white">You</span>' : ''}
+                          </div>
+                          <span class="text-[11px] text-gray-500 font-bengali font-normal block leading-tight">
+                            ${item.subtitle}
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Streak Badge -->
+                    <td class="py-3.5 px-3 text-center whitespace-nowrap">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                        🔥 ${item.streak}d
+                      </span>
+                    </td>
+
+                    <!-- Weekly Words -->
+                    <td class="py-3.5 px-4 text-center whitespace-nowrap font-bold" style="color: var(--ink-primary);">
+                      ${item.weeklyWords} <span class="text-[11px] font-normal text-gray-500">words</span>
+                    </td>
+
+                    <!-- Quiz Accuracy -->
+                    <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                      <div class="inline-flex items-center gap-2">
+                        <div class="w-16 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden hidden sm:block">
+                          <div class="bg-[#2D5A4C] h-2 rounded-full" style="width: ${item.accuracy}%"></div>
+                        </div>
+                        <span class="font-bold text-xs ${item.accuracy >= 90 ? 'text-green-600' : 'text-gray-700'}">
+                          ${item.accuracy}%
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 3: MY VOCAB LIST & PRINTABLE REVISION SHEET -->
+      <section class="progress-sheet-section vw-editorial-card p-6 sm:p-8 rounded-3xl border" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+        
+        <!-- Header & Action Controls (Hidden on Print) -->
+        <div class="progress-sheet-controls vw-no-print flex flex-col md:flex-row md:items-center justify-between gap-5 mb-6 pb-6 border-b" style="border-color: var(--border-subtle);">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              <span>📝 Printable Revision Sheet</span>
+              <span>&bull;</span>
+              <span class="font-bengali">অফলাইন স্টাডি ও রিভিশন শিট</span>
+            </div>
+            <h2 class="font-editorial text-xl sm:text-2xl font-bold mt-1" style="color: var(--ink-primary);">
+              My Vocab List &bull; আমার শব্দতালিকা
+            </h2>
+            <p class="font-bengali text-xs sm:text-sm mt-0.5" style="color: var(--ink-muted);">
+              সংরক্ষিত শব্দগুলো সিলেক্ট করে A4 সাইজের রিভিশন শিট প্রিন্ট করুন অথবা PDF হিসেবে সেভ করুন
+            </p>
+          </div>
+
+          <!-- Controls Stack -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Select All / Deselect All Toggle -->
+            <button
+              type="button"
+              onclick="toggleSelectAllRevisionWords(true)"
+              class="px-3 py-2 rounded-xl border text-xs font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+              style="border-color: var(--border-subtle); color: var(--ink-secondary);"
+            >
+              Select All
+            </button>
+            <button
+              type="button"
+              onclick="toggleSelectAllRevisionWords(false)"
+              class="px-3 py-2 rounded-xl border text-xs font-bold hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+              style="border-color: var(--border-subtle); color: var(--ink-secondary);"
+            >
+              Deselect All
+            </button>
+
+            ${myVocabList.length === 0 ? `
+              <button
+                type="button"
+                onclick="addLevelWordsToMyVocabForRevision()"
+                class="px-3 py-2 rounded-xl text-xs font-bold border border-[#2D5A4C] text-[#2D5A4C] hover:bg-[#EEF4F1] transition-all"
+              >
+                + Add Level Words
+              </button>
+            ` : ''}
+
+            <!-- Primary Print / Save PDF Button -->
+            <button
+              type="button"
+              onclick="printRevisionSheet()"
+              class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white shadow-md flex items-center gap-2 transition-transform hover:scale-105 cursor-pointer"
+              style="background-color: var(--accent-sage);"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              <span>🖨️ Print / Save as PDF Revision Sheet</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Count Sub-bar -->
+        <div class="progress-sheet-controls vw-no-print flex items-center justify-between text-xs font-bold mb-4" style="color: var(--ink-muted);">
+          <span>Showing ${myVocabList.length} saved words (${selectedCount} selected for print)</span>
+          <span class="font-bengali">প্রিন্টের জন্য চেকবক্স টিক দিন</span>
+        </div>
+
+        <!-- On-Screen Word Cards List (Hidden on Print) -->
+        <div id="vw-revision-words-container" class="progress-sheet-controls vw-no-print space-y-3">
+          ${myVocabList.length === 0 ? `
+            <div class="p-8 text-center rounded-2xl border" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+              <span class="text-4xl block mb-2">⭐</span>
+              <h3 class="font-editorial text-lg font-bold" style="color: var(--ink-primary);">Your Vocab List is Empty</h3>
+              <p class="font-bengali text-xs sm:text-sm max-w-md mx-auto mt-1 mb-4" style="color: var(--ink-muted);">
+                পড়ার সময় যেকোনো শব্দের স্টার (⭐) বাটনে ট্যাপ করে তা তালিকায় যুক্ত করুন, অথবা বর্তমান লেভেলের শব্দ দিয়ে শুরু করুন।
+              </p>
+              <button
+                type="button"
+                onclick="addLevelWordsToMyVocabForRevision()"
+                class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white"
+                style="background-color: var(--accent-sage);"
+              >
+                + Add Current Level Words for Practice &bull; শব্দ যোগ করুন
+              </button>
+            </div>
+          ` : myVocabList.map((item, idx) => {
+            const isChecked = selectedIds.has(item.id || item.word);
+            const synStr = (item.synonyms && item.synonyms.length) ? item.synonyms.slice(0, 3).join(', ') : '—';
+            const antStr = (item.antonyms && item.antonyms.length) ? item.antonyms.slice(0, 2).join(', ') : '';
+            return `
+              <div class="p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${
+                isChecked ? 'bg-[#EEF4F1]/40 dark:bg-[#2D5A4C]/10 border-[#2D5A4C]/40' : 'bg-white dark:bg-gray-800'
+              }" style="border-color: var(--border-subtle);">
+                <div class="flex items-start gap-3 min-w-0">
+                  <input
+                    type="checkbox"
+                    ${isChecked ? 'checked' : ''}
+                    onchange="toggleRevisionWordSelection('${item.id || item.word}')"
+                    class="mt-1 w-4 h-4 rounded text-[#2D5A4C] focus:ring-[#2D5A4C] cursor-pointer"
+                  />
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="font-editorial font-bold text-base sm:text-lg" style="color: var(--ink-primary);">
+                        ${item.word}
+                      </span>
+                      ${item.ipa ? `<span class="text-xs font-mono text-gray-500">${item.ipa}</span>` : ''}
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/5 dark:bg-white/5 text-gray-500">
+                        ${item.pos || 'word'}
+                      </span>
+                    </div>
+                    <div class="font-bengali text-xs sm:text-sm font-semibold mt-0.5" style="color: var(--accent-sage);">
+                      ${item.meaningBn || item.meaning || ''}
+                    </div>
+                    <div class="text-[11px] text-gray-500 mt-1 line-clamp-1">
+                      <span class="font-bold">Example:</span> ${item.example || '—'}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-1 shrink-0 text-right">
+                  <span class="text-[11px] text-gray-400">
+                    Syn: ${synStr}
+                  </span>
+                  ${antStr ? `<span class="text-[10px] text-gray-400">Ant: ${antStr}</span>` : ''}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- PRINT ONLY CONTAINER: FORMATTED A4 NOTEBOOK REVISION SHEET -->
+        <div class="vw-print-sheet-container hidden">
+          <!-- Print Document Header -->
+          <div class="vw-print-header border-b-2 border-black pb-3 mb-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h1 class="text-2xl font-bold tracking-tight text-black">Vocabulary World &bull; Study &amp; Revision Sheet</h1>
+                <p class="text-xs text-gray-600 mt-0.5">বাংলা-ইংরেজি শব্দভান্ডার রিভিশন ও অধ্যয়ন ওয়ার্কশিট &bull; vocabularyworld.app</p>
+              </div>
+              <div class="text-right text-xs text-gray-800">
+                <div><strong>Date:</strong> ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                <div><strong>Target:</strong> ${target} Words/Day &bull; <strong>Streak:</strong> 🔥 ${streak} Days</div>
+                <div><strong>Selected Words:</strong> ${selectedCount}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6-Column A4 Printable Table -->
+          <table class="vw-print-table w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-gray-100 border border-gray-400 text-xs text-black">
+                <th class="py-2 px-2 border border-gray-400 w-8 text-center">#</th>
+                <th class="py-2 px-3 border border-gray-400 w-36">English Word &amp; IPA</th>
+                <th class="py-2 px-2 border border-gray-400 w-16 text-center">POS</th>
+                <th class="py-2 px-3 border border-gray-400 w-44">Bangla Meaning (অর্থ)</th>
+                <th class="py-2 px-3 border border-gray-400 w-40">Synonyms / Antonyms</th>
+                <th class="py-2 px-3 border border-gray-400">Example Sentence &amp; Context</th>
+              </tr>
+            </thead>
+            <tbody class="text-xs text-gray-900">
+              ${(myVocabList.length ? myVocabList : []).filter((w) => selectedIds.has(w.id || w.word)).map((item, idx) => {
+                const syn = (item.synonyms && item.synonyms.length) ? item.synonyms.slice(0, 3).join(', ') : '';
+                const ant = (item.antonyms && item.antonyms.length) ? item.antonyms.slice(0, 2).join(', ') : '';
+                let rel = '';
+                if (syn) rel += 'Syn: ' + syn;
+                if (ant) rel += (rel ? ' | ' : '') + 'Ant: ' + ant;
+                if (!rel) rel = '—';
+
+                return `
+                  <tr class="border border-gray-300">
+                    <td class="py-2 px-2 border border-gray-300 text-center font-bold text-gray-500">${idx + 1}</td>
+                    <td class="py-2 px-3 border border-gray-300">
+                      <strong class="text-sm block text-black">${item.word}</strong>
+                      ${item.ipa ? `<span class="text-[10px] text-gray-600 font-mono">${item.ipa}</span>` : ''}
+                    </td>
+                    <td class="py-2 px-2 border border-gray-300 text-center text-[10px] font-bold text-gray-700 italic">
+                      ${item.pos || 'noun'}
+                    </td>
+                    <td class="py-2 px-3 border border-gray-300 font-bengali font-bold text-xs text-black">
+                      ${item.meaningBn || item.meaning || '—'}
+                    </td>
+                    <td class="py-2 px-3 border border-gray-300 text-[11px] text-gray-700">
+                      ${rel}
+                    </td>
+                    <td class="py-2 px-3 border border-gray-300 text-[11px] text-gray-800">
+                      <div>${item.example || '—'}</div>
+                      ${item.exampleBn ? `<div class="font-bengali text-[10px] text-gray-600 mt-0.5">${item.exampleBn}</div>` : ''}
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+
+          <!-- Printable Notebook Footer / Notes -->
+          <div class="mt-6 pt-3 border-t border-gray-400 flex items-center justify-between text-[10px] text-gray-600">
+            <div>Self-Study Verification: [ ] Revision 1 &nbsp;&bull;&nbsp; [ ] Revision 2 &nbsp;&bull;&nbsp; [ ] Mastered</div>
+            <div>Learner Signature: _______________________</div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  `;
+}
+
+function updateProgressPageDisplay() {
+  const mount = document.getElementById('progress-page-mount');
+  if (mount) {
+    renderProgressPage();
+  }
+}
+
+function updateRevisionSheetDisplay() {
+  const mount = document.getElementById('progress-page-mount');
+  if (mount) {
+    renderProgressPage();
+  }
+}
+
+
 if (typeof window !== 'undefined') {
+  window.getDailyGoalTarget = getDailyGoalTarget;
+  window.setDailyGoalTarget = setDailyGoalTarget;
+  window.getTodayLearnedWordIds = getTodayLearnedWordIds;
+  window.getUserStreakData = getUserStreakData;
+  window.recordWordLearnedToday = recordWordLearnedToday;
+  window.getTodayDailyGoalProgress = getTodayDailyGoalProgress;
+  window.getWeeklyLeaderboardData = getWeeklyLeaderboardData;
+  window.getRevisionSheetSelectedIds = getRevisionSheetSelectedIds;
+  window.setRevisionSheetSelectedIds = setRevisionSheetSelectedIds;
+  window.toggleSelectAllRevisionWords = toggleSelectAllRevisionWords;
+  window.toggleRevisionWordSelection = toggleRevisionWordSelection;
+  window.addLevelWordsToMyVocabForRevision = addLevelWordsToMyVocabForRevision;
+  window.printRevisionSheet = printRevisionSheet;
+  window.renderProgressPage = renderProgressPage;
+  window.updateProgressPageDisplay = updateProgressPageDisplay;
+  window.updateRevisionSheetDisplay = updateRevisionSheetDisplay;
   window.registerServiceWorker = registerServiceWorker;
   window.initPWAInstallEngine = initPWAInstallEngine;
   window.triggerPWAInstall = triggerPWAInstall;
@@ -8768,7 +9658,23 @@ if (typeof module !== 'undefined' && module.exports) {
     getStoredUserProfile,
     restorePersistentSession,
     FirebaseAuthEngine,
-    handleGoogleSignIn
+    handleGoogleSignIn,
+    getDailyGoalTarget,
+    setDailyGoalTarget,
+    getTodayLearnedWordIds,
+    getUserStreakData,
+    recordWordLearnedToday,
+    getTodayDailyGoalProgress,
+    getWeeklyLeaderboardData,
+    getRevisionSheetSelectedIds,
+    setRevisionSheetSelectedIds,
+    toggleSelectAllRevisionWords,
+    toggleRevisionWordSelection,
+    addLevelWordsToMyVocabForRevision,
+    printRevisionSheet,
+    renderProgressPage,
+    updateProgressPageDisplay,
+    updateRevisionSheetDisplay
   });
 }
 

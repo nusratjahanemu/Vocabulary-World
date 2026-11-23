@@ -195,6 +195,9 @@
         fcMasteredIds.push(card.id);
         AppState.tracker.flashcardsCompleted += 1;
         awardGamePoints(5, false);
+        if (typeof recordWordLearnedToday === 'function') {
+          try { recordWordLearnedToday(card.id); } catch (e) {}
+        }
       }
       nextCard();
     }
