@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exam &amp; Admission Practice &bull; Vocabulary World</title>
+
+  <!-- Progressive Web App (PWA) & Mobile Meta Tags -->
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#2D5A4C" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="Vocabulary World" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="VocabWorld" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+
+  <!-- Early PWA Install Prompt Capture -->
+  <script>
+    window.__deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.__deferredInstallPrompt = e;
+    });
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fraunces, Plus Jakarta Sans, Hind Siliguri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Shared Editorial Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Dark Mode Zero-Flash Initializer -->
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('vw_theme');
+        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Instant Google Auth & User Session Zero-Flicker Restore -->
+  <script>
+    (function () {
+      try {
+        const raw = localStorage.getItem('vw_persistent_user_profile') || localStorage.getItem('vw_user_profile');
+        if (raw) {
+          window.__vwRestoredUser = JSON.parse(raw);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Shared Sidebar & Mobile Top Navigation -->
+  <div id="app-header"></div>
+
+  <!-- Main Content Layout -->
+  <div class="vw-main-layout flex-1 flex flex-col min-w-0">
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-9">
+      <div id="practice-page-mount" class="vw-panel-reveal"></div>
+    </main>
+
+    <!-- Shared Editorial Footer -->
+    <div id="app-footer"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="words-data.js"></script>
+  <script src="js/common.js"></script>
+  <script>
+    /* =====================================================================
+       PRACTICE PAGE ENGINE (QUIZ, CLOZE BUILDER, SPACED REPETITION)
+    ====================================================================== */
+
+    const QUIZ_QUESTIONS = [
+      {
+        id: 'q1',
+        type: 'synonym',
+        typeLabel: 'SYNONYM (সমার্থক শব্দ)',
+        tag: 'DU C-Unit',
+        prompt: 'What is the SYNONYM of the word',
+        targetWord: 'Ephemeral',
+        meaningBn: 'ক্ষণস্থায়ী / নশ্বর',
+        options: ['Permanent', 'Transitory', 'Enduring', 'Durable'],
+        correctIndex: 1,
+        explanationBn: 'Ephemeral অর্থ ক্ষণস্থায়ী বা অল্প সময় স্থায়ী। অপশনগুলোর মধ্যে Transitory অর্থ ক্ষণস্থায়ী, তাই এটি সঠিক সমার্থক শব্দ। বিপরীত শব্দ হলো Permanent বা Durable।'
+      },
+      {
+        id: 'q2',
+        type: 'synonym',
+        typeLabel: 'SYNONYM (সমার্থক শব্দ)',
+        tag: 'DU B-Unit',
+        prompt: 'What is the SYNONYM of the word',
+        targetWord: 'Benevolent',
+        meaningBn: 'দয়ালু / সহানুভূতিশীল',
+        options: ['Malevolent', 'Altruistic', 'Vindictive', 'Hostile'],
+        correctIndex: 1,
+        explanationBn: 'Benevolent অর্থ দয়ালু বা পরহিতৈষী। Altruistic অর্থ নিঃস্বার্থ পরোপকারী, যা এর সঠিক সমার্থক শব্দ।'
+      },
+      {
+        id: 'q3',
+        type: 'synonym',
+        typeLabel: 'SYNONYM (সমার্থক শব্দ)',
+        tag: 'DU D-Unit',
+        prompt: 'What is the SYNONYM of the word',
+        targetWord: 'Ubiquitous',
+        meaningBn: 'সর্বত্র বিদ্যমান',
+        options: ['Rare', 'Omnipresent', 'Confined', 'Scarce'],
+        correctIndex: 1,
+        explanationBn: 'Ubiquitous অর্থ যা সর্বত্র বিদ্যমান। Omnipresent-ও ঠিক একই অর্থে ব্যবহৃত হয়।'
+      },
+      {
+        id: 'q4',
+        type: 'antonym',
+        typeLabel: 'ANTONYM (বিপরীত শব্দ)',
+        tag: 'DU Most Repeated',
+        prompt: 'What is the ANTONYM of the word',
+        targetWord: 'Misanthrope',
+        meaningBn: 'মানবদ্বেষী ব্যক্তি',
+        options: ['Philanthropist', 'Egoist', 'Hermit', 'Cynic'],
+        correctIndex: 0,
+        explanationBn: 'Misanthrope অর্থ যে মানুষকে ঘৃণা করে বা মানবদ্বেষী। এর বিপরীত শব্দ হলো Philanthropist (মানবদরদী বা জনহিতৈষী)।'
+      },
+      {
+        id: 'q5',
+        type: 'antonym',
+        typeLabel: 'ANTONYM (বিপরীত শব্দ)',
+        tag: 'HSC Board',
+        prompt: 'What is the ANTONYM of the word',
+        targetWord: 'Optimist',
+        meaningBn: 'আশাবাদী ব্যক্তি',
+        options: ['Idealist', 'Pessimist', 'Realist', 'Dreamer'],
+        correctIndex: 1,
+        explanationBn: 'Optimist অর্থ আশাবাদী ব্যক্তি; এর বিপরীত শব্দ Pessimist (হতাশাবাদী ব্যক্তি)।'
+      },
+      {
+        id: 'q6',
+        type: 'antonym',
+        typeLabel: 'ANTONYM (বিপরীত শব্দ)',
+        tag: 'DU Admission',
+        prompt: 'What is the ANTONYM of the word',
+        targetWord: 'Belligerent',
+        meaningBn: 'যুদ্ধবাজ / আক্রমণাত্মক',
+        options: ['Aggressive', 'Hostile', 'Peaceable', 'Antagonistic'],
+        correctIndex: 2,
+        explanationBn: 'Belligerent অর্থ যুদ্ধরত বা আক্রমণাত্মক। এর সঠিক বিপরীত শব্দ Peaceable (শান্তিপূর্ণ বা অহিংস)।'
+      },
+      {
+        id: 'q7',
+        type: 'preposition',
+        typeLabel: 'APPROPRIATE PREPOSITION (উপযুক্ত প্রিপজিশন)',
+        tag: 'HSC & DU Top',
+        prompt: 'Fill in the blank with the appropriate preposition:',
+        targetWord: 'He is addicted ______ mobile gaming.',
+        meaningBn: 'আসক্ত হওয়া',
+        options: ['to', 'with', 'for', 'in'],
+        correctIndex: 0,
+        explanationBn: 'Addicted-এর পরে উপযুক্ত প্রিপজিশন "to" বসে (Addicted to = কোনো ক্ষতিকর বিষয়ে আসক্ত)।'
+      },
+      {
+        id: 'q8',
+        type: 'preposition',
+        typeLabel: 'APPROPRIATE PREPOSITION (উপযুক্ত প্রিপজিশন)',
+        tag: 'DU C-Unit',
+        prompt: 'Fill in the blank with the appropriate preposition:',
+        targetWord: 'Students must abide ______ the campus examination rules.',
+        meaningBn: 'মেনে চলা',
+        options: ['by', 'to', 'with', 'at'],
+        correctIndex: 0,
+        explanationBn: 'Abide-এর পর "by" বসে (Abide by = নিয়ম বা সিদ্ধান্ত মেনে চলা)।'
+      },
+      {
+        id: 'q9',
+        type: 'preposition',
+        typeLabel: 'APPROPRIATE PREPOSITION (উপযুক্ত প্রিপজিশন)',
+        tag: 'HSC Board',
+        prompt: 'Fill in the blank with the appropriate preposition:',
+        targetWord: 'The security guards prevented him ______ entering the hall.',
+        meaningBn: 'বাধা দেওয়া / বিরত রাখা',
+        options: ['from', 'to', 'for', 'at'],
+        correctIndex: 0,
+        explanationBn: 'Prevent-এর সাথে সর্বদা "from" ব্যবহৃত হয় (Prevent from doing something)।'
+      },
+      {
+        id: 'q10',
+        type: 'preposition',
+        typeLabel: 'APPROPRIATE PREPOSITION (উপযুক্ত প্রিপজিশন)',
+        tag: 'DU D-Unit',
+        prompt: 'Fill in the blank with the appropriate preposition:',
+        targetWord: 'The jury declared that the defendant was guilty ______ fraud.',
+        meaningBn: 'দোষী সাব্যস্ত',
+        options: ['of', 'for', 'with', 'in'],
+        correctIndex: 0,
+        explanationBn: 'Guilty-এর সাথে উপযুক্ত প্রিপজিশন "of" বসে (Guilty of a crime = কোনো অপরাধে দোষী)।'
+      }
+    ];
+
+    const CLOZE_SENTENCES = [
+      {
+        id: 'cloze_1',
+        sentence: 'Because the jury members were completely undivided, they reached a ______ verdict within minutes.',
+        blankWord: 'unanimous',
+        displayWord: 'Unanimous',
+        hintBn: 'সর্বসম্মত / সকলের সম্মতিক্রমে গৃহীত',
+        firstLetter: 'U',
+        options: ['Unanimous', 'Ambiguous', 'Hostile', 'Tentative'],
+        explanationBn: 'যখন বিচারকরা সবাই একমত হন, তখন সিদ্ধান্তটি "Unanimous" (সর্বসম্মত) হয়।'
+      },
+      {
+        id: 'cloze_2',
+        sentence: 'Fame on social media is often ______, disappearing almost as swiftly as it appeared.',
+        blankWord: 'ephemeral',
+        displayWord: 'Ephemeral',
+        hintBn: 'ক্ষণস্থায়ী / স্বল্পস্থায়ী',
+        firstLetter: 'E',
+        options: ['Permanent', 'Ephemeral', 'Eternal', 'Perpetual'],
+        explanationBn: 'খুব অল্প সময় স্থায়ী বোঝাতে "Ephemeral" শব্দটি ব্যবহৃত হয়।'
+      },
+      {
+        id: 'cloze_3',
+        sentence: 'Mother Teresa was a celebrated ______ who devoted her entire life to aiding the poor and sick.',
+        blankWord: 'altruist',
+        displayWord: 'Altruist',
+        hintBn: 'পরহিতৈষী ব্যক্তি',
+        firstLetter: 'A',
+        options: ['Altruist', 'Misanthrope', 'Egoist', 'Autocrat'],
+        explanationBn: 'নিঃস্বার্থভাবে পরের উপকারে নিয়োজিত ব্যক্তিকে "Altruist" বলে।'
+      },
+      {
+        id: 'cloze_4',
+        sentence: 'Excessive administrative ______ delayed the swift arrival of relief goods to the flood victims.',
+        blankWord: 'red tape',
+        displayWord: 'Red tape',
+        hintBn: 'আমলাতান্ত্রিক দীর্ঘসূত্রতা',
+        firstLetter: 'R',
+        options: ['Red tape', 'Autocracy', 'Democracy', 'Benevolence'],
+        explanationBn: 'অফিসিয়াল নিয়মকানুনের জটিলতা ও দীর্ঘসূত্রতাকে "Red tape" বলা হয়।'
+      },
+      {
+        id: 'cloze_5',
+        sentence: 'In a modern democratic state, the judicial court must remain fully ______ and free from political bias.',
+        blankWord: 'impartial',
+        displayWord: 'Impartial',
+        hintBn: 'নিরপেক্ষ / পক্ষপাতহীন',
+        firstLetter: 'I',
+        options: ['Partisan', 'Impartial', 'Subjective', 'Prejudiced'],
+        explanationBn: 'কোনো পক্ষপাত না করে ন্যায়বিচার নিশ্চিত করার বৈশিষ্ট্য হলো "Impartial" (নিরপেক্ষ)।'
+      },
+      {
+        id: 'cloze_6',
+        sentence: 'The benevolent doctor treated impoverished rural patients as a true ______ of humanity.',
+        blankWord: 'benefactor',
+        displayWord: 'Benefactor',
+        hintBn: 'হিতৈষী দাতা / উপকারী ব্যক্তি',
+        firstLetter: 'B',
+        options: ['Malefactor', 'Benefactor', 'Dictator', 'Spectator'],
+        explanationBn: 'উপকারী বা দাতাকে "Benefactor" বলা হয় (Latin root: bene = good).'
+      },
+      {
+        id: 'cloze_7',
+        sentence: 'Smartphones and digital payment networks have become virtually ______ across urban Bangladesh.',
+        blankWord: 'ubiquitous',
+        displayWord: 'Ubiquitous',
+        hintBn: 'সর্বত্র বিদ্যমান / সর্বত্র পাওয়া যায় এমন',
+        firstLetter: 'U',
+        options: ['Rare', 'Scarce', 'Ubiquitous', 'Obsolete'],
+        explanationBn: 'সব জায়গায় সহজে চোখে পড়ে বা বিদ্যমান অর্থে "Ubiquitous" বসে।'
+      },
+      {
+        id: 'cloze_8',
+        sentence: 'The military officer received a ______ award in honored memory of his supreme bravery in battle.',
+        blankWord: 'posthumous',
+        displayWord: 'Posthumous',
+        hintBn: 'মরণোত্তর',
+        firstLetter: 'P',
+        options: ['Premature', 'Posthumous', 'Contemporary', 'Temporary'],
+        explanationBn: 'মৃত্যুর পরে প্রদত্ত সম্মাননা বা পুরস্কারকে "Posthumous" (মরণোত্তর) বলা হয়।'
+      }
+    ];
+
+    // Seed default weak words if queue is empty
+    const SEED_WEAK_WORDS = [
+      { id: 'ephemeral', word: 'Ephemeral', pos: 'adjective', meaningBn: 'ক্ষণস্থায়ী / নশ্বর', definition: 'Lasting for a very short time', example: 'Fame is often ephemeral.', intervalDays: 1, repetitionCount: 1, dueDate: getTodayDateKey(), mistakeCount: 1, source: 'seed' },
+      { id: 'misanthrope', word: 'Misanthrope', pos: 'noun', meaningBn: 'মানবদ্বেষী ব্যক্তি', definition: 'A person who dislikes humankind', example: 'He lived as a reclusive misanthrope.', intervalDays: 1, repetitionCount: 1, dueDate: getTodayDateKey(), mistakeCount: 1, source: 'seed' },
+      { id: 'unanimous', word: 'Unanimous', pos: 'adjective', meaningBn: 'সর্বসম্মত', definition: 'Held or arrived at by everyone', example: 'The jury reached a unanimous verdict.', intervalDays: 1, repetitionCount: 1, dueDate: getTodayDateKey(), mistakeCount: 1, source: 'seed' },
+      { id: 'ubiquitous', word: 'Ubiquitous', pos: 'adjective', meaningBn: 'সর্বত্র বিদ্যমান', definition: 'Present, appearing, or found everywhere', example: 'Mobile internet is ubiquitous.', intervalDays: 1, repetitionCount: 1, dueDate: getTodayDateKey(), mistakeCount: 1, source: 'seed' },
+      { id: 'belligerent', word: 'Belligerent', pos: 'adjective', meaningBn: 'যুদ্ধবাজ / আক্রমণাত্মক', definition: 'Hostile and aggressive', example: 'The diplomat calmed the belligerent nations.', intervalDays: 1, repetitionCount: 1, dueDate: getTodayDateKey(), mistakeCount: 1, source: 'seed' }
+    ];
+
+    // Spaced repetition helpers
+    function getTodayDateKey() {
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function addDaysToDateKey(dateKey, days) {
+      const parts = dateKey.split('-');
+      const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      d.setDate(d.getDate() + days);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function getSpacedRepetitionQueue() {
+      try {
+        const raw = localStorage.getItem('vw_spaced_repetition_queue');
+        if (!raw) return SEED_WEAK_WORDS;
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) && parsed.length > 0 ? parsed : SEED_WEAK_WORDS;
+      } catch (e) {
+        return SEED_WEAK_WORDS;
+      }
+    }
+
+    function saveSpacedRepetitionQueue(list) {
+      try {
+        localStorage.setItem('vw_spaced_repetition_queue', JSON.stringify(list || []));
+      } catch (e) {}
+    }
+
+    function addToSpacedRepetitionQueue(item) {
+      if (!item || !item.word) return;
+      const list = getSpacedRepetitionQueue();
+      const cleanWord = item.word.toLowerCase().trim();
+      const existing = list.find(w => w.word.toLowerCase().trim() === cleanWord);
+
+      if (existing) {
+        existing.mistakeCount = (existing.mistakeCount || 1) + 1;
+        existing.intervalDays = 1;
+        existing.dueDate = getTodayDateKey();
+      } else {
+        list.unshift({
+          id: item.id || cleanWord,
+          word: item.word,
+          pos: item.pos || 'noun',
+          meaningBn: item.meaningBn || item.meaning || '',
+          definition: item.definition || '',
+          example: item.example || '',
+          intervalDays: 1,
+          repetitionCount: 1,
+          dueDate: getTodayDateKey(),
+          mistakeCount: 1,
+          source: item.source || 'quiz'
+        });
+      }
+      saveSpacedRepetitionQueue(list);
+    }
+
+    // Practice App State
+    const PracticeState = {
+      activeTab: 'quiz', // 'quiz' | 'cloze' | 'spaced'
+      
+      // Tab 1: Quiz State
+      quizIndex: 0,
+      quizTimer: 180, // 3 minutes = 180s
+      timerInterval: null,
+      isQuizActive: false,
+      isQuizCompleted: false,
+      userAnswers: {},
+      selectedOptionIndex: null,
+      quizScore: 0,
+
+      // Tab 2: Cloze State
+      clozeIndex: 0,
+      clozeMode: 'options', // 'options' | 'typing'
+      clozeInputText: '',
+      clozeFeedback: null, // 'correct' | 'wrong' | null
+      clozeStreak: 0,
+      showHint: false,
+
+      // Tab 3: Spaced Repetition State
+      spacedCardIndex: 0,
+      isCardFlipped: false
+    };
+
+    function switchPracticeTab(tab) {
+      PracticeState.activeTab = tab;
+      if (tab === 'quiz' && !PracticeState.isQuizActive && !PracticeState.isQuizCompleted) {
+        startQuizSession();
+      }
+      renderPracticePage();
+    }
+
+    // --- TAB 1: QUIZ CONTROLS ---
+    function startQuizSession() {
+      clearInterval(PracticeState.timerInterval);
+      PracticeState.quizIndex = 0;
+      PracticeState.quizTimer = 180;
+      PracticeState.isQuizActive = true;
+      PracticeState.isQuizCompleted = false;
+      PracticeState.userAnswers = {};
+      PracticeState.selectedOptionIndex = null;
+      PracticeState.quizScore = 0;
+
+      PracticeState.timerInterval = setInterval(() => {
+        if (PracticeState.quizTimer > 0) {
+          PracticeState.quizTimer -= 1;
+          updateQuizTimerDisplay();
+        } else {
+          finishQuizSession();
+        }
+      }, 1000);
+      renderPracticePage();
+    }
+
+    function selectQuizOption(optIndex) {
+      if (PracticeState.selectedOptionIndex !== null) return; // already answered
+      const q = QUIZ_QUESTIONS[PracticeState.quizIndex];
+      PracticeState.selectedOptionIndex = optIndex;
+      const isCorrect = optIndex === q.correctIndex;
+      PracticeState.userAnswers[q.id] = { selected: optIndex, isCorrect };
+
+      if (isCorrect) {
+        PracticeState.quizScore += 1;
+        if (typeof awardGamePoints === 'function') awardGamePoints(10, true);
+        if (typeof showToast === 'function') showToast('✓ সঠিক উত্তর! +10 Points', 'success');
+      } else {
+        if (typeof awardGamePoints === 'function') awardGamePoints(0, true);
+        // Save to Spaced Repetition Weak Words queue!
+        addToSpacedRepetitionQueue({
+          id: q.id,
+          word: q.targetWord,
+          pos: q.type === 'preposition' ? 'preposition' : 'word',
+          meaningBn: q.meaningBn,
+          definition: q.prompt,
+          example: q.options[q.correctIndex],
+          source: 'quiz_mistake'
+        });
+        if (typeof showToast === 'function') showToast('✗ ভুল উত্তর &bull; Weak Words তালিকায় যুক্ত হয়েছে', 'info');
+      }
+
+      renderPracticePage();
+    }
+
+    function nextQuizQuestion() {
+      if (PracticeState.quizIndex < QUIZ_QUESTIONS.length - 1) {
+        PracticeState.quizIndex += 1;
+        PracticeState.selectedOptionIndex = null;
+        renderPracticePage();
+      } else {
+        finishQuizSession();
+      }
+    }
+
+    function finishQuizSession() {
+      clearInterval(PracticeState.timerInterval);
+      PracticeState.isQuizActive = false;
+      PracticeState.isQuizCompleted = true;
+      renderPracticePage();
+    }
+
+    function updateQuizTimerDisplay() {
+      const el = document.getElementById('quiz-timer-display');
+      if (!el) return;
+      const mins = Math.floor(PracticeState.quizTimer / 60);
+      const secs = PracticeState.quizTimer % 60;
+      el.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      if (PracticeState.quizTimer <= 30) {
+        el.classList.add('text-red-600', 'animate-pulse');
+      } else {
+        el.classList.remove('text-red-600', 'animate-pulse');
+      }
+    }
+
+    // --- TAB 2: CLOZE CONTROLS ---
+    function selectClozeOption(chosenWord) {
+      const item = CLOZE_SENTENCES[PracticeState.clozeIndex];
+      const isCorrect = chosenWord.toLowerCase().trim() === item.blankWord.toLowerCase().trim();
+      PracticeState.clozeFeedback = isCorrect ? 'correct' : 'wrong';
+
+      if (isCorrect) {
+        PracticeState.clozeStreak += 1;
+        if (typeof awardGamePoints === 'function') awardGamePoints(10, true);
+        if (typeof showToast === 'function') showToast('🎉 সঠিক উত্তর! +10 Points', 'success');
+      } else {
+        PracticeState.clozeStreak = 0;
+        addToSpacedRepetitionQueue({
+          id: item.id,
+          word: item.displayWord,
+          meaningBn: item.hintBn,
+          definition: item.sentence,
+          source: 'cloze_mistake'
+        });
+        if (typeof showToast === 'function') showToast('✗ ভুল উত্তর &bull; Weak Words তালিকায় যোগ হয়েছে', 'info');
+      }
+      renderPracticePage();
+    }
+
+    function submitClozeTyping() {
+      const inputEl = document.getElementById('cloze-type-input');
+      if (!inputEl) return;
+      const val = inputEl.value.trim();
+      if (!val) return;
+      selectClozeOption(val);
+    }
+
+    function nextClozeSentence() {
+      PracticeState.clozeIndex = (PracticeState.clozeIndex + 1) % CLOZE_SENTENCES.length;
+      PracticeState.clozeFeedback = null;
+      PracticeState.clozeInputText = '';
+      PracticeState.showHint = false;
+      renderPracticePage();
+    }
+
+    // --- TAB 3: SPACED REPETITION CONTROLS ---
+    function flipSpacedCard() {
+      PracticeState.isCardFlipped = !PracticeState.isCardFlipped;
+      renderPracticePage();
+    }
+
+    function handleSpacedResponse(responseType) {
+      const queue = getSpacedRepetitionQueue();
+      const today = getTodayDateKey();
+      const current = queue[PracticeState.spacedCardIndex];
+      if (!current) return;
+
+      if (responseType === 'again') {
+        current.intervalDays = 1;
+        current.dueDate = addDaysToDateKey(today, 1);
+        current.repetitionCount = (current.repetitionCount || 1) + 1;
+        if (typeof showToast === 'function') showToast('⏳ কাল আবার রিভিউ করতে হবে (1d)', 'info');
+      } else if (responseType === 'good') {
+        current.intervalDays = 3;
+        current.dueDate = addDaysToDateKey(today, 3);
+        current.repetitionCount = (current.repetitionCount || 1) + 1;
+        if (typeof showToast === 'function') showToast('👍 ৩ দিন পর পরবর্তী রিভিউ (3d)', 'success');
+      } else if (responseType === 'mastered') {
+        current.intervalDays = 7;
+        current.dueDate = addDaysToDateKey(today, 7);
+        current.repetitionCount = (current.repetitionCount || 1) + 1;
+        if (typeof showToast === 'function') showToast('🏆 শব্দ আয়ত্তে এসেছে! ৭ দিন পর ফাইনাল চেক (7d+)', 'success');
+      }
+
+      saveSpacedRepetitionQueue(queue);
+      PracticeState.isCardFlipped = false;
+      PracticeState.spacedCardIndex = (PracticeState.spacedCardIndex + 1);
+      renderPracticePage();
+    }
+
+    // --- RENDER MAIN PAGE ---
+    function renderPracticePage() {
+      const mount = document.getElementById('practice-page-mount');
+      if (!mount) return;
+
+      const activeTab = PracticeState.activeTab;
+      const queue = getSpacedRepetitionQueue();
+      const today = getTodayDateKey();
+      const dueCount = queue.filter(w => !w.dueDate || w.dueDate <= today).length;
+
+      mount.innerHTML = `
+        <div class="space-y-8 sm:space-y-10">
+
+          <!-- HERO BANNER -->
+          <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800" style="border-color: var(--border-subtle);">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+                  <span>🎯 Exam &amp; Admission Practice</span>
+                  <span>&bull;</span>
+                  <span class="font-bengali">পরীক্ষা প্রস্তুতি ও স্পেসড রিপিটেশন</span>
+                </div>
+                <h1 class="font-editorial text-2xl sm:text-4xl font-bold tracking-tight" style="color: var(--ink-primary);">
+                  HSC &amp; DU Admission Practice Hub
+                </h1>
+                <p class="font-bengali text-sm sm:text-base max-w-2xl" style="color: var(--ink-secondary);">
+                  র‍্যাপিড এমসিকিউ কুইজ, ক্লজ টেস্ট ও বাক্য গঠন এবং বৈজ্ঞানিক স্পেসড রিপিটেশন পদ্ধতিতে দুর্বল শব্দগুলো স্থায়ী স্মৃতিতে ধরে রাখুন।
+                </p>
+              </div>
+
+              <!-- Main 3 Tabs Switcher -->
+              <div class="flex flex-wrap sm:flex-nowrap items-center p-1.5 rounded-2xl border bg-white/70 dark:bg-gray-800/80 shadow-xs" style="border-color: var(--border-subtle);">
+                <button
+                  type="button"
+                  onclick="switchPracticeTab('quiz')"
+                  class="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    activeTab === 'quiz' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white'
+                  }"
+                >
+                  <span>⏱️</span>
+                  <span>Daily Rapid Quiz</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="switchPracticeTab('cloze')"
+                  class="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    activeTab === 'cloze' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white'
+                  }"
+                >
+                  <span>📝</span>
+                  <span>Cloze Test Builder</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="switchPracticeTab('spaced')"
+                  class="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer relative ${
+                    activeTab === 'spaced' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white'
+                  }"
+                >
+                  <span>🧠</span>
+                  <span>Spaced Repetition</span>
+                  ${dueCount > 0 ? `<span class="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-white leading-none">${dueCount}</span>` : ''}
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- TAB 1: DAILY 5-MINUTE RAPID QUIZ -->
+          ${activeTab === 'quiz' ? renderQuizTabHTML() : ''}
+
+          <!-- TAB 2: FILL-IN-THE-BLANKS & CONTEXT SENTENCE BUILDER -->
+          ${activeTab === 'cloze' ? renderClozeTabHTML() : ''}
+
+          <!-- TAB 3: SPACED REPETITION WEAK WORDS -->
+          ${activeTab === 'spaced' ? renderSpacedTabHTML() : ''}
+
+        </div>
+      `;
+    }
+
+    function renderQuizTabHTML() {
+      if (PracticeState.isQuizCompleted) {
+        const total = QUIZ_QUESTIONS.length;
+        const score = PracticeState.quizScore;
+        const pct = Math.round((score / total) * 100);
+
+        return `
+          <section class="vw-editorial-card p-6 sm:p-10 rounded-3xl border text-center space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+            <div class="max-w-md mx-auto space-y-4">
+              <span class="text-5xl">${pct >= 80 ? '🏆' : pct >= 50 ? '👍' : '📚'}</span>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold" style="color: var(--ink-primary);">
+                Quiz Completed!
+              </h2>
+              <div class="p-6 rounded-3xl bg-[#EEF4F1] dark:bg-gray-800 border" style="border-color: var(--border-subtle);">
+                <div class="text-4xl sm:text-5xl font-editorial font-bold text-[#2D5A4C] dark:text-[#8CB8A8]">
+                  ${score} / ${total}
+                </div>
+                <p class="font-bengali text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 mt-1">
+                  ${pct >= 80 ? 'অসাধারণ পারফরম্যান্স! ভর্তি পরীক্ষার জন্য আপনার প্রস্তুতি বেশ মজবুত।' : 'খুব ভালো চেষ্টা! ভুল হওয়া শব্দগুলো Spaced Repetition তালিকায় যুক্ত করা হয়েছে।'}
+                </p>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onclick="startQuizSession()"
+                  class="w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white transition-all shadow-md"
+                  style="background-color: var(--accent-sage);"
+                >
+                  🔄 Retake Quiz &bull; পুনরায় কুইজ দিন
+                </button>
+                <button
+                  type="button"
+                  onclick="switchPracticeTab('spaced')"
+                  class="w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm border transition-all hover:bg-black/5"
+                  style="border-color: var(--border-subtle); color: var(--ink-primary);"
+                >
+                  🧠 Review Weak Words
+                </button>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      const q = QUIZ_QUESTIONS[PracticeState.quizIndex];
+      const isAnswered = PracticeState.selectedOptionIndex !== null;
+      const mins = Math.floor(PracticeState.quizTimer / 60);
+      const secs = PracticeState.quizTimer % 60;
+      const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      return `
+        <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          
+          <!-- Quiz Header: Question X of 10 & Countdown Timer -->
+          <div class="flex items-center justify-between pb-4 border-b" style="border-color: var(--border-subtle);">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+                ${q.tag} &bull; ${q.typeLabel}
+              </span>
+              <div class="text-xs font-bold text-gray-500 mt-1">
+                Question ${PracticeState.quizIndex + 1} of ${QUIZ_QUESTIONS.length}
+              </div>
+            </div>
+
+            <!-- Timer Clock -->
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-2xl border bg-gray-100 dark:bg-gray-800" style="border-color: var(--border-subtle);">
+              <span class="text-base">⏱️</span>
+              <span id="quiz-timer-display" class="font-mono text-sm font-bold ${PracticeState.quizTimer <= 30 ? 'text-red-600 animate-pulse' : 'text-gray-800 dark:text-gray-200'}">
+                ${timeStr}
+              </span>
+            </div>
+          </div>
+
+          <!-- Question Prompt -->
+          <div class="space-y-2 py-2">
+            <p class="text-xs sm:text-sm text-gray-500">
+              ${q.prompt}
+            </p>
+            <h2 class="font-editorial text-2xl sm:text-3xl font-bold tracking-tight text-[#2D5A4C] dark:text-[#8CB8A8]">
+              ${q.targetWord}
+            </h2>
+            ${q.meaningBn ? `<span class="font-bengali text-xs font-bold text-gray-400">(${q.meaningBn})</span>` : ''}
+          </div>
+
+          <!-- 4 Multiple Choice Options -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            ${q.options.map((opt, idx) => {
+              let btnClass = 'bg-white dark:bg-gray-800 border hover:border-[#2D5A4C]';
+              let badge = '';
+
+              if (isAnswered) {
+                if (idx === q.correctIndex) {
+                  btnClass = 'bg-emerald-500/15 border-emerald-500 text-emerald-800 dark:text-emerald-200 font-bold';
+                  badge = '<span class="text-emerald-600 text-xs">✓ Correct</span>';
+                } else if (idx === PracticeState.selectedOptionIndex) {
+                  btnClass = 'bg-rose-500/15 border-rose-500 text-rose-800 dark:text-rose-200 font-bold';
+                  badge = '<span class="text-rose-600 text-xs">✗ Incorrect</span>';
+                } else {
+                  btnClass = 'opacity-50 border-gray-200 dark:border-gray-700';
+                }
+              }
+
+              return `
+                <button
+                  type="button"
+                  ${isAnswered ? 'disabled' : ''}
+                  onclick="selectQuizOption(${idx})"
+                  class="p-4 rounded-2xl text-left transition-all flex items-center justify-between ${btnClass}"
+                  style="border-color: var(--border-subtle);"
+                >
+                  <div class="flex items-center gap-3">
+                    <span class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs bg-black/5 dark:bg-white/10 text-gray-500 shrink-0">
+                      ${String.fromCharCode(65 + idx)}
+                    </span>
+                    <span class="text-sm sm:text-base font-semibold" style="color: var(--ink-primary);">
+                      ${opt}
+                    </span>
+                  </div>
+                  ${badge}
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Instant Explanation Card (Expands when answered) -->
+          ${isAnswered ? `
+            <div class="p-4 sm:p-5 rounded-2xl bg-[#EEF4F1] dark:bg-gray-800/80 border space-y-3" style="border-color: var(--border-subtle);">
+              <div class="flex items-center gap-2">
+                <span class="text-base">💡</span>
+                <strong class="text-xs uppercase font-bold text-[#2D5A4C] dark:text-[#8CB8A8]">Bangla Explanation &bull; ব্যাখ্যা</strong>
+              </div>
+              <p class="font-bengali text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                ${q.explanationBn}
+              </p>
+
+              <div class="flex justify-end pt-2">
+                <button
+                  type="button"
+                  onclick="nextQuizQuestion()"
+                  class="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold text-white shadow-sm flex items-center gap-2 transition-transform hover:scale-105"
+                  style="background-color: var(--accent-sage);"
+                >
+                  <span>${PracticeState.quizIndex === QUIZ_QUESTIONS.length - 1 ? 'See Results &bull; ফলাফল দেখুন' : 'Next Question &bull; পরবর্তী প্রশ্ন'}</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            </div>
+          ` : ''}
+
+        </section>
+      `;
+    }
+
+    function renderClozeTabHTML() {
+      const item = CLOZE_SENTENCES[PracticeState.clozeIndex];
+      const feedback = PracticeState.clozeFeedback;
+      const mode = PracticeState.clozeMode;
+
+      return `
+        <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          
+          <!-- Top Sub-Bar: Mode Toggle & Streak -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b" style="border-color: var(--border-subtle);">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+                Context Cloze Builder
+              </span>
+              <span class="text-xs font-bold text-gray-500">
+                Sentence ${PracticeState.clozeIndex + 1} of ${CLOZE_SENTENCES.length}
+              </span>
+            </div>
+
+            <!-- Mode Selector & Streak Pill -->
+            <div class="flex items-center gap-3">
+              <div class="flex items-center p-1 rounded-xl border bg-gray-100 dark:bg-gray-800" style="border-color: var(--border-subtle);">
+                <button
+                  type="button"
+                  onclick="PracticeState.clozeMode = 'options'; renderPracticePage();"
+                  class="px-3 py-1 rounded-lg text-xs font-bold ${mode === 'options' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-500'}"
+                >
+                  Options Mode
+                </button>
+                <button
+                  type="button"
+                  onclick="PracticeState.clozeMode = 'typing'; renderPracticePage();"
+                  class="px-3 py-1 rounded-lg text-xs font-bold ${mode === 'typing' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-500'}"
+                >
+                  Typing Practice
+                </button>
+              </div>
+              <span class="text-xs font-bold text-amber-600">🔥 ${PracticeState.clozeStreak} Streak</span>
+            </div>
+          </div>
+
+          <!-- Sentence Spotlight Card -->
+          <div class="p-6 rounded-3xl bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800 border space-y-4" style="border-color: var(--border-subtle);">
+            <div class="text-base sm:text-xl font-editorial font-bold leading-relaxed" style="color: var(--ink-primary);">
+              ${item.sentence.replace('______', `<span class="px-3 py-1 mx-1 rounded-xl bg-white dark:bg-gray-800 border border-[#2D5A4C] font-mono text-[#2D5A4C] dark:text-[#8CB8A8] underline underline-offset-4">${feedback === 'correct' ? item.displayWord : '______'}</span>`)}
+            </div>
+
+            <!-- Clue Pill & Hint Toggle -->
+            <div class="flex flex-wrap items-center gap-2 pt-2">
+              <span class="px-3 py-1 rounded-full text-xs font-bengali font-bold bg-white dark:bg-gray-800 border" style="border-color: var(--border-subtle); color: var(--accent-sage);">
+                💡 অর্থ সংকেত: ${item.hintBn}
+              </span>
+              ${PracticeState.showHint ? `
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                  Starts with: ${item.firstLetter}___
+                </span>
+              ` : `
+                <button
+                  type="button"
+                  onclick="PracticeState.showHint = true; renderPracticePage();"
+                  class="px-3 py-1 rounded-full text-xs font-bold text-gray-500 hover:text-black border border-dashed"
+                  style="border-color: var(--border-subtle);"
+                >
+                  Need letter hint?
+                </button>
+              `}
+            </div>
+          </div>
+
+          <!-- Interaction Area (Options vs Typing) -->
+          ${mode === 'options' ? `
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              ${item.options.map((opt) => {
+                let btnStyle = 'bg-white dark:bg-gray-800 border hover:border-[#2D5A4C]';
+                if (feedback) {
+                  if (opt.toLowerCase() === item.blankWord.toLowerCase()) {
+                    btnStyle = 'bg-emerald-500/20 border-emerald-500 text-emerald-800 dark:text-emerald-200 font-bold';
+                  } else {
+                    btnStyle = 'opacity-50 border-gray-200';
+                  }
+                }
+                return `
+                  <button
+                    type="button"
+                    ${feedback ? 'disabled' : ''}
+                    onclick="selectClozeOption('${opt}')"
+                    class="py-3 px-4 rounded-2xl text-center text-sm font-bold transition-all shadow-xs ${btnStyle}"
+                    style="border-color: var(--border-subtle); color: var(--ink-primary);"
+                  >
+                    ${opt}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          ` : `
+            <div class="max-w-md mx-auto space-y-3">
+              <div class="flex items-center gap-2">
+                <input
+                  id="cloze-type-input"
+                  type="text"
+                  placeholder="Type the missing word here..."
+                  class="flex-1 px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30"
+                  style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+                  onkeydown="if(event.key==='Enter')submitClozeTyping()"
+                />
+                <button
+                  type="button"
+                  onclick="submitClozeTyping()"
+                  class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white shadow-xs"
+                  style="background-color: var(--accent-sage);"
+                >
+                  Check
+                </button>
+              </div>
+            </div>
+          `}
+
+          <!-- Feedback Details & Next Button -->
+          ${feedback ? `
+            <div class="p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-3 ${
+              feedback === 'correct' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200' : 'bg-rose-500/10 border-rose-500/30 text-rose-800 dark:text-rose-200'
+            }">
+              <div>
+                <strong class="text-sm block">${feedback === 'correct' ? '🎉 Correct Answer!' : '✗ Incorrect! The correct word is: ' + item.displayWord}</strong>
+                <span class="font-bengali text-xs">${item.explanationBn}</span>
+              </div>
+              <button
+                type="button"
+                onclick="nextClozeSentence()"
+                class="px-5 py-2 rounded-xl text-xs font-bold text-white shadow-xs shrink-0"
+                style="background-color: var(--accent-sage);"
+              >
+                Next Sentence &rarr;
+              </button>
+            </div>
+          ` : ''}
+
+        </section>
+      `;
+    }
+
+    function renderSpacedTabHTML() {
+      const queue = getSpacedRepetitionQueue();
+      const today = getTodayDateKey();
+      const dueCards = queue.filter(w => !w.dueDate || w.dueDate <= today);
+      const isFlipped = PracticeState.isCardFlipped;
+
+      if (dueCards.length === 0 || PracticeState.spacedCardIndex >= dueCards.length) {
+        return `
+          <section class="vw-editorial-card p-6 sm:p-10 rounded-3xl border text-center space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+            <div class="max-w-md mx-auto space-y-4">
+              <span class="text-5xl">🎉</span>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold" style="color: var(--ink-primary);">
+                All Reviews Completed for Today!
+              </h2>
+              <p class="font-bengali text-xs sm:text-sm text-gray-500">
+                আজকের দিনের সকল দুর্বল শব্দের স্পেসড রিপিটেশন রিভিশন সফলভাবে সম্পন্ন হয়েছে। নতুন শব্দ অনুশীলন করতে কুইজ দিন!
+              </p>
+
+              <div class="p-4 rounded-2xl bg-[#EEF4F1] dark:bg-gray-800 border text-xs" style="border-color: var(--border-subtle);">
+                <strong>Total Words in Memory Queue:</strong> ${queue.length} words
+              </div>
+
+              <div class="flex items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onclick="PracticeState.spacedCardIndex = 0; renderPracticePage();"
+                  class="px-5 py-2.5 rounded-xl font-bold text-xs border hover:bg-black/5"
+                  style="border-color: var(--border-subtle);"
+                >
+                  Review Again &bull; পুনরায় রিভিশন
+                </button>
+                <button
+                  type="button"
+                  onclick="switchPracticeTab('quiz')"
+                  class="px-5 py-2.5 rounded-xl font-bold text-xs text-white"
+                  style="background-color: var(--accent-sage);"
+                >
+                  Take Rapid Quiz &bull; কুইজ শুরু করুন
+                </button>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      const card = dueCards[PracticeState.spacedCardIndex];
+
+      return `
+        <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+          
+          <!-- Top Sub-Bar: Spaced Counter & SuperMemo Intervals -->
+          <div class="flex items-center justify-between pb-4 border-b" style="border-color: var(--border-subtle);">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+                SM-2 Spaced Repetition
+              </span>
+              <div class="text-xs font-bold text-gray-500 mt-1">
+                Due Today: Card ${PracticeState.spacedCardIndex + 1} of ${dueCards.length}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                Interval: ${card.intervalDays || 1}d
+              </span>
+            </div>
+          </div>
+
+          <!-- Flashcard Deck Stage -->
+          <div class="max-w-xl mx-auto">
+            <div
+              onclick="flipSpacedCard()"
+              class="p-8 sm:p-10 rounded-3xl border bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800 text-center space-y-4 cursor-pointer shadow-md transition-all hover:scale-101"
+              style="border-color: var(--border-subtle);"
+            >
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold bg-black/5 dark:bg-white/10 text-gray-500">
+                ${card.pos || 'Word'} &bull; Click to Flip
+              </span>
+
+              <h3 class="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-[#2D5A4C] dark:text-[#8CB8A8]">
+                ${card.word}
+              </h3>
+
+              ${isFlipped ? `
+                <div class="space-y-3 pt-3 border-t border-gray-300 dark:border-gray-700 animate-fadeIn">
+                  <div class="font-bengali text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+                    ${card.meaningBn}
+                  </div>
+                  ${card.definition ? `<p class="text-xs text-gray-600 dark:text-gray-300">${card.definition}</p>` : ''}
+                  ${card.example ? `<p class="text-xs text-gray-500 italic">Example: "${card.example}"</p>` : ''}
+                </div>
+              ` : `
+                <div class="pt-4 text-xs font-bold text-gray-400 flex items-center justify-center gap-1.5">
+                  <span>👁️</span>
+                  <span>Tap to Show Answer &bull; উত্তর দেখুন</span>
+                </div>
+              `}
+            </div>
+
+            <!-- Response Buttons (Again, Good, Mastered) -->
+            ${isFlipped ? `
+              <div class="grid grid-cols-3 gap-3 pt-6">
+                <button
+                  type="button"
+                  onclick="handleSpacedResponse('again')"
+                  class="p-3 rounded-2xl border text-center transition-all bg-rose-500/10 border-rose-500/30 text-rose-800 dark:text-rose-200 hover:bg-rose-500/20 cursor-pointer"
+                >
+                  <span class="block text-xs font-bold">Again</span>
+                  <span class="block text-[10px] opacity-75">1 Day (কাল)</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="handleSpacedResponse('good')"
+                  class="p-3 rounded-2xl border text-center transition-all bg-amber-500/10 border-amber-500/30 text-amber-800 dark:text-amber-200 hover:bg-amber-500/20 cursor-pointer"
+                >
+                  <span class="block text-xs font-bold">Good</span>
+                  <span class="block text-[10px] opacity-75">3 Days (৩ দিন)</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="handleSpacedResponse('mastered')"
+                  class="p-3 rounded-2xl border text-center transition-all bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200 hover:bg-emerald-500/20 cursor-pointer"
+                >
+                  <span class="block text-xs font-bold">Mastered</span>
+                  <span class="block text-[10px] opacity-75">7 Days+ (৭ দিন+)</span>
+                </button>
+              </div>
+            ` : ''}
+          </div>
+
+        </section>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof renderAppHeader === 'function') renderAppHeader('practice');
+      if (typeof renderAppFooter === 'function') renderAppFooter();
+      startQuizSession();
+    });
+  </script>
+</body>
+</html>

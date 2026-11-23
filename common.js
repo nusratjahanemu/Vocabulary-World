@@ -2059,6 +2059,7 @@ function renderAppHeader(activePage = 'home') {
     tracker: { label: 'Tracker', emoji: '📊' },
     progress: { label: '🏆 Progress', emoji: '🏆' },
     tools: { label: '🧠 Smart Tools', emoji: '🧠' },
+    practice: { label: '🎯 Exam Practice', emoji: '🎯' },
     'add-words': { label: '+ Add Words', emoji: '➕' },
     assessment: { label: 'Assessment', emoji: '🎯' }
   };
@@ -2094,6 +2095,13 @@ function renderAppHeader(activePage = 'home') {
       emoji: '📊',
       href: 'tracker.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`
+    },
+    {
+      id: 'practice',
+      label: '🎯 Exam Practice',
+      emoji: '🎯',
+      href: 'practice.html',
+      icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`
     },
     {
       id: 'progress',
@@ -5290,6 +5298,9 @@ function getCurrentAppContext() {
   else if (file === 'flashcards.html') pageTitle = 'Flashcards (ফ্ল্যাশকার্ড)';
   else if (file === 'games.html') pageTitle = 'Games (গেমস)';
   else if (file === 'tracker.html') pageTitle = 'Tracker (ট্র্যাকার)';
+  else if (file === 'progress.html') pageTitle = 'Progress (অগ্রগতি)';
+  else if (file === 'tools.html') pageTitle = 'Smart Tools (টুলস)';
+  else if (file === 'practice.html') pageTitle = 'Exam Practice (অনুশীলন)';
   else if (file === 'add-words.html') pageTitle = '+ Add Words (শব্দ যোগ)';
   else if (file === 'assessment.html') pageTitle = 'Assessment (যাচাই)';
 
