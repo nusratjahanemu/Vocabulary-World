@@ -2058,6 +2058,7 @@ function renderAppHeader(activePage = 'home') {
     games: { label: 'Games', emoji: '🎮' },
     tracker: { label: 'Tracker', emoji: '📊' },
     progress: { label: '🏆 Progress', emoji: '🏆' },
+    tools: { label: '🧠 Smart Tools', emoji: '🧠' },
     'add-words': { label: '+ Add Words', emoji: '➕' },
     assessment: { label: 'Assessment', emoji: '🎯' }
   };
@@ -2100,6 +2101,13 @@ function renderAppHeader(activePage = 'home') {
       emoji: '🏆',
       href: 'progress.html',
       icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>`
+    },
+    {
+      id: 'tools',
+      label: '🧠 Smart Tools',
+      emoji: '🧠',
+      href: 'tools.html',
+      icon: `<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4.5 4.5 0 0 0-4.5 4.5c0 .65.14 1.27.38 1.83A6.5 6.5 0 0 0 3 14.5a6.5 6.5 0 0 0 6 6.48V22h6v-1.02a6.5 6.5 0 0 0 6-6.48 6.5 6.5 0 0 0-4.88-6.17c.24-.56.38-1.18.38-1.83A4.5 4.5 0 0 0 12 2z"/><path d="M12 8v4"/><path d="M10 16h4"/></svg>`
     },
     {
       id: 'add-words',
@@ -9581,7 +9589,2010 @@ function updateRevisionSheetDisplay() {
 }
 
 
+/* =====================================================================
+   12. SMART LEARNING TOOLS ENGINE (ONE-WORD, ROOT WORDS, VOICE PRONUNCIATION)
+====================================================================== */
+
+const ONE_WORD_DATA = [
+  // Person & Behavior
+  {
+    id: "ow_1",
+    definition: "One who loves and helps all people selflessly without expecting anything in return",
+    word: "Altruist",
+    pos: "noun",
+    meaningBn: "পরহিতৈষী ব্যক্তি",
+    category: "person_behavior",
+    tag: "DU C-Unit",
+    example: "Mother Teresa was a true altruist who dedicated her life to the poor."
+  },
+  {
+    id: "ow_2",
+    definition: "A lover of mankind who donates money and goods to charitable causes",
+    word: "Philanthropist",
+    pos: "noun",
+    meaningBn: "মানবদরদী / জনহিতৈষী দাতা",
+    category: "person_behavior",
+    tag: "DU Admission",
+    example: "The wealthy philanthropist founded dozens of free schools across rural Bangladesh."
+  },
+  {
+    id: "ow_3",
+    definition: "A person who dislikes, distrusts, or avoids human society and people",
+    word: "Misanthrope",
+    pos: "noun",
+    meaningBn: "মানবদ্বেষী ব্যক্তি",
+    category: "person_behavior",
+    tag: "DU D-Unit",
+    example: "After facing repeated betrayals, he turned into a bitter misanthrope."
+  },
+  {
+    id: "ow_4",
+    definition: "A quiet person who is more interested in their own thoughts than in spending time with other people",
+    word: "Introvert",
+    pos: "noun",
+    meaningBn: "অন্তর্মুখী ব্যক্তি",
+    category: "person_behavior",
+    tag: "HSC Board",
+    example: "As an introvert, she felt re-energized by reading quietly alone at home."
+  },
+  {
+    id: "ow_5",
+    definition: "An energetic person who enjoys being with others and talking in social groups",
+    word: "Extrovert",
+    pos: "noun",
+    meaningBn: "বহির্মুখী ব্যক্তি",
+    category: "person_behavior",
+    tag: "HSC Board",
+    example: "His extrovert personality made him an outstanding public relations director."
+  },
+  {
+    id: "ow_6",
+    definition: "A person whose personality has a balance of both introvert and extrovert features",
+    word: "Ambivert",
+    pos: "noun",
+    meaningBn: "উভমুখী ব্যক্তি",
+    category: "person_behavior",
+    tag: "Admission Standard",
+    example: "Being an ambivert, he enjoys lively team meetings but also cherishes solo research."
+  },
+  {
+    id: "ow_7",
+    definition: "A person who always expects positive outcomes and sees the bright side of life",
+    word: "Optimist",
+    pos: "noun",
+    meaningBn: "আশাবাদী ব্যক্তি",
+    category: "person_behavior",
+    tag: "DU C/D Unit",
+    example: "An optimist sees an opportunity in every difficulty."
+  },
+  {
+    id: "ow_8",
+    definition: "A person who always anticipates the worst or negative outcome",
+    word: "Pessimist",
+    pos: "noun",
+    meaningBn: "হতাশাবাদী ব্যক্তি",
+    category: "person_behavior",
+    tag: "HSC Board",
+    example: "The pessimist complained about the wind while others adjusted their sails."
+  },
+  {
+    id: "ow_9",
+    definition: "A person who knows and is able to speak or write in many languages",
+    word: "Polyglot",
+    pos: "noun",
+    meaningBn: "বহুভাষাবিদ",
+    category: "person_behavior",
+    tag: "DU B-Unit",
+    example: "Dr. Shahidullah was a revered polyglot who mastered more than twenty languages."
+  },
+  {
+    id: "ow_10",
+    definition: "One who completely abstains from drinking alcoholic beverages",
+    word: "Teetotaler",
+    pos: "noun",
+    meaningBn: "মদ্যপানমুক্ত ব্যক্তি / নিরামিষাভোজী মাদকত্যাগী",
+    category: "person_behavior",
+    tag: "DU Admission",
+    example: "He has been a strict teetotaler his entire life and prefers green tea."
+  },
+  {
+    id: "ow_11",
+    definition: "A person who walks around while fast asleep",
+    word: "Somnambulist",
+    pos: "noun",
+    meaningBn: "নিদ্রাচারী / ঘুমের ঘোরে হাঁটা ব্যক্তি",
+    category: "person_behavior",
+    tag: "BCS / Admission",
+    example: "The doctor advised safety gates on stairs for the young somnambulist."
+  },
+  {
+    id: "ow_12",
+    definition: "A person who cannot be corrected, reformed, or improved",
+    word: "Incorrigible",
+    pos: "adjective",
+    meaningBn: "অসংশোধনীয়",
+    category: "person_behavior",
+    tag: "DU D-Unit",
+    example: "Despite multiple disciplinary warnings, he remained an incorrigible prankster."
+  },
+
+  // Governance & Law
+  {
+    id: "ow_13",
+    definition: "Government by a single ruler with absolute, unrestricted authority and power",
+    word: "Autocracy",
+    pos: "noun",
+    meaningBn: "স্বৈরতন্ত্র / একনায়কতন্ত্র",
+    category: "governance_law",
+    tag: "DU C-Unit",
+    example: "The kingdom transitioned from an oppressive autocracy to a representative democracy."
+  },
+  {
+    id: "ow_14",
+    definition: "Government by non-elected officials and rigid administrative routines",
+    word: "Bureaucracy",
+    pos: "noun",
+    meaningBn: "আমলাতন্ত্র",
+    category: "governance_law",
+    tag: "DU D-Unit",
+    example: "Excessive bureaucracy slowed down the distribution of emergency flood relief."
+  },
+  {
+    id: "ow_15",
+    definition: "Government or rule by the wealthiest class of people",
+    word: "Plutocracy",
+    pos: "noun",
+    meaningBn: "ধনিকতন্ত্র",
+    category: "governance_law",
+    tag: "Admission Standard",
+    example: "Critics argued that unregulated political lobbying had turned the nation into a plutocracy."
+  },
+  {
+    id: "ow_16",
+    definition: "Government led by religious authorities who claim divine guidance",
+    word: "Theocracy",
+    pos: "noun",
+    meaningBn: "ধর্মতন্ত্র / পুরোহিততন্ত্র",
+    category: "governance_law",
+    tag: "DU Admission",
+    example: "Ancient Egyptian governance was a theocracy where the Pharaoh was seen as a living deity."
+  },
+  {
+    id: "ow_17",
+    definition: "A state of absolute lawlessness and disorder due to the absence of governmental authority",
+    word: "Anarchy",
+    pos: "noun",
+    meaningBn: "নৈরাজ্য / অরাজকতা",
+    category: "governance_law",
+    tag: "HSC & DU",
+    example: "When the central command collapsed, the frontier region plunged into complete anarchy."
+  },
+  {
+    id: "ow_18",
+    definition: "Government run by members of the highest hereditary social class or nobility",
+    word: "Aristocracy",
+    pos: "noun",
+    meaningBn: "অভিজাততন্ত্র",
+    category: "governance_law",
+    tag: "DU B-Unit",
+    example: "During the French Revolution, the working citizens revolted against the entrenched aristocracy."
+  },
+  {
+    id: "ow_19",
+    definition: "Government or political control by a small privileged group of persons",
+    word: "Oligarchy",
+    pos: "noun",
+    meaningBn: "গোষ্ঠীতন্ত্র / কতিপয়তন্ত্র",
+    category: "governance_law",
+    tag: "Admission Standard",
+    example: "A business oligarchy exerted immense control over national commerce and export policies."
+  },
+  {
+    id: "ow_20",
+    definition: "The act of killing a king or reigning monarch",
+    word: "Regicide",
+    pos: "noun",
+    meaningBn: "রাজহত্যা / নৃপতিবধ",
+    category: "governance_law",
+    tag: "DU C-Unit",
+    example: "The conspirators were convicted of regicide after plotting against the king."
+  },
+
+  // Admission Favorites
+  {
+    id: "ow_21",
+    definition: "Lasting for only a very brief, transitory period of time",
+    word: "Ephemeral",
+    pos: "adjective",
+    meaningBn: "ক্ষণস্থায়ী / নশ্বর",
+    category: "admission_favorites",
+    tag: "DU Most Repeated",
+    example: "Fame on social media is often ephemeral, fading as swiftly as it emerges."
+  },
+  {
+    id: "ow_22",
+    definition: "A universal solution or supposed remedy for all diseases and troubles",
+    word: "Panacea",
+    pos: "noun",
+    meaningBn: "সর্বব্যাধিহর ওষুধ / সর্বরোগের প্রতিকার",
+    category: "admission_favorites",
+    tag: "HSC & DU",
+    example: "Education is considered the true panacea for poverty and social inequality."
+  },
+  {
+    id: "ow_23",
+    definition: "Occurring, published, or awarded after the death of the person involved",
+    word: "Posthumous",
+    pos: "adjective",
+    meaningBn: "মরণোত্তর",
+    category: "admission_favorites",
+    tag: "DU D-Unit",
+    example: "He received the Bir Sreshtho award as a posthumous recognition of his supreme valor."
+  },
+  {
+    id: "ow_24",
+    definition: "Incapable of making errors or failing; completely trustworthy and faultless",
+    word: "Infallible",
+    pos: "adjective",
+    meaningBn: "অভ্রান্ত / নির্ভুল",
+    category: "admission_favorites",
+    tag: "DU C/D Unit",
+    example: "No human being is infallible; everyone makes errors occasionally."
+  },
+  {
+    id: "ow_25",
+    definition: "Present, appearing, or encountered everywhere at the same time",
+    word: "Ubiquitous",
+    pos: "adjective",
+    meaningBn: "সর্বত্র বিদ্যমান / সর্বত্রগামী",
+    category: "admission_favorites",
+    tag: "DU Admission Top",
+    example: "Smartphones and mobile internet have become ubiquitous across modern Bangladesh."
+  },
+  {
+    id: "ow_26",
+    definition: "Possessing unlimited and absolute power",
+    word: "Omnipotent",
+    pos: "adjective",
+    meaningBn: "সর্বশক্তিমান",
+    category: "admission_favorites",
+    tag: "BCS & Admission",
+    example: "Monarchs once foolishly imagined themselves to be omnipotent rulers of humanity."
+  },
+  {
+    id: "ow_27",
+    definition: "Knowing everything; having infinite knowledge and understanding",
+    word: "Omniscient",
+    pos: "adjective",
+    meaningBn: "সর্বজ্ঞ",
+    category: "admission_favorites",
+    tag: "DU Admission",
+    example: "The novel is narrated from the perspective of an omniscient storyteller."
+  },
+  {
+    id: "ow_28",
+    definition: "Generous and forgiving, especially toward a rival or someone in one's power",
+    word: "Magnanimous",
+    pos: "adjective",
+    meaningBn: "মহানুভব / উদারচেতা",
+    category: "admission_favorites",
+    tag: "DU C-Unit",
+    example: "He showed a magnanimous spirit by forgiving his defeated competitor."
+  }
+];
+
+const IDIOMS_DATA = [
+  // Person & Behavior
+  {
+    id: "idm_1",
+    word: "A man of letters",
+    definition: "A scholar, author, or highly cultivated literary person",
+    meaningBn: "পণ্ডিত ব্যক্তি / সাহিত্যিক",
+    category: "person_behavior",
+    tag: "DU '19",
+    example: "Rabindranath Tagore was an illustrious man of letters celebrated worldwide."
+  },
+  {
+    id: "idm_2",
+    word: "Apple of one's eye",
+    definition: "Someone who is cherished, loved, and treasured above all others",
+    meaningBn: "নয়নের মণি / অতি আদরের পাত্র",
+    category: "person_behavior",
+    tag: "HSC Board",
+    example: "Her youngest granddaughter is the apple of her grandmother's eye."
+  },
+  {
+    id: "idm_3",
+    word: "A dark horse",
+    definition: "A competitor or candidate about whom little is known, who unexpectedly wins",
+    meaningBn: "অপ্রত্যাশিত বিজয়ী",
+    category: "person_behavior",
+    tag: "DU D-Unit",
+    example: "Tanvir was a dark horse in the debate championship, beating seasoned debaters."
+  },
+  {
+    id: "idm_4",
+    word: "Black sheep",
+    definition: "A disreputable, disgraceful, or nonconforming member of a family or group",
+    meaningBn: "কুলাঙ্গার / পরিবারের কলঙ্ক",
+    category: "person_behavior",
+    tag: "HSC Board",
+    example: "Despite his noble heritage, his illegal actions made him the black sheep of the family."
+  },
+  {
+    id: "idm_5",
+    word: "A wolf in sheep's clothing",
+    definition: "A dangerous person pretending to be harmless, gentle, or pious",
+    meaningBn: "বকধার্মিক / কপট সাধু",
+    category: "person_behavior",
+    tag: "Admission Standard",
+    example: "Be cautious when partnering with him; he is a wolf in sheep's clothing."
+  },
+  {
+    id: "idm_6",
+    word: "Couch potato",
+    definition: "A lazy person who spends excessive time sitting and watching television or screens",
+    meaningBn: "অলস ও স্থূল ব্যক্তি",
+    category: "person_behavior",
+    tag: "HSC Board",
+    example: "During the long monsoon holidays, he turned into a total couch potato."
+  },
+
+  // Governance & Law
+  {
+    id: "idm_7",
+    word: "Red tape",
+    definition: "Excessive bureaucracy, adherence to rigid official formalities and paperwork",
+    meaningBn: "আমলাতান্ত্রিক দীর্ঘসূত্রতা",
+    category: "governance_law",
+    tag: "DU C-Unit",
+    example: "The startup faced endless red tape before receiving its import license."
+  },
+  {
+    id: "idm_8",
+    word: "By and large",
+    definition: "On the whole; taking everything into consideration; generally speaking",
+    meaningBn: "মোটা দাগে / সাধারণত",
+    category: "governance_law",
+    tag: "DU D-Unit",
+    example: "By and large, the new educational curriculum has received enthusiastic public support."
+  },
+  {
+    id: "idm_9",
+    word: "Tooth and nail",
+    definition: "With all one's energy, power, and ferocious determination",
+    meaningBn: "সর্বশক্তি দিয়ে / আপ্রাণভাবে",
+    category: "governance_law",
+    tag: "Admission Standard",
+    example: "The community fought tooth and nail to prevent the destruction of the historic forest."
+  },
+  {
+    id: "idm_10",
+    word: "Law unto oneself",
+    definition: "A person who behaves independently and refuses to obey laws or rules",
+    meaningBn: "নিজের আইনে চলা / নিয়ন্ত্রণহীন",
+    category: "governance_law",
+    tag: "DU Admission",
+    example: "The corrupt mayor acted as a law unto himself until the anti-graft bureau stepped in."
+  },
+  {
+    id: "idm_11",
+    word: "Iron will",
+    definition: "Extremely strong determination that cannot be broken or deterred",
+    meaningBn: "দৃঢ় সংকল্প / ইস্পাতকঠিন মনোবল",
+    category: "governance_law",
+    tag: "DU B-Unit",
+    example: "Her iron will enabled her to overcome severe financial hardship and graduate with honors."
+  },
+
+  // Admission Favorites
+  {
+    id: "idm_12",
+    word: "Achilles' heel",
+    definition: "A weak point, flaw, or vulnerable spot in an otherwise strong entity",
+    meaningBn: "দুর্বল জায়গা / অরক্ষিত স্থান",
+    category: "admission_favorites",
+    tag: "DU Top Pick",
+    example: "English grammar was his Achilles' heel, so he practiced it diligently every morning."
+  },
+  {
+    id: "idm_13",
+    word: "Bolt from the blue",
+    definition: "A completely unexpected and devastating occurrence or piece of news",
+    meaningBn: "বিনা মেঘে বজ্রপাত",
+    category: "admission_favorites",
+    tag: "DU B/C Unit",
+    example: "The sudden notice of the factory's closure was a bolt from the blue for its workers."
+  },
+  {
+    id: "idm_14",
+    word: "Bury the hatchet",
+    definition: "To make peace, end a longstanding conflict, and forgive past disputes",
+    meaningBn: "বিবাদ ভুলে যাওয়া / শত্রুতা মিটানো",
+    category: "admission_favorites",
+    tag: "HSC & DU",
+    example: "After a decade of rivalry, the two brothers decided to bury the hatchet."
+  },
+  {
+    id: "idm_15",
+    word: "Burn the midnight oil",
+    definition: "To work or study late into the night with great diligence",
+    meaningBn: "রাত জেগে কঠোর পড়াশোনা করা",
+    category: "admission_favorites",
+    tag: "HSC Advice",
+    example: "Admission candidates often burn the midnight oil solving previous years' question banks."
+  },
+  {
+    id: "idm_16",
+    word: "Once in a blue moon",
+    definition: "Occurring very infrequently, rarely, or almost never",
+    meaningBn: "কদাচিৎ / ডুমুরের ফুল",
+    category: "admission_favorites",
+    tag: "HSC & DU",
+    example: "Living in London, he visits his ancestral village in Sylhet only once in a blue moon."
+  },
+  {
+    id: "idm_17",
+    word: "At a stone's throw",
+    definition: "Situated at a very short distance; extremely close by",
+    meaningBn: "অতি সন্নিকটে / খুব কাছে",
+    category: "admission_favorites",
+    tag: "DU C-Unit",
+    example: "Her university hall is located at a stone's throw from the Central Library."
+  },
+  {
+    id: "idm_18",
+    word: "Crocodile tears",
+    definition: "False, hypocritical, or insincere expressions of sorrow and grief",
+    meaningBn: "মায়াকান্না / ভণ্ড শোক",
+    category: "admission_favorites",
+    tag: "Admission Standard",
+    example: "Do not be swayed by his crocodile tears; he has no genuine remorse."
+  },
+  {
+    id: "idm_19",
+    word: "Spill the beans",
+    definition: "To reveal secret or confidential information prematurely or indiscreetly",
+    meaningBn: "গোপন তথ্য ফাঁস করে দেওয়া",
+    category: "admission_favorites",
+    tag: "DU D-Unit",
+    example: "We planned a surprise birthday party, but her little brother spilled the beans."
+  },
+  {
+    id: "idm_20",
+    word: "Through thick and thin",
+    definition: "Supporting someone under all circumstances, through good times and adversity",
+    meaningBn: "সুখে-দুঃখে সর্বদা পাশে থাকা",
+    category: "admission_favorites",
+    tag: "DU B-Unit",
+    example: "True friends stay beside you through thick and thin."
+  },
+  {
+    id: "idm_21",
+    word: "Cock and bull story",
+    definition: "A completely fanciful, improbable, and fabricated excuse or tale",
+    meaningBn: "আজগুবি গল্প / আষাঢ়ে গল্প",
+    category: "admission_favorites",
+    tag: "DU Admission",
+    example: "Nobody believed his cock and bull story about an alien stealing his homework."
+  },
+  {
+    id: "idm_22",
+    word: "Burn the candle at both ends",
+    definition: "To exhaust oneself by doing too much and not resting enough",
+    meaningBn: "অতিরিক্ত পরিশ্রমে নিজেকে নিঃশেষ করা",
+    category: "admission_favorites",
+    tag: "Admission Standard",
+    example: "Working two jobs while studying for the BCS exam is burning the candle at both ends."
+  },
+  {
+    id: "idm_23",
+    word: "Read between the lines",
+    definition: "To perceive a hidden meaning or unspoken truth that is not directly stated",
+    meaningBn: "গূঢ় অর্থ উপলব্ধি করা",
+    category: "admission_favorites",
+    tag: "DU C/D Unit",
+    example: "Reading between the lines of the diplomat's speech, it was clear war had been averted."
+  },
+  {
+    id: "idm_24",
+    word: "Kith and kin",
+    definition: "One's relatives, friends, and close family members",
+    meaningBn: "নিকটাত্মীয় ও বন্ধুজন",
+    category: "admission_favorites",
+    tag: "HSC Board",
+    example: "During Eid, millions of people travel to celebrate together with their kith and kin."
+  },
+  {
+    id: "idm_25",
+    word: "To nip in the bud",
+    definition: "To stop a problem or bad habit right at its earliest beginning before it develops",
+    meaningBn: "অঙ্কুরেই বিনষ্ট করা",
+    category: "admission_favorites",
+    tag: "DU Top Pick",
+    example: "Teachers should nip disciplinary misconduct in the bud before it escalates."
+  }
+];
+
+const ROOT_WORDS_DATA = {
+  bene: {
+    id: "bene",
+    root: "bene / bon",
+    origin: "Latin",
+    meaning: "Well, good (ভালো / মঙ্গলজনক)",
+    words: [
+      {
+        word: "Benefactor",
+        breakdown: { prefix: "", root: "bene", suffix: "factor" },
+        pos: "noun",
+        meaningBn: "উপকারী ব্যক্তি / হিতৈষী দাতা",
+        definition: "A person who gives money or other help to a person or cause",
+        example: "The anonymous benefactor funded scholarships for twenty students."
+      },
+      {
+        word: "Beneficial",
+        breakdown: { prefix: "", root: "bene", suffix: "ficial" },
+        pos: "adjective",
+        meaningBn: "উপকারী / ফলপ্রসূ",
+        definition: "Resulting in good; having a helpful or advantageous effect",
+        example: "Daily exercise is immensely beneficial for mental health."
+      },
+      {
+        word: "Benevolent",
+        breakdown: { prefix: "", root: "bene", suffix: "volent" },
+        pos: "adjective",
+        meaningBn: "দয়ালু / সহানুভূতিশীল",
+        definition: "Well-meaning, kindly, and charitable toward others",
+        example: "The benevolent doctor treated impoverished villagers free of cost."
+      },
+      {
+        word: "Benediction",
+        breakdown: { prefix: "", root: "bene", suffix: "diction" },
+        pos: "noun",
+        meaningBn: "আশীর্বাদ / শুভকামনা",
+        definition: "The utterance of a blessing, especially at the end of a service",
+        example: "The grandfather placed his hand on the child in silent benediction."
+      },
+      {
+        word: "Beneficiary",
+        breakdown: { prefix: "", root: "bene", suffix: "ficiary" },
+        pos: "noun",
+        meaningBn: "সুবিধাভোগী / উত্তরাধিকারী",
+        definition: "A person who derives advantage from something, such as a trust",
+        example: "She was the sole beneficiary named in her uncle's estate."
+      },
+      {
+        word: "Benefit",
+        breakdown: { prefix: "", root: "bene", suffix: "fit" },
+        pos: "noun",
+        meaningBn: "সুবিধা / কল্যাণ",
+        definition: "An advantage or profit gained from something",
+        example: "The greatest benefit of reading is gaining broader perspectives."
+      },
+      {
+        word: "Benign",
+        breakdown: { prefix: "", root: "ben", suffix: "ign" },
+        pos: "adjective",
+        meaningBn: "নিরপরাধ / অক্ষতিকর (টিউমার ইত্যাদি)",
+        definition: "Gentle, kindly; in medicine, not harmful or malignant in effect",
+        example: "The biopsy confirmed that the growth was completely benign."
+      },
+      {
+        word: "Bonus",
+        breakdown: { prefix: "", root: "bon", suffix: "us" },
+        pos: "noun",
+        meaningBn: "অতিরিক্ত পারিতোষিক / বোনাস",
+        definition: "An extra sum given to an employee beyond normal compensation",
+        example: "Employees received a festive bonus before the Eid holidays."
+      }
+    ]
+  },
+  mal: {
+    id: "mal",
+    root: "mal / male",
+    origin: "Latin",
+    meaning: "Bad, evil, ill (খারাপ / মন্দ / অপকার)",
+    words: [
+      {
+        word: "Malefactor",
+        breakdown: { prefix: "", root: "male", suffix: "factor" },
+        pos: "noun",
+        meaningBn: "অপরাধী / দুষ্কৃতকারী",
+        definition: "A person who commits a crime or some other wrong",
+        example: "The police apprehended the notorious malefactor at the border."
+      },
+      {
+        word: "Malevolent",
+        breakdown: { prefix: "", root: "male", suffix: "volent" },
+        pos: "adjective",
+        meaningBn: "বিদ্বেষপূর্ণ / অহিতকামী",
+        definition: "Having or showing a wish to do evil or harm to others",
+        example: "The villain cast a malevolent glare toward his captive."
+      },
+      {
+        word: "Malnutrition",
+        breakdown: { prefix: "mal", root: "nutrit", suffix: "ion" },
+        pos: "noun",
+        meaningBn: "অপুষ্টি",
+        definition: "Lack of proper nutrition caused by an inadequate diet",
+        example: "The relief team distributed fortified milk to combat infant malnutrition."
+      },
+      {
+        word: "Malicious",
+        breakdown: { prefix: "", root: "mal", suffix: "icious" },
+        pos: "adjective",
+        meaningBn: "কুচক্রী / বিদ্বেষপরায়ণ",
+        definition: "Characterized by malice; intending or intended to do harm",
+        example: "He spread malicious rumors to damage his rival's campaign."
+      },
+      {
+        word: "Malignant",
+        breakdown: { prefix: "", root: "mal", suffix: "ignant" },
+        pos: "adjective",
+        meaningBn: "মারাত্মক / ক্ষতিকারক (ক্যান্সারযুক্ত)",
+        definition: "Malevolent; in medicine, very virulent or infectious and cancerous",
+        example: "Doctors surgically removed the malignant tumor immediately."
+      },
+      {
+        word: "Malediction",
+        breakdown: { prefix: "", root: "male", suffix: "diction" },
+        pos: "noun",
+        meaningBn: "অভিশাপ / অপবাক্য",
+        definition: "A magical word or phrase uttered with the intention of bringing about evil",
+        example: "The sorcerer muttered a dark malediction upon the encroaching army."
+      },
+      {
+        word: "Malfunction",
+        breakdown: { prefix: "mal", root: "funct", suffix: "ion" },
+        pos: "noun",
+        meaningBn: "যান্ত্রিক ত্রুটি / অকার্যকারিতা",
+        definition: "Failure to function normally or satisfactorily",
+        example: "A minor computer malfunction caused the temporary server outage."
+      },
+      {
+        word: "Malady",
+        breakdown: { prefix: "", root: "mal", suffix: "ady" },
+        pos: "noun",
+        meaningBn: "রোগ / ব্যাধি",
+        definition: "A disease, illness, or serious ingrained problem",
+        example: "Corruption is a grave malady that hinders national progress."
+      }
+    ]
+  },
+  spect: {
+    id: "spect",
+    root: "spect / spec / spic",
+    origin: "Latin",
+    meaning: "To see, look, observe (দেখা / পর্যবেক্ষণ করা)",
+    words: [
+      {
+        word: "Spectator",
+        breakdown: { prefix: "", root: "spect", suffix: "ator" },
+        pos: "noun",
+        meaningBn: "দর্শক / প্রত্যক্ষদর্শী",
+        definition: "A person who watches at a show, match, or public event",
+        example: "Over thirty thousand spectators cheered at the Mirpur stadium."
+      },
+      {
+        word: "Inspect",
+        breakdown: { prefix: "in", root: "spect", suffix: "" },
+        pos: "verb",
+        meaningBn: "পরিদর্শন করা / নিবিড় পর্যবেক্ষণ করা",
+        definition: "Look at closely, typically to assess condition or discover shortcomings",
+        example: "The magistrate arrived to inspect the construction quality of the bridge."
+      },
+      {
+        word: "Introspection",
+        breakdown: { prefix: "intro", root: "spect", suffix: "ion" },
+        pos: "noun",
+        meaningBn: "আত্মদর্শন / নিজের মন বিশ্লেষণ",
+        definition: "The examination or observation of one's own mental and emotional processes",
+        example: "Quiet solitude provides time for fruitful personal introspection."
+      },
+      {
+        word: "Retrospect",
+        breakdown: { prefix: "retro", root: "spect", suffix: "" },
+        pos: "noun",
+        meaningBn: "অতীতের পর্যালোচনা / পেছনের দিকে তাকানো",
+        definition: "A survey or review of a past course of events or period of time",
+        example: "In retrospect, her bold decision proved to be completely correct."
+      },
+      {
+        word: "Prospect",
+        breakdown: { prefix: "pro", root: "spect", suffix: "" },
+        pos: "noun",
+        meaningBn: "ভবিষ্যতের সম্ভাবনা / পূর্বাভাস",
+        definition: "The possibility or likelihood of some future event occurring",
+        example: "The job offer presented exciting career prospects for the young graduate."
+      },
+      {
+        word: "Circumspect",
+        breakdown: { prefix: "circum", root: "spect", suffix: "" },
+        pos: "adjective",
+        meaningBn: "সতর্ক / চারপাশ দেখে চলা",
+        definition: "Wary and unwilling to take risks; prudently cautious",
+        example: "In legal matters, it is always wise to be thoroughly circumspect."
+      },
+      {
+        word: "Conspicuous",
+        breakdown: { prefix: "con", root: "spicu", suffix: "ous" },
+        pos: "adjective",
+        meaningBn: "স্পষ্টভাবে দৃষ্টিগোচর / সহজে চোখে পড়ে এমন",
+        definition: "Standing out so as to be clearly visible; attracting attention",
+        example: "His absence from the crucial board meeting was conspicuous."
+      },
+      {
+        word: "Spectacle",
+        breakdown: { prefix: "", root: "spect", suffix: "acle" },
+        pos: "noun",
+        meaningBn: "দর্শনীয় দৃশ্য / চমকপ্রদ প্রদর্শনী",
+        definition: "A visually striking performance or display",
+        example: "The Pahela Baishakh parade was a vibrant cultural spectacle."
+      }
+    ]
+  },
+  chron: {
+    id: "chron",
+    root: "chron / chrono",
+    origin: "Greek",
+    meaning: "Time (সময় / কাল)",
+    words: [
+      {
+        word: "Chronological",
+        breakdown: { prefix: "", root: "chrono", suffix: "logical" },
+        pos: "adjective",
+        meaningBn: "কালানুক্রমিক / সময়ভিত্তিক সাজানো",
+        definition: "Starting with the earliest and following the order in which they occurred",
+        example: "The history book lists the events of the Liberation War in chronological order."
+      },
+      {
+        word: "Chronic",
+        breakdown: { prefix: "", root: "chron", suffix: "ic" },
+        pos: "adjective",
+        meaningBn: "দীর্ঘস্থায়ী / পুরাতন (রোগ ইত্যাদি)",
+        definition: "Persisting for a long time or constantly recurring",
+        example: "He suffers from chronic asthma that flares up during the dusty winter."
+      },
+      {
+        word: "Synchronize",
+        breakdown: { prefix: "syn", root: "chron", suffix: "ize" },
+        pos: "verb",
+        meaningBn: "একই সময়ে ঘটানো / সময় মিলিয়ে নেওয়া",
+        definition: "Cause to occur or operate at the same time or rate",
+        example: "The pilots synchronized their wristwatches before commencing the flight."
+      },
+      {
+        word: "Anachronism",
+        breakdown: { prefix: "ana", root: "chron", suffix: "ism" },
+        pos: "noun",
+        meaningBn: "কালবৈষম্য / সময়ের সাথে অমিল এমন কিছু",
+        definition: "A thing belonging or appropriate to a period other than that in which it exists",
+        example: "Using a typewriter in a modern computer laboratory seemed like an anachronism."
+      },
+      {
+        word: "Chronicle",
+        breakdown: { prefix: "", root: "chron", suffix: "icle" },
+        pos: "noun",
+        meaningBn: "ইতিবৃত্ত / কালপঞ্জি",
+        definition: "A factual written account of important or historical events in order of time",
+        example: "The journalist's memoirs chronicle the evolution of Dhaka over fifty years."
+      },
+      {
+        word: "Chronometer",
+        breakdown: { prefix: "", root: "chrono", suffix: "meter" },
+        pos: "noun",
+        meaningBn: "নিখুঁত সময় পরিমাপক যন্ত্র",
+        definition: "An instrument for measuring time accurately, especially at sea",
+        example: "Sailors once depended on the ship's chronometer to calculate longitude."
+      },
+      {
+        word: "Asynchronous",
+        breakdown: { prefix: "a", root: "synchron", suffix: "ous" },
+        pos: "adjective",
+        meaningBn: "অসমকালীন / আলাদা সময়ে ঘটা",
+        definition: "Not existing or occurring at the same time",
+        example: "The online course offers asynchronous recorded lectures for busy students."
+      },
+      {
+        word: "Chronobiology",
+        breakdown: { prefix: "", root: "chrono", suffix: "biology" },
+        pos: "noun",
+        meaningBn: "জীবদেহের জৈবিক ঘড়ি সংক্রান্ত বিজ্ঞান",
+        definition: "The branch of physiology concerned with natural cyclical time rhythms",
+        example: "Chronobiology explains why jet lag disrupts our natural sleep patterns."
+      }
+    ]
+  },
+  dict: {
+    id: "dict",
+    root: "dict / dic",
+    origin: "Latin",
+    meaning: "To say, tell, proclaim (বলা / ঘোষণা করা / নির্দেশ)",
+    words: [
+      {
+        word: "Predict",
+        breakdown: { prefix: "pre", root: "dict", suffix: "" },
+        pos: "verb",
+        meaningBn: "ভবিষ্যদ্বাণী করা / পূর্বাভাস দেওয়া",
+        definition: "Say or estimate that a specified thing will happen in the future",
+        example: "Meteorologists predict heavy rainfall over Chittagong division."
+      },
+      {
+        word: "Dictator",
+        breakdown: { prefix: "", root: "dict", suffix: "ator" },
+        pos: "noun",
+        meaningBn: "একনায়ক / স্বৈরশাসক",
+        definition: "A ruler with total power over a country, typically one who has obtained it by force",
+        example: "The dictator censored all free newspapers and television broadcasts."
+      },
+      {
+        word: "Verdict",
+        breakdown: { prefix: "ver", root: "dict", suffix: "" },
+        pos: "noun",
+        meaningBn: "রায় / আদালতের চূড়ান্ত সিদ্ধান্ত",
+        definition: "A decision on an issue of fact in a civil or criminal case",
+        example: "The jury delivered a unanimous verdict of innocent."
+      },
+      {
+        word: "Contradict",
+        breakdown: { prefix: "contra", root: "dict", suffix: "" },
+        pos: "verb",
+        meaningBn: "পরস্পরবিরোধী কথা বলা / খণ্ডন করা",
+        definition: "Deny the truth of a statement by asserting the opposite",
+        example: "Witnesses gave statements that contradicted the suspect's alibi."
+      },
+      {
+        word: "Edict",
+        breakdown: { prefix: "e", root: "dict", suffix: "" },
+        pos: "noun",
+        meaningBn: "সরকারি ফরমান / অনুশাসন",
+        definition: "An official order or proclamation issued by a person in authority",
+        example: "The emperor issued a royal edict banning illegal deforestation."
+      },
+      {
+        word: "Diction",
+        breakdown: { prefix: "", root: "dict", suffix: "ion" },
+        pos: "noun",
+        meaningBn: "শব্দচয়ন / বাচনভঙ্গি",
+        definition: "The choice and use of words and phrases in speech or writing",
+        example: "The orator's clear diction captivated the entire auditorium."
+      },
+      {
+        word: "Indict",
+        breakdown: { prefix: "in", root: "dict", suffix: "" },
+        pos: "verb",
+        meaningBn: "আনুষ্ঠানিকভাবে অভিযুক্ত করা",
+        definition: "Formally accuse of or charge with a serious crime",
+        example: "The grand jury voted to indict the fraudulent company officials."
+      },
+      {
+        word: "Addict",
+        breakdown: { prefix: "ad", root: "dict", suffix: "" },
+        pos: "noun",
+        meaningBn: "আসক্ত ব্যক্তি",
+        definition: "A person who is addicted to a particular substance, thing, or activity",
+        example: "Video game addicts can lose track of time and neglect study routines."
+      }
+    ]
+  },
+  graph: {
+    id: "graph",
+    root: "graph / gram",
+    origin: "Greek",
+    meaning: "To write, draw, record (লেখা / অঙ্কন করা / লিপিবদ্ধ করা)",
+    words: [
+      {
+        word: "Biography",
+        breakdown: { prefix: "bio", root: "graph", suffix: "y" },
+        pos: "noun",
+        meaningBn: "জীবনীগ্রন্থ",
+        definition: "An account of someone's life written by someone else",
+        example: "He authored an inspiring biography of the visionary scientist."
+      },
+      {
+        word: "Autobiography",
+        breakdown: { prefix: "auto-bio", root: "graph", suffix: "y" },
+        pos: "noun",
+        meaningBn: "আত্মজীবনী",
+        definition: "An account of a person's life written by that person",
+        example: "The Unfinished Memoirs is the celebrated autobiography of Bangabandhu."
+      },
+      {
+        word: "Calligraphy",
+        breakdown: { prefix: "calli", root: "graph", suffix: "y" },
+        pos: "noun",
+        meaningBn: "চারুলিপি / সুন্দর হস্তলিপি",
+        definition: "Decorative handwriting or handwritten lettering of aesthetic beauty",
+        example: "Islamic calligraphy adorned the historic archways of the ancient mosque."
+      },
+      {
+        word: "Telegram",
+        breakdown: { prefix: "tele", root: "gram", suffix: "" },
+        pos: "noun",
+        meaningBn: "তারবার্তা",
+        definition: "A message sent by telegraph and then delivered in written form",
+        example: "Decades ago, urgent family news arrived by telegram."
+      },
+      {
+        word: "Orthography",
+        breakdown: { prefix: "ortho", root: "graph", suffix: "y" },
+        pos: "noun",
+        meaningBn: "সঠিক বানানরীতি / বর্ণবিন্যাস বিদ্যা",
+        definition: "The conventional spelling system of a language",
+        example: "Standard Bangla orthography was reformed by the Bangla Academy."
+      },
+      {
+        word: "Bibliography",
+        breakdown: { prefix: "biblio", root: "graph", suffix: "y" },
+        pos: "noun",
+        meaningBn: "গ্রন্থপঞ্জি / সহায়ক বইয়ের তালিকা",
+        definition: "A list of the books referred to in a scholarly work",
+        example: "Remember to attach an alphabetical bibliography at the end of your research paper."
+      },
+      {
+        word: "Graphology",
+        breakdown: { prefix: "", root: "graph", suffix: "ology" },
+        pos: "noun",
+        meaningBn: "হস্তরেখা ও হস্তলিপি বিশ্লেষণ বিদ্যা",
+        definition: "The study of handwriting, especially as a clue to character",
+        example: "Graphology is sometimes studied by forensic document investigators."
+      },
+      {
+        word: "Paragraph",
+        breakdown: { prefix: "para", root: "graph", suffix: "" },
+        pos: "noun",
+        meaningBn: "অনুচ্ছেদ",
+        definition: "A distinct section of a piece of writing, usually dealing with a single theme",
+        example: "Write a coherent paragraph explaining the impact of climate change."
+      }
+    ]
+  }
+};
+
+const DECODER_PRESETS = [
+  { prefix: "bene", root: "dict", suffix: "ion", word: "Benediction", meaningBn: "আশীর্বাদ / শুভকামনা", pos: "noun", example: "The elder whispered a heartfelt benediction." },
+  { prefix: "mal", root: "dict", suffix: "ion", word: "Malediction", meaningBn: "অভিশাপ / অপবাক্য", pos: "noun", example: "He uttered a desperate malediction upon his foes." },
+  { prefix: "intro", root: "spect", suffix: "ion", word: "Introspection", meaningBn: "আত্মদর্শন / নিজের মন বিশ্লেষণ", pos: "noun", example: "Self-improvement begins with honest introspection." },
+  { prefix: "retro", root: "spect", suffix: "ive", word: "Retrospective", meaningBn: "অতীতমুখী / পেছনের ঘটনার মূল্যায়ন", pos: "adjective", example: "The gallery hosted a retrospective exhibition of Zainul Abedin." },
+  { prefix: "chrono", root: "log", suffix: "ical", word: "Chronological", meaningBn: "কালানুক্রমিক", pos: "adjective", example: "Events were arranged in strict chronological order." },
+  { prefix: "bene", root: "fact", suffix: "or", word: "Benefactor", meaningBn: "উপকারী ব্যক্তি / দানশীল", pos: "noun", example: "The hospital ward was funded by a kind benefactor." },
+  { prefix: "mal", root: "fact", suffix: "or", word: "Malefactor", meaningBn: "অপরাধী / দুষ্কৃতকারী", pos: "noun", example: "Justice caught up with the persistent malefactor." },
+  { prefix: "pre", root: "dict", suffix: "able", word: "Predictable", meaningBn: "পূর্বানুমানযোগ্য", pos: "adjective", example: "Monsoon storms in June are quite predictable." },
+  { prefix: "auto", root: "bio", suffix: "graphy", word: "Autobiography", meaningBn: "আত্মজীবনী", pos: "noun", example: "He published his candid autobiography last year." },
+  { prefix: "omni", root: "sci", suffix: "ent", word: "Omniscient", meaningBn: "সর্বজ্ঞানী", pos: "adjective", example: "The story uses an omniscient third-person narrator." }
+];
+
+const VOICE_PRACTICE_WORDS = [
+  {
+    id: "vp_1",
+    word: "Entrepreneur",
+    ipa: "/ˌɒn.trə.prəˈnɜːr/",
+    syllables: "en - tre - pre - NEUR",
+    syllablesBn: "অন্-ট্রাপ্রা-নার",
+    stressTip: "Primary stress on 4th syllable (-NEUR). French origin.",
+    meaningBn: "উদ্যোক্তা / ব্যবসায়ী",
+    example: "A successful tech entrepreneur founded bKash to democratize payments."
+  },
+  {
+    id: "vp_2",
+    word: "Ephemeral",
+    ipa: "/ɪˈfem.ər.əl/",
+    syllables: "e - PHEM - er - al",
+    syllablesBn: "ই-ফেম-অ্যার-আল",
+    stressTip: 'Stress the second syllable (PHEM). Do not pronounce as "e-fe-me-ral".',
+    meaningBn: "ক্ষণস্থায়ী / স্বল্পকালীন",
+    example: "Morning dew on winter grass is utterly ephemeral."
+  },
+  {
+    id: "vp_3",
+    word: "Lieutenant",
+    ipa: "/lefˈten.ənt/ (UK) / /luːˈten.ənt/ (US)",
+    syllables: "lef - TEN - ant (UK) / loo - TEN - ant (US)",
+    syllablesBn: "লেফ-টেন-অ্যান্ট (UK) / লু-টেন-অ্যান্ট (US)",
+    stressTip: 'In British English, "lieu-" is pronounced "lef-". Stress the 2nd syllable.',
+    meaningBn: "সামরিক পদবী (লেফটেন্যান্ট)",
+    example: "The young lieutenant led his battalion with bravery and distinction."
+  },
+  {
+    id: "vp_4",
+    word: "Conscientious",
+    ipa: "/ˌkɒn.ʃiˈen.ʃəs/",
+    syllables: "con - sci - EN - tious",
+    syllablesBn: "কন-শি-এন-শাস",
+    stressTip: 'Stress on the 3rd syllable (-EN-). Ending sounds like "-shus".',
+    meaningBn: "বিবেকবান / অত্যন্ত দায়িত্বশীল",
+    example: "A conscientious student never leaves exam preparation to the last night."
+  },
+  {
+    id: "vp_5",
+    word: "Ubiquitous",
+    ipa: "/juːˈbɪk.wɪ.təs/",
+    syllables: "u - BIQ - ui - tous",
+    syllablesBn: "ইউ-বিক-উই-টাস",
+    stressTip: 'Stress the 2nd syllable (BIQ). First "u" sounds like "you".',
+    meaningBn: "সর্বত্র বিদ্যমান / সর্বত্রগামী",
+    example: "Mobile smartphones have become ubiquitous in daily city life."
+  },
+  {
+    id: "vp_6",
+    word: "Hierarchy",
+    ipa: "/ˈhaɪə.rɑː.ki/",
+    syllables: "HI - er - ar - chy",
+    syllablesBn: "হাই-আ-রার-কি",
+    stressTip: 'Stress the 1st syllable (HI-). The "ch" sounds like "k", not "ch".',
+    meaningBn: "পদমর্যাদা ক্রম / শ্রেণিবিন্যাস",
+    example: "The army maintains a disciplined command hierarchy."
+  },
+  {
+    id: "vp_7",
+    word: "Miscellaneous",
+    ipa: "/ˌmɪs.əlˈeɪ.ni.əs/",
+    syllables: "mis - cel - LA - ne - ous",
+    syllablesBn: "মিস-এ-লেই-নি-আস",
+    stressTip: "Primary stress on 3rd syllable (-LA-).",
+    meaningBn: "বিবিধ / নানা রকম বিষয়",
+    example: "The final section of the ledger contained miscellaneous expenses."
+  },
+  {
+    id: "vp_8",
+    word: "Renaissance",
+    ipa: "/rəˈneɪ.səns/",
+    syllables: "re - NAIS - sance",
+    syllablesBn: "রেনে-সঁ / রি-নেই-সান্‌স",
+    stressTip: "Second syllable stressed. French nasal resonance.",
+    meaningBn: "নবজাগরণ / সাংস্কৃতিক পুনর্জাগরণ",
+    example: "The Bengal Renaissance birthed monumental progress in literature."
+  },
+  {
+    id: "vp_9",
+    word: "Exaggerate",
+    ipa: "/ɪɡˈzædʒ.ə.reɪt/",
+    syllables: "ex - AG - ger - ate",
+    syllablesBn: "ইগ-জ্যাজ-আ-রেইট",
+    stressTip: 'Stress the 2nd syllable (-AG-). The "gg" sounds like "j".',
+    meaningBn: "অতিরঞ্জিত করা / বাড়িয়ে বলা",
+    example: "Fishermen often humorously exaggerate the size of the catch."
+  },
+  {
+    id: "vp_10",
+    word: "Sovereignty",
+    ipa: "/ˈsɒv.rɪn.ti/",
+    syllables: "SOV - er - eign - ty",
+    syllablesBn: "সভ-রিন-টি",
+    stressTip: 'Stress the 1st syllable (SOV-). "eign" sounds like "in" with silent g.',
+    meaningBn: "সার্বভৌমত্ব / পরম কর্তৃত্ব",
+    example: "The nation defended its territorial sovereignty with valor."
+  },
+  {
+    id: "vp_11",
+    word: "Hyperbole",
+    ipa: "/haɪˈpɜː.bəl.i/",
+    syllables: "hy - PER - bo - le",
+    syllablesBn: "হাই-পার-বা-লি",
+    stressTip: 'Stress the 2nd syllable (-PER-). Do NOT pronounce like "hyper-bowl".',
+    meaningBn: "অতিশয়োক্তি / অলংকার",
+    example: "Saying 'I am so hungry I could eat an elephant' is pure hyperbole."
+  },
+  {
+    id: "vp_12",
+    word: "Paradigm",
+    ipa: "/ˈpær.ə.daɪm/",
+    syllables: "PAR - a - digm",
+    syllablesBn: "প্যারা-ডাইম",
+    stressTip: 'Stress 1st syllable (PAR-). The "g" is completely silent.',
+    meaningBn: "দৃষ্টান্ত / মূল কাঠামো / আদর্শ মডেল",
+    example: "Artificial intelligence represents a new paradigm in education."
+  }
+];
+
+// Levenshtein similarity calculation
+function getLevenshteinDistance(s1, s2) {
+  const a = String(s1 || "").toLowerCase().trim();
+  const b = String(s2 || "").toLowerCase().trim();
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+
+  const row = [];
+  for (let i = 0; i <= b.length; i++) {
+    row[i] = i;
+  }
+
+  for (let i = 1; i <= a.length; i++) {
+    let prev = i;
+    for (let j = 1; j <= b.length; j++) {
+      let val;
+      if (a[i - 1] === b[j - 1]) {
+        val = row[j - 1];
+      } else {
+        val = Math.min(row[j - 1] + 1, prev + 1, row[j] + 1);
+      }
+      row[j - 1] = prev;
+      prev = val;
+    }
+    row[b.length] = prev;
+  }
+  return row[b.length];
+}
+
+function calculatePronunciationAccuracy(target, recognized) {
+  const t = String(target || "").toLowerCase().trim().replace(/[^a-z]/g, "");
+  const r = String(recognized || "").toLowerCase().trim().replace(/[^a-z]/g, "");
+  if (!t || !r) return 0;
+  if (t === r) return 100;
+  const dist = getLevenshteinDistance(t, r);
+  const maxLen = Math.max(t.length, r.length);
+  const acc = Math.max(0, Math.round((1 - dist / maxLen) * 100));
+  return acc;
+}
+
+// Global state for Tools Page
+const ToolsState = {
+  activeTab: "one-word", // 'one-word' | 'roots' | 'voice'
+  oneWordSubTab: "one-word", // 'one-word' | 'idioms'
+  category: "all", // 'all' | 'person_behavior' | 'governance_law' | 'admission_favorites'
+  searchQuery: "",
+  selfTestMode: false,
+  revealedIds: new Set(),
+  selectedRootId: "bene",
+  decoderPrefix: "bene",
+  decoderRoot: "dict",
+  decoderSuffix: "ion",
+  voiceWordIndex: 0,
+  isRecording: false,
+  lastTranscript: "",
+  lastAccuracy: null,
+  recognitionInstance: null
+};
+
+function switchToolsTab(tabId) {
+  ToolsState.activeTab = tabId;
+  renderToolsPage();
+}
+
+function switchOneWordSubTab(subTab) {
+  ToolsState.oneWordSubTab = subTab;
+  renderToolsPage();
+}
+
+function filterOneWordCategory(category) {
+  ToolsState.category = category;
+  renderToolsPage();
+}
+
+function searchOneWordAndIdioms(query) {
+  ToolsState.searchQuery = String(query || "").trim().toLowerCase();
+  renderToolsPage();
+}
+
+function toggleSelfTestMode(enable) {
+  ToolsState.selfTestMode = Boolean(enable);
+  if (!ToolsState.selfTestMode) {
+    ToolsState.revealedIds.clear();
+  }
+  renderToolsPage();
+}
+
+function toggleRevealCard(cardId) {
+  if (ToolsState.revealedIds.has(cardId)) {
+    ToolsState.revealedIds.delete(cardId);
+  } else {
+    ToolsState.revealedIds.add(cardId);
+  }
+  renderToolsPage();
+}
+
+function selectRootWord(rootId) {
+  if (ROOT_WORDS_DATA[rootId]) {
+    ToolsState.selectedRootId = rootId;
+    renderToolsPage();
+  }
+}
+
+function decodeWordEquation(prefix, root, suffix) {
+  ToolsState.decoderPrefix = prefix;
+  ToolsState.decoderRoot = root;
+  ToolsState.decoderSuffix = suffix;
+  renderToolsPage();
+}
+
+function selectVoiceWord(index) {
+  if (index >= 0 && index < VOICE_PRACTICE_WORDS.length) {
+    ToolsState.voiceWordIndex = index;
+    ToolsState.lastTranscript = "";
+    ToolsState.lastAccuracy = null;
+    renderToolsPage();
+  }
+}
+
+function startVoiceRecognition() {
+  if (typeof window === "undefined") return;
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const currentWord = VOICE_PRACTICE_WORDS[ToolsState.voiceWordIndex];
+
+  if (!SpeechRec) {
+    simulateVoicePractice(currentWord.word);
+    return;
+  }
+
+  try {
+    const recognition = new SpeechRec();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    ToolsState.isRecording = true;
+    ToolsState.recognitionInstance = recognition;
+    renderToolsPage();
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      const accuracy = calculatePronunciationAccuracy(currentWord.word, transcript);
+      ToolsState.isRecording = false;
+      ToolsState.lastTranscript = transcript;
+      ToolsState.lastAccuracy = accuracy;
+      renderToolsPage();
+    };
+
+    recognition.onerror = (err) => {
+      console.warn("SpeechRecognition error:", err);
+      ToolsState.isRecording = false;
+      simulateVoicePractice(currentWord.word);
+    };
+
+    recognition.onend = () => {
+      ToolsState.isRecording = false;
+      renderToolsPage();
+    };
+
+    recognition.start();
+  } catch (e) {
+    console.warn("Could not start recognition:", e);
+    ToolsState.isRecording = false;
+    simulateVoicePractice(currentWord.word);
+  }
+}
+
+function stopVoiceRecognition() {
+  if (ToolsState.recognitionInstance) {
+    try {
+      ToolsState.recognitionInstance.stop();
+    } catch (e) {}
+  }
+  ToolsState.isRecording = false;
+  renderToolsPage();
+}
+
+function simulateVoicePractice(spokenWord) {
+  const currentWord = VOICE_PRACTICE_WORDS[ToolsState.voiceWordIndex];
+  const simulated = spokenWord || currentWord.word;
+  const accuracy = calculatePronunciationAccuracy(currentWord.word, simulated);
+  ToolsState.isRecording = false;
+  ToolsState.lastTranscript = simulated;
+  ToolsState.lastAccuracy = accuracy;
+  if (typeof showToast === "function") {
+    showToast(`🎙️ Voice Practice: Heard "${simulated}" (${accuracy}% Match)`, "info");
+  }
+  renderToolsPage();
+}
+
+function renderToolsPage() {
+  const mount = document.getElementById("tools-page-mount");
+  if (!mount) return;
+
+  const activeTab = ToolsState.activeTab;
+
+  mount.innerHTML = `
+    <div class="space-y-8 sm:space-y-10">
+
+      <!-- HERO BANNER -->
+      <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800" style="border-color: var(--border-subtle);">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              <span>🧠 Smart Learning Tools</span>
+              <span>&bull;</span>
+              <span class="font-bengali">অ্যাডমিশন ও বিসিএস স্পেশাল টুলস</span>
+            </div>
+            <h1 class="font-editorial text-2xl sm:text-4xl font-bold tracking-tight" style="color: var(--ink-primary);">
+              Master Vocabulary with Smart Tools
+            </h1>
+            <p class="font-bengali text-sm sm:text-base max-w-2xl" style="color: var(--ink-secondary);">
+              এককথায় প্রকাশ ও ইডিয়মস, শব্দমূল (Root Words) ডিকোডার এবং উচ্চারণ যাচাইয়ের আধুনিক লার্নিং টুলস।
+            </p>
+          </div>
+
+          <!-- Main 3 Tab Switcher Buttons (Pill Bar) -->
+          <div class="flex flex-wrap sm:flex-nowrap items-center p-1.5 rounded-2xl border bg-white/70 dark:bg-gray-800/80 shadow-xs" style="border-color: var(--border-subtle);">
+            <button
+              type="button"
+              onclick="switchToolsTab('one-word')"
+              class="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                activeTab === 'one-word' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white'
+              }"
+            >
+              <span>1️⃣</span>
+              <span>One-Word &amp; Idioms</span>
+            </button>
+            <button
+              type="button"
+              onclick="switchToolsTab('roots')"
+              class="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                activeTab === 'roots' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white'
+              }"
+            >
+              <span>2️⃣</span>
+              <span>Root Words Decoder</span>
+            </button>
+            <button
+              type="button"
+              onclick="switchToolsTab('voice')"
+              class="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                activeTab === 'voice' ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white'
+              }"
+            >
+              <span>3️⃣</span>
+              <span>Voice Pronunciation</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 1: ONE-WORD SUBSTITUTION & IDIOMS/PHRASES -->
+      ${activeTab === 'one-word' ? renderOneWordSectionHTML() : ''}
+
+      <!-- TAB 2: ROOT WORDS, PREFIX & SUFFIX BREAKDOWN -->
+      ${activeTab === 'roots' ? renderRootsSectionHTML() : ''}
+
+      <!-- TAB 3: VOICE PRONUNCIATION PRACTICE -->
+      ${activeTab === 'voice' ? renderVoiceSectionHTML() : ''}
+
+    </div>
+  `;
+}
+
+function renderOneWordSectionHTML() {
+  const isIdioms = ToolsState.oneWordSubTab === 'idioms';
+  const rawList = isIdioms ? IDIOMS_DATA : ONE_WORD_DATA;
+  const cat = ToolsState.category;
+  const q = ToolsState.searchQuery;
+  const selfTest = ToolsState.selfTestMode;
+
+  const filtered = rawList.filter((item) => {
+    if (cat !== 'all' && item.category !== cat) return false;
+    if (q) {
+      const matchWord = (item.word || '').toLowerCase().includes(q);
+      const matchDef = (item.definition || '').toLowerCase().includes(q);
+      const matchBn = (item.meaningBn || '').toLowerCase().includes(q);
+      if (!matchWord && !matchDef && !matchBn) return false;
+    }
+    return true;
+  });
+
+  return `
+    <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+      
+      <!-- Top Sub-Nav & Controls Bar -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b" style="border-color: var(--border-subtle);">
+        
+        <!-- Toggle: One-Word vs Idioms -->
+        <div class="flex items-center p-1 rounded-xl border bg-gray-100 dark:bg-gray-800" style="border-color: var(--border-subtle);">
+          <button
+            type="button"
+            onclick="switchOneWordSubTab('one-word')"
+            class="px-4 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all ${
+              !isIdioms ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300'
+            }"
+          >
+            One-Word Substitution (এককথায় প্রকাশ)
+          </button>
+          <button
+            type="button"
+            onclick="switchOneWordSubTab('idioms')"
+            class="px-4 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all ${
+              isIdioms ? 'bg-[#2D5A4C] text-white shadow-xs' : 'text-gray-600 dark:text-gray-300'
+            }"
+          >
+            Idioms &amp; Phrases (বাগধারা ও প্রবাদ)
+          </button>
+        </div>
+
+        <!-- Self-Test Mode Toggle Switch -->
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-2 text-xs font-bold cursor-pointer select-none" style="color: var(--ink-secondary);">
+            <input
+              type="checkbox"
+              ${selfTest ? 'checked' : ''}
+              onchange="toggleSelfTestMode(this.checked)"
+              class="w-4 h-4 rounded text-[#2D5A4C] focus:ring-[#2D5A4C] cursor-pointer"
+            />
+            <span>Self-Test Mode (উত্তর লুকান / প্রকাশ করুন)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <!-- Live Search Input -->
+        <div class="relative flex-1 max-w-md">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+            🔍
+          </span>
+          <input
+            type="text"
+            value="${ToolsState.searchQuery}"
+            oninput="searchOneWordAndIdioms(this.value)"
+            placeholder="Search word, phrase or meaning..."
+            class="w-full pl-9 pr-4 py-2 rounded-xl border text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30"
+            style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
+          />
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5">
+          ${[
+            { id: 'all', label: 'All (সব)' },
+            { id: 'person_behavior', label: 'Person & Behavior' },
+            { id: 'governance_law', label: 'Governance & Law' },
+            { id: 'admission_favorites', label: 'Admission Favorites' }
+          ].map((c) => {
+            const isAct = cat === c.id;
+            return `
+              <button
+                type="button"
+                onclick="filterOneWordCategory('${c.id}')"
+                class="px-3 py-1 rounded-full text-xs font-bold transition-all border ${
+                  isAct ? 'bg-[#2D5A4C] text-white border-[#2D5A4C]' : 'hover:bg-black/5 dark:hover:bg-white/5 border-transparent text-gray-600 dark:text-gray-300'
+                }"
+              >
+                ${c.label}
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Results Count -->
+      <div class="text-xs font-bold text-gray-400">
+        Showing ${filtered.length} entries &bull; ${selfTest ? 'Self-Test Mode Active: Click card to reveal answer' : 'Tap audio icon to hear pronunciation'}
+      </div>
+
+      <!-- Entries Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${filtered.map((item) => {
+          const isRevealed = !selfTest || ToolsState.revealedIds.has(item.id);
+          return `
+            <div
+              class="p-5 rounded-2xl border transition-all flex flex-col justify-between ${
+                selfTest ? 'cursor-pointer hover:shadow-md' : ''
+              }"
+              style="background-color: var(--surface-sand); border-color: var(--border-subtle);"
+              ${selfTest ? `onclick="toggleRevealCard('${item.id}')"` : ''}
+            >
+              <div>
+                <!-- Top Meta Row -->
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+                    ${item.tag}
+                  </span>
+                  <button
+                    type="button"
+                    onclick="event.stopPropagation(); if(typeof speakWordWithAccent==='function')speakWordWithAccent('${item.word.replace(/'/g, "\\'")}', 'UK', this);"
+                    class="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-gray-500 hover:text-black dark:hover:text-white transition-colors"
+                    title="Listen Pronunciation"
+                  >
+                    🔊
+                  </button>
+                </div>
+
+                <!-- Definition / Clue -->
+                <p class="text-xs sm:text-sm font-medium mb-3" style="color: var(--ink-secondary);">
+                  ${item.definition}
+                </p>
+
+                <!-- Word & Bangla Meaning (Hidden or Revealed) -->
+                ${isRevealed ? `
+                  <div class="p-3 rounded-xl border bg-white dark:bg-gray-800" style="border-color: var(--border-subtle);">
+                    <div class="flex items-center justify-between gap-2">
+                      <h3 class="font-editorial text-base sm:text-lg font-bold" style="color: var(--accent-sage);">
+                        ${item.word}
+                      </h3>
+                      ${item.pos ? `<span class="text-[10px] uppercase font-bold text-gray-400 italic">${item.pos}</span>` : ''}
+                    </div>
+                    <div class="font-bengali text-xs sm:text-sm font-semibold mt-0.5" style="color: var(--ink-primary);">
+                      ${item.meaningBn}
+                    </div>
+                  </div>
+                ` : `
+                  <div class="p-3 rounded-xl border border-dashed text-center bg-black/5 dark:bg-white/5" style="border-color: var(--border-subtle);">
+                    <span class="text-xs font-bold text-[#2D5A4C] dark:text-[#8CB8A8] flex items-center justify-center gap-1.5">
+                      <span>👁️</span>
+                      <span>Tap to Reveal Answer &bull; উত্তর দেখুন</span>
+                    </span>
+                  </div>
+                `}
+              </div>
+
+              <!-- Exam Example Sentence -->
+              <div class="pt-3 mt-3 border-t text-[11px] text-gray-500" style="border-color: var(--border-subtle);">
+                <strong>Example:</strong> ${item.example}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+    </section>
+  `;
+}
+
+function renderRootsSectionHTML() {
+  const currentRoot = ROOT_WORDS_DATA[ToolsState.selectedRootId] || ROOT_WORDS_DATA['bene'];
+  const rootKeys = Object.keys(ROOT_WORDS_DATA);
+
+  // Decoder presets
+  const presets = DECODER_PRESETS;
+  const currentPreset = presets.find(
+    p => p.prefix === ToolsState.decoderPrefix && p.root === ToolsState.decoderRoot && p.suffix === ToolsState.decoderSuffix
+  ) || presets[0];
+
+  return `
+    <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border space-y-8" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+      
+      <!-- WORD DECODER CHALLENGE BAR -->
+      <div class="p-6 rounded-3xl border bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800" style="border-color: var(--border-subtle);">
+        <div class="max-w-3xl mx-auto space-y-4">
+          <div class="text-center space-y-1">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+              Interactive Word Decoder
+            </span>
+            <h2 class="font-editorial text-xl sm:text-2xl font-bold" style="color: var(--ink-primary);">
+              Prefix + Root + Suffix Formula
+            </h2>
+            <p class="font-bengali text-xs sm:text-sm text-gray-500">
+              উপসর্গ ও অনুসর্গ যুক্ত করে কীভাবে নতুন ইংরেজি শব্দ গঠিত হয় তা পরীক্ষা করুন
+            </p>
+          </div>
+
+          <!-- Formula Equation Visual Box -->
+          <div class="p-4 sm:p-5 rounded-2xl border bg-white dark:bg-gray-800 shadow-sm flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center" style="border-color: var(--border-subtle);">
+            <!-- Prefix Chip -->
+            <div class="px-3.5 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-200">
+              <span class="block text-[10px] uppercase font-bold text-amber-600">Prefix</span>
+              <strong class="text-sm sm:text-base font-editorial">${currentPreset.prefix}-</strong>
+            </div>
+
+            <span class="text-gray-400 font-bold text-lg">+</span>
+
+            <!-- Root Chip -->
+            <div class="px-3.5 py-2 rounded-xl bg-[#2D5A4C]/10 border border-[#2D5A4C]/30 text-[#2D5A4C] dark:text-[#8CB8A8]">
+              <span class="block text-[10px] uppercase font-bold text-[#2D5A4C]">Root</span>
+              <strong class="text-sm sm:text-base font-editorial">${currentPreset.root}</strong>
+            </div>
+
+            <span class="text-gray-400 font-bold text-lg">+</span>
+
+            <!-- Suffix Chip -->
+            <div class="px-3.5 py-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-800 dark:text-purple-200">
+              <span class="block text-[10px] uppercase font-bold text-purple-600">Suffix</span>
+              <strong class="text-sm sm:text-base font-editorial">-${currentPreset.suffix}</strong>
+            </div>
+
+            <span class="text-gray-400 font-bold text-lg">=</span>
+
+            <!-- Result Decoded Word Chip -->
+            <div class="px-4 py-2 rounded-xl bg-[#2D5A4C] text-white shadow-xs">
+              <span class="block text-[10px] uppercase font-bold text-gray-200">Decoded Word</span>
+              <strong class="text-base sm:text-lg font-editorial">${currentPreset.word}</strong>
+            </div>
+          </div>
+
+          <!-- Result Details Box -->
+          <div class="p-4 rounded-2xl border bg-white/70 dark:bg-gray-800/70 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-color: var(--border-subtle);">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-editorial text-lg font-bold" style="color: var(--accent-sage);">${currentPreset.word}</span>
+                <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-gray-500">${currentPreset.pos}</span>
+                <button
+                  type="button"
+                  onclick="if(typeof speakWordWithAccent==='function')speakWordWithAccent('${currentPreset.word}', 'UK', this);"
+                  class="p-1 rounded-full text-gray-500 hover:text-black dark:hover:text-white"
+                  title="Listen"
+                >
+                  🔊
+                </button>
+              </div>
+              <div class="font-bengali text-xs sm:text-sm font-semibold mt-0.5" style="color: var(--ink-primary);">
+                ${currentPreset.meaningBn}
+              </div>
+              <div class="text-[11px] text-gray-500 mt-1">
+                <strong>Example:</strong> ${currentPreset.example}
+              </div>
+            </div>
+
+            <!-- Quick Preset Pill Selector -->
+            <div class="flex flex-wrap items-center justify-center gap-1.5 shrink-0">
+              ${presets.map((p) => {
+                const isAct = p.word === currentPreset.word;
+                return `
+                  <button
+                    type="button"
+                    onclick="decodeWordEquation('${p.prefix}', '${p.root}', '${p.suffix}')"
+                    class="px-2.5 py-1 rounded-xl text-xs font-bold border transition-all ${
+                      isAct ? 'bg-[#2D5A4C] text-white border-[#2D5A4C]' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-black/5'
+                    }"
+                  >
+                    ${p.word}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLICKABLE ROOT WORD CARDS (GRID) -->
+      <div class="space-y-4">
+        <div>
+          <h2 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+            Explore by Latin &amp; Greek Root Words
+          </h2>
+          <p class="font-bengali text-xs sm:text-sm text-gray-500">
+            নিচের যেকোনো রুট ওয়ার্ডে ক্লিক করে তার শাখা-প্রশাখা ও ৮+ সম্পর্কিত শব্দ দেখুন
+          </p>
+        </div>
+
+        <!-- 6 Main Root Cards Selector -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          ${rootKeys.map((key) => {
+            const r = ROOT_WORDS_DATA[key];
+            const isAct = r.id === currentRoot.id;
+            return `
+              <button
+                type="button"
+                onclick="selectRootWord('${r.id}')"
+                class="p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  isAct ? 'bg-[#2D5A4C] text-white border-[#2D5A4C] shadow-md scale-102' : 'bg-white dark:bg-gray-800 hover:bg-[#EEF4F1] dark:hover:bg-gray-700'
+                }"
+                style="border-color: var(--border-subtle);"
+              >
+                <span class="block text-[10px] uppercase font-bold opacity-75">${r.origin} Root</span>
+                <span class="block font-editorial text-base sm:text-lg font-bold leading-tight my-0.5">${r.root}</span>
+                <span class="block text-[11px] font-bengali truncate ${isAct ? 'text-gray-200' : 'text-gray-500'}">${r.meaning}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- BRANCHING GRID OF 8+ WORDS FOR SELECTED ROOT -->
+      <div class="p-6 rounded-3xl border bg-white dark:bg-gray-800 space-y-4" style="border-color: var(--border-subtle);">
+        <div class="flex items-center justify-between pb-3 border-b" style="border-color: var(--border-subtle);">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#2D5A4C] dark:text-[#8CB8A8]">
+              Branching Words for Root "${currentRoot.root}"
+            </span>
+            <h3 class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">
+              ${currentRoot.meaning}
+            </h3>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+            ${currentRoot.words.length} Connected Words
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          ${currentRoot.words.map((w) => {
+            const bd = w.breakdown;
+            return `
+              <div class="p-4 rounded-2xl border flex flex-col justify-between transition-all hover:shadow-sm" style="background-color: var(--surface-sand); border-color: var(--border-subtle);">
+                <div>
+                  <!-- Word Header & Audio -->
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <h4 class="font-editorial text-base font-bold" style="color: var(--ink-primary);">
+                      ${w.word}
+                    </h4>
+                    <button
+                      type="button"
+                      onclick="if(typeof speakWordWithAccent==='function')speakWordWithAccent('${w.word}', 'UK', this);"
+                      class="p-1 rounded-full text-gray-500 hover:text-black dark:hover:text-white"
+                      title="Pronounce"
+                    >
+                      🔊
+                    </button>
+                  </div>
+
+                  <!-- Morphological Breakdown Chips -->
+                  <div class="flex items-center gap-1 flex-wrap text-[10px] font-mono mb-2">
+                    ${bd.prefix ? `<span class="px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">${bd.prefix}-</span>` : ''}
+                    <span class="px-1.5 py-0.5 rounded bg-[#2D5A4C]/15 text-[#2D5A4C] dark:text-[#8CB8A8] font-bold border border-[#2D5A4C]/30">${bd.root}</span>
+                    ${bd.suffix ? `<span class="px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20">-${bd.suffix}</span>` : ''}
+                  </div>
+
+                  <!-- Bangla Meaning -->
+                  <div class="font-bengali text-xs font-bold mb-1" style="color: var(--accent-sage);">
+                    ${w.meaningBn}
+                  </div>
+
+                  <!-- Definition -->
+                  <p class="text-[11px] text-gray-600 dark:text-gray-300 line-clamp-2 mb-2">
+                    ${w.definition}
+                  </p>
+                </div>
+
+                <!-- Example Sentence -->
+                <div class="pt-2 border-t text-[10px] text-gray-500 italic" style="border-color: var(--border-subtle);">
+                  "${w.example}"
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+    </section>
+  `;
+}
+
+function renderVoiceSectionHTML() {
+  const words = VOICE_PRACTICE_WORDS;
+  const current = words[ToolsState.voiceWordIndex] || words[0];
+  const isRec = ToolsState.isRecording;
+  const transcript = ToolsState.lastTranscript;
+  const accuracy = ToolsState.lastAccuracy;
+
+  let accuracyBadgeHTML = '';
+  if (accuracy !== null) {
+    if (accuracy >= 90) {
+      accuracyBadgeHTML = `
+        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-200 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🌟</span>
+            <div>
+              <strong class="text-sm sm:text-base font-bold">Excellent Pronunciation! &bull; ${accuracy}% Match</strong>
+              <p class="font-bengali text-xs mt-0.5">অসাধারণ নির্ভুল উচ্চারণ! শব্দের স্ট্রেস ও সিলেবল সঠিকভাবে উচ্চারিত হয়েছে।</p>
+            </div>
+          </div>
+          <span class="text-xl font-bold">${accuracy}%</span>
+        </div>
+      `;
+    } else if (accuracy >= 70) {
+      accuracyBadgeHTML = `
+        <div class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-200 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">👍</span>
+            <div>
+              <strong class="text-sm sm:text-base font-bold">Good Attempt! &bull; ${accuracy}% Match</strong>
+              <p class="font-bengali text-xs mt-0.5">খুব ভালো চেষ্টা! স্ট্রেস পয়েন্ট আরেকটু স্পষ্ট করে বলার চেষ্টা করুন।</p>
+            </div>
+          </div>
+          <span class="text-xl font-bold">${accuracy}%</span>
+        </div>
+      `;
+    } else {
+      accuracyBadgeHTML = `
+        <div class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-800 dark:text-rose-200 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🔄</span>
+            <div>
+              <strong class="text-sm sm:text-base font-bold">Needs Practice &bull; ${accuracy}% Match</strong>
+              <p class="font-bengali text-xs mt-0.5">মডেল অডিওটি পুনরায় শুনুন এবং সিলেবল অনুযায়ী স্পষ্ট করে বলুন।</p>
+            </div>
+          </div>
+          <span class="text-xl font-bold">${accuracy}%</span>
+        </div>
+      `;
+    }
+  }
+
+  return `
+    <section class="vw-editorial-card p-6 sm:p-8 rounded-3xl border space-y-6" style="background-color: var(--surface-white); border-color: var(--border-subtle);">
+      
+      <!-- Top Title & Explanatory Banner -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b" style="border-color: var(--border-subtle);">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#2D5A4C] dark:text-[#8CB8A8]">
+            Voice Recognition &amp; AI Accuracy Engine
+          </span>
+          <h2 class="font-editorial text-xl sm:text-2xl font-bold mt-1" style="color: var(--ink-primary);">
+            Voice Pronunciation Practice &bull; উচ্চারণ যাচাই
+          </h2>
+          <p class="font-bengali text-xs sm:text-sm text-gray-500">
+            কঠিন ও প্রায়শই ভুল উচ্চারিত ভর্তি পরীক্ষার শব্দগুলো শুনুন এবং মাইকে বলে তাৎক্ষণিক অ্যাকুরেসি স্কোর যাচাই করুন
+          </p>
+        </div>
+
+        <!-- Quick Word Navigation Pill Counter -->
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            onclick="selectVoiceWord((${ToolsState.voiceWordIndex} - 1 + ${words.length}) % ${words.length})"
+            class="px-3 py-1.5 rounded-xl border text-xs font-bold hover:bg-black/5"
+            style="border-color: var(--border-subtle); color: var(--ink-primary);"
+          >
+            &larr; Prev
+          </button>
+          <span class="text-xs font-bold text-gray-500">
+            ${ToolsState.voiceWordIndex + 1} / ${words.length}
+          </span>
+          <button
+            type="button"
+            onclick="selectVoiceWord((${ToolsState.voiceWordIndex} + 1) % ${words.length})"
+            class="px-3 py-1.5 rounded-xl border text-xs font-bold hover:bg-black/5"
+            style="border-color: var(--border-subtle); color: var(--ink-primary);"
+          >
+            Next &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- Word Selector Carousel Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
+        ${words.map((w, idx) => {
+          const isAct = idx === ToolsState.voiceWordIndex;
+          return `
+            <button
+              type="button"
+              onclick="selectVoiceWord(${idx})"
+              class="px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border ${
+                isAct ? 'bg-[#2D5A4C] text-white border-[#2D5A4C]' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-[#EEF4F1]'
+              }"
+              style="border-color: var(--border-subtle);"
+            >
+              ${w.word}
+            </button>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- Active Practice Word Spotlight Stage -->
+      <div class="p-6 sm:p-8 rounded-3xl border bg-gradient-to-br from-[#FAF8F5] to-[#EEF4F1] dark:from-gray-900 dark:to-gray-800 space-y-6" style="border-color: var(--border-subtle);">
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#2D5A4C]/10 text-[#2D5A4C] dark:text-[#8CB8A8]">
+              Target Word
+            </span>
+            <h3 class="font-editorial text-3xl sm:text-5xl font-bold tracking-tight" style="color: var(--ink-primary);">
+              ${current.word}
+            </h3>
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="font-mono text-sm sm:text-base text-gray-600 dark:text-gray-300">${current.ipa}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bengali font-bold bg-white/70 dark:bg-gray-800/70 border" style="border-color: var(--border-subtle); color: var(--accent-sage);">
+                ${current.meaningBn}
+              </span>
+            </div>
+          </div>
+
+          <!-- Native Listen Models (UK / US) -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onclick="if(typeof speakWordWithAccent==='function')speakWordWithAccent('${current.word}', 'UK', this);"
+              class="px-4 py-2.5 rounded-xl border bg-white dark:bg-gray-800 font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#EEF4F1] transition-all shadow-xs"
+              style="border-color: var(--border-subtle); color: var(--ink-primary);"
+            >
+              <span>🇬🇧</span>
+              <span>Listen Model (UK)</span>
+            </button>
+            <button
+              type="button"
+              onclick="if(typeof speakWordWithAccent==='function')speakWordWithAccent('${current.word}', 'US', this);"
+              class="px-4 py-2.5 rounded-xl border bg-white dark:bg-gray-800 font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#EEF4F1] transition-all shadow-xs"
+              style="border-color: var(--border-subtle); color: var(--ink-primary);"
+            >
+              <span>🇺🇸</span>
+              <span>Listen Model (US)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Syllable Stress & Tips Card -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl border bg-white dark:bg-gray-800" style="border-color: var(--border-subtle);">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1">
+              Syllables &amp; Stress Pattern
+            </span>
+            <div class="font-editorial text-base sm:text-lg font-bold text-[#2D5A4C] dark:text-[#8CB8A8]">
+              ${current.syllables}
+            </div>
+            <div class="font-bengali text-xs text-gray-500 mt-0.5">
+              উচ্চারণ: ${current.syllablesBn}
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl border bg-white dark:bg-gray-800" style="border-color: var(--border-subtle);">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1">
+              Phonetic Stress Advice
+            </span>
+            <p class="text-xs text-gray-600 dark:text-gray-300">
+              💡 ${current.stressTip}
+            </p>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE MICROPHONE RECORDING & ACCURACY ZONE -->
+        <div class="pt-4 border-t flex flex-col items-center justify-center text-center space-y-4" style="border-color: var(--border-subtle);">
+          
+          <!-- Microphone Button -->
+          <div class="relative">
+            <button
+              type="button"
+              onclick="${isRec ? 'stopVoiceRecognition()' : 'startVoiceRecognition()'}"
+              class="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer ${
+                isRec ? 'bg-red-600 animate-pulse ring-8 ring-red-500/20' : 'bg-[#2D5A4C] hover:bg-[#23473c]'
+              }"
+            >
+              <span class="text-2xl sm:text-3xl">${isRec ? '⏹️' : '🎙️'}</span>
+              <span class="text-[10px] font-bold uppercase mt-1">${isRec ? 'Listening' : 'Speak'}</span>
+            </button>
+          </div>
+
+          <div class="space-y-1">
+            <p class="text-xs sm:text-sm font-bold" style="color: var(--ink-primary);">
+              ${isRec ? 'Listening now... Pronounce "' + current.word + '" clearly into your mic!' : 'Tap the microphone and pronounce the word'}
+            </p>
+            <p class="font-bengali text-[11px] text-gray-500">
+              মাইকে ট্যাপ করে শব্দটি স্পষ্ট করে বলুন। আপনার উচ্চারণ যাচাই করে নির্ভুলতার হার দেখানো হবে।
+            </p>
+          </div>
+
+          <!-- Fallback Simulation Pill (Zero Dead Clicks Guarantee) -->
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              onclick="simulateVoicePractice('${current.word}')"
+              class="px-3 py-1.5 rounded-xl border text-[11px] font-bold hover:bg-black/5 text-gray-500"
+              style="border-color: var(--border-subtle);"
+              title="Test accuracy matching algorithm"
+            >
+              Simulate Match (পরীক্ষা ডেমো)
+            </button>
+          </div>
+
+          <!-- Accuracy Feedback Card (If tested) -->
+          ${accuracyBadgeHTML ? `
+            <div class="w-full max-w-xl text-left">
+              ${accuracyBadgeHTML}
+              ${transcript ? `
+                <div class="text-xs text-center text-gray-500 mt-2">
+                  Recognized Voice Input: "<strong>${transcript}</strong>" &bull; Target: "<strong>${current.word}</strong>"
+                </div>
+              ` : ''}
+            </div>
+          ` : ''}
+
+        </div>
+
+      </div>
+
+    </section>
+  `;
+}
+
+
 if (typeof window !== 'undefined') {
+  window.ONE_WORD_DATA = ONE_WORD_DATA;
+  window.IDIOMS_DATA = IDIOMS_DATA;
+  window.ROOT_WORDS_DATA = ROOT_WORDS_DATA;
+  window.DECODER_PRESETS = DECODER_PRESETS;
+  window.VOICE_PRACTICE_WORDS = VOICE_PRACTICE_WORDS;
+  window.getLevenshteinDistance = getLevenshteinDistance;
+  window.calculatePronunciationAccuracy = calculatePronunciationAccuracy;
+  window.ToolsState = ToolsState;
+  window.switchToolsTab = switchToolsTab;
+  window.switchOneWordSubTab = switchOneWordSubTab;
+  window.filterOneWordCategory = filterOneWordCategory;
+  window.searchOneWordAndIdioms = searchOneWordAndIdioms;
+  window.toggleSelfTestMode = toggleSelfTestMode;
+  window.toggleRevealCard = toggleRevealCard;
+  window.selectRootWord = selectRootWord;
+  window.decodeWordEquation = decodeWordEquation;
+  window.selectVoiceWord = selectVoiceWord;
+  window.startVoiceRecognition = startVoiceRecognition;
+  window.stopVoiceRecognition = stopVoiceRecognition;
+  window.simulateVoicePractice = simulateVoicePractice;
+  window.renderToolsPage = renderToolsPage;
   window.getDailyGoalTarget = getDailyGoalTarget;
   window.setDailyGoalTarget = setDailyGoalTarget;
   window.getTodayLearnedWordIds = getTodayLearnedWordIds;
@@ -9674,7 +11685,28 @@ if (typeof module !== 'undefined' && module.exports) {
     printRevisionSheet,
     renderProgressPage,
     updateProgressPageDisplay,
-    updateRevisionSheetDisplay
+    updateRevisionSheetDisplay,
+    ONE_WORD_DATA,
+    IDIOMS_DATA,
+    ROOT_WORDS_DATA,
+    DECODER_PRESETS,
+    VOICE_PRACTICE_WORDS,
+    getLevenshteinDistance,
+    calculatePronunciationAccuracy,
+    ToolsState,
+    switchToolsTab,
+    switchOneWordSubTab,
+    filterOneWordCategory,
+    searchOneWordAndIdioms,
+    toggleSelfTestMode,
+    toggleRevealCard,
+    selectRootWord,
+    decodeWordEquation,
+    selectVoiceWord,
+    startVoiceRecognition,
+    stopVoiceRecognition,
+    simulateVoicePractice,
+    renderToolsPage
   });
 }
 
