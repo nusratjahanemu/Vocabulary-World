@@ -11354,7 +11354,1847 @@ function renderVoiceSectionHTML() {
 }
 
 
+
+/* =====================================================================
+   13. HSC & DHAKA UNIVERSITY ADMISSION VOCABULARY DATASET (50 WORDS)
+====================================================================== */
+const HSC_DU_ADMISSION_VOCABULARY = [
+  {
+    "id": "hsc_beg_01",
+    "word": "Abundant",
+    "ipa": "/əˈbʌn.dənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "প্রচুর, পর্যাপ্ত",
+    "meaningBn": "প্রচুর, পর্যাপ্ত",
+    "synonyms": [
+      "Plentiful",
+      "Ample"
+    ],
+    "antonyms": [
+      "Scarce",
+      "Rare"
+    ],
+    "example": "Bangladesh has abundant fertile land for farming."
+  },
+  {
+    "id": "hsc_beg_02",
+    "word": "Accurate",
+    "ipa": "/ˈæk.jər.ət/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "নির্ভুল, সঠিক",
+    "meaningBn": "নির্ভুল, সঠিক",
+    "synonyms": [
+      "Exact",
+      "Precise"
+    ],
+    "antonyms": [
+      "Inaccurate",
+      "Wrong"
+    ],
+    "example": "Double-check your calculations to ensure accurate results."
+  },
+  {
+    "id": "hsc_beg_03",
+    "word": "Adequate",
+    "ipa": "/ˈæd.ɪ.kwət/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "পর্যাপ্ত, যথেষ্ট",
+    "meaningBn": "পর্যাপ্ত, যথেষ্ট",
+    "synonyms": [
+      "Sufficient",
+      "Enough"
+    ],
+    "antonyms": [
+      "Inadequate",
+      "Lacking"
+    ],
+    "example": "Adequate sleep is essential for sharp memory."
+  },
+  {
+    "id": "hsc_beg_04",
+    "word": "Alter",
+    "ipa": "/ˈɔːl.tər/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "পরিবর্তন করা",
+    "meaningBn": "পরিবর্তন করা",
+    "synonyms": [
+      "Change",
+      "Modify"
+    ],
+    "antonyms": [
+      "Preserve",
+      "Keep"
+    ],
+    "example": "You cannot alter the past, so focus on today."
+  },
+  {
+    "id": "hsc_beg_05",
+    "word": "Ambitious",
+    "ipa": "/æmˈbɪʃ.əs/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "উচ্চাকাঙ্ক্ষী",
+    "meaningBn": "উচ্চাকাঙ্ক্ষী",
+    "synonyms": [
+      "Aspiring",
+      "Driven"
+    ],
+    "antonyms": [
+      "Unambitious",
+      "Content"
+    ],
+    "example": "Ambitious students set clear milestones every week."
+  },
+  {
+    "id": "hsc_beg_06",
+    "word": "Ancient",
+    "ipa": "/ˈeɪn.ʃənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "প্রাচীন, পুরাতন",
+    "meaningBn": "প্রাচীন, পুরাতন",
+    "synonyms": [
+      "Old",
+      "Antique"
+    ],
+    "antonyms": [
+      "Modern",
+      "Recent"
+    ],
+    "example": "We studied ancient civilizations in history class."
+  },
+  {
+    "id": "hsc_beg_07",
+    "word": "Apparent",
+    "ipa": "/əˈpær.ənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "স্পষ্ট, প্রতীয়মান",
+    "meaningBn": "স্পষ্ট, প্রতীয়মান",
+    "synonyms": [
+      "Obvious",
+      "Clear"
+    ],
+    "antonyms": [
+      "Hidden",
+      "Obscure"
+    ],
+    "example": "Her progress in spoken English is clearly apparent."
+  },
+  {
+    "id": "hsc_beg_08",
+    "word": "Arrogant",
+    "ipa": "/ˈær.ə.ɡənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "অহংকারী, উদ্ধত",
+    "meaningBn": "অহংকারী, উদ্ধত",
+    "synonyms": [
+      "Haughty",
+      "Proud"
+    ],
+    "antonyms": [
+      "Humble",
+      "Modest"
+    ],
+    "example": "An arrogant attitude blocks a person from learning."
+  },
+  {
+    "id": "hsc_beg_09",
+    "word": "Assist",
+    "ipa": "/əˈsɪst/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "সাহায্য করা",
+    "meaningBn": "সাহায্য করা",
+    "synonyms": [
+      "Help",
+      "Aid"
+    ],
+    "antonyms": [
+      "Hinder",
+      "Obstruct"
+    ],
+    "example": "Seniors often assist juniors with admission notes."
+  },
+  {
+    "id": "hsc_beg_10",
+    "word": "Benevolent",
+    "ipa": "/bəˈnev.əl.ənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "দয়ালু, পরোপকারী",
+    "meaningBn": "দয়ালু, পরোপকারী",
+    "synonyms": [
+      "Kind",
+      "Generous"
+    ],
+    "antonyms": [
+      "Cruel",
+      "Malevolent"
+    ],
+    "example": "The benevolent donor funded twenty scholarships."
+  },
+  {
+    "id": "hsc_beg_11",
+    "word": "Brief",
+    "ipa": "/briːf/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "সংক্ষিপ্ত",
+    "meaningBn": "সংক্ষিপ্ত",
+    "synonyms": [
+      "Short",
+      "Concise"
+    ],
+    "antonyms": [
+      "Lengthy",
+      "Prolonged"
+    ],
+    "example": "Keep your summary brief and to the point."
+  },
+  {
+    "id": "hsc_beg_12",
+    "word": "Cautious",
+    "ipa": "/ˈkɔː.ʃəs/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "সতর্ক, সাবধানী",
+    "meaningBn": "সতর্ক, সাবধানী",
+    "synonyms": [
+      "Careful",
+      "Prudent"
+    ],
+    "antonyms": [
+      "Reckless",
+      "Careless"
+    ],
+    "example": "Be cautious while answering negative-marking MCQs."
+  },
+  {
+    "id": "hsc_beg_13",
+    "word": "Commence",
+    "ipa": "/kəˈmens/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "শুরু করা",
+    "meaningBn": "শুরু করা",
+    "synonyms": [
+      "Begin",
+      "Start"
+    ],
+    "antonyms": [
+      "Conclude",
+      "End"
+    ],
+    "example": "The admission test will commence at 10:00 AM sharp."
+  },
+  {
+    "id": "hsc_beg_14",
+    "word": "Conceal",
+    "ipa": "/kənˈsiːl/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "লুকানো, গোপন করা",
+    "meaningBn": "লুকানো, গোপন করা",
+    "synonyms": [
+      "Hide",
+      "Cover"
+    ],
+    "antonyms": [
+      "Reveal",
+      "Expose"
+    ],
+    "example": "He tried to conceal his nervousness before the viva."
+  },
+  {
+    "id": "hsc_beg_15",
+    "word": "Crucial",
+    "ipa": "/ˈkruː.ʃəl/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "অত্যন্ত গুরুত্বপূর্ণ",
+    "meaningBn": "অত্যন্ত গুরুত্বপূর্ণ",
+    "synonyms": [
+      "Vital",
+      "Critical"
+    ],
+    "antonyms": [
+      "Trivial",
+      "Minor"
+    ],
+    "example": "Revision is crucial during the final month of HSC."
+  },
+  {
+    "id": "hsc_beg_16",
+    "word": "Decline",
+    "ipa": "/dɪˈklaɪn/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "হ্রাস পাওয়া বা প্রত্যাখ্যান করা",
+    "meaningBn": "হ্রাস পাওয়া বা প্রত্যাখ্যান করা",
+    "synonyms": [
+      "Decrease",
+      "Refuse"
+    ],
+    "antonyms": [
+      "Increase",
+      "Accept"
+    ],
+    "example": "She politely declined the invitation to study late."
+  },
+  {
+    "id": "hsc_beg_17",
+    "word": "Diligent",
+    "ipa": "/ˈdɪl.ɪ.dʒənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "পরিশ্রমী, অধ্যবসায়ী",
+    "meaningBn": "পরিশ্রমী, অধ্যবসায়ী",
+    "synonyms": [
+      "Hardworking",
+      "Assiduous"
+    ],
+    "antonyms": [
+      "Lazy",
+      "Negligent"
+    ],
+    "example": "Diligent practice turns weak subjects into strengths."
+  },
+  {
+    "id": "hsc_beg_18",
+    "word": "Durable",
+    "ipa": "/ˈdjʊə.rə.bəl/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "টেকসই, স্থায়ী",
+    "meaningBn": "টেকসই, স্থায়ী",
+    "synonyms": [
+      "Sturdy",
+      "Lasting"
+    ],
+    "antonyms": [
+      "Fragile",
+      "Weak"
+    ],
+    "example": "Invest in a durable backpack for daily college use."
+  },
+  {
+    "id": "hsc_beg_19",
+    "word": "Eager",
+    "ipa": "/ˈiː.ɡər/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "আগ্রহী, উৎসুক",
+    "meaningBn": "আগ্রহী, উৎসুক",
+    "synonyms": [
+      "Keen",
+      "Enthusiastic"
+    ],
+    "antonyms": [
+      "Reluctant",
+      "Apathetic"
+    ],
+    "example": "The learners were eager to test the new quiz app."
+  },
+  {
+    "id": "hsc_beg_20",
+    "word": "Enormous",
+    "ipa": "/ɪˈnɔː.məs/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "বিশাল, প্রকাণ্ড",
+    "meaningBn": "বিশাল, প্রকাণ্ড",
+    "synonyms": [
+      "Huge",
+      "Immense"
+    ],
+    "antonyms": [
+      "Tiny",
+      "Minute"
+    ],
+    "example": "Reading newspapers brings enormous vocabulary growth."
+  },
+  {
+    "id": "hsc_beg_21",
+    "word": "Fragile",
+    "ipa": "/ˈfrædʒ.aɪl/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "ভঙ্গুর, নাজুক",
+    "meaningBn": "ভঙ্গুর, নাজুক",
+    "synonyms": [
+      "Brittle",
+      "Delicate"
+    ],
+    "antonyms": [
+      "Sturdy",
+      "Strong"
+    ],
+    "example": "Handle the fragile glass beaker with both hands."
+  },
+  {
+    "id": "hsc_beg_22",
+    "word": "Genuine",
+    "ipa": "/ˈdʒen.ju.ɪn/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "আসল, খাঁটি",
+    "meaningBn": "আসল, খাঁটি",
+    "synonyms": [
+      "Authentic",
+      "Real"
+    ],
+    "antonyms": [
+      "Fake",
+      "Counterfeit"
+    ],
+    "example": "Always rely on genuine textbooks for board exams."
+  },
+  {
+    "id": "hsc_beg_23",
+    "word": "Humble",
+    "ipa": "/ˈhʌm.bəl/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "বিনয়ী, নিরহংকার",
+    "meaningBn": "বিনয়ী, নিরহংকার",
+    "synonyms": [
+      "Modest",
+      "Meek"
+    ],
+    "antonyms": [
+      "Arrogant",
+      "Boastful"
+    ],
+    "example": "Despite topping the mock test, she remained humble."
+  },
+  {
+    "id": "hsc_beg_24",
+    "word": "Reluctant",
+    "ipa": "/rɪˈlʌk.tənt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "অনিচ্ছুক, দ্বিধাগ্রস্ত",
+    "meaningBn": "অনিচ্ছুক, দ্বিধাগ্রস্ত",
+    "synonyms": [
+      "Unwilling",
+      "Hesitant"
+    ],
+    "antonyms": [
+      "Willing",
+      "Eager"
+    ],
+    "example": "Many students are reluctant to speak English aloud."
+  },
+  {
+    "id": "hsc_beg_25",
+    "word": "Vivid",
+    "ipa": "/ˈvɪv.ɪd/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "প্রাণবন্ত, সুস্পষ্ট",
+    "meaningBn": "প্রাণবন্ত, সুস্পষ্ট",
+    "synonyms": [
+      "Clear",
+      "Graphic"
+    ],
+    "antonyms": [
+      "Dull",
+      "Vague"
+    ],
+    "example": "She painted a vivid picture of rural Bengal in her essay."
+  },
+  {
+    "id": "hsc_int_26",
+    "word": "Adversity",
+    "ipa": "/ədˈvɜː.sə.ti/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "প্রতিকূলতা, দুর্দশা",
+    "meaningBn": "প্রতিকূলতা, দুর্দশা",
+    "synonyms": [
+      "Hardship",
+      "Misfortune"
+    ],
+    "antonyms": [
+      "Prosperity",
+      "Fortune"
+    ],
+    "example": "True resilience is tested during times of adversity."
+  },
+  {
+    "id": "hsc_int_27",
+    "word": "Alleviate",
+    "ipa": "/əˈliː.vi.eɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "উপশম করা, কমানো",
+    "meaningBn": "উপশম করা, কমানো",
+    "synonyms": [
+      "Ease",
+      "Mitigate"
+    ],
+    "antonyms": [
+      "Aggravate",
+      "Worsen"
+    ],
+    "example": "Regular mock tests alleviate exam hall panic."
+  },
+  {
+    "id": "hsc_int_28",
+    "word": "Ambiguous",
+    "ipa": "/æmˈbɪɡ.ju.əs/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "দ্ব্যর্থবোধক, অস্পষ্ট",
+    "meaningBn": "দ্ব্যর্থবোধক, অস্পষ্ট",
+    "synonyms": [
+      "Vague",
+      "Unclear"
+    ],
+    "antonyms": [
+      "Clear",
+      "Explicit"
+    ],
+    "example": "Avoid ambiguous phrasing in formal letters."
+  },
+  {
+    "id": "hsc_int_29",
+    "word": "Apathy",
+    "ipa": "/ˈæp.ə.θi/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "উদাসীনতা, অনীহা",
+    "meaningBn": "উদাসীনতা, অনীহা",
+    "synonyms": [
+      "Indifference",
+      "Lethargy"
+    ],
+    "antonyms": [
+      "Enthusiasm",
+      "Passion"
+    ],
+    "example": "Student apathy toward reading books must change."
+  },
+  {
+    "id": "hsc_int_30",
+    "word": "Articulate",
+    "ipa": "/ɑːˈtɪk.jə.lət/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "স্পষ্টভাষী, সুবক্তা",
+    "meaningBn": "স্পষ্টভাষী, সুবক্তা",
+    "synonyms": [
+      "Eloquent",
+      "Fluent"
+    ],
+    "antonyms": [
+      "Inarticulate",
+      "Mumbling"
+    ],
+    "example": "An articulate candidate excels in group discussions."
+  },
+  {
+    "id": "hsc_int_31",
+    "word": "Authentic",
+    "ipa": "/ɔːˈθen.tɪk/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "প্রামাণিক, খাঁটি",
+    "meaningBn": "প্রামাণিক, খাঁটি",
+    "synonyms": [
+      "Genuine",
+      "Valid"
+    ],
+    "antonyms": [
+      "Spurious",
+      "False"
+    ],
+    "example": "Cite authentic statistics in your economics answer."
+  },
+  {
+    "id": "hsc_int_32",
+    "word": "Candid",
+    "ipa": "/ˈkæn.dɪd/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "অকপট, স্পষ্টবাদী",
+    "meaningBn": "অকপট, স্পষ্টবাদী",
+    "synonyms": [
+      "Frank",
+      "Honest"
+    ],
+    "antonyms": [
+      "Deceptive",
+      "Secretive"
+    ],
+    "example": "Give a candid review of your daily study habits."
+  },
+  {
+    "id": "hsc_int_33",
+    "word": "Coherent",
+    "ipa": "/kəʊˈhɪə.rənt/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "সুসংগত, সামঞ্জস্যপূর্ণ",
+    "meaningBn": "সুসংগত, সামঞ্জস্যপূর্ণ",
+    "synonyms": [
+      "Logical",
+      "Consistent"
+    ],
+    "antonyms": [
+      "Incoherent",
+      "Confused"
+    ],
+    "example": "Structure every paragraph in a coherent order."
+  },
+  {
+    "id": "hsc_int_34",
+    "word": "Compassion",
+    "ipa": "/kəmˈpæʃ.ən/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "সমবেদনা, করুণা",
+    "meaningBn": "সমবেদনা, করুণা",
+    "synonyms": [
+      "Empathy",
+      "Sympathy"
+    ],
+    "antonyms": [
+      "Cruelty",
+      "Indifference"
+    ],
+    "example": "Great leaders treat every citizen with compassion."
+  },
+  {
+    "id": "hsc_int_35",
+    "word": "Contemplate",
+    "ipa": "/ˈkɒn.təm.pleɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "গভীরভাবে চিন্তা করা",
+    "meaningBn": "গভীরভাবে চিন্তা করা",
+    "synonyms": [
+      "Ponder",
+      "Reflect"
+    ],
+    "antonyms": [
+      "Ignore",
+      "Disregard"
+    ],
+    "example": "Take five minutes to contemplate the essay prompt."
+  },
+  {
+    "id": "hsc_int_36",
+    "word": "Credible",
+    "ipa": "/ˈkred.ə.bəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "বিশ্বাসযোগ্য",
+    "meaningBn": "বিশ্বাসযোগ্য",
+    "synonyms": [
+      "Believable",
+      "Reliable"
+    ],
+    "antonyms": [
+      "Implausible",
+      "Doubtful"
+    ],
+    "example": "Always verify news from credible sources."
+  },
+  {
+    "id": "hsc_int_37",
+    "word": "Deteriorate",
+    "ipa": "/dɪˈtɪə.ri.ə.reɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "অবনতি হওয়া",
+    "meaningBn": "অবনতি হওয়া",
+    "synonyms": [
+      "Worsen",
+      "Decline"
+    ],
+    "antonyms": [
+      "Improve",
+      "Ameliorate"
+    ],
+    "example": "Handwriting can deteriorate if you rush too fast."
+  },
+  {
+    "id": "hsc_int_38",
+    "word": "Eloquent",
+    "ipa": "/ˈel.ə.kwənt/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "বাগ্মী, প্রাঞ্জলভাষী",
+    "meaningBn": "বাগ্মী, প্রাঞ্জলভাষী",
+    "synonyms": [
+      "Persuasive",
+      "Expressive"
+    ],
+    "antonyms": [
+      "Halting",
+      "Inarticulate"
+    ],
+    "example": "Her eloquent speech inspired the entire auditorium."
+  },
+  {
+    "id": "hsc_int_39",
+    "word": "Emulate",
+    "ipa": "/ˈem.jə.leɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "অনুকরণ করা",
+    "meaningBn": "অনুকরণ করা",
+    "synonyms": [
+      "Imitate",
+      "Follow"
+    ],
+    "antonyms": [
+      "Neglect",
+      "Abandon"
+    ],
+    "example": "Young entrepreneurs often emulate global innovators."
+  },
+  {
+    "id": "hsc_int_40",
+    "word": "Enhance",
+    "ipa": "/ɪnˈhɑːns/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "বৃদ্ধি বা উন্নত করা",
+    "meaningBn": "বৃদ্ধি বা উন্নত করা",
+    "synonyms": [
+      "Improve",
+      "Boost"
+    ],
+    "antonyms": [
+      "Diminish",
+      "Reduce"
+    ],
+    "example": "Visual flashcards enhance long-term word retention."
+  },
+  {
+    "id": "hsc_int_41",
+    "word": "Frugal",
+    "ipa": "/ˈfruː.ɡəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "মিতব্যয়ী, হিসাবি",
+    "meaningBn": "মিতব্যয়ী, হিসাবি",
+    "synonyms": [
+      "Thrifty",
+      "Economical"
+    ],
+    "antonyms": [
+      "Extravagant",
+      "Wasteful"
+    ],
+    "example": "Living on a student budget requires frugal habits."
+  },
+  {
+    "id": "hsc_int_42",
+    "word": "Inevitable",
+    "ipa": "/ɪˈnev.ɪ.tə.bəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "অনিবার্য",
+    "meaningBn": "অনিবার্য",
+    "synonyms": [
+      "Unavoidable",
+      "Certain"
+    ],
+    "antonyms": [
+      "Avoidable",
+      "Uncertain"
+    ],
+    "example": "Success is inevitable when effort meets consistency."
+  },
+  {
+    "id": "hsc_int_43",
+    "word": "Integrity",
+    "ipa": "/ɪnˈteɡ.rə.ti/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "সততা, ন্যায়নিষ্ঠা",
+    "meaningBn": "সততা, ন্যায়নিষ্ঠা",
+    "synonyms": [
+      "Honesty",
+      "Probity"
+    ],
+    "antonyms": [
+      "Dishonesty",
+      "Corruption"
+    ],
+    "example": "Academic integrity forbids any form of plagiarism."
+  },
+  {
+    "id": "hsc_int_44",
+    "word": "Lucid",
+    "ipa": "/ˈluː.sɪd/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "সহজবোধ্য, প্রাঞ্জল",
+    "meaningBn": "সহজবোধ্য, প্রাঞ্জল",
+    "synonyms": [
+      "Clear",
+      "Intelligible"
+    ],
+    "antonyms": [
+      "Obscure",
+      "Confusing"
+    ],
+    "example": "The teacher explained complex grammar in lucid Bangla."
+  },
+  {
+    "id": "hsc_int_45",
+    "word": "Meticulous",
+    "ipa": "/məˈtɪk.jə.ləs/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "অতি সতর্ক ও খুঁতখুঁতে",
+    "meaningBn": "অতি সতর্ক ও খুঁতখুঁতে",
+    "synonyms": [
+      "Thorough",
+      "Careful"
+    ],
+    "antonyms": [
+      "Sloppy",
+      "Careless"
+    ],
+    "example": "Meticulous note-taking saves hours before finals."
+  },
+  {
+    "id": "hsc_int_46",
+    "word": "Novice",
+    "ipa": "/ˈnɒv.ɪs/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "শিক্ষানবিশ, অনভিজ্ঞ ব্যক্তি",
+    "meaningBn": "শিক্ষানবিশ, অনভিজ্ঞ ব্যক্তি",
+    "synonyms": [
+      "Beginner",
+      "Apprentice"
+    ],
+    "antonyms": [
+      "Expert",
+      "Veteran"
+    ],
+    "example": "Every coding expert once started as a complete novice."
+  },
+  {
+    "id": "hsc_int_47",
+    "word": "Optimistic",
+    "ipa": "/ˌɒp.tɪˈmɪs.tɪk/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "আশাবাদী",
+    "meaningBn": "আশাবাদী",
+    "synonyms": [
+      "Hopeful",
+      "Positive"
+    ],
+    "antonyms": [
+      "Pessimistic",
+      "Cynical"
+    ],
+    "example": "Stay optimistic even if your first mock score is low."
+  },
+  {
+    "id": "hsc_int_48",
+    "word": "Plausible",
+    "ipa": "/ˈplɔː.zə.bəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "যুক্তিসঙ্গত, গ্রহণযোগ্য",
+    "meaningBn": "যুক্তিসঙ্গত, গ্রহণযোগ্য",
+    "synonyms": [
+      "Reasonable",
+      "Credible"
+    ],
+    "antonyms": [
+      "Unlikely",
+      "Absurd"
+    ],
+    "example": "That is a plausible hypothesis for the price rise."
+  },
+  {
+    "id": "hsc_int_49",
+    "word": "Pragmatic",
+    "ipa": "/præɡˈmæt.ɪk/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "বাস্তববাদী, প্রায়োগিক",
+    "meaningBn": "বাস্তববাদী, প্রায়োগিক",
+    "synonyms": [
+      "Practical",
+      "Realistic"
+    ],
+    "antonyms": [
+      "Idealistic",
+      "Impractical"
+    ],
+    "example": "Adopt a pragmatic timetable you can actually follow."
+  },
+  {
+    "id": "hsc_int_50",
+    "word": "Tenacious",
+    "ipa": "/təˈneɪ.ʃəs/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "দৃঢ়প্রতিজ্ঞ, নাছোড়বান্দা",
+    "meaningBn": "দৃঢ়প্রতিজ্ঞ, নাছোড়বান্দা",
+    "synonyms": [
+      "Persistent",
+      "Determined"
+    ],
+    "antonyms": [
+      "Yielding",
+      "Weak"
+    ],
+    "example": "Tenacious learners never quit after a single setback."
+  },
+  {
+    "id": "hsc_adv_51",
+    "word": "Acumen",
+    "ipa": "/ˈæk.jə.mən/",
+    "pos": "Noun",
+    "level": "advanced",
+    "bn": "তীক্ষ্ণ বুদ্ধি বা বিচক্ষণতা",
+    "meaningBn": "তীক্ষ্ণ বুদ্ধি বা বিচক্ষণতা",
+    "synonyms": [
+      "Shrewdness",
+      "Insight"
+    ],
+    "antonyms": [
+      "Ignorance",
+      "Stupidity"
+    ],
+    "example": "Business acumen helps commerce graduates lead firms."
+  },
+  {
+    "id": "hsc_adv_52",
+    "word": "Altruistic",
+    "ipa": "/ˌæl.truˈɪs.tɪk/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "পরার্থপর, নিঃস্বার্থ",
+    "meaningBn": "পরার্থপর, নিঃস্বার্থ",
+    "synonyms": [
+      "Selfless",
+      "Philanthropic"
+    ],
+    "antonyms": [
+      "Selfish",
+      "Egoistic"
+    ],
+    "example": "Volunteering at blood drives is an altruistic act."
+  },
+  {
+    "id": "hsc_adv_53",
+    "word": "Anomalous",
+    "ipa": "/əˈnɒm.ə.ləs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "ব্যতিক্রমী, অস্বাভাবিক",
+    "meaningBn": "ব্যতিক্রমী, অস্বাভাবিক",
+    "synonyms": [
+      "Abnormal",
+      "Irregular"
+    ],
+    "antonyms": [
+      "Normal",
+      "Standard"
+    ],
+    "example": "Scientists investigated the anomalous weather pattern."
+  },
+  {
+    "id": "hsc_adv_54",
+    "word": "Capricious",
+    "ipa": "/kəˈprɪʃ.əs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "খামখেয়ালি, পরিবর্তনশীল",
+    "meaningBn": "খামখেয়ালি, পরিবর্তনশীল",
+    "synonyms": [
+      "Fickle",
+      "Unpredictable"
+    ],
+    "antonyms": [
+      "Steady",
+      "Consistent"
+    ],
+    "example": "Monsoon weather in Chattogram can be capricious."
+  },
+  {
+    "id": "hsc_adv_55",
+    "word": "Clandestine",
+    "ipa": "/klænˈdes.tɪn/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "গুপ্ত, গোপনীয়",
+    "meaningBn": "গুপ্ত, গোপনীয়",
+    "synonyms": [
+      "Secret",
+      "Covert"
+    ],
+    "antonyms": [
+      "Open",
+      "Overt"
+    ],
+    "example": "The committee held a clandestine meeting late at night."
+  },
+  {
+    "id": "hsc_adv_56",
+    "word": "Cogent",
+    "ipa": "/ˈkəʊ.dʒənt/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "অকাট্য, জোরালো",
+    "meaningBn": "অকাট্য, জোরালো",
+    "synonyms": [
+      "Convincing",
+      "Compelling"
+    ],
+    "antonyms": [
+      "Weak",
+      "Unconvincing"
+    ],
+    "example": "She presented a cogent argument during the debate."
+  },
+  {
+    "id": "hsc_adv_57",
+    "word": "Conspicuous",
+    "ipa": "/kənˈspɪk.ju.əs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "সুস্পষ্ট, দৃষ্টি আকর্ষণকারী",
+    "meaningBn": "সুস্পষ্ট, দৃষ্টি আকর্ষণকারী",
+    "synonyms": [
+      "Noticeable",
+      "Prominent"
+    ],
+    "antonyms": [
+      "Inconspicuous",
+      "Hidden"
+    ],
+    "example": "His neat handwriting made his script conspicuous."
+  },
+  {
+    "id": "hsc_adv_58",
+    "word": "Corroborate",
+    "ipa": "/kəˈrɒb.ə.reɪt/",
+    "pos": "Verb",
+    "level": "advanced",
+    "bn": "সমর্থন বা সত্যায়ন করা",
+    "meaningBn": "সমর্থন বা সত্যায়ন করা",
+    "synonyms": [
+      "Confirm",
+      "Verify"
+    ],
+    "antonyms": [
+      "Contradict",
+      "Refute"
+    ],
+    "example": "Official data corroborated the researcher's claim."
+  },
+  {
+    "id": "hsc_adv_59",
+    "word": "Dearth",
+    "ipa": "/dɜːθ/",
+    "pos": "Noun",
+    "level": "advanced",
+    "bn": "অভাব, স্বল্পতা",
+    "meaningBn": "অভাব, স্বল্পতা",
+    "synonyms": [
+      "Scarcity",
+      "Shortage"
+    ],
+    "antonyms": [
+      "Abundance",
+      "Surplus"
+    ],
+    "example": "There is no dearth of free study resources online."
+  },
+  {
+    "id": "hsc_adv_60",
+    "word": "Discrepancy",
+    "ipa": "/dɪˈskrep.ən.si/",
+    "pos": "Noun",
+    "level": "advanced",
+    "bn": "অসংগতি, গরমিল",
+    "meaningBn": "অসংগতি, গরমিল",
+    "synonyms": [
+      "Inconsistency",
+      "Difference"
+    ],
+    "antonyms": [
+      "Consistency",
+      "Harmony"
+    ],
+    "example": "The auditor found a discrepancy in the ledger balance."
+  },
+  {
+    "id": "hsc_adv_61",
+    "word": "Dogmatic",
+    "ipa": "/dɒɡˈmæt.ɪk/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "গোঁড়া, মতান্ধ",
+    "meaningBn": "গোঁড়া, মতান্ধ",
+    "synonyms": [
+      "Opinionated",
+      "Rigid"
+    ],
+    "antonyms": [
+      "Open-minded",
+      "Flexible"
+    ],
+    "example": "Avoid a dogmatic tone when discussing social issues."
+  },
+  {
+    "id": "hsc_adv_62",
+    "word": "Ephemeral",
+    "ipa": "/ɪˈfem.ər.əl/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "ক্ষণস্থায়ী, স্বল্পকালীন",
+    "meaningBn": "ক্ষণস্থায়ী, স্বল্পকালীন",
+    "synonyms": [
+      "Transient",
+      "Fleeting"
+    ],
+    "antonyms": [
+      "Permanent",
+      "Eternal"
+    ],
+    "example": "Viral trends on the internet are usually ephemeral."
+  },
+  {
+    "id": "hsc_adv_63",
+    "word": "Equivocal",
+    "ipa": "/ɪˈkwɪv.ə.kəl/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "সন্দেহজনক, দ্ব্যর্থক",
+    "meaningBn": "সন্দেহজনক, দ্ব্যর্থক",
+    "synonyms": [
+      "Ambiguous",
+      "Evasive"
+    ],
+    "antonyms": [
+      "Unambiguous",
+      "Clear"
+    ],
+    "example": "The politician gave an equivocal answer to reporters."
+  },
+  {
+    "id": "hsc_adv_64",
+    "word": "Exacerbate",
+    "ipa": "/ɪɡˈzæs.ə.beɪt/",
+    "pos": "Verb",
+    "level": "advanced",
+    "bn": "আরও খারাপ বা তীব্রতর করা",
+    "meaningBn": "আরও খারাপ বা তীব্রতর করা",
+    "synonyms": [
+      "Worsen",
+      "Aggravate"
+    ],
+    "antonyms": [
+      "Alleviate",
+      "Ameliorate"
+    ],
+    "example": "Procrastination will only exacerbate exam pressure."
+  },
+  {
+    "id": "hsc_adv_65",
+    "word": "Fastidious",
+    "ipa": "/fæsˈtɪd.i.əs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "অতি খুঁতখুঁতে, রুচিশীল",
+    "meaningBn": "অতি খুঁতখুঁতে, রুচিশীল",
+    "synonyms": [
+      "Meticulous",
+      "Choosy"
+    ],
+    "antonyms": [
+      "Careless",
+      "Easygoing"
+    ],
+    "example": "Copyeditors must be fastidious about spelling rules."
+  },
+  {
+    "id": "hsc_adv_66",
+    "word": "Gregarious",
+    "ipa": "/ɡrɪˈɡeə.ri.əs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "মিশুক, সঙ্গপ্রিয়",
+    "meaningBn": "মিশুক, সঙ্গপ্রিয়",
+    "synonyms": [
+      "Sociable",
+      "Outgoing"
+    ],
+    "antonyms": [
+      "Introverted",
+      "Reclusive"
+    ],
+    "example": "Gregarious students enjoy peer study groups."
+  },
+  {
+    "id": "hsc_adv_67",
+    "word": "Impeccable",
+    "ipa": "/ɪmˈpek.ə.bəl/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "নিখুঁত, ত্রুটিহীন",
+    "meaningBn": "নিখুঁত, ত্রুটিহীন",
+    "synonyms": [
+      "Flawless",
+      "Faultless"
+    ],
+    "antonyms": [
+      "Flawed",
+      "Imperfect"
+    ],
+    "example": "Her English pronunciation is virtually impeccable."
+  },
+  {
+    "id": "hsc_adv_68",
+    "word": "Incessant",
+    "ipa": "/ɪnˈses.ənt/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "অবিরাম, বিরতিহীন",
+    "meaningBn": "অবিরাম, বিরতিহীন",
+    "synonyms": [
+      "Constant",
+      "Ceaseless"
+    ],
+    "antonyms": [
+      "Intermittent",
+      "Sporadic"
+    ],
+    "example": "Incessant rain flooded the low-lying roads in July."
+  },
+  {
+    "id": "hsc_adv_69",
+    "word": "Lethargic",
+    "ipa": "/ləˈθɑː.dʒɪk/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "অলস, নিস্তেজ",
+    "meaningBn": "অলস, নিস্তেজ",
+    "synonyms": [
+      "Sluggish",
+      "Listless"
+    ],
+    "antonyms": [
+      "Energetic",
+      "Active"
+    ],
+    "example": "Skipping breakfast often makes learners feel lethargic."
+  },
+  {
+    "id": "hsc_adv_70",
+    "word": "Mitigate",
+    "ipa": "/ˈmɪt.ɪ.ɡeɪt/",
+    "pos": "Verb",
+    "level": "advanced",
+    "bn": "প্রশমিত বা লঘু করা",
+    "meaningBn": "প্রশমিত বা লঘু করা",
+    "synonyms": [
+      "Lessen",
+      "Reduce"
+    ],
+    "antonyms": [
+      "Intensify",
+      "Aggravate"
+    ],
+    "example": "Planting trees helps mitigate urban heat islands."
+  },
+  {
+    "id": "hsc_adv_71",
+    "word": "Ostentatious",
+    "ipa": "/ˌɒs.tenˈteɪ.ʃəs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "আড়ম্বরপূর্ণ, লোকদেখানো",
+    "meaningBn": "আড়ম্বরপূর্ণ, লোকদেখানো",
+    "synonyms": [
+      "Showy",
+      "Pretentious"
+    ],
+    "antonyms": [
+      "Modest",
+      "Unassuming"
+    ],
+    "example": "Wise investors avoid ostentatious displays of wealth."
+  },
+  {
+    "id": "hsc_adv_72",
+    "word": "Pervasive",
+    "ipa": "/pəˈveɪ.sɪv/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "সর্বব্যাপী, পরিব্যাপ্ত",
+    "meaningBn": "সর্বব্যাপী, পরিব্যাপ্ত",
+    "synonyms": [
+      "Widespread",
+      "Ubiquitous"
+    ],
+    "antonyms": [
+      "Limited",
+      "Localized"
+    ],
+    "example": "Digital tools have a pervasive influence on education."
+  },
+  {
+    "id": "hsc_adv_73",
+    "word": "Taciturn",
+    "ipa": "/ˈtæs.ɪ.tɜːn/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "স্বল্পভাষী, চুপচাপ",
+    "meaningBn": "স্বল্পভাষী, চুপচাপ",
+    "synonyms": [
+      "Reticent",
+      "Reserved"
+    ],
+    "antonyms": [
+      "Talkative",
+      "Garrulous"
+    ],
+    "example": "Though taciturn in person, his writing is eloquent."
+  },
+  {
+    "id": "hsc_adv_74",
+    "word": "Ubiquitous",
+    "ipa": "/juːˈbɪk.wɪ.təs/",
+    "pos": "Adj",
+    "level": "advanced",
+    "bn": "সর্বত্র বিরাজমান",
+    "meaningBn": "সর্বত্র বিরাজমান",
+    "synonyms": [
+      "Omnipresent",
+      "Universal"
+    ],
+    "antonyms": [
+      "Rare",
+      "Scarce"
+    ],
+    "example": "Mobile apps have become ubiquitous among students."
+  },
+  {
+    "id": "hsc_adv_75",
+    "word": "Vindicate",
+    "ipa": "/ˈvɪn.dɪ.keɪt/",
+    "pos": "Verb",
+    "level": "advanced",
+    "bn": "নির্দোষ প্রমাণ করা",
+    "meaningBn": "নির্দোষ প্রমাণ করা",
+    "synonyms": [
+      "Exonerate",
+      "Justify"
+    ],
+    "antonyms": [
+      "Condemn",
+      "Blame"
+    ],
+    "example": "Top exam results vindicated her strict study routine."
+  },
+  {
+    "id": "hsc_pro_76",
+    "word": "Abstruse",
+    "ipa": "/æbˈstruːs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "দুর্বোধ্য, গূঢ়",
+    "meaningBn": "দুর্বোধ্য, গূঢ়",
+    "synonyms": [
+      "Obscure",
+      "Arcane"
+    ],
+    "antonyms": [
+      "Clear",
+      "Lucid"
+    ],
+    "example": "Some philosophical texts are too abstruse for beginners."
+  },
+  {
+    "id": "hsc_pro_77",
+    "word": "Acrimonious",
+    "ipa": "/ˌæk.rɪˈməʊ.ni.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "তিক্ত, রূঢ়",
+    "meaningBn": "তিক্ত, রূঢ়",
+    "synonyms": [
+      "Bitter",
+      "Caustic"
+    ],
+    "antonyms": [
+      "Harmonious",
+      "Amicable"
+    ],
+    "example": "An acrimonious debate erupted over the policy change."
+  },
+  {
+    "id": "hsc_pro_78",
+    "word": "Anachronism",
+    "ipa": "/əˈnæk.rə.nɪ.zəm/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "কালবিরোধী বস্তু বা প্রথা",
+    "meaningBn": "কালবিরোধী বস্তু বা প্রথা",
+    "synonyms": [
+      "Misplacement",
+      "Relic"
+    ],
+    "antonyms": [
+      "Modernity",
+      "Novelty"
+    ],
+    "example": "A typewriter in a modern AI lab looks like an anachronism."
+  },
+  {
+    "id": "hsc_pro_79",
+    "word": "Bellicose",
+    "ipa": "/ˈbel.ɪ.kəʊs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "যুদ্ধবাজ, কলহপ্রিয়",
+    "meaningBn": "যুদ্ধবাজ, কলহপ্রিয়",
+    "synonyms": [
+      "Aggressive",
+      "Pugnacious"
+    ],
+    "antonyms": [
+      "Peaceful",
+      "Pacifistic"
+    ],
+    "example": "Bellicose rhetoric only escalates diplomatic tension."
+  },
+  {
+    "id": "hsc_pro_80",
+    "word": "Cacophony",
+    "ipa": "/kəˈkɒf.ə.ni/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "কর্কশ ও বেসুরো শব্দ",
+    "meaningBn": "কর্কশ ও বেসুরো শব্দ",
+    "synonyms": [
+      "Din",
+      "Discord"
+    ],
+    "antonyms": [
+      "Harmony",
+      "Euphony"
+    ],
+    "example": "A cacophony of car horns echoed across the intersection."
+  },
+  {
+    "id": "hsc_pro_81",
+    "word": "Deleterious",
+    "ipa": "/ˌdel.ɪˈtɪə.ri.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "ক্ষতিকর, অনিষ্টকর",
+    "meaningBn": "ক্ষতিকর, অনিষ্টকর",
+    "synonyms": [
+      "Harmful",
+      "Detrimental"
+    ],
+    "antonyms": [
+      "Beneficial",
+      "Salutary"
+    ],
+    "example": "Excessive screen time at night has deleterious effects."
+  },
+  {
+    "id": "hsc_pro_82",
+    "word": "Enigma",
+    "ipa": "/ɪˈnɪɡ.mə/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "রহস্য, প্রহেলিকা",
+    "meaningBn": "রহস্য, প্রহেলিকা",
+    "synonyms": [
+      "Mystery",
+      "Puzzle"
+    ],
+    "antonyms": [
+      "Clarity",
+      "Solution"
+    ],
+    "example": "How the ancient monument was built remains an enigma."
+  },
+  {
+    "id": "hsc_pro_83",
+    "word": "Equanimity",
+    "ipa": "/ˌek.wəˈnɪm.ə.ti/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "মানসিক স্থিরতা, ধৈর্য",
+    "meaningBn": "মানসিক স্থিরতা, ধৈর্য",
+    "synonyms": [
+      "Composure",
+      "Poise"
+    ],
+    "antonyms": [
+      "Anxiety",
+      "Agitation"
+    ],
+    "example": "Face tough admission questions with calm equanimity."
+  },
+  {
+    "id": "hsc_pro_84",
+    "word": "Esoteric",
+    "ipa": "/ˌiː.səˈter.ɪk/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "গূঢ়, কেবল বিশেষজ্ঞদের বোধগম্য",
+    "meaningBn": "গূঢ়, কেবল বিশেষজ্ঞদের বোধগম্য",
+    "synonyms": [
+      "Cryptic",
+      "Arcane"
+    ],
+    "antonyms": [
+      "Common",
+      "Accessible"
+    ],
+    "example": "The seminar focused on esoteric monetary theories."
+  },
+  {
+    "id": "hsc_pro_85",
+    "word": "Garrulous",
+    "ipa": "/ˈɡær.əl.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "বাচাল, অতিভাষী",
+    "meaningBn": "বাচাল, অতিভাষী",
+    "synonyms": [
+      "Talkative",
+      "Loquacious"
+    ],
+    "antonyms": [
+      "Taciturn",
+      "Reticent"
+    ],
+    "example": "A garrulous neighbor kept chatting during study hours."
+  },
+  {
+    "id": "hsc_pro_86",
+    "word": "Iconoclast",
+    "ipa": "/aɪˈkɒn.ə.klæst/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "প্রচলিত প্রথা ভাঙেন যিনি",
+    "meaningBn": "প্রচলিত প্রথা ভাঙেন যিনি",
+    "synonyms": [
+      "Rebel",
+      "Nonconformist"
+    ],
+    "antonyms": [
+      "Conformist",
+      "Traditionalist"
+    ],
+    "example": "Every scientific revolution is led by an iconoclast."
+  },
+  {
+    "id": "hsc_pro_87",
+    "word": "Incorrigible",
+    "ipa": "/ɪnˈkɒr.ɪ.dʒə.bəl/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "অসংশোধনীয়",
+    "meaningBn": "অসংশোধনীয়",
+    "synonyms": [
+      "Incurable",
+      "Habitual"
+    ],
+    "antonyms": [
+      "Reformable",
+      "Correctable"
+    ],
+    "example": "She is an incorrigible bookworm who reads every night."
+  },
+  {
+    "id": "hsc_pro_88",
+    "word": "Insipid",
+    "ipa": "/ɪnˈsɪp.ɪd/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "নীরস, স্বাদহীন",
+    "meaningBn": "নীরস, স্বাদহীন",
+    "synonyms": [
+      "Bland",
+      "Dull"
+    ],
+    "antonyms": [
+      "Engaging",
+      "Exciting"
+    ],
+    "example": "Avoid writing insipid introductions in creative essays."
+  },
+  {
+    "id": "hsc_pro_89",
+    "word": "Magnanimous",
+    "ipa": "/mæɡˈnæn.ɪ.məs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "উদারচেতা, মহৎপ্রাণ",
+    "meaningBn": "উদারচেতা, মহৎপ্রাণ",
+    "synonyms": [
+      "Generous",
+      "Noble"
+    ],
+    "antonyms": [
+      "Petty",
+      "Vindictive"
+    ],
+    "example": "The winner was magnanimous toward the runner-up."
+  },
+  {
+    "id": "hsc_pro_90",
+    "word": "Mendacious",
+    "ipa": "/menˈdeɪ.ʃəs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "মিথ্যাবাদী, অসত্য",
+    "meaningBn": "মিথ্যাবাদী, অসত্য",
+    "synonyms": [
+      "Dishonest",
+      "Deceitful"
+    ],
+    "antonyms": [
+      "Truthful",
+      "Veracious"
+    ],
+    "example": "Fact-checkers quickly exposed the mendacious article."
+  },
+  {
+    "id": "hsc_pro_91",
+    "word": "Munificent",
+    "ipa": "/mjuːˈnɪf.ɪ.sənt/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "অত্যন্ত দানশীল",
+    "meaningBn": "অত্যন্ত দানশীল",
+    "synonyms": [
+      "Bountiful",
+      "Lavish"
+    ],
+    "antonyms": [
+      "Stingy",
+      "Miserly"
+    ],
+    "example": "The trust made a munificent donation to rural schools."
+  },
+  {
+    "id": "hsc_pro_92",
+    "word": "Nefarious",
+    "ipa": "/nəˈfeə.ri.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "দুষ্ট, জঘন্য",
+    "meaningBn": "দুষ্ট, জঘন্য",
+    "synonyms": [
+      "Wicked",
+      "Villainous"
+    ],
+    "antonyms": [
+      "Virtuous",
+      "Noble"
+    ],
+    "example": "Cybercriminals use nefarious schemes to steal data."
+  },
+  {
+    "id": "hsc_pro_93",
+    "word": "Obfuscate",
+    "ipa": "/ˈɒb.fʌs.keɪt/",
+    "pos": "Verb",
+    "level": "pro",
+    "bn": "বিভ্রান্ত বা অস্পষ্ট করা",
+    "meaningBn": "বিভ্রান্ত বা অস্পষ্ট করা",
+    "synonyms": [
+      "Confuse",
+      "Cloud"
+    ],
+    "antonyms": [
+      "Clarify",
+      "Illuminate"
+    ],
+    "example": "Do not use heavy jargon to obfuscate simple ideas."
+  },
+  {
+    "id": "hsc_pro_94",
+    "word": "Obsequious",
+    "ipa": "/əbˈsiː.kwi.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "চাটুকার, অতি-আজ্ঞাবহ",
+    "meaningBn": "চাটুকার, অতি-আজ্ঞাবহ",
+    "synonyms": [
+      "Sycophantic",
+      "Servile"
+    ],
+    "antonyms": [
+      "Assertive",
+      "Independent"
+    ],
+    "example": "Leaders should beware of obsequious advisors."
+  },
+  {
+    "id": "hsc_pro_95",
+    "word": "Parsimonious",
+    "ipa": "/ˌpɑː.sɪˈməʊ.ni.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "অতি কৃপণ",
+    "meaningBn": "অতি কৃপণ",
+    "synonyms": [
+      "Stingy",
+      "Miserly"
+    ],
+    "antonyms": [
+      "Generous",
+      "Lavish"
+    ],
+    "example": "A parsimonious budget left zero funds for research."
+  },
+  {
+    "id": "hsc_pro_96",
+    "word": "Perfidy",
+    "ipa": "/ˈpɜː.fə.di/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "বিশ্বাসঘাতকতা",
+    "meaningBn": "বিশ্বাসঘাতকতা",
+    "synonyms": [
+      "Treachery",
+      "Betrayal"
+    ],
+    "antonyms": [
+      "Loyalty",
+      "Fidelity"
+    ],
+    "example": "History condemns acts of perfidy against one's nation."
+  },
+  {
+    "id": "hsc_pro_97",
+    "word": "Perspicacious",
+    "ipa": "/ˌpɜː.spɪˈkeɪ.ʃəs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "তীক্ষ্ণবুদ্ধিসম্পন্ন, বিচক্ষণ",
+    "meaningBn": "তীক্ষ্ণবুদ্ধিসম্পন্ন, বিচক্ষণ",
+    "synonyms": [
+      "Astute",
+      "Shrewd"
+    ],
+    "antonyms": [
+      "Obtuse",
+      "Dull"
+    ],
+    "example": "Her perspicacious analysis solved the case study fast."
+  },
+  {
+    "id": "hsc_pro_98",
+    "word": "Recalcitrant",
+    "ipa": "/rɪˈkæl.sɪ.trənt/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "অবাধ্য, একগুঁয়ে",
+    "meaningBn": "অবাধ্য, একগুঁয়ে",
+    "synonyms": [
+      "Defiant",
+      "Stubborn"
+    ],
+    "antonyms": [
+      "Compliant",
+      "Obedient"
+    ],
+    "example": "The recalcitrant faction refused to sign the accord."
+  },
+  {
+    "id": "hsc_pro_99",
+    "word": "Sycophant",
+    "ipa": "/ˈsɪk.ə.fænt/",
+    "pos": "Noun",
+    "level": "pro",
+    "bn": "তোষামোদকারী, চাটুকার",
+    "meaningBn": "তোষামোদকারী, চাটুকার",
+    "synonyms": [
+      "Flatterer",
+      "Toady"
+    ],
+    "antonyms": [
+      "Critic",
+      "Detractor"
+    ],
+    "example": "Surround yourself with honest peers, not sycophants."
+  },
+  {
+    "id": "hsc_pro_100",
+    "word": "Vociferous",
+    "ipa": "/vəˈsɪf.ər.əs/",
+    "pos": "Adj",
+    "level": "pro",
+    "bn": "উচ্চকণ্ঠ, সোচ্চার",
+    "meaningBn": "উচ্চকণ্ঠ, সোচ্চার",
+    "synonyms": [
+      "Outspoken",
+      "Clamorously"
+    ],
+    "antonyms": [
+      "Quiet",
+      "Subdued"
+    ],
+    "example": "Students were vociferous in demanding better lab facilities."
+  }
+];
+
+const VOCABULARY_DATA = HSC_DU_ADMISSION_VOCABULARY;
+
+function syncAdmissionVocabularyIntoCurriculum() {
+  if (typeof CURRICULUM_DATA === 'undefined') return;
+  HSC_DU_ADMISSION_VOCABULARY.forEach((item) => {
+    const lvlKey = item.level || 'beginner';
+    const lvl = CURRICULUM_DATA[lvlKey];
+    if (lvl && Array.isArray(lvl.words)) {
+      const exists = lvl.words.some(w => w.word.toLowerCase() === item.word.toLowerCase());
+      if (!exists) {
+        lvl.words.push({
+          id: item.id,
+          word: item.word,
+          pos: item.pos,
+          ipa: item.ipa,
+          level: item.level,
+          bn: item.bn,
+          meaningBn: item.meaningBn || item.bn,
+          explanationEn: `High-yield ${item.pos.toLowerCase()} vocabulary word frequently tested in HSC board and Dhaka University admission exams.`,
+          example: item.example,
+          exampleBn: `বাক্যে প্রয়োগ: "${item.example}"`,
+          synonyms: item.synonyms.map(s => typeof s === 'string' ? { word: s, meaningBn: item.bn } : s),
+          antonyms: item.antonyms.map(a => typeof a === 'string' ? { word: a, meaningBn: 'বিপরীত অর্থ' } : a)
+        });
+      }
+    }
+  });
+}
+
+
 if (typeof window !== 'undefined') {
+  window.HSC_DU_ADMISSION_VOCABULARY = HSC_DU_ADMISSION_VOCABULARY;
+  window.VOCABULARY_DATA = VOCABULARY_DATA;
+  window.syncAdmissionVocabularyIntoCurriculum = syncAdmissionVocabularyIntoCurriculum;
   window.ONE_WORD_DATA = ONE_WORD_DATA;
   window.IDIOMS_DATA = IDIOMS_DATA;
   window.ROOT_WORDS_DATA = ROOT_WORDS_DATA;
@@ -11469,6 +13309,9 @@ if (typeof module !== 'undefined' && module.exports) {
     renderProgressPage,
     updateProgressPageDisplay,
     updateRevisionSheetDisplay,
+    HSC_DU_ADMISSION_VOCABULARY,
+    VOCABULARY_DATA,
+    syncAdmissionVocabularyIntoCurriculum,
     ONE_WORD_DATA,
     IDIOMS_DATA,
     ROOT_WORDS_DATA,
@@ -11502,6 +13345,7 @@ if (typeof document !== 'undefined') {
     restorePersistentSession();
     FirebaseAuthEngine.init();
     loadPersistedState();
+    syncAdmissionVocabularyIntoCurriculum();
     WordImageLoader.init();
     ensureToastElement();
     ensureFeedbackWidget();
