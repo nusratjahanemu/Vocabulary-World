@@ -23,6 +23,30 @@
 })();
 
 /* =====================================================================
+   AUTOMATIC PURGE OF DUMMY / MOCK PROFILES FROM LOCALSTORAGE
+====================================================================== */
+(function cleanupMockUserProfiles() {
+  if (typeof window === 'undefined') return;
+  try {
+    const keys = ['vw_persistent_user_profile', 'vw_user_profile'];
+    for (const key of keys) {
+      const raw = localStorage.getItem(key);
+      if (raw) {
+        const p = JSON.parse(raw);
+        if (p && (
+          p.displayName === 'Google Learner' ||
+          p.name === 'Google Learner' ||
+          p.email === 'learner@vocabularyworld.com' ||
+          (typeof p.email === 'string' && (p.email.endsWith('@vocabularyworld.com') || p.email.endsWith('@learner.vocabularyworld.com')))
+        )) {
+          localStorage.removeItem(key);
+        }
+      }
+    }
+  } catch (e) {}
+})();
+
+/* =====================================================================
    0. LEVEL SELECTION ROUTE PROTECTION & SESSION GATEWAY
 ====================================================================== */
 const LEVEL_CHOSEN_STORAGE_KEY = 'vw_level_chosen';
@@ -1322,6 +1346,10 @@ function renderPersonalNotePanelHTML(item) {
 }
 
 if (typeof window !== 'undefined') {
+  window.handleGoogleSignIn = handleGoogleSignIn;
+  window.handleAuthSubmit = handleAuthSubmit;
+  window.handleSignOut = handleSignOut;
+  window.openGmailAuthFormDirectly = openGmailAuthFormDirectly;
   window.getAllPersonalNotes = getAllPersonalNotes;
   window.getPersonalNote = getPersonalNote;
   window.hasPersonalNote = hasPersonalNote;
@@ -1499,18 +1527,7 @@ async function signInWithPopup(authInstance, provider) {
     }
   }
 
-  // Fallback simulator for offline / development / test environment
-  const mockUser = {
-    uid: 'google-user-' + Date.now(),
-    displayName: 'Google Learner',
-    name: 'Google Learner',
-    email: 'learner@vocabularyworld.com',
-    photoURL: '',
-    lastLogin: Date.now(),
-    initial: 'G'
-  };
-  savePersistentUserProfile(mockUser);
-  return { user: mockUser };
+  throw new Error('Firebase Auth unavailable. Use Google Identity Services or Gmail direct sign-in.');
 }
 
 /**
@@ -1570,19 +1587,33 @@ function clearPersistentUserProfile() {
 /**
  * Get stored user profile from persistent key or legacy key
  */
+function isDummyMockUser(p) {
+  if (!p) return false;
+  return (
+    p.displayName === 'Google Learner' ||
+    p.name === 'Google Learner' ||
+    p.email === 'learner@vocabularyworld.com' ||
+    (typeof p.email === 'string' && (p.email.endsWith('@vocabularyworld.com') || p.email.endsWith('@learner.vocabularyworld.com')))
+  );
+}
+
 function getStoredUserProfile() {
   try {
     const rawPersistent = localStorage.getItem('vw_persistent_user_profile');
     if (rawPersistent) {
       const parsed = JSON.parse(rawPersistent);
-      if (parsed && (parsed.displayName || parsed.name)) {
+      if (parsed && isDummyMockUser(parsed)) {
+        localStorage.removeItem('vw_persistent_user_profile');
+      } else if (parsed && (parsed.displayName || parsed.name)) {
         return parsed;
       }
     }
     const rawLegacy = localStorage.getItem('vw_user_profile');
     if (rawLegacy) {
       const parsed = JSON.parse(rawLegacy);
-      if (parsed && (parsed.displayName || parsed.name)) {
+      if (parsed && isDummyMockUser(parsed)) {
+        localStorage.removeItem('vw_user_profile');
+      } else if (parsed && (parsed.displayName || parsed.name)) {
         return parsed;
       }
     }
@@ -1671,55 +1702,131 @@ const FirebaseAuthEngine = {
   },
   getStoredProfile: getStoredUserProfile,
   signInWithGoogle: async function() {
-    try {
-      if (typeof window !== 'undefined' && window.firebase && window.firebase.auth) {
-        await setPersistence(window.firebase.auth(), browserLocalPersistence);
-        const res = await signInWithPopup(window.firebase.auth(), new GoogleAuthProvider());
-        return res.user;
-      }
-    } catch (e) {
-      console.warn('[FirebaseAuthEngine] Real Google Sign-in error, falling back:', e);
-    }
-
-    // Interactive or fallback Google Profile
-    const profile = {
-      uid: 'google-uid-' + Math.random().toString(36).substring(2, 10),
-      displayName: 'Google Learner',
-      name: 'Google Learner',
-      email: 'learner@vocabularyworld.com',
-      photoURL: '',
-      lastLogin: Date.now(),
-      initial: 'G'
-    };
-    savePersistentUserProfile(profile);
-    return profile;
+    return handleGoogleSignIn();
   },
   signOut: async function() {
-    return signOut(_firebaseAuthInstance);
+    return handleSignOut();
   },
   restoreSession: restorePersistentSession
 };
 
-async function handleGoogleSignIn() {
-  closeAuthModal();
-  if (typeof showToast === 'function') {
-    showToast('গুগল দিয়ে সাইন ইন করা হচ্ছে...');
-  }
+/* =====================================================================
+   GOOGLE IDENTITY SERVICES (GIS) & REAL GMAIL AUTHENTICATION
+====================================================================== */
+function loadGoogleIdentityServices() {
+  return new Promise((resolve) => {
+    if (typeof window === 'undefined') return resolve(false);
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      return resolve(true);
+    }
+    const existing = document.querySelector('script[src*="accounts.google.com/gsi/client"]');
+    if (existing) {
+      if (window.google && window.google.accounts && window.google.accounts.id) {
+        return resolve(true);
+      }
+      existing.addEventListener('load', () => resolve(true), { once: true });
+      existing.addEventListener('error', () => resolve(false), { once: true });
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = 'https://accounts.google.com/gsi/client';
+    s.async = true;
+    s.defer = true;
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+function parseJwtCredential(token) {
   try {
-    const user = await FirebaseAuthEngine.signInWithGoogle();
-    if (user) {
-      const activePage = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-      renderAppHeader(activePage);
-      if (typeof showToast === 'function') {
-        showToast(`স্বাগতম, ${user.displayName || user.name || 'Learner'}! গুগল সাইন ইন সম্পন্ন হয়েছে।`);
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.warn('[GIS] JWT credential decode error:', e);
+    return null;
+  }
+}
+
+function handleGoogleCredentialResponse(response) {
+  if (!response || !response.credential) {
+    if (typeof showToast === 'function') showToast('গুগল লগইন ক্রেডেনশিয়াল পাওয়া যায়নি');
+    return;
+  }
+  const payload = parseJwtCredential(response.credential);
+  if (!payload || !payload.email) {
+    if (typeof showToast === 'function') showToast('গুগল অ্যাকাউন্ট থেকে ইমেইল রিড করা যায়নি');
+    return;
+  }
+
+  const realName = payload.name || payload.given_name || payload.email.split('@')[0];
+  const realUser = {
+    uid: payload.sub || 'google-' + Date.now(),
+    name: realName,
+    displayName: realName,
+    email: payload.email,
+    photoURL: payload.picture || '',
+    initial: realName.charAt(0).toUpperCase(),
+    lastLogin: Date.now(),
+    signedInAt: Date.now(),
+    provider: 'google'
+  };
+
+  savePersistentUserProfile(realUser);
+  closeAuthModal();
+
+  const activePage = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+  renderAppHeader(activePage);
+
+  if (typeof showToast === 'function') {
+    showToast(`স্বাগতম, ${realName}! আপনার Google অ্যাকাউন্ট (${payload.email}) দিয়ে সাইন ইন হয়েছে।`);
+  }
+}
+
+async function handleGoogleSignIn() {
+  const clientId = (typeof window !== 'undefined' && window.VW_GOOGLE_CLIENT_ID) || '';
+  if (clientId) {
+    if (typeof showToast === 'function') {
+      showToast('গুগল অ্যাকাউন্ট অপশন লোড হচ্ছে...');
+    }
+    const loaded = await loadGoogleIdentityServices();
+    if (loaded && window.google && window.google.accounts && window.google.accounts.id) {
+      try {
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: handleGoogleCredentialResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+        window.google.accounts.id.prompt((notification) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            console.log('[GIS] Google popup prompt not displayed, opening Gmail modal form');
+            openGmailAuthFormDirectly();
+          }
+        });
+        return;
+      } catch (e) {
+        console.warn('[GIS] Initialization notice:', e);
       }
     }
-  } catch (err) {
-    console.warn('[Auth] Google Sign-In failed:', err);
-    if (typeof showToast === 'function') {
-      showToast('গুগল সাইন ইন সম্পন্ন করা সম্ভব হয়নি। নাম ও ইমেইল দিয়ে চেষ্টা করুন।');
-    }
   }
+
+  // When VW_GOOGLE_CLIENT_ID is empty or popup dismissed:
+  openGmailAuthFormDirectly();
+}
+
+function openGmailAuthFormDirectly() {
+  openAuthModal();
+  const nameInput = document.getElementById('auth-name-input');
+  const emailInput = document.getElementById('auth-email-input');
+  if (nameInput) setTimeout(() => nameInput.focus(), 80);
 }
 
 function handleAuthSubmit(event) {
@@ -1727,22 +1834,45 @@ function handleAuthSubmit(event) {
   const nameInput = document.getElementById('auth-name-input');
   const emailInput = document.getElementById('auth-email-input');
   const name = nameInput ? nameInput.value.trim() : '';
-  const email = emailInput ? emailInput.value.trim() : '';
+  let email = emailInput ? emailInput.value.trim().toLowerCase() : '';
 
   if (!name) {
     if (typeof showToast === 'function') showToast('দয়া করে আপনার পূর্ণ নাম লিখুন');
+    if (nameInput) nameInput.focus();
+    return;
+  }
+
+  if (!email) {
+    if (typeof showToast === 'function') showToast('দয়া করে আপনার আসল Gmail ঠিকানা লিখুন (যেমন: name@gmail.com)');
+    if (emailInput) emailInput.focus();
+    return;
+  }
+
+  // Auto-append @gmail.com if user only entered the username portion
+  if (!email.includes('@')) {
+    email = email + '@gmail.com';
+    if (emailInput) emailInput.value = email;
+  }
+
+  // Validate Gmail domain
+  if (!email.endsWith('@gmail.com')) {
+    if (typeof showToast === 'function') {
+      showToast('দয়া করে একটি সঠিক Gmail ঠিকানা লিখুন (e.g. yourname@gmail.com)');
+    }
+    if (emailInput) emailInput.focus();
     return;
   }
 
   const userProfile = {
-    uid: 'local-' + Date.now(),
+    uid: 'gmail-' + Date.now(),
     name: name,
     displayName: name,
-    email: email || `${name.toLowerCase().replace(/\s+/g, '')}@learner.vocabularyworld.com`,
+    email: email,
     photoURL: '',
     initial: name.charAt(0).toUpperCase(),
     lastLogin: Date.now(),
-    signedInAt: Date.now()
+    signedInAt: Date.now(),
+    provider: 'gmail'
   };
 
   savePersistentUserProfile(userProfile);
@@ -1752,7 +1882,7 @@ function handleAuthSubmit(event) {
   renderAppHeader(activePage);
 
   if (typeof showToast === 'function') {
-    showToast(`স্বাগতম, ${name}! সফলভাবে সাইন ইন হয়েছে।`);
+    showToast(`স্বাগতম, ${name}! আপনার Gmail (${email}) দিয়ে সাইন ইন হয়েছে।`);
   }
 }
 
@@ -1761,18 +1891,19 @@ function handleGuestAuth() {
     uid: 'guest-' + Date.now(),
     name: 'Guest Learner',
     displayName: 'Guest Learner',
-    email: 'guest@vocabularyworld.com',
+    email: '',
     photoURL: '',
     initial: 'G',
     lastLogin: Date.now(),
-    signedInAt: Date.now()
+    signedInAt: Date.now(),
+    provider: 'guest'
   };
   savePersistentUserProfile(guestUser);
   closeAuthModal();
   const activePage = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
   renderAppHeader(activePage);
   if (typeof showToast === 'function') {
-    showToast('অতিথি শিক্ষার্থী হিসেবে সাইন ইন সম্পন্ন হয়েছে!');
+    showToast('অতিথি শিক্ষার্থী হিসেবে প্রবেশ সম্পন্ন হয়েছে!');
   }
 }
 
@@ -1963,12 +2094,19 @@ function renderAppHeader(activePage = 'home') {
         id="vw-user-menu-btn"
         onclick="toggleUserMenu()"
         class="vw-auth-user-btn"
-        title="Signed in as ${userProfile.name}"
+        title="Signed in as ${escapeHtml(userProfile.name)} (${escapeHtml(userProfile.email || '')})"
       >
-        <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
-          ${userProfile.initial || userProfile.name.charAt(0).toUpperCase()}
-        </span>
-        <span class="hidden sm:inline max-w-[90px] truncate">${userProfile.name}</span>
+        ${userProfile.photoURL ? `
+          <img src="${escapeHtml(userProfile.photoURL)}" alt="${escapeHtml(userProfile.name)}" class="w-6 h-6 rounded-full object-cover shrink-0 shadow-xs border border-white/20" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+          <span class="w-6 h-6 rounded-full hidden items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+            ${escapeHtml(userProfile.initial || userProfile.name.charAt(0).toUpperCase())}
+          </span>
+        ` : `
+          <span class="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+            ${escapeHtml(userProfile.initial || userProfile.name.charAt(0).toUpperCase())}
+          </span>
+        `}
+        <span class="hidden sm:inline max-w-[100px] truncate text-xs font-semibold">${escapeHtml(userProfile.name)}</span>
         <span class="text-[8px] text-gray-400 ml-0.5">&blacktriangledown;</span>
       </button>
 
@@ -1979,21 +2117,30 @@ function renderAppHeader(activePage = 'home') {
         style="background-color: var(--surface-white); border-color: var(--border-subtle);"
       >
         <div class="flex items-center gap-2.5 pb-3 border-b" style="border-color: var(--border-subtle);">
-          <span class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
-            ${userProfile.initial || userProfile.name.charAt(0).toUpperCase()}
-          </span>
+          ${userProfile.photoURL ? `
+            <img src="${escapeHtml(userProfile.photoURL)}" alt="${escapeHtml(userProfile.name)}" class="w-10 h-10 rounded-full object-cover shrink-0 shadow-xs border border-white/20" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+            <span class="w-10 h-10 rounded-full hidden items-center justify-center text-sm font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+              ${escapeHtml(userProfile.initial || userProfile.name.charAt(0).toUpperCase())}
+            </span>
+          ` : `
+            <span class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-xs" style="background-color: var(--accent-sage);">
+              ${escapeHtml(userProfile.initial || userProfile.name.charAt(0).toUpperCase())}
+            </span>
+          `}
           <div class="min-w-0 flex-1">
-            <p class="text-xs font-bold truncate" style="color: var(--ink-primary);">${userProfile.name}</p>
-            <p class="text-[11px] truncate" style="color: var(--ink-muted);">${userProfile.email}</p>
+            <p class="text-xs font-bold truncate" style="color: var(--ink-primary);">${escapeHtml(userProfile.name)}</p>
+            <p class="text-[11px] truncate font-mono" style="color: var(--ink-muted);">${escapeHtml(userProfile.email || 'Signed in')}</p>
           </div>
         </div>
 
         <div class="py-2 space-y-1">
           <div class="flex items-center justify-between px-2 py-1 rounded-xl text-xs" style="color: var(--ink-secondary);">
-            <span>Membership</span>
-            <span class="font-bold text-[10px] px-2 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">Active Learner</span>
+            <span>Account</span>
+            <span class="font-bold text-[10px] px-2 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
+              ${userProfile.email && userProfile.email.endsWith('@gmail.com') ? 'Verified Gmail' : 'Active Learner'}
+            </span>
           </div>
-          <a href="tracker.html" class="flex items-center justify-between px-2 py-1.5 rounded-xl text-xs font-bold transition-colors hover:bg-black/5" style="color: var(--ink-primary);">
+          <a href="tracker.html" class="flex items-center justify-between px-2 py-1.5 rounded-xl text-xs font-bold transition-colors hover:bg-black/5 dark:hover:bg-white/5" style="color: var(--ink-primary);">
             <span>View Daily Progress</span>
             <span>&rarr;</span>
           </a>
@@ -2017,7 +2164,7 @@ function renderAppHeader(activePage = 'home') {
       id="vw-auth-btn"
       onclick="openAuthModal()"
       class="vw-auth-pill-btn"
-      title="Sign in to save your vocabulary progress"
+      title="Sign in with your Gmail to save progress"
     >
       <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
@@ -2069,7 +2216,7 @@ function renderAppHeader(activePage = 'home') {
         <button
           type="button"
           onclick="closeAuthModal()"
-          class="absolute top-5 right-5 w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#2D5A4C]"
+          class="absolute top-5 right-5 w-8 h-8 rounded-full border flex items-center justify-center transition-colors hover:border-[#38BDF8]"
           style="border-color: var(--border-subtle); color: var(--ink-muted);"
           aria-label="Close"
         >
@@ -2085,10 +2232,10 @@ function renderAppHeader(activePage = 'home') {
           </div>
           <div>
             <h3 class="font-editorial text-xl font-bold" style="color: var(--ink-primary);">
-              Sign In to Vocabulary World
+              Sign In with Gmail
             </h3>
             <p class="font-bengali text-xs mt-0.5" style="color: var(--ink-muted);">
-              আপনার শব্দ শেখার অগ্রগতি ট্র্যাক ও সংরক্ষণ করুন
+              আপনার আসল নাম ও Gmail দিয়ে শব্দভান্ডারের অগ্রগতি সংরক্ষণ করুন
             </p>
           </div>
         </div>
@@ -2112,43 +2259,47 @@ function renderAppHeader(activePage = 'home') {
 
         <div class="relative flex py-1 items-center mb-4">
           <div class="flex-grow border-t" style="border-color: var(--border-subtle);"></div>
-          <span class="flex-shrink mx-3 text-[10px] font-bold uppercase tracking-wider" style="color: var(--ink-muted);">Or sign in manually &bull; ম্যানুয়াল</span>
+          <span class="flex-shrink mx-3 text-[10px] font-bold uppercase tracking-wider font-bengali" style="color: var(--ink-muted);">অথবা আসল জিমেইল দিয়ে সাইন ইন</span>
           <div class="flex-grow border-t" style="border-color: var(--border-subtle);"></div>
         </div>
 
-        <form id="vw-auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+        <form id="vw-auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--ink-secondary);">
-              Full Name &bull; পূর্ণ নাম
+              Full Name &bull; আপনার পূর্ণ নাম
             </label>
             <input
               id="auth-name-input"
               type="text"
               required
-              placeholder="e.g. John Doe / রাকিব হাসান"
-              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
+              placeholder="e.g. Nusrat Jahan / নুসরাত জাহান"
+              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#38BDF8] transition-all"
               style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
             />
           </div>
 
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color: var(--ink-secondary);">
-              Email Address &bull; ইমেইল ঠিকানা
+              Real Gmail Address &bull; আসল জিমেইল ঠিকানা
             </label>
             <input
               id="auth-email-input"
               type="email"
-              placeholder="you@example.com"
-              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#2D5A4C]/30 transition-all"
+              required
+              placeholder="yourname@gmail.com"
+              class="w-full px-4 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#38BDF8] transition-all"
               style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
             />
+            <span class="block text-[11px] mt-1 font-bengali text-gray-500">
+              * অবশ্যই একটি বৈধ @gmail.com ঠিকানা দিন (যেমন: name@gmail.com)
+            </span>
           </div>
 
           <button
             type="submit"
-            class="vw-auth-pill-btn w-full py-3 justify-center text-sm shadow-md mt-2"
+            class="vw-auth-pill-btn w-full py-3 justify-center text-sm shadow-md mt-2 font-bold cursor-pointer"
           >
-            <span>Sign In &bull; সাইন ইন</span>
+            <span>Continue with Gmail &bull; সাইন ইন সম্পন্ন করুন</span>
           </button>
 
           <div class="relative flex py-1 items-center">
@@ -2160,7 +2311,7 @@ function renderAppHeader(activePage = 'home') {
           <button
             type="button"
             onclick="handleGuestAuth()"
-            class="w-full py-2.5 rounded-2xl border text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all hover:border-[#2D5A4C]"
+            class="w-full py-2.5 rounded-2xl border text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all hover:border-[#38BDF8]"
             style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-primary);"
           >
             <svg class="w-4 h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>

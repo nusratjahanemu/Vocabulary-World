@@ -61,7 +61,13 @@
       try {
         const raw = localStorage.getItem('vw_persistent_user_profile') || localStorage.getItem('vw_user_profile');
         if (raw) {
-          window.__vwRestoredUser = JSON.parse(raw);
+          const p = JSON.parse(raw);
+          if (p && (p.displayName === 'Google Learner' || p.name === 'Google Learner' || p.email === 'learner@vocabularyworld.com' || (typeof p.email === 'string' && p.email.endsWith('@vocabularyworld.com')))) {
+            localStorage.removeItem('vw_persistent_user_profile');
+            localStorage.removeItem('vw_user_profile');
+          } else {
+            window.__vwRestoredUser = p;
+          }
         }
       } catch (e) {}
     })();
