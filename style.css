@@ -1,73 +1,82 @@
 /* =====================================================================
    EDITORIAL DESIGN SYSTEM & COLOR PALETTE
-   Vocabulary World — Multi-Page Architecture
+   Vocabulary World — Multi-Page Architecture (Sky Blue Modern Theme)
 ====================================================================== */
 :root {
-  --bg-ivory: #FAF8F5;
+  --bg-ivory: #F0F9FF;
   --surface-white: #FFFFFF;
-  --surface-sand: #F3EFEA;
-  --surface-track: #ECE7DF;
-  --border-subtle: #E6E1D8;
-  --border-hover: #CFC8BC;
-  --accent-sage: #2D5A4C;
-  --accent-sage-hover: #23473C;
-  --accent-sage-soft: #EEF4F1;
-  --accent-terracotta: #C26D53;
-  --accent-terracotta-soft: #FAF0EC;
-  --ink-primary: #1E2421;
-  --ink-secondary: #5C6660;
-  --ink-muted: #7C8680;
+  --surface-sand: #E0F2FE;
+  --surface-track: #BAE6FD;
+  --border-subtle: rgba(2, 132, 199, 0.2);
+  --border-hover: #38BDF8;
+  --accent-sage: #0284C7;
+  --accent-sage-hover: #0369A1;
+  --accent-sage-soft: #E0F2FE;
+  --accent-terracotta: #0284C7;
+  --accent-terracotta-soft: #F0F9FF;
+  --ink-primary: #0B192C;
+  --ink-secondary: #1E293B;
+  --ink-muted: #475569;
+  --sky-glow: #38BDF8;
   --transition-smooth: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* =====================================================================
-   DARK THEME PALETTE & COMPONENT STYLES
+   DARK THEME PALETTE & COMPONENT STYLES (Cosmic Navy & Sky Blue)
 ====================================================================== */
 [data-theme="dark"],
 html[data-theme="dark"],
 body.dark-mode,
 .dark-theme {
-  --bg-ivory: #141917;
-  --surface-white: #1D2421;
-  --surface-sand: #252E2A;
-  --surface-track: #202925;
-  --border-subtle: #2D3833;
-  --border-hover: #3E4E46;
-  --accent-sage: #4E8D78;
-  --accent-sage-hover: #5DA58D;
-  --accent-sage-soft: #22352E;
-  --accent-terracotta: #D9826C;
-  --accent-terracotta-soft: #382823;
-  --ink-primary: #F3EFEA;
-  --ink-secondary: #B8C2BD;
-  --ink-muted: #8E9B94;
+  --bg-ivory: #0B192C;
+  --surface-white: rgba(17, 34, 64, 0.85);
+  --surface-sand: #112240;
+  --surface-track: #1E3A5F;
+  --border-subtle: rgba(56, 189, 248, 0.25);
+  --border-hover: #38BDF8;
+  --accent-sage: #38BDF8;
+  --accent-sage-hover: #7DD3FC;
+  --accent-sage-soft: rgba(56, 189, 248, 0.14);
+  --accent-terracotta: #38BDF8;
+  --accent-terracotta-soft: rgba(56, 189, 248, 0.16);
+  --ink-primary: #F0F9FF;
+  --ink-secondary: #E2E8F0;
+  --ink-muted: #7DD3FC;
+  --sky-glow: #38BDF8;
 }
 
+[data-theme="dark"] html,
 [data-theme="dark"] body,
+html[data-theme="dark"],
 body[data-theme="dark"],
 body.dark-mode,
 .dark-theme body {
-  background-color: var(--bg-ivory) !important;
+  background: linear-gradient(45deg, #0B192C, #112240, #1E3A5F) !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   color: var(--ink-primary) !important;
 }
 
 [data-theme="dark"] #vw-top-header,
 body.dark-mode #vw-top-header {
-  background-color: rgba(20, 25, 23, 0.95) !important;
-  border-color: var(--border-subtle) !important;
+  background-color: rgba(11, 25, 44, 0.92) !important;
+  backdrop-filter: blur(14px) !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="dark"] #vw-mobile-nav-menu,
 body.dark-mode #vw-mobile-nav-menu {
-  background-color: rgba(20, 25, 23, 0.98) !important;
-  border-color: var(--border-subtle) !important;
+  background-color: rgba(11, 25, 44, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="dark"] .vw-top-sliding-pill,
 body.dark-mode .vw-top-sliding-pill {
-  background-color: var(--accent-sage-soft) !important;
-  border-color: rgba(78, 141, 120, 0.35) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  background-color: rgba(56, 189, 248, 0.18) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="dark"] .bg-white {
@@ -75,7 +84,7 @@ body.dark-mode .vw-top-sliding-pill {
 }
 
 [data-theme="dark"] .bg-\[\#FAF8F5\] {
-  background-color: var(--bg-ivory) !important;
+  background-color: var(--surface-white) !important;
 }
 
 [data-theme="dark"] .bg-\[\#EEF4F1\] {
@@ -95,20 +104,23 @@ html:not([data-theme="dark"]),
 body:not([data-theme="dark"]),
 [data-theme="light"] html,
 [data-theme="light"] body {
-  background-color: var(--bg-ivory) !important;
-  color: var(--ink-primary) !important;
+  background-color: #F0F9FF !important;
+  background: #F0F9FF !important;
+  color: #0B192C !important;
 }
 
 html:not([data-theme="dark"]) #vw-top-header,
 [data-theme="light"] #vw-top-header {
-  background-color: rgba(250, 248, 245, 0.95) !important;
-  border-color: var(--border-subtle) !important;
+  background-color: rgba(240, 249, 255, 0.94) !important;
+  backdrop-filter: blur(14px) !important;
+  border-color: rgba(2, 132, 199, 0.15) !important;
 }
 
 html:not([data-theme="dark"]) #vw-mobile-nav-menu,
 [data-theme="light"] #vw-mobile-nav-menu {
-  background-color: rgba(250, 248, 245, 0.98) !important;
-  border-color: var(--border-subtle) !important;
+  background-color: rgba(240, 249, 255, 0.98) !important;
+  backdrop-filter: blur(16px) !important;
+  border-color: rgba(2, 132, 199, 0.15) !important;
 }
 
 [data-theme="dark"] .text-gray-900,
@@ -147,27 +159,27 @@ html:not([data-theme="dark"]) #vw-mobile-nav-menu,
 }
 
 [data-theme="dark"] .badge-beginner {
-  background-color: #1E332A !important;
-  color: #6EBFA4 !important;
-  border: 1px solid rgba(110, 191, 164, 0.3) !important;
+  background-color: #E0F2FE;
+  color: #0284C7;
+  border: 1px solid rgba(2, 132, 199, 0.25);
 }
 
-[data-theme="dark"] .badge-intermediate {
-  background-color: #38241D !important;
-  color: #E2917B !important;
-  border: 1px solid rgba(226, 145, 123, 0.3) !important;
+.badge-intermediate {
+  background-color: #E0E7FF;
+  color: #4338CA;
+  border: 1px solid rgba(67, 56, 202, 0.25);
 }
 
-[data-theme="dark"] .badge-advanced {
-  background-color: #27223D !important;
-  color: #A29BD9 !important;
-  border: 1px solid rgba(162, 155, 217, 0.3) !important;
+.badge-advanced {
+  background-color: #EDE9FE;
+  color: #6D28D9;
+  border: 1px solid rgba(109, 40, 217, 0.25);
 }
 
-[data-theme="dark"] .badge-pro {
-  background-color: #2D332D !important;
-  color: #C2CBC5 !important;
-  border: 1px solid rgba(194, 203, 197, 0.3) !important;
+.badge-pro {
+  background-color: #F1F5F9;
+  color: #334155;
+  border: 1px solid rgba(51, 65, 85, 0.25);
 }
 
 * {
@@ -2841,7 +2853,7 @@ button:active:not(:disabled),
 }
 
 /* =====================================================================
-   2. GLOBAL THEME TEXT CONTRAST & READABILITY
+   2. GLOBAL THEME TEXT CONTRAST & READABILITY (Study Reader Sky Blue System)
 ====================================================================== */
 /* Light Mode: Card surfaces & borders */
 html:not([data-theme="dark"]) .card,
@@ -2854,6 +2866,7 @@ html:not([data-theme="dark"]) .vw-card,
 html:not([data-theme="dark"]) .vw-level-card,
 html:not([data-theme="dark"]) .level-card,
 html:not([data-theme="dark"]) .card-container,
+html:not([data-theme="dark"]) .vw-my-vocab-card,
 [data-theme="light"] .card,
 [data-theme="light"] .tool-card,
 [data-theme="light"] .quiz-card,
@@ -2863,9 +2876,12 @@ html:not([data-theme="dark"]) .card-container,
 [data-theme="light"] .vw-card,
 [data-theme="light"] .vw-level-card,
 [data-theme="light"] .level-card,
-[data-theme="light"] .card-container {
+[data-theme="light"] .card-container,
+[data-theme="light"] .vw-my-vocab-card {
   background-color: #FFFFFF !important;
-  border-color: #E6E1D8 !important;
+  background: #FFFFFF !important;
+  border-color: rgba(2, 132, 199, 0.18) !important;
+  box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.08) !important;
 }
 
 /* Light Mode: Headings inside light cards, panels, tabs, and white/ivory containers */
@@ -2876,10 +2892,6 @@ html:not([data-theme="dark"]) .tab-panel h1, html:not([data-theme="dark"]) .tab-
 html:not([data-theme="dark"]) .word-card h1, html:not([data-theme="dark"]) .word-card h2, html:not([data-theme="dark"]) .word-card h3, html:not([data-theme="dark"]) .word-card h4,
 html:not([data-theme="dark"]) .vw-word-card h1, html:not([data-theme="dark"]) .vw-word-card h2, html:not([data-theme="dark"]) .vw-word-card h3, html:not([data-theme="dark"]) .vw-word-card h4,
 html:not([data-theme="dark"]) .vw-card h1, html:not([data-theme="dark"]) .vw-card h2, html:not([data-theme="dark"]) .vw-card h3, html:not([data-theme="dark"]) .vw-card h4,
-html:not([data-theme="dark"]) [style*="background:#fff"] h1, html:not([data-theme="dark"]) [style*="background:#fff"] h2, html:not([data-theme="dark"]) [style*="background:#fff"] h3, html:not([data-theme="dark"]) [style*="background:#fff"] h4,
-html:not([data-theme="dark"]) [style*="background: #fff"] h1, html:not([data-theme="dark"]) [style*="background: #fff"] h2, html:not([data-theme="dark"]) [style*="background: #fff"] h3, html:not([data-theme="dark"]) [style*="background: #fff"] h4,
-html:not([data-theme="dark"]) [style*="background:#FAF8F5"] h1, html:not([data-theme="dark"]) [style*="background:#FAF8F5"] h2, html:not([data-theme="dark"]) [style*="background:#FAF8F5"] h3, html:not([data-theme="dark"]) [style*="background:#FAF8F5"] h4,
-html:not([data-theme="dark"]) [style*="background: #FAF8F5"] h1, html:not([data-theme="dark"]) [style*="background: #FAF8F5"] h2, html:not([data-theme="dark"]) [style*="background: #FAF8F5"] h3, html:not([data-theme="dark"]) [style*="background: #FAF8F5"] h4,
 [data-theme="light"] .card h1, [data-theme="light"] .card h2, [data-theme="light"] .card h3, [data-theme="light"] .card h4,
 [data-theme="light"] .tool-card h1, [data-theme="light"] .tool-card h2, [data-theme="light"] .tool-card h3, [data-theme="light"] .tool-card h4,
 [data-theme="light"] .quiz-card h1, [data-theme="light"] .quiz-card h2, [data-theme="light"] .quiz-card h3, [data-theme="light"] .quiz-card h4,
@@ -2887,7 +2899,7 @@ html:not([data-theme="dark"]) [style*="background: #FAF8F5"] h1, html:not([data-
 [data-theme="light"] .word-card h1, [data-theme="light"] .word-card h2, [data-theme="light"] .word-card h3, [data-theme="light"] .word-card h4,
 [data-theme="light"] .vw-word-card h1, [data-theme="light"] .vw-word-card h2, [data-theme="light"] .vw-word-card h3, [data-theme="light"] .vw-word-card h4,
 [data-theme="light"] .vw-card h1, [data-theme="light"] .vw-card h2, [data-theme="light"] .vw-card h3, [data-theme="light"] .vw-card h4 {
-  color: #1A2421 !important;
+  color: #0B192C !important;
 }
 
 /* Light Mode: Body & structural text inside light cards */
@@ -2898,10 +2910,6 @@ html:not([data-theme="dark"]) .tab-panel p, html:not([data-theme="dark"]) .tab-p
 html:not([data-theme="dark"]) .word-card p, html:not([data-theme="dark"]) .word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) .word-card div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) .word-card label, html:not([data-theme="dark"]) .word-card li, html:not([data-theme="dark"]) .word-card td, html:not([data-theme="dark"]) .word-card th,
 html:not([data-theme="dark"]) .vw-word-card p, html:not([data-theme="dark"]) .vw-word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) .vw-word-card div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) .vw-word-card label, html:not([data-theme="dark"]) .vw-word-card li, html:not([data-theme="dark"]) .vw-word-card td, html:not([data-theme="dark"]) .vw-word-card th,
 html:not([data-theme="dark"]) .vw-card p, html:not([data-theme="dark"]) .vw-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) .vw-card div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) .vw-card label, html:not([data-theme="dark"]) .vw-card li, html:not([data-theme="dark"]) .vw-card td, html:not([data-theme="dark"]) .vw-card th,
-html:not([data-theme="dark"]) [style*="background:#fff"] p, html:not([data-theme="dark"]) [style*="background:#fff"] span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background:#fff"] div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background:#fff"] label, html:not([data-theme="dark"]) [style*="background:#fff"] li,
-html:not([data-theme="dark"]) [style*="background: #fff"] p, html:not([data-theme="dark"]) [style*="background: #fff"] span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background: #fff"] div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background: #fff"] label, html:not([data-theme="dark"]) [style*="background: #fff"] li,
-html:not([data-theme="dark"]) [style*="background:#FAF8F5"] p, html:not([data-theme="dark"]) [style*="background:#FAF8F5"] span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background:#FAF8F5"] div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background:#FAF8F5"] label, html:not([data-theme="dark"]) [style*="background:#FAF8F5"] li,
-html:not([data-theme="dark"]) [style*="background: #FAF8F5"] p, html:not([data-theme="dark"]) [style*="background: #FAF8F5"] span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background: #FAF8F5"] div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), html:not([data-theme="dark"]) [style*="background: #FAF8F5"] label, html:not([data-theme="dark"]) [style*="background: #FAF8F5"] li,
 [data-theme="light"] .card p, [data-theme="light"] .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="light"] .card label, [data-theme="light"] .card li,
 [data-theme="light"] .tool-card p, [data-theme="light"] .tool-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="light"] .tool-card label, [data-theme="light"] .tool-card li,
 [data-theme="light"] .quiz-card p, [data-theme="light"] .quiz-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="light"] .quiz-card label, [data-theme="light"] .quiz-card li,
@@ -2909,10 +2917,10 @@ html:not([data-theme="dark"]) [style*="background: #FAF8F5"] p, html:not([data-t
 [data-theme="light"] .word-card p, [data-theme="light"] .word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="light"] .word-card label, [data-theme="light"] .word-card li,
 [data-theme="light"] .vw-word-card p, [data-theme="light"] .vw-word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="light"] .vw-word-card label, [data-theme="light"] .vw-word-card li,
 [data-theme="light"] .vw-card p, [data-theme="light"] .vw-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="light"] .vw-card label, [data-theme="light"] .vw-card li {
-  color: #2D3A35 !important;
+  color: #1E293B !important;
 }
 
-/* Dark Mode: Card surfaces & borders */
+/* Dark Mode: Card surfaces & borders (Glass-Dark Cosmic Navy rgba(17, 34, 64, 0.85)) */
 [data-theme="dark"] .card,
 [data-theme="dark"] .tool-card,
 [data-theme="dark"] .quiz-card,
@@ -2923,6 +2931,7 @@ html:not([data-theme="dark"]) [style*="background: #FAF8F5"] p, html:not([data-t
 [data-theme="dark"] .level-card,
 [data-theme="dark"] .vw-card,
 [data-theme="dark"] .card-container,
+[data-theme="dark"] .vw-my-vocab-card,
 [data-theme="dark"] .bg-white,
 [data-theme="dark"] .bg-\[\#FAF8F5\],
 [data-theme="dark"] .bg-\[\#F3EFEA\],
@@ -2944,13 +2953,15 @@ body.dark-mode .vw-card,
 .dark-theme .vw-word-card,
 .dark-theme .vw-level-card,
 .dark-theme .level-card {
-  background-color: #16221F !important;
-  background: #16221F !important;
-  border: 1px solid #2D3833 !important;
-  border-color: #2D3833 !important;
+  background-color: rgba(17, 34, 64, 0.85) !important;
+  background: rgba(17, 34, 64, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.22) !important;
+  border-color: rgba(56, 189, 248, 0.22) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
 }
 
-/* Dark Mode: Crisp light text inside dark cards */
+/* Dark Mode: High-contrast crisp readable light text inside dark cards */
 [data-theme="dark"] .card h1, [data-theme="dark"] .card h2, [data-theme="dark"] .card h3, [data-theme="dark"] .card h4,
 [data-theme="dark"] .tool-card h1, [data-theme="dark"] .tool-card h2, [data-theme="dark"] .tool-card h3, [data-theme="dark"] .tool-card h4,
 [data-theme="dark"] .quiz-card h1, [data-theme="dark"] .quiz-card h2, [data-theme="dark"] .quiz-card h3, [data-theme="dark"] .quiz-card h4,
@@ -2958,9 +2969,10 @@ body.dark-mode .vw-card,
 [data-theme="dark"] .word-card h1, [data-theme="dark"] .word-card h2, [data-theme="dark"] .word-card h3, [data-theme="dark"] .word-card h4,
 [data-theme="dark"] .vw-word-card h1, [data-theme="dark"] .vw-word-card h2, [data-theme="dark"] .vw-word-card h3, [data-theme="dark"] .vw-word-card h4,
 [data-theme="dark"] .vw-card h1, [data-theme="dark"] .vw-card h2, [data-theme="dark"] .vw-card h3, [data-theme="dark"] .vw-card h4,
+[data-theme="dark"] .vw-my-vocab-card strong,
 body.dark-mode .card h1, body.dark-mode .card h2, body.dark-mode .card h3, body.dark-mode .card h4,
 .dark-theme .card h1, .dark-theme .card h2, .dark-theme .card h3, .dark-theme .card h4 {
-  color: #F8FAFC !important;
+  color: #F0F9FF !important;
 }
 
 [data-theme="dark"] .card p, [data-theme="dark"] .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="dark"] .card div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="dark"] .card label, [data-theme="dark"] .card li, [data-theme="dark"] .card td, [data-theme="dark"] .card th,
@@ -2972,55 +2984,7 @@ body.dark-mode .card h1, body.dark-mode .card h2, body.dark-mode .card h3, body.
 [data-theme="dark"] .vw-card p, [data-theme="dark"] .vw-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="dark"] .vw-card div:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), [data-theme="dark"] .vw-card label, [data-theme="dark"] .vw-card li, [data-theme="dark"] .vw-card td, [data-theme="dark"] .vw-card th,
 body.dark-mode .card p, body.dark-mode .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), body.dark-mode .card label, body.dark-mode .card li,
 .dark-theme .card p, .dark-theme .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse), .dark-theme .card label, .dark-theme .card li {
-  color: #CBD5E1 !important;
-}
-
-/* Maintain crisp white text (#FFFFFF) on all dark buttons and active pills */
-button.btn-primary,
-button.vw-btn-primary,
-button.vw-btn-sage,
-button[style*="background:#2D5A4C"],
-button[style*="background: #2D5A4C"],
-button[style*="background-color:#2D5A4C"],
-button[style*="background-color: #2D5A4C"],
-button[style*="background:#18221F"],
-button[style*="background: #18221F"],
-button[style*="background-color:#18221F"],
-button[style*="background-color: #18221F"],
-button[style*="background-color: var(--accent-sage)"],
-button[style*="background: var(--accent-sage)"],
-.btn-primary,
-.vw-btn-primary,
-.vw-btn-sage,
-.filter-pill.active,
-.is-pill-target,
-[class*="bg-[#2D5A4C]"],
-[class*="bg-[#18221F]"],
-.bg-[#2D5A4C],
-.bg-[#18221F],
-button.btn-primary *,
-button.vw-btn-primary *,
-button.vw-btn-sage *,
-button[style*="background:#2D5A4C"] *,
-button[style*="background: #2D5A4C"] *,
-button[style*="background-color:#2D5A4C"] *,
-button[style*="background-color: #2D5A4C"] *,
-button[style*="background:#18221F"] *,
-button[style*="background: #18221F"] *,
-button[style*="background-color:#18221F"] *,
-button[style*="background-color: #18221F"] *,
-button[style*="background-color: var(--accent-sage)"] *,
-button[style*="background: var(--accent-sage)"] *,
-.btn-primary *,
-.vw-btn-primary *,
-.vw-btn-sage *,
-.filter-pill.active *,
-.is-pill-target *,
-[class*="bg-[#2D5A4C]"] *,
-[class*="bg-[#18221F]"] *,
-.bg-[#2D5A4C] *,
-.bg-[#18221F] * {
-  color: #FFFFFF !important;
+  color: #E2E8F0 !important;
 }
 
 /* Explicit accent color integrity */
@@ -3028,32 +2992,32 @@ html:not([data-theme="dark"]) [style*="color: var(--accent-sage)"],
 html:not([data-theme="dark"]) [style*="color:var(--accent-sage)"],
 [data-theme="light"] [style*="color: var(--accent-sage)"],
 [data-theme="light"] [style*="color:var(--accent-sage)"] {
-  color: #2D5A4C !important;
+  color: #0284C7 !important;
 }
 html:not([data-theme="dark"]) [style*="color: var(--accent-terracotta)"],
 html:not([data-theme="dark"]) [style*="color:var(--accent-terracotta)"],
 [data-theme="light"] [style*="color: var(--accent-terracotta)"],
 [data-theme="light"] [style*="color:var(--accent-terracotta)"] {
-  color: #C26D53 !important;
+  color: #0284C7 !important;
 }
 html:not([data-theme="dark"]) [style*="color: var(--ink-muted)"],
 html:not([data-theme="dark"]) [style*="color:var(--ink-muted)"],
 [data-theme="light"] [style*="color: var(--ink-muted)"],
 [data-theme="light"] [style*="color:var(--ink-muted)"] {
-  color: #7C8680 !important;
+  color: #475569 !important;
 }
 
 [data-theme="dark"] [style*="color: var(--accent-sage)"],
 [data-theme="dark"] [style*="color:var(--accent-sage)"] {
-  color: #4E8D78 !important;
+  color: #38BDF8 !important;
 }
 [data-theme="dark"] [style*="color: var(--accent-terracotta)"],
 [data-theme="dark"] [style*="color:var(--accent-terracotta)"] {
-  color: #D9826C !important;
+  color: #38BDF8 !important;
 }
 [data-theme="dark"] [style*="color: var(--ink-muted)"],
 [data-theme="dark"] [style*="color:var(--ink-muted)"] {
-  color: #8E9B94 !important;
+  color: #7DD3FC !important;
 }
 
 /* =====================================================================
@@ -3113,50 +3077,190 @@ div:has(> [class*="pill"]) {
 }
 
 /* =====================================================================
-   4. PERSONAL NOTES & VIDEO USAGE BUTTON STYLES
+   4. SKY BLUE GLOWING BUTTONS & STUDY READER INTERACTION SYSTEM
 ====================================================================== */
+button,
+.btn,
+.vw-btn,
+.vw-btn-primary,
+.vw-btn-sage,
+.vw-speak-btn,
+.vw-card-video-btn,
+.vw-personal-note-btn,
+.vw-theme-toggle-btn,
+.vw-level-card-btn,
+.vw-assessment-btn,
+.vw-btn-sky-save,
+.vw-cartoon-play-btn,
+[class*="vw-btn"] {
+  border: 2px solid #38BDF8 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Light / Shine reflection animation via ::before radial-gradient */
+button::before,
+.btn::before,
+.vw-btn::before,
+.vw-btn-primary::before,
+.vw-btn-sage::before,
+.vw-speak-btn::before,
+.vw-card-video-btn::before,
+.vw-personal-note-btn::before,
+.vw-theme-toggle-btn::before,
+.vw-cartoon-play-btn::before,
+[class*="vw-btn"]::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.55) 0%, rgba(56, 189, 248, 0.2) 40%, rgba(56, 189, 248, 0) 70%) !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  transition: width 0.45s ease-out, height 0.45s ease-out, opacity 0.45s ease-out !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* Hover: Sky Blue Glow & Shine expansion */
+button:hover:not(:disabled),
+.btn:hover:not(:disabled),
+.vw-btn:hover:not(:disabled),
+.vw-btn-primary:hover:not(:disabled),
+.vw-btn-sage:hover:not(:disabled),
+.vw-speak-btn:hover:not(:disabled),
+.vw-card-video-btn:hover:not(:disabled),
+.vw-personal-note-btn:hover:not(:disabled),
+.vw-theme-toggle-btn:hover:not(:disabled),
+.vw-cartoon-play-btn:hover:not(:disabled),
+[class*="vw-btn"]:hover:not(:disabled) {
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 15px #38BDF8, 0 0 45px rgba(56, 189, 248, 0.6) !important;
+}
+
+button:hover:not(:disabled)::before,
+.btn:hover:not(:disabled)::before,
+.vw-btn:hover:not(:disabled)::before,
+.vw-btn-primary:hover:not(:disabled)::before,
+.vw-btn-sage:hover:not(:disabled)::before,
+.vw-speak-btn:hover:not(:disabled)::before,
+.vw-card-video-btn:hover:not(:disabled)::before,
+.vw-personal-note-btn:hover:not(:disabled)::before,
+.vw-theme-toggle-btn:hover:not(:disabled)::before,
+.vw-cartoon-play-btn:hover:not(:disabled)::before,
+[class*="vw-btn"]:hover:not(:disabled)::before {
+  width: 320% !important;
+  height: 320% !important;
+  opacity: 1 !important;
+}
+
+/* Active Click: Smooth Press Animation (scale 0.95) */
+button:active:not(:disabled),
+.btn:active:not(:disabled),
+.vw-btn:active:not(:disabled),
+.vw-btn-primary:active:not(:disabled),
+.vw-btn-sage:active:not(:disabled),
+.vw-speak-btn:active:not(:disabled),
+.vw-card-video-btn:active:not(:disabled),
+.vw-personal-note-btn:active:not(:disabled),
+.vw-theme-toggle-btn:active:not(:disabled),
+.vw-level-card:active,
+.vw-game-tab:active,
+.vw-top-nav-item:active,
+.vw-assessment-option:active {
+  transform: scale(0.95) !important;
+  transition: transform 0.08s ease !important;
+}
+
+button > *,
+.btn > *,
+.vw-btn > *,
+.vw-speak-btn > *,
+.vw-card-video-btn > *,
+.vw-personal-note-btn > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Specific styling for Personal Note & Video buttons */
 .vw-personal-note-btn {
-  background-color: var(--surface-sand) !important;
-  color: var(--ink-primary) !important;
-  border: 1px solid var(--border-subtle) !important;
+  background-color: rgba(56, 189, 248, 0.12) !important;
+  color: #38BDF8 !important;
+  border: 2px solid #38BDF8 !important;
   transition: var(--transition-smooth);
 }
 .vw-personal-note-btn.has-note {
-  border-color: var(--accent-sage) !important;
-  color: var(--accent-sage) !important;
+  border-color: #38BDF8 !important;
+  color: #38BDF8 !important;
+  background-color: rgba(56, 189, 248, 0.25) !important;
 }
-.vw-personal-note-panel {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+html:not([data-theme="dark"]) .vw-personal-note-btn,
+[data-theme="light"] .vw-personal-note-btn {
+  background-color: #F0F9FF !important;
+  color: #0284C7 !important;
+  border: 2px solid #38BDF8 !important;
 }
-[data-theme="dark"] .vw-personal-note-panel {
-  background: var(--surface-white) !important;
-  border: 1px solid var(--border-subtle) !important;
-}
-[data-theme="dark"] .vw-personal-note-textarea {
-  background-color: var(--surface-sand) !important;
-  color: var(--ink-primary) !important;
-  border: 1px solid var(--border-subtle) !important;
-}
-[data-theme="dark"] .vw-personal-note-textarea:focus {
-  border-color: var(--accent-sage) !important;
+html:not([data-theme="dark"]) .vw-personal-note-btn:hover,
+[data-theme="light"] .vw-personal-note-btn:hover {
+  background-color: #0284C7 !important;
+  color: #FFFFFF !important;
 }
 
-/* Video Usage Button Styles */
 .vw-card-video-btn {
-  background-color: var(--accent-sage-soft) !important;
-  color: var(--accent-sage) !important;
-  border: 1px solid var(--border-subtle) !important;
+  background-color: rgba(56, 189, 248, 0.14) !important;
+  color: #38BDF8 !important;
+  border: 2px solid #38BDF8 !important;
   transition: var(--transition-smooth);
-}
-[data-theme="dark"] .vw-card-video-btn {
-  background-color: var(--accent-sage-soft) !important;
-  color: var(--accent-sage) !important;
-  border-color: var(--border-subtle) !important;
 }
 html:not([data-theme="dark"]) .vw-card-video-btn,
 [data-theme="light"] .vw-card-video-btn {
-  background-color: #EEF4F1 !important;
-  color: #2D5A4C !important;
-  border-color: rgba(45, 90, 76, 0.2) !important;
+  background-color: #E0F2FE !important;
+  color: #0284C7 !important;
+  border: 2px solid #38BDF8 !important;
+}
+html:not([data-theme="dark"]) .vw-card-video-btn:hover,
+[data-theme="light"] .vw-card-video-btn:hover {
+  background-color: #0284C7 !important;
+  color: #FFFFFF !important;
+}
+
+/* Note Panel & Textarea */
+.vw-personal-note-panel {
+  background: rgba(17, 34, 64, 0.95) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html:not([data-theme="dark"]) .vw-personal-note-panel,
+[data-theme="light"] .vw-personal-note-panel {
+  background: #F0F9FF !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.12) !important;
+}
+
+[data-theme="dark"] .vw-personal-note-textarea {
+  background-color: #0B192C !important;
+  color: #F0F9FF !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.3) !important;
+}
+[data-theme="dark"] .vw-personal-note-textarea:focus {
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4) !important;
+}
+
+html:not([data-theme="dark"]) .vw-personal-note-textarea,
+[data-theme="light"] .vw-personal-note-textarea {
+  background-color: #FFFFFF !important;
+  color: #0B192C !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.25) !important;
+}
+html:not([data-theme="dark"]) .vw-personal-note-textarea:focus,
+[data-theme="light"] .vw-personal-note-textarea:focus {
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.25) !important;
 }

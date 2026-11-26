@@ -1187,7 +1187,7 @@ function toggleTheme() {
   const btns = document.querySelectorAll('.vw-theme-toggle-btn');
   btns.forEach((btn) => {
     btn.classList.add('rotating');
-    btn.title = newTheme === 'dark' ? 'Switch to Light Mode • লাইট মোড' : 'Switch to Dark Mode • ডার্ক মোড';
+    btn.title = newTheme === 'dark' ? 'Switch to Light Sky Mode • লাইট স্কাই মোড' : 'Switch to Dark Sky Mode • ডার্ক স্কাই মোড';
     const iconSpan = btn.querySelector('.vw-theme-toggle-icon');
     if (iconSpan) {
       iconSpan.innerHTML = newTheme === 'dark' ? getSunIconSvg() : getMoonIconSvg();
@@ -1199,11 +1199,11 @@ function toggleTheme() {
 
   const dotsThemeLabel = document.getElementById('vw-dots-theme-label');
   if (dotsThemeLabel) {
-    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Mode 🌙' : 'Light Mode ☀️';
+    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Sky 🌙' : 'Light Sky ☀️';
   }
 
   if (typeof showToast === 'function') {
-    showToast(newTheme === 'dark' ? '🌙 Dark Mode সক্রিয় করা হয়েছে' : '☀️ Light Mode সক্রিয় করা হয়েছে');
+    showToast(newTheme === 'dark' ? '🌙 Dark Sky Mode সক্রিয় করা হয়েছে' : '☀️ Light Sky Mode সক্রিয় করা হয়েছে');
   }
 }
 
@@ -1319,13 +1319,13 @@ function openWordUsageVideo(word) {
 }
 
 function renderPersonalNotePanelHTML(item) {
-  if (!item || !item.id) return '';
-  const note = getPersonalNote(item.id);
+  if (!item || (!item.id && !item.word)) return '';
+  const wordId = item.id || ('vocab-' + String(item.word).toLowerCase().replace(/[^a-z0-9]/g, ''));
+  const note = getPersonalNote(wordId);
   return `
     <div
-      id="note-panel-${item.id}"
+      id="note-panel-${wordId}"
       class="vw-personal-note-panel hidden rounded-2xl p-3.5 sm:p-4 border space-y-2 mt-2.5 transition-all"
-      style="background-color: var(--surface-sand); border-color: rgba(56, 189, 248, 0.35);"
     >
       <div class="flex items-center justify-between gap-2">
         <div class="flex items-center gap-1.5">
@@ -1338,22 +1338,21 @@ function renderPersonalNotePanelHTML(item) {
       </div>
 
       <textarea
-        id="note-input-${item.id}"
+        id="note-input-${wordId}"
         rows="2"
         placeholder="Write your personal memory hook, funny mnemonic, or sentence trick for &quot;${escapeHtml(item.word)}&quot;..."
-        class="vw-personal-note-textarea w-full px-3 py-2 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#38BDF8] transition-all resize-none"
-        style="background-color: var(--surface-white); border: 1px solid var(--border-subtle); color: var(--ink-primary);"
-        oninput="handlePersonalNoteInput('${item.id}', this.value)"
+        class="vw-personal-note-textarea w-full px-3 py-2 rounded-xl text-xs sm:text-sm font-medium focus:outline-none transition-all resize-none"
+        oninput="handlePersonalNoteInput('${wordId}', this.value)"
       >${escapeHtml(note)}</textarea>
 
       <div class="flex items-center justify-between gap-2 pt-1">
-        <span id="note-status-${item.id}" class="text-[11px] font-bengali font-semibold" style="color: #38BDF8;">
+        <span id="note-status-${wordId}" class="text-[11px] font-bengali font-semibold" style="color: #38BDF8;">
           ${note ? '✓ নোট সংরক্ষিত আছে' : 'নোট লিখে সংরক্ষণ করুন'}
         </span>
         <div class="flex items-center gap-2">
           <button
             type="button"
-            onclick="savePersonalNote('${item.id}')"
+            onclick="savePersonalNote('${wordId}')"
             class="vw-btn-sky-save px-3 py-1 rounded-xl text-xs font-bold text-white shadow-xs"
             style="background-color: #0284C7; border: 1.5px solid #38BDF8;"
           >
@@ -1361,7 +1360,7 @@ function renderPersonalNotePanelHTML(item) {
           </button>
           <button
             type="button"
-            onclick="togglePersonalNote('${item.id}')"
+            onclick="togglePersonalNote('${wordId}')"
             class="px-2.5 py-1 rounded-xl text-xs font-semibold"
             style="color: var(--ink-muted);"
           >
@@ -2024,7 +2023,7 @@ function renderAppHeader(activePage = 'home') {
       id="vw-theme-toggle-btn"
       onclick="toggleTheme()"
       class="vw-theme-toggle-btn"
-      title="${isDark ? 'Switch to Light Mode &bull; লাইট মোড' : 'Switch to Dark Mode &bull; ডার্ক মোড'}"
+      title="${isDark ? 'Switch to Light Sky Mode &bull; লাইট স্কাই মোড' : 'Switch to Dark Sky Mode &bull; ডার্ক স্কাই মোড'}"
       aria-label="Toggle theme"
     >
       <span class="vw-theme-toggle-icon">
@@ -2725,7 +2724,7 @@ function renderAppHeader(activePage = 'home') {
               </div>
             </div>
             <span id="vw-dots-theme-label" class="text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
-              ${isDark ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
+              ${isDark ? 'Dark Sky 🌙' : 'Light Sky ☀️'}
             </span>
           </button>
 
@@ -7555,10 +7554,12 @@ function renderMyVocabListMarkup(options = {}) {
   }
 
   function renderWordItemCard(item) {
+    const wordId = item.id || ('vocab-' + String(item.word).toLowerCase().replace(/[^a-z0-9]/g, ''));
+    item.id = wordId;
     const sid = registerSpeakText(item.word);
     const revCount = item.revisionCount || 0;
     const revBadge = revCount > 0
-      ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.25); color: var(--accent-sage);">🔄 ${revCount} বার রিভিশন</span>`
+      ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border" style="background-color: var(--accent-sage-soft); border-color: rgba(56, 189, 248, 0.25); color: var(--accent-sage);">🔄 ${revCount} বার রিভিশন</span>`
       : `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold border" style="background-color: var(--surface-sand); border-color: var(--border-subtle); color: var(--ink-muted);">নতুন শব্দ (Unrevised)</span>`;
 
     return `
@@ -7568,7 +7569,7 @@ function renderMyVocabListMarkup(options = {}) {
           <div class="flex items-start justify-between gap-2 mb-2">
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <strong class="font-editorial text-lg sm:text-xl font-bold" style="color: var(--ink-primary);">${escapeHtml(item.word)}</strong>
+                <strong class="font-editorial text-lg sm:text-xl font-bold cursor-pointer transition-colors hover:text-[#38BDF8]" onclick="togglePersonalNote('${escapeHtml(wordId)}')" title="Click to view/add personal note • নোট দেখতে ক্লিক করুন" style="color: var(--ink-primary);">${escapeHtml(item.word)}</strong>
                 <button
                   type="button"
                   onclick="speakById(${sid}, this)"
@@ -7578,7 +7579,31 @@ function renderMyVocabListMarkup(options = {}) {
                   ${speakerIconSvg('w-3 h-3')}
                   <span>Listen</span>
                 </button>
-                ${typeof renderCardAccentSwitcherHTML === 'function' ? renderCardAccentSwitcherHTML(sid, item.id) : ''}
+                ${typeof renderCardAccentSwitcherHTML === 'function' ? renderCardAccentSwitcherHTML(sid, wordId) : ''}
+
+                <!-- 📺 Video Usage Button -->
+                <button
+                  type="button"
+                  onclick="openWordUsageVideo('${escapeHtml(item.word)}')"
+                  class="vw-card-video-btn px-2.5 py-0.5 rounded-full text-xs font-bold inline-flex items-center gap-1 shrink-0 cursor-pointer"
+                  title="Watch '${escapeHtml(item.word)}' pronunciation & usage on YouTube"
+                >
+                  <span>📺</span>
+                  <span>ভিডিও</span>
+                </button>
+
+                <!-- 📝 Personal Note Button -->
+                <button
+                  type="button"
+                  onclick="togglePersonalNote('${escapeHtml(wordId)}')"
+                  class="vw-personal-note-btn px-2.5 py-0.5 rounded-full text-xs font-bold inline-flex items-center gap-1 shrink-0 cursor-pointer ${hasPersonalNote(wordId) ? 'has-note' : ''}"
+                  id="note-btn-${wordId}"
+                  title="Click to reveal personal note / trick • ব্যক্তিগত নোট বা ট্রিক"
+                >
+                  <span>📝</span>
+                  <span>নোট</span>
+                  ${hasPersonalNote(wordId) ? `<span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-pulse"></span>` : ''}
+                </button>
               </div>
               <div class="flex items-center gap-2 mt-1">
                 <span class="text-[10px] font-mono" style="color: var(--ink-muted);">${escapeHtml(item.ipa || '')}</span>
@@ -7590,7 +7615,7 @@ function renderMyVocabListMarkup(options = {}) {
             <!-- Delete / Remove Button -->
             <button
               type="button"
-              onclick="removeFromMyVocabList('${escapeHtml(item.id)}')"
+              onclick="removeFromMyVocabList('${escapeHtml(wordId)}')"
               class="text-xs p-1.5 rounded-lg opacity-60 hover:opacity-100 hover:bg-red-50 text-red-600 transition-all cursor-pointer"
               title="Remove from My Vocab List"
             >
@@ -7605,9 +7630,12 @@ function renderMyVocabListMarkup(options = {}) {
             </p>
           </div>
 
+          <!-- Click-to-Reveal Personal Note Panel -->
+          ${renderPersonalNotePanelHTML(item)}
+
           <!-- Example Sentence if present -->
           ${item.example ? `
-            <div class="text-xs leading-relaxed" style="color: var(--ink-secondary);">
+            <div class="text-xs leading-relaxed mt-2" style="color: var(--ink-secondary);">
               <span class="font-semibold block text-[10px] uppercase tracking-wider mb-0.5" style="color: var(--ink-muted);">Example:</span>
               <p class="italic">&ldquo;${escapeHtml(item.example)}&rdquo;</p>
               ${item.exampleBn ? `<p class="font-bengali text-[11px] mt-0.5" style="color: var(--ink-muted);">(${escapeHtml(item.exampleBn)})</p>` : ''}
@@ -7620,8 +7648,8 @@ function renderMyVocabListMarkup(options = {}) {
           <div>${revBadge}</div>
           <button
             type="button"
-            onclick="CartoonPlayer.open('${escapeHtml(item.id)}')"
-            class="vw-cartoon-play-btn font-bengali text-[11px] font-bold px-2.5 py-1 rounded-xl border flex items-center gap-1.5 hover:border-[#2D5A4C] cursor-pointer"
+            onclick="CartoonPlayer.open('${escapeHtml(wordId)}')"
+            class="vw-cartoon-play-btn font-bengali text-[11px] font-bold px-2.5 py-1 rounded-xl border flex items-center gap-1.5 hover:border-[#38BDF8] cursor-pointer"
             style="background-color: var(--surface-white); border-color: var(--border-subtle); color: var(--accent-sage);"
           >
             <span>🎬 কার্টুন ভিডিও</span>
