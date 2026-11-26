@@ -7,13 +7,13 @@
 ====================================================================== */
 
 /* =====================================================================
-   DARK SKY / LIGHT SKY THEME ZERO-FLASH INITIALIZER (Default: Dark Sky)
+   DARK / LIGHT THEME ZERO-FLASH INITIALIZER (Default: Dark Mode)
 ====================================================================== */
 (function () {
   if (typeof window === 'undefined' || !document.documentElement) return;
   try {
     const theme = localStorage.getItem('vw_theme');
-    // Dark Sky Mode is strictly DEFAULT
+    // Dark Mode is strictly DEFAULT
     if (theme === 'light') {
       document.documentElement.removeAttribute('data-theme');
     } else {
@@ -1159,7 +1159,7 @@ function toggleTheme() {
   const btns = document.querySelectorAll('.vw-theme-toggle-btn');
   btns.forEach((btn) => {
     btn.classList.add('rotating');
-    btn.title = newTheme === 'dark' ? 'Switch to Light Sky Mode • লাইট স্কাই মোড' : 'Switch to Dark Sky Mode • ডার্ক স্কাই মোড';
+    btn.title = newTheme === 'dark' ? 'Switch to Light Mode • লাইট মোড' : 'Switch to Dark Mode • ডার্ক মোড';
     const iconSpan = btn.querySelector('.vw-theme-toggle-icon');
     if (iconSpan) {
       iconSpan.innerHTML = newTheme === 'dark' ? getSunIconSvg() : getMoonIconSvg();
@@ -1171,11 +1171,11 @@ function toggleTheme() {
 
   const dotsThemeLabel = document.getElementById('vw-dots-theme-label');
   if (dotsThemeLabel) {
-    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Sky 🌙' : 'Light Sky ☀️';
+    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Mode 🌙' : 'Light Mode ☀️';
   }
 
   if (typeof showToast === 'function') {
-    showToast(newTheme === 'dark' ? '🌙 Dark Sky Mode সক্রিয় করা হয়েছে' : '☀️ Light Sky Mode সক্রিয় করা হয়েছে');
+    showToast(newTheme === 'dark' ? '🌙 Dark Mode সক্রিয় করা হয়েছে' : '☀️ Light Mode সক্রিয় করা হয়েছে');
   }
 }
 
@@ -2697,7 +2697,7 @@ function renderAppHeader(activePage = 'home') {
               </div>
             </div>
             <span id="vw-dots-theme-label" class="text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
-              ${isDark ? 'Dark Sky 🌙' : 'Light Sky ☀️'}
+              ${isDark ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
             </span>
           </button>
 
