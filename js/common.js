@@ -7,16 +7,17 @@
 ====================================================================== */
 
 /* =====================================================================
-   DARK / LIGHT THEME ZERO-FLASH INITIALIZER
+   DARK SKY / LIGHT SKY THEME ZERO-FLASH INITIALIZER (Default: Dark Sky)
 ====================================================================== */
 (function () {
   if (typeof window === 'undefined' || !document.documentElement) return;
   try {
     const theme = localStorage.getItem('vw_theme');
-    if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
+    // Dark Sky Mode is strictly DEFAULT
+    if (theme === 'light') {
       document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
     }
   } catch (e) {}
 })();
@@ -1134,7 +1135,7 @@ function toggleTheme() {
   const btns = document.querySelectorAll('.vw-theme-toggle-btn');
   btns.forEach((btn) => {
     btn.classList.add('rotating');
-    btn.title = newTheme === 'dark' ? 'Switch to Light Mode • লাইট মোড' : 'Switch to Dark Mode • ডার্ক মোড';
+    btn.title = newTheme === 'dark' ? 'Switch to Light Sky Mode • লাইট স্কাই মোড' : 'Switch to Dark Sky Mode • ডার্ক স্কাই মোড';
     const iconSpan = btn.querySelector('.vw-theme-toggle-icon');
     if (iconSpan) {
       iconSpan.innerHTML = newTheme === 'dark' ? getSunIconSvg() : getMoonIconSvg();
@@ -1146,8 +1147,190 @@ function toggleTheme() {
 
   const dotsThemeLabel = document.getElementById('vw-dots-theme-label');
   if (dotsThemeLabel) {
-    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Mode 🌙' : 'Light Mode ☀️';
+    dotsThemeLabel.textContent = newTheme === 'dark' ? 'Dark Sky 🌙' : 'Light Sky ☀️';
   }
+
+  if (typeof showToast === 'function') {
+    showToast(newTheme === 'dark' ? '🌙 Dark Sky Mode সক্রিয় করা হয়েছে' : '☀️ Light Sky Mode সক্রিয় করা হয়েছে');
+  }
+}
+
+/* =====================================================================
+   STUDY READER STYLE SMART FEATURES:
+   1. Personal Note & Memory Trick Manager (Click-to-Reveal)
+   2. YouTube Pronunciation & Usage Video Launcher
+====================================================================== */
+const PERSONAL_NOTES_STORAGE_KEY = 'vw_personal_notes';
+
+function getAllPersonalNotes() {
+  try {
+    const raw = localStorage.getItem(PERSONAL_NOTES_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function getPersonalNote(wordId) {
+  if (!wordId) return '';
+  const notes = getAllPersonalNotes();
+  return notes[wordId] || '';
+}
+
+function hasPersonalNote(wordId) {
+  const note = getPersonalNote(wordId);
+  return typeof note === 'string' && note.trim().length > 0;
+}
+
+function savePersonalNote(wordId, noteText) {
+  if (!wordId) return;
+  const notes = getAllPersonalNotes();
+  if (noteText === undefined) {
+    const input = document.getElementById(`note-input-${wordId}`);
+    if (input) noteText = input.value;
+  }
+  const clean = (noteText || '').trim();
+  if (clean) {
+    notes[wordId] = clean;
+  } else {
+    delete notes[wordId];
+  }
+  try {
+    localStorage.setItem(PERSONAL_NOTES_STORAGE_KEY, JSON.stringify(notes));
+  } catch (e) {}
+
+  const statusEl = document.getElementById(`note-status-${wordId}`);
+  if (statusEl) {
+    statusEl.textContent = clean ? '✓ নোট সফলভাবে সংরক্ষিত হয়েছে!' : 'নোট মুছে ফেলা হয়েছে';
+    statusEl.style.color = '#38BDF8';
+    setTimeout(() => {
+      if (statusEl) {
+        statusEl.textContent = clean ? '✓ নোট সংরক্ষিত আছে' : 'নোট লিখে সংরক্ষণ করুন';
+      }
+    }, 2000);
+  }
+
+  const btn = document.getElementById(`note-btn-${wordId}`);
+  if (btn) {
+    if (clean) {
+      btn.classList.add('has-note');
+      if (!btn.querySelector('.animate-pulse')) {
+        const dot = document.createElement('span');
+        dot.className = 'w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse';
+        btn.appendChild(dot);
+      }
+    } else {
+      btn.classList.remove('has-note');
+      const dot = btn.querySelector('.animate-pulse');
+      if (dot) dot.remove();
+    }
+  }
+
+  if (typeof showToast === 'function') {
+    showToast(clean ? 'নোট সংরক্ষিত হয়েছে! (Personal note saved)' : 'নোট মুছে ফেলা হয়েছে');
+  }
+}
+
+function handlePersonalNoteInput(wordId, value) {
+  const notes = getAllPersonalNotes();
+  const clean = (value || '').trim();
+  if (clean) {
+    notes[wordId] = clean;
+  } else {
+    delete notes[wordId];
+  }
+  try {
+    localStorage.setItem(PERSONAL_NOTES_STORAGE_KEY, JSON.stringify(notes));
+  } catch (e) {}
+}
+
+function togglePersonalNote(wordId) {
+  if (!wordId) return;
+  const panel = document.getElementById(`note-panel-${wordId}`);
+  if (!panel) return;
+  const isHidden = panel.classList.contains('hidden');
+  if (isHidden) {
+    panel.classList.remove('hidden');
+    const input = document.getElementById(`note-input-${wordId}`);
+    if (input) input.focus();
+  } else {
+    panel.classList.add('hidden');
+  }
+}
+
+function openWordUsageVideo(word) {
+  if (!word) return;
+  const cleanWord = String(word).trim();
+  const query = `${cleanWord} pronunciation and usage in English sentence`;
+  const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function renderPersonalNotePanelHTML(item) {
+  if (!item || !item.id) return '';
+  const note = getPersonalNote(item.id);
+  return `
+    <div
+      id="note-panel-${item.id}"
+      class="vw-personal-note-panel hidden rounded-2xl p-3.5 sm:p-4 border space-y-2 mt-2.5 transition-all"
+      style="background-color: var(--surface-sand); border-color: rgba(56, 189, 248, 0.35);"
+    >
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5">
+          <span class="text-sm">💡</span>
+          <span class="text-[11px] font-bold uppercase tracking-wider font-bengali" style="color: var(--accent-sage);">
+            মনে রাখার কৌশল / ব্যক্তিগত নোট (Personal Trick &amp; Note)
+          </span>
+        </div>
+        <span class="text-[10px] opacity-75 font-mono" style="color: var(--ink-muted);">Auto-saved locally</span>
+      </div>
+
+      <textarea
+        id="note-input-${item.id}"
+        rows="2"
+        placeholder="Write your personal memory hook, funny mnemonic, or sentence trick for &quot;${escapeHtml(item.word)}&quot;..."
+        class="vw-personal-note-textarea w-full px-3 py-2 rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#38BDF8] transition-all resize-none"
+        style="background-color: var(--surface-white); border: 1px solid var(--border-subtle); color: var(--ink-primary);"
+        oninput="handlePersonalNoteInput('${item.id}', this.value)"
+      >${escapeHtml(note)}</textarea>
+
+      <div class="flex items-center justify-between gap-2 pt-1">
+        <span id="note-status-${item.id}" class="text-[11px] font-bengali font-semibold" style="color: #38BDF8;">
+          ${note ? '✓ নোট সংরক্ষিত আছে' : 'নোট লিখে সংরক্ষণ করুন'}
+        </span>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            onclick="savePersonalNote('${item.id}')"
+            class="vw-btn-sky-save px-3 py-1 rounded-xl text-xs font-bold text-white shadow-xs"
+            style="background-color: #0284C7; border: 1.5px solid #38BDF8;"
+          >
+            💾 Save
+          </button>
+          <button
+            type="button"
+            onclick="togglePersonalNote('${item.id}')"
+            class="px-2.5 py-1 rounded-xl text-xs font-semibold"
+            style="color: var(--ink-muted);"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+if (typeof window !== 'undefined') {
+  window.getAllPersonalNotes = getAllPersonalNotes;
+  window.getPersonalNote = getPersonalNote;
+  window.hasPersonalNote = hasPersonalNote;
+  window.savePersonalNote = savePersonalNote;
+  window.handlePersonalNoteInput = handlePersonalNoteInput;
+  window.togglePersonalNote = togglePersonalNote;
+  window.openWordUsageVideo = openWordUsageVideo;
+  window.renderPersonalNotePanelHTML = renderPersonalNotePanelHTML;
+  window.toggleTheme = toggleTheme;
 }
 
 function toggleCountryPicker() {
@@ -2363,7 +2546,7 @@ function renderAppHeader(activePage = 'home') {
               </div>
             </div>
             <span id="vw-dots-theme-label" class="text-xs font-bold px-2.5 py-0.5 rounded-full shrink-0" style="background-color: var(--surface-sand); color: var(--ink-secondary);">
-              ${isDark ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
+              ${isDark ? 'Dark Sky 🌙' : 'Light Sky ☀️'}
             </span>
           </button>
 
@@ -13158,6 +13341,906 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Subdued"
     ],
     "example": "Students were vociferous in demanding better lab facilities."
+  },
+  {
+    "word": "Abolish",
+    "ipa": "/əˈbɒl.ɪʃ/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "বিলুপ্ত বা বাতিল করা",
+    "meaningBn": "বিলুপ্ত বা বাতিল করা",
+    "synonyms": [
+      "Eliminate",
+      "Repeal"
+    ],
+    "antonyms": [
+      "Establish",
+      "Retain"
+    ],
+    "example": "Many nations passed laws to abolish child labor.",
+    "id": "hsc_beg_101"
+  },
+  {
+    "word": "Absorb",
+    "ipa": "/əbˈzɔːb/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "শুষে নেওয়া, আত্মস্থ করা",
+    "meaningBn": "শুষে নেওয়া, আত্মস্থ করা",
+    "synonyms": [
+      "Soak up",
+      "Assimilate"
+    ],
+    "antonyms": [
+      "Emit",
+      "Release"
+    ],
+    "example": "Dry soil quickly absorbs the first monsoon rain.",
+    "id": "hsc_beg_102"
+  },
+  {
+    "word": "Acknowledge",
+    "ipa": "/əkˈnɒl.ɪdʒ/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "স্বীকার করা, প্রাপ্তি স্বীকার করা",
+    "meaningBn": "স্বীকার করা, প্রাপ্তি স্বীকার করা",
+    "synonyms": [
+      "Admit",
+      "Recognize"
+    ],
+    "antonyms": [
+      "Deny",
+      "Ignore"
+    ],
+    "example": "Good leaders acknowledge their mistakes openly.",
+    "id": "hsc_beg_103"
+  },
+  {
+    "word": "Acquire",
+    "ipa": "/əˈkwaɪər/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "অর্জন বা লাভ করা",
+    "meaningBn": "অর্জন বা লাভ করা",
+    "synonyms": [
+      "Obtain",
+      "Gain"
+    ],
+    "antonyms": [
+      "Lose",
+      "Forfeit"
+    ],
+    "example": "Students acquire confidence through daily speaking practice.",
+    "id": "hsc_beg_104"
+  },
+  {
+    "word": "Adapt",
+    "ipa": "/əˈdæpt/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "মানিয়ে নেওয়া, খাপ খাওয়ানো",
+    "meaningBn": "মানিয়ে নেওয়া, খাপ খাওয়ানো",
+    "synonyms": [
+      "Adjust",
+      "Modify"
+    ],
+    "antonyms": [
+      "Resist",
+      "Neglect"
+    ],
+    "example": "Successful learners quickly adapt to new exam patterns.",
+    "id": "hsc_beg_105"
+  },
+  {
+    "word": "Afford",
+    "ipa": "/əˈfɔːd/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "সামর্থ্য থাকা",
+    "meaningBn": "সামর্থ্য থাকা",
+    "synonyms": [
+      "Manage",
+      "Spare"
+    ],
+    "antonyms": [
+      "Lack",
+      "Forgo"
+    ],
+    "example": "We cannot afford to waste time before board exams.",
+    "id": "hsc_beg_106"
+  },
+  {
+    "word": "Anticipate",
+    "ipa": "/ænˈtɪs.ɪ.peɪt/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "পূর্বাভাস পাওয়া, প্রত্যাশা করা",
+    "meaningBn": "পূর্বাভাস পাওয়া, প্রত্যাশা করা",
+    "synonyms": [
+      "Expect",
+      "Foresee"
+    ],
+    "antonyms": [
+      "Doubt",
+      "Dread"
+    ],
+    "example": "Organizers anticipate a large turnout at the book fair.",
+    "id": "hsc_beg_107"
+  },
+  {
+    "word": "Assemble",
+    "ipa": "/əˈsem.bəl/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "একত্রিত করা বা হওয়া",
+    "meaningBn": "একত্রিত করা বা হওয়া",
+    "synonyms": [
+      "Gather",
+      "Collect"
+    ],
+    "antonyms": [
+      "Disperse",
+      "Scatter"
+    ],
+    "example": "All students assembled in the hall for the seminar.",
+    "id": "hsc_beg_108"
+  },
+  {
+    "word": "Blunt",
+    "ipa": "/blʌnt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "ভোঁতা; স্পষ্টভাষী",
+    "meaningBn": "ভোঁতা; স্পষ্টভাষী",
+    "synonyms": [
+      "Dull",
+      "Outspoken"
+    ],
+    "antonyms": [
+      "Sharp",
+      "Tactful"
+    ],
+    "example": "Avoid cutting thick cardboard with a blunt knife.",
+    "id": "hsc_beg_109"
+  },
+  {
+    "word": "Brisk",
+    "ipa": "/brɪsk/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "চটপটে, দ্রুতগতির",
+    "meaningBn": "চটপটে, দ্রুতগতির",
+    "synonyms": [
+      "Lively",
+      "Energetic"
+    ],
+    "antonyms": [
+      "Sluggish",
+      "Slow"
+    ],
+    "example": "A brisk morning walk refreshes the mind before study.",
+    "id": "hsc_beg_110"
+  },
+  {
+    "word": "Cease",
+    "ipa": "/siːs/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "থামা, বন্ধ হওয়া",
+    "meaningBn": "থামা, বন্ধ হওয়া",
+    "synonyms": [
+      "Stop",
+      "Halt"
+    ],
+    "antonyms": [
+      "Continue",
+      "Persist"
+    ],
+    "example": "The heavy rainfall finally ceased by late afternoon.",
+    "id": "hsc_beg_111"
+  },
+  {
+    "word": "Clumsy",
+    "ipa": "/ˈklʌm.zi/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "আনাড়ি, জবুথবু",
+    "meaningBn": "আনাড়ি, জবুথবু",
+    "synonyms": [
+      "Awkward",
+      "Ungraceful"
+    ],
+    "antonyms": [
+      "Graceful",
+      "Skillful"
+    ],
+    "example": "His clumsy apology only made the situation worse.",
+    "id": "hsc_beg_112"
+  },
+  {
+    "word": "Compel",
+    "ipa": "/kəmˈpel/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "বাধ্য করা",
+    "meaningBn": "বাধ্য করা",
+    "synonyms": [
+      "Force",
+      "Oblige"
+    ],
+    "antonyms": [
+      "Persuade",
+      "Allow"
+    ],
+    "example": "Bad weather compelled the team to postpone the match.",
+    "id": "hsc_beg_113"
+  },
+  {
+    "word": "Consent",
+    "ipa": "/kənˈsent/",
+    "pos": "Noun",
+    "level": "beginner",
+    "bn": "সম্মতি, অনুমতি",
+    "meaningBn": "সম্মতি, অনুমতি",
+    "synonyms": [
+      "Permission",
+      "Approval"
+    ],
+    "antonyms": [
+      "Refusal",
+      "Dissent"
+    ],
+    "example": "No data is shared without the user's explicit consent.",
+    "id": "hsc_beg_114"
+  },
+  {
+    "word": "Conserve",
+    "ipa": "/kənˈsɜːv/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "সংরক্ষণ করা",
+    "meaningBn": "সংরক্ষণ করা",
+    "synonyms": [
+      "Preserve",
+      "Save"
+    ],
+    "antonyms": [
+      "Waste",
+      "Squander"
+    ],
+    "example": "Turning off unused lights helps conserve electricity.",
+    "id": "hsc_beg_115"
+  },
+  {
+    "word": "Dense",
+    "ipa": "/dens/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "ঘন, নিবিড়",
+    "meaningBn": "ঘন, নিবিড়",
+    "synonyms": [
+      "Thick",
+      "Compact"
+    ],
+    "antonyms": [
+      "Sparse",
+      "Thin"
+    ],
+    "example": "Dense fog delayed early morning ferries on the river.",
+    "id": "hsc_beg_116"
+  },
+  {
+    "word": "Deprive",
+    "ipa": "/dɪˈpraɪv/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "বঞ্চিত করা",
+    "meaningBn": "বঞ্চিত করা",
+    "synonyms": [
+      "Strip",
+      "Deny"
+    ],
+    "antonyms": [
+      "Provide",
+      "Supply"
+    ],
+    "example": "Poverty should never deprive any child of education.",
+    "id": "hsc_beg_117"
+  },
+  {
+    "word": "Diminish",
+    "ipa": "/dɪˈmɪn.ɪʃ/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "কমে যাওয়া, হ্রাস করা",
+    "meaningBn": "কমে যাওয়া, হ্রাস করা",
+    "synonyms": [
+      "Decrease",
+      "Lessen"
+    ],
+    "antonyms": [
+      "Increase",
+      "Expand"
+    ],
+    "example": "Regular practice will diminish your fear of grammar.",
+    "id": "hsc_beg_118"
+  },
+  {
+    "word": "Elaborate",
+    "ipa": "/ɪˈlæb.ər.ət/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "বিস্তারিত, সূক্ষ্মভাবে তৈরি",
+    "meaningBn": "বিস্তারিত, সূক্ষ্মভাবে তৈরি",
+    "synonyms": [
+      "Detailed",
+      "Intricate"
+    ],
+    "antonyms": [
+      "Simple",
+      "Plain"
+    ],
+    "example": "She drew an elaborate diagram of the economic cycle.",
+    "id": "hsc_beg_119"
+  },
+  {
+    "word": "Emerge",
+    "ipa": "/ɪˈmɜːdʒ/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "আত্মপ্রকাশ করা, বেরিয়ে আসা",
+    "meaningBn": "আত্মপ্রকাশ করা, বেরিয়ে আসা",
+    "synonyms": [
+      "Appear",
+      "Surface"
+    ],
+    "antonyms": [
+      "Vanish",
+      "Disappear"
+    ],
+    "example": "New startups continue to emerge in the digital sector.",
+    "id": "hsc_beg_120"
+  },
+  {
+    "word": "Fierce",
+    "ipa": "/fɪəs/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "তীব্র, প্রচণ্ড",
+    "meaningBn": "তীব্র, প্রচণ্ড",
+    "synonyms": [
+      "Intense",
+      "Ferocious"
+    ],
+    "antonyms": [
+      "Mild",
+      "Gentle"
+    ],
+    "example": "Competition for Dhaka University seats is always fierce.",
+    "id": "hsc_beg_121"
+  },
+  {
+    "word": "Glimpse",
+    "ipa": "/ɡlɪmps/",
+    "pos": "Noun",
+    "level": "beginner",
+    "bn": "একঝলক দেখা",
+    "meaningBn": "একঝলক দেখা",
+    "synonyms": [
+      "Glance",
+      "Peek"
+    ],
+    "antonyms": [
+      "Stare",
+      "Gaze"
+    ],
+    "example": "We caught a brief glimpse of the hills through the mist.",
+    "id": "hsc_beg_122"
+  },
+  {
+    "word": "Hinder",
+    "ipa": "/ˈhɪn.dər/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "বাধা দেওয়া, ব্যাহত করা",
+    "meaningBn": "বাধা দেওয়া, ব্যাহত করা",
+    "synonyms": [
+      "Obstruct",
+      "Impede"
+    ],
+    "antonyms": [
+      "Assist",
+      "Facilitate"
+    ],
+    "example": "Constant phone notifications hinder deep concentration.",
+    "id": "hsc_beg_123"
+  },
+  {
+    "word": "Prompt",
+    "ipa": "/prɒmpt/",
+    "pos": "Adj",
+    "level": "beginner",
+    "bn": "তৎপর, দ্রুত",
+    "meaningBn": "তৎপর, দ্রুত",
+    "synonyms": [
+      "Quick",
+      "Immediate"
+    ],
+    "antonyms": [
+      "Slow",
+      "Delayed"
+    ],
+    "example": "Prompt action prevented the minor error from spreading.",
+    "id": "hsc_beg_124"
+  },
+  {
+    "word": "Thrive",
+    "ipa": "/θraɪv/",
+    "pos": "Verb",
+    "level": "beginner",
+    "bn": "সমৃদ্ধ হওয়া, বেড়ে ওঠা",
+    "meaningBn": "সমৃদ্ধ হওয়া, বেড়ে ওঠা",
+    "synonyms": [
+      "Flourish",
+      "Prosper"
+    ],
+    "antonyms": [
+      "Decline",
+      "Wither"
+    ],
+    "example": "Young businesses thrive when customer trust is high.",
+    "id": "hsc_beg_125"
+  },
+  {
+    "word": "Advocate",
+    "ipa": "/ˈæd.və.keɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "সমর্থন করা, পক্ষে বলা",
+    "meaningBn": "সমর্থন করা, পক্ষে বলা",
+    "synonyms": [
+      "Support",
+      "Champion"
+    ],
+    "antonyms": [
+      "Oppose",
+      "Criticize"
+    ],
+    "example": "Economists advocate sustainable investments in education.",
+    "id": "hsc_int_126"
+  },
+  {
+    "word": "Aesthetic",
+    "ipa": "/iːsˈθet.ɪk/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "নান্দনিক, সৌন্দর্যবোধসম্পন্ন",
+    "meaningBn": "নান্দনিক, সৌন্দর্যবোধসম্পন্ন",
+    "synonyms": [
+      "Artistic",
+      "Tasteful"
+    ],
+    "antonyms": [
+      "Unattractive",
+      "Plain"
+    ],
+    "example": "The portfolio uses a soft, aesthetic color palette.",
+    "id": "hsc_int_127"
+  },
+  {
+    "word": "Aloof",
+    "ipa": "/əˈluːf/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "নির্লিপ্ত, দূরে সরে থাকা",
+    "meaningBn": "নির্লিপ্ত, দূরে সরে থাকা",
+    "synonyms": [
+      "Detached",
+      "Distant"
+    ],
+    "antonyms": [
+      "Friendly",
+      "Involved"
+    ],
+    "example": "He remained aloof from unnecessary campus politics.",
+    "id": "hsc_int_128"
+  },
+  {
+    "word": "Benevolence",
+    "ipa": "/bəˈnev.əl.əns/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "বদান্যতা, পরোপকারিতা",
+    "meaningBn": "বদান্যতা, পরোপকারিতা",
+    "synonyms": [
+      "Kindness",
+      "Charity"
+    ],
+    "antonyms": [
+      "Malice",
+      "Cruelty"
+    ],
+    "example": "Her benevolence earned the respect of the entire community.",
+    "id": "hsc_int_129"
+  },
+  {
+    "word": "Bolster",
+    "ipa": "/ˈbəʊl.stər/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "শক্তিশালী বা সমর্থন করা",
+    "meaningBn": "শক্তিশালী বা সমর্থন করা",
+    "synonyms": [
+      "Strengthen",
+      "Reinforce"
+    ],
+    "antonyms": [
+      "Undermine",
+      "Weaken"
+    ],
+    "example": "Solving past question papers will bolster your confidence.",
+    "id": "hsc_int_130"
+  },
+  {
+    "word": "Chronic",
+    "ipa": "/ˈkrɒn.ɪk/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "দীর্ঘস্থায়ী, পুরাতন",
+    "meaningBn": "দীর্ঘস্থায়ী, পুরাতন",
+    "synonyms": [
+      "Persistent",
+      "Constant"
+    ],
+    "antonyms": [
+      "Temporary",
+      "Acute"
+    ],
+    "example": "Chronic traffic congestion affects urban productivity.",
+    "id": "hsc_int_131"
+  },
+  {
+    "word": "Collaborate",
+    "ipa": "/kəˈlæb.ə.reɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "যৌথভাবে কাজ করা",
+    "meaningBn": "যৌথভাবে কাজ করা",
+    "synonyms": [
+      "Cooperate",
+      "Team up"
+    ],
+    "antonyms": [
+      "Compete",
+      "Oppose"
+    ],
+    "example": "Students collaborate on group presentations every week.",
+    "id": "hsc_int_132"
+  },
+  {
+    "word": "Compile",
+    "ipa": "/kəmˈpaɪl/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "সংকলন করা, একত্র করা",
+    "meaningBn": "সংকলন করা, একত্র করা",
+    "synonyms": [
+      "Gather",
+      "Assemble"
+    ],
+    "antonyms": [
+      "Scatter",
+      "Disperse"
+    ],
+    "example": "She compiled a notebook of high-frequency idioms.",
+    "id": "hsc_int_133"
+  },
+  {
+    "word": "Comprehensive",
+    "ipa": "/ˌkɒm.prɪˈhen.sɪv/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "সামগ্রিক, ব্যাপক",
+    "meaningBn": "সামগ্রিক, ব্যাপক",
+    "synonyms": [
+      "Thorough",
+      "Complete"
+    ],
+    "antonyms": [
+      "Incomplete",
+      "Partial"
+    ],
+    "example": "The guide offers a comprehensive review of C-Unit English.",
+    "id": "hsc_int_134"
+  },
+  {
+    "word": "Conducive",
+    "ipa": "/kənˈdʒuː.sɪv/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "সহায়ক, অনুকূল",
+    "meaningBn": "সহায়ক, অনুকূল",
+    "synonyms": [
+      "Favorable",
+      "Helpful"
+    ],
+    "antonyms": [
+      "Unfavorable",
+      "Adverse"
+    ],
+    "example": "A quiet study desk is conducive to focused learning.",
+    "id": "hsc_int_135"
+  },
+  {
+    "word": "Controversial",
+    "ipa": "/ˌkɒn.trəˈvɜː.ʃəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "বিতর্কিত",
+    "meaningBn": "বিতর্কিত",
+    "synonyms": [
+      "Debatable",
+      "Disputed"
+    ],
+    "antonyms": [
+      "Undisputed",
+      "Agreed"
+    ],
+    "example": "The new tax policy sparked a controversial debate.",
+    "id": "hsc_int_136"
+  },
+  {
+    "word": "Culminate",
+    "ipa": "/ˈkʌl.mɪ.neɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "চূড়ান্ত পরিণতিতে পৌঁছানো",
+    "meaningBn": "চূড়ান্ত পরিণতিতে পৌঁছানো",
+    "synonyms": [
+      "Conclude",
+      "Peak"
+    ],
+    "antonyms": [
+      "Begin",
+      "Commence"
+    ],
+    "example": "Months of preparation culminated in an outstanding result.",
+    "id": "hsc_int_137"
+  },
+  {
+    "word": "Diligence",
+    "ipa": "/ˈdɪl.ɪ.dʒəns/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "অধ্যবসায়, নিষ্ঠা",
+    "meaningBn": "অধ্যবসায়, নিষ্ঠা",
+    "synonyms": [
+      "Perseverance",
+      "Effort"
+    ],
+    "antonyms": [
+      "Laziness",
+      "Negligence"
+    ],
+    "example": "Success in competitive exams rewards steady diligence.",
+    "id": "hsc_int_138"
+  },
+  {
+    "word": "Discreet",
+    "ipa": "/dɪˈskriːt/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "বিচক্ষণ, গোপনীয়তা রক্ষাকারী",
+    "meaningBn": "বিচক্ষণ, গোপনীয়তা রক্ষাকারী",
+    "synonyms": [
+      "Prudent",
+      "Tactful"
+    ],
+    "antonyms": [
+      "Indiscreet",
+      "Reckless"
+    ],
+    "example": "Be discreet when sharing sensitive account credentials.",
+    "id": "hsc_int_139"
+  },
+  {
+    "word": "Empathy",
+    "ipa": "/ˈem.pə.θi/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "সহমর্মিতা",
+    "meaningBn": "সহমর্মিতা",
+    "synonyms": [
+      "Compassion",
+      "Understanding"
+    ],
+    "antonyms": [
+      "Indifference",
+      "Apathy"
+    ],
+    "example": "Good teachers listen to student struggles with empathy.",
+    "id": "hsc_int_140"
+  },
+  {
+    "word": "Endorse",
+    "ipa": "/ɪnˈdɔːs/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "অনুমোদন বা সমর্থন করা",
+    "meaningBn": "অনুমোদন বা সমর্থন করা",
+    "synonyms": [
+      "Approve",
+      "Support"
+    ],
+    "antonyms": [
+      "Reject",
+      "Oppose"
+    ],
+    "example": "Experts endorse spaced repetition for vocabulary mastery.",
+    "id": "hsc_int_141"
+  },
+  {
+    "word": "Fluctuate",
+    "ipa": "/ˈflʌk.tʃu.eɪt/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "ওঠানামা করা, অস্থির থাকা",
+    "meaningBn": "ওঠানামা করা, অস্থির থাকা",
+    "synonyms": [
+      "Vary",
+      "Waver"
+    ],
+    "antonyms": [
+      "Stabilize",
+      "Remain"
+    ],
+    "example": "Market prices fluctuate depending on seasonal supply.",
+    "id": "hsc_int_142"
+  },
+  {
+    "word": "Formidable",
+    "ipa": "/ˈfɔː.mɪ.də.bəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "দুর্দান্ত, ভীতিপ্রদভাবে শক্তিশালী",
+    "meaningBn": "দুর্দান্ত, ভীতিপ্রদভাবে শক্তিশালী",
+    "synonyms": [
+      "Daunting",
+      "Impressive"
+    ],
+    "antonyms": [
+      "Weak",
+      "Trivial"
+    ],
+    "example": "Facing a formidable syllabus requires smart prioritization.",
+    "id": "hsc_int_143"
+  },
+  {
+    "word": "Incentive",
+    "ipa": "/ɪnˈsen.tɪv/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "প্রণোদনা, উৎসাহ",
+    "meaningBn": "প্রণোদনা, উৎসাহ",
+    "synonyms": [
+      "Motivation",
+      "Stimulus"
+    ],
+    "antonyms": [
+      "Deterrent",
+      "Hindrance"
+    ],
+    "example": "Daily streak badges act as a fun incentive to practice.",
+    "id": "hsc_int_144"
+  },
+  {
+    "word": "Inherent",
+    "ipa": "/ɪnˈhɪə.rənt/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "সহজাত, অন্তর্নিহিত",
+    "meaningBn": "সহজাত, অন্তর্নিহিত",
+    "synonyms": [
+      "Intrinsic",
+      "Innate"
+    ],
+    "antonyms": [
+      "Acquired",
+      "External"
+    ],
+    "example": "Risk is an inherent part of launching any new venture.",
+    "id": "hsc_int_145"
+  },
+  {
+    "word": "Juxtapose",
+    "ipa": "/ˌdʒʌk.stəˈpəʊz/",
+    "pos": "Verb",
+    "level": "intermediate",
+    "bn": "পাশাপাশি রেখে তুলনা করা",
+    "meaningBn": "পাশাপাশি রেখে তুলনা করা",
+    "synonyms": [
+      "Compare",
+      "Contrast"
+    ],
+    "antonyms": [
+      "Separate",
+      "Isolate"
+    ],
+    "example": "The essay juxtaposes traditional and digital learning.",
+    "id": "hsc_int_146"
+  },
+  {
+    "word": "Monotonous",
+    "ipa": "/məˈnɒt.ən.əs/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "একঘেয়ে, নীরস",
+    "meaningBn": "একঘেয়ে, নীরস",
+    "synonyms": [
+      "Tedious",
+      "Repetitive"
+    ],
+    "antonyms": [
+      "Varied",
+      "Exciting"
+    ],
+    "example": "Cartoon dialogues keep grammar study from feeling monotonous.",
+    "id": "hsc_int_147"
+  },
+  {
+    "word": "Nuance",
+    "ipa": "/ˈnjuː.ɑːns/",
+    "pos": "Noun",
+    "level": "intermediate",
+    "bn": "সূক্ষ্ম পার্থক্য বা ভাব",
+    "meaningBn": "সূক্ষ্ম পার্থক্য বা ভাব",
+    "synonyms": [
+      "Subtlety",
+      "Shade"
+    ],
+    "antonyms": [
+      "Bluntness",
+      "Obviousness"
+    ],
+    "example": "Understanding word nuance improves translation accuracy.",
+    "id": "hsc_int_148"
+  },
+  {
+    "word": "Resilient",
+    "ipa": "/rɪˈzɪl.jənt/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "প্রতিকূলতা কাটিয়ে উঠতে সক্ষম",
+    "meaningBn": "প্রতিকূলতা কাটিয়ে উঠতে সক্ষম",
+    "synonyms": [
+      "Tough",
+      "Adaptable"
+    ],
+    "antonyms": [
+      "Fragile",
+      "Vulnerable"
+    ],
+    "example": "Resilient students bounce back stronger after low scores.",
+    "id": "hsc_int_149"
+  },
+  {
+    "word": "Substantial",
+    "ipa": "/səbˈstæn.ʃəl/",
+    "pos": "Adj",
+    "level": "intermediate",
+    "bn": "উল্লেখযোগ্য, প্রচুর",
+    "meaningBn": "উল্লেখযোগ্য, প্রচুর",
+    "synonyms": [
+      "Considerable",
+      "Significant"
+    ],
+    "antonyms": [
+      "Minor",
+      "Negligible"
+    ],
+    "example": "She made substantial progress in free-hand writing.",
+    "id": "hsc_int_150"
   }
 ];
 

@@ -46,10 +46,10 @@
     (function () {
       try {
         const theme = localStorage.getItem('vw_theme');
-        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
+        if (theme === 'light') {
           document.documentElement.removeAttribute('data-theme');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
       } catch (e) {}
     })();
@@ -314,8 +314,8 @@
                       ${lvl.title} Flashcard &bull; Front
                     </span>
 
-                    <div class="flex flex-wrap items-center justify-center gap-3 mb-2">
-                      <h2 class="font-editorial text-3xl sm:text-5xl font-bold" style="color: var(--ink-primary);">
+                    <div class="flex flex-wrap items-center justify-center gap-2 mb-2">
+                      <h2 class="font-editorial text-3xl sm:text-5xl font-bold cursor-pointer transition-colors hover:text-[#38BDF8]" onclick="event.stopPropagation(); openWordUsageVideo('${escapeHtml(card.word)}')" title="Watch on YouTube" style="color: var(--ink-primary);">
                         ${escapeHtml(card.word)}
                       </h2>
                       <button
@@ -327,6 +327,15 @@
                         <span>Listen</span>
                       </button>
                       ${renderCardAccentSwitcherHTML(cardWordSpeakId, card.id)}
+                      <button
+                        type="button"
+                        onclick="event.stopPropagation(); openWordUsageVideo('${escapeHtml(card.word)}')"
+                        class="vw-card-video-btn px-2.5 py-1.5 rounded-full text-xs font-bold gap-1 shrink-0 inline-flex items-center"
+                        title="Watch '${escapeHtml(card.word)}' pronunciation & usage on YouTube"
+                      >
+                        <span>📺</span>
+                        <span>ভিডিও</span>
+                      </button>
                     </div>
 
                     <p class="text-sm font-mono mb-6" style="color: var(--ink-muted);">${escapeHtml(card.ipa)}</p>
@@ -343,15 +352,40 @@
                         <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full" style="background-color: var(--accent-sage-soft); color: var(--accent-sage);">
                           Meaning &amp; Example
                         </span>
-                        <span class="font-editorial text-sm font-bold" style="color: var(--ink-muted);">${escapeHtml(card.word)}</span>
+                        <div class="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onclick="event.stopPropagation(); openWordUsageVideo('${escapeHtml(card.word)}')"
+                            class="vw-card-video-btn px-2 py-0.5 rounded-full text-xs font-bold inline-flex items-center gap-1"
+                            title="Watch video on YouTube"
+                          >
+                            <span>📺</span>
+                            <span>ভিডিও</span>
+                          </button>
+                          <button
+                            type="button"
+                            onclick="event.stopPropagation(); togglePersonalNote('${card.id}')"
+                            class="vw-personal-note-btn px-2 py-0.5 rounded-full text-xs font-bold inline-flex items-center gap-1 ${hasPersonalNote(card.id) ? 'has-note' : ''}"
+                            id="note-btn-${card.id}"
+                            title="Personal note • ব্যক্তিগত নোট"
+                          >
+                            <span>📝</span>
+                            <span>নোট</span>
+                            ${hasPersonalNote(card.id) ? `<span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-pulse"></span>` : ''}
+                          </button>
+                        </div>
                       </div>
 
-                      <h3 class="font-bengali text-2xl sm:text-3xl font-bold mb-1.5" style="color: var(--accent-sage);">
+                      <h3 class="font-bengali text-2xl sm:text-3xl font-bold mb-1.5 cursor-pointer" onclick="event.stopPropagation(); togglePersonalNote('${card.id}')" style="color: var(--accent-sage);">
                         ${escapeHtml(card.meaningBn)}
                       </h3>
-                      <p class="text-xs sm:text-sm leading-relaxed mb-3" style="color: var(--ink-secondary);">
+                      <p class="text-xs sm:text-sm leading-relaxed mb-2" style="color: var(--ink-secondary);">
                         ${escapeHtml(card.explanationEn)}
                       </p>
+
+                      <div onclick="event.stopPropagation()">
+                        ${renderPersonalNotePanelHTML(card)}
+                      </div>
                     </div>
 
                     <div class="rounded-2xl p-4 border" style="background-color: var(--bg-ivory); border-color: var(--border-subtle);">

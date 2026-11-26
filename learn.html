@@ -46,10 +46,10 @@
     (function () {
       try {
         const theme = localStorage.getItem('vw_theme');
-        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
+        if (theme === 'light') {
           document.documentElement.removeAttribute('data-theme');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
       } catch (e) {}
     })();
@@ -308,8 +308,13 @@
                 <!-- Word Title, Badges & Bengali Meaning -->
                 <div class="flex-1 min-w-0 space-y-2">
                   <div class="flex flex-wrap items-center justify-between gap-1.5">
-                    <div class="flex items-center gap-2">
-                      <h3 class="font-editorial text-2xl sm:text-3xl font-bold" style="color: var(--ink-primary);">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h3
+                        class="font-editorial text-2xl sm:text-3xl font-bold cursor-pointer transition-colors hover:text-[#38BDF8]"
+                        onclick="togglePersonalNote('${item.id}')"
+                        title="Click to view/add personal note • নোট দেখতে ক্লিক করুন"
+                        style="color: var(--ink-primary);"
+                      >
                         ${escapeHtml(item.word)}
                       </h3>
                       <button
@@ -322,15 +327,31 @@
                       </button>
                       ${renderCardAccentSwitcherHTML(wordSpeakId, item.id)}
                       ${typeof renderMyVocabCardButtonHTML === 'function' ? renderMyVocabCardButtonHTML(item.id) : ''}
+
+                      <!-- 📺 Video Usage Button -->
                       <button
                         type="button"
-                        onclick="askAITutorAboutWord('${escapeHtml(item.word)}')"
-                        class="vw-card-ask-tutor-btn"
-                        title="Ask Vocab AI Tutor about ${escapeHtml(item.word)}"
-                        aria-label="Ask Vocab AI Tutor about ${escapeHtml(item.word)}"
+                        onclick="openWordUsageVideo('${escapeHtml(item.word)}')"
+                        class="vw-card-video-btn px-2.5 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1 shrink-0"
+                        title="Watch '${escapeHtml(item.word)}' pronunciation & usage on YouTube"
+                        aria-label="Watch pronunciation and usage video on YouTube"
                       >
-                        <span class="text-amber-500 text-xs">✨</span>
-                        <span class="font-bengali text-xs font-bold">Ask Tutor</span>
+                        <span>📺</span>
+                        <span class="hidden sm:inline">ভিডিও</span>
+                      </button>
+
+                      <!-- 📝 Click-to-Reveal Personal Note Button -->
+                      <button
+                        type="button"
+                        onclick="togglePersonalNote('${item.id}')"
+                        class="vw-personal-note-btn px-2.5 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1 shrink-0 ${hasPersonalNote(item.id) ? 'has-note' : ''}"
+                        id="note-btn-${item.id}"
+                        title="Click to reveal personal note / trick • ব্যক্তিগত নোট বা ট্রিক"
+                        aria-label="Click to reveal personal note or memory trick"
+                      >
+                        <span>📝</span>
+                        <span class="hidden sm:inline">নোট</span>
+                        ${hasPersonalNote(item.id) ? `<span class="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse"></span>` : ''}
                       </button>
                     </div>
 
@@ -344,7 +365,7 @@
                   </div>
 
                   <!-- Bengali Meaning -->
-                  <div class="rounded-2xl px-3.5 py-2 border" style="background-color: var(--accent-sage-soft); border-color: rgba(45, 90, 76, 0.2);">
+                  <div class="rounded-2xl px-3.5 py-2 border" style="background-color: var(--accent-sage-soft); border-color: rgba(56, 189, 248, 0.25);">
                     <span class="font-bengali text-[10px] font-bold uppercase tracking-wider block" style="color: var(--accent-sage);">
                       বাংলা অর্থ (Bengali Meaning)
                     </span>
@@ -352,6 +373,9 @@
                       ${escapeHtml(item.meaningBn)}
                     </p>
                   </div>
+
+                  <!-- Study Reader: Click-to-Reveal Personal Note Panel -->
+                  ${renderPersonalNotePanelHTML(item)}
                 </div>
               </div>
 

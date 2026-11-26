@@ -1,84 +1,137 @@
 /* =====================================================================
-   EDITORIAL DESIGN SYSTEM & COLOR PALETTE
-   Vocabulary World — Multi-Page Architecture
+   EDITORIAL DESIGN SYSTEM & SKY BLUE PALETTE
+   Vocabulary World — Study Reader Upgraded Architecture
 ====================================================================== */
 :root {
-  --bg-ivory: #FAF8F5;
+  --bg-ivory: #F0F9FF; /* Soft Sky-White */
   --surface-white: #FFFFFF;
-  --surface-sand: #F3EFEA;
-  --surface-track: #ECE7DF;
-  --border-subtle: #E6E1D8;
-  --border-hover: #CFC8BC;
-  --accent-sage: #2D5A4C;
-  --accent-sage-hover: #23473C;
-  --accent-sage-soft: #EEF4F1;
-  --accent-terracotta: #C26D53;
-  --accent-terracotta-soft: #FAF0EC;
-  --ink-primary: #1E2421;
-  --ink-secondary: #5C6660;
-  --ink-muted: #7C8680;
+  --surface-sand: #E0F2FE; /* Light Sky Soft */
+  --surface-track: #BAE6FD;
+  --border-subtle: rgba(2, 132, 199, 0.2);
+  --border-hover: #38BDF8;
+  --accent-sage: #0284C7; /* Deep Sky Blue accent in light mode */
+  --accent-sage-hover: #0369A1;
+  --accent-sage-soft: #E0F2FE;
+  --accent-terracotta: #0284C7;
+  --accent-terracotta-soft: #F0F9FF;
+  --ink-primary: #0B192C; /* Deep Navy Slate */
+  --ink-secondary: #1E293B;
+  --ink-muted: #475569;
+  --sky-glow: #38BDF8;
+  --sky-deep: #0284C7;
+  --sky-navy: #0B192C;
   --transition-smooth: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* =====================================================================
-   DARK THEME PALETTE & COMPONENT STYLES
+   DARK SKY MODE (DEFAULT) — COSMIC NAVY GRADIENT & GLASS-DARK CARDS
 ====================================================================== */
 [data-theme="dark"] {
-  --bg-ivory: #141917;
-  --surface-white: #1D2421;
-  --surface-sand: #252E2A;
-  --surface-track: #202925;
-  --border-subtle: #2D3833;
-  --border-hover: #3E4E46;
-  --accent-sage: #4E8D78;
-  --accent-sage-hover: #5DA58D;
-  --accent-sage-soft: #22352E;
-  --accent-terracotta: #D9826C;
-  --accent-terracotta-soft: #382823;
-  --ink-primary: #F3EFEA;
-  --ink-secondary: #B8C2BD;
-  --ink-muted: #8E9B94;
+  --bg-ivory: #0B192C;
+  --surface-white: rgba(17, 34, 64, 0.85); /* Glass-Dark */
+  --surface-sand: #112240;
+  --surface-track: #1E3A5F;
+  --border-subtle: rgba(56, 189, 248, 0.25);
+  --border-hover: #38BDF8;
+  --accent-sage: #38BDF8; /* Glowing Sky Blue accent in dark mode */
+  --accent-sage-hover: #7DD3FC;
+  --accent-sage-soft: rgba(56, 189, 248, 0.14);
+  --accent-terracotta: #38BDF8;
+  --accent-terracotta-soft: rgba(56, 189, 248, 0.16);
+  --ink-primary: #F0F9FF; /* Soft Sky White */
+  --ink-secondary: #BAE6FD; /* Pale Sky Blue */
+  --ink-muted: #7DD3FC; /* Sky Muted */
+  --sky-glow: #38BDF8;
+  --sky-deep: #0284C7;
+  --sky-navy: #0B192C;
 }
 
+[data-theme="dark"] html,
 [data-theme="dark"] body {
-  background-color: var(--bg-ivory);
+  background: linear-gradient(45deg, #0B192C, #112240, #1E3A5F) !important;
+  background-attachment: fixed !important;
   color: var(--ink-primary);
+  min-height: 100vh;
 }
 
 [data-theme="dark"] #vw-top-header {
-  background-color: rgba(20, 25, 23, 0.95) !important;
-  border-color: var(--border-subtle) !important;
+  background-color: rgba(11, 25, 44, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="dark"] #vw-mobile-nav-menu {
-  background-color: rgba(20, 25, 23, 0.98) !important;
-  border-color: var(--border-subtle) !important;
+  background-color: rgba(11, 25, 44, 0.98) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
 }
 
 [data-theme="dark"] .vw-top-sliding-pill {
-  background-color: var(--accent-sage-soft);
-  border-color: rgba(78, 141, 120, 0.35);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background-color: rgba(56, 189, 248, 0.2);
+  border-color: #38BDF8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
 
-[data-theme="dark"] .bg-white {
-  background-color: var(--surface-white) !important;
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .bg-\[\#FAF8F5\],
+[data-theme="dark"] .bg-\[\#F3EFEA\],
+[data-theme="dark"] .bg-\[\#EEF4F1\],
+[data-theme="dark"] .vw-word-card,
+[data-theme="dark"] .card,
+[data-theme="dark"] .tool-card,
+[data-theme="dark"] .quiz-card,
+[data-theme="dark"] .tab-panel,
+[data-theme="dark"] .word-card,
+[data-theme="dark"] .vw-level-card,
+[data-theme="dark"] .level-card,
+[data-theme="dark"] .vw-card {
+  background: rgba(17, 34, 64, 0.85) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 15px rgba(56, 189, 248, 0.08) !important;
 }
 
-[data-theme="dark"] .bg-\[\#FAF8F5\] {
-  background-color: var(--bg-ivory) !important;
+/* Light Sky Mode */
+html:not([data-theme="dark"]),
+body:not([data-theme="dark"]),
+[data-theme="light"] html,
+[data-theme="light"] body {
+  background: #F0F9FF !important;
+  color: #0B192C !important;
+  min-height: 100vh;
 }
 
-[data-theme="dark"] .bg-\[\#EEF4F1\] {
-  background-color: var(--accent-sage-soft) !important;
+html:not([data-theme="dark"]) #vw-top-header,
+[data-theme="light"] #vw-top-header {
+  background-color: rgba(240, 249, 255, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(2, 132, 199, 0.18) !important;
 }
 
-[data-theme="dark"] .bg-\[\#F3EFEA\] {
-  background-color: var(--surface-sand) !important;
-}
-
-[data-theme="dark"] .bg-\[\#FAF0EC\] {
-  background-color: var(--accent-terracotta-soft) !important;
+html:not([data-theme="dark"]) .card,
+html:not([data-theme="dark"]) .vw-word-card,
+html:not([data-theme="dark"]) .tool-card,
+html:not([data-theme="dark"]) .quiz-card,
+html:not([data-theme="dark"]) .tab-panel,
+html:not([data-theme="dark"]) .word-card,
+html:not([data-theme="dark"]) .vw-level-card,
+html:not([data-theme="dark"]) .vw-card,
+[data-theme="light"] .card,
+[data-theme="light"] .vw-word-card,
+[data-theme="light"] .tool-card,
+[data-theme="light"] .quiz-card,
+[data-theme="light"] .tab-panel,
+[data-theme="light"] .word-card,
+[data-theme="light"] .vw-level-card,
+[data-theme="light"] .vw-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(2, 132, 199, 0.18) !important;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.08) !important;
 }
 
 [data-theme="dark"] .text-gray-900,
@@ -117,23 +170,27 @@
 }
 
 [data-theme="dark"] .badge-beginner {
-  background-color: #1E332A;
-  color: #6EBFA4;
+  background-color: rgba(56, 189, 248, 0.2);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
 }
 
 [data-theme="dark"] .badge-intermediate {
-  background-color: #38241D;
-  color: #E2917B;
+  background-color: rgba(14, 165, 233, 0.25);
+  color: #7DD3FC;
+  border: 1px solid rgba(14, 165, 233, 0.4);
 }
 
 [data-theme="dark"] .badge-advanced {
-  background-color: #27223D;
-  color: #A29BD9;
+  background-color: rgba(2, 132, 199, 0.25);
+  color: #BAE6FD;
+  border: 1px solid rgba(2, 132, 199, 0.4);
 }
 
 [data-theme="dark"] .badge-pro {
-  background-color: #2D332D;
-  color: #C2CBC5;
+  background-color: rgba(3, 105, 161, 0.3);
+  color: #E0F2FE;
+  border: 1px solid rgba(3, 105, 161, 0.5);
 }
 
 * {
@@ -2807,120 +2864,70 @@ button:active:not(:disabled),
 }
 
 /* =====================================================================
-   2. GLOBAL READABLE DARK INK ACROSS ALL LIGHT CARDS & CONTAINERS
+   2. GLOBAL THEME TEXT CONTRAST & READABILITY
 ====================================================================== */
-/* Headings inside light cards, panels, tabs, and white/ivory containers */
-.card h1, .card h2, .card h3, .card h4,
-.tool-card h1, .tool-card h2, .tool-card h3, .tool-card h4,
-.quiz-card h1, .quiz-card h2, .quiz-card h3, .quiz-card h4,
-.tab-panel h1, .tab-panel h2, .tab-panel h3, .tab-panel h4,
-.word-card h1, .word-card h2, .word-card h3, .word-card h4,
-.vw-word-card h1, .vw-word-card h2, .vw-word-card h3, .vw-word-card h4,
-[style*="background:#fff"] h1, [style*="background:#fff"] h2, [style*="background:#fff"] h3, [style*="background:#fff"] h4,
-[style*="background: #fff"] h1, [style*="background: #fff"] h2, [style*="background: #fff"] h3, [style*="background: #fff"] h4,
-[style*="background:#FAF8F5"] h1, [style*="background:#FAF8F5"] h2, [style*="background:#FAF8F5"] h3, [style*="background:#FAF8F5"] h4,
-[style*="background: #FAF8F5"] h1, [style*="background: #FAF8F5"] h2, [style*="background: #FAF8F5"] h3, [style*="background: #FAF8F5"] h4,
-[style*="background-color:#fff"] h1, [style*="background-color:#fff"] h2, [style*="background-color:#fff"] h3, [style*="background-color:#fff"] h4,
-[style*="background-color: #fff"] h1, [style*="background-color: #fff"] h2, [style*="background-color: #fff"] h3, [style*="background-color: #fff"] h4,
-[style*="background-color:#FAF8F5"] h1, [style*="background-color:#FAF8F5"] h2, [style*="background-color:#FAF8F5"] h3, [style*="background-color:#FAF8F5"] h4,
-[style*="background-color: #FAF8F5"] h1, [style*="background-color: #FAF8F5"] h2, [style*="background-color: #FAF8F5"] h3, [style*="background-color: #FAF8F5"] h4 {
-  color: #1A2421 !important;
+/* Light Mode: Headings inside light cards, panels, tabs, and white/ivory containers */
+html:not([data-theme="dark"]) .card h1, html:not([data-theme="dark"]) .card h2, html:not([data-theme="dark"]) .card h3, html:not([data-theme="dark"]) .card h4,
+html:not([data-theme="dark"]) .tool-card h1, html:not([data-theme="dark"]) .tool-card h2, html:not([data-theme="dark"]) .tool-card h3, html:not([data-theme="dark"]) .tool-card h4,
+html:not([data-theme="dark"]) .quiz-card h1, html:not([data-theme="dark"]) .quiz-card h2, html:not([data-theme="dark"]) .quiz-card h3, html:not([data-theme="dark"]) .quiz-card h4,
+html:not([data-theme="dark"]) .tab-panel h1, html:not([data-theme="dark"]) .tab-panel h2, html:not([data-theme="dark"]) .tab-panel h3, html:not([data-theme="dark"]) .tab-panel h4,
+html:not([data-theme="dark"]) .word-card h1, html:not([data-theme="dark"]) .word-card h2, html:not([data-theme="dark"]) .word-card h3, html:not([data-theme="dark"]) .word-card h4,
+html:not([data-theme="dark"]) .vw-word-card h1, html:not([data-theme="dark"]) .vw-word-card h2, html:not([data-theme="dark"]) .vw-word-card h3, html:not([data-theme="dark"]) .vw-word-card h4,
+[data-theme="light"] .card h1, [data-theme="light"] .card h2, [data-theme="light"] .card h3, [data-theme="light"] .card h4,
+[data-theme="light"] .vw-word-card h1, [data-theme="light"] .vw-word-card h2, [data-theme="light"] .vw-word-card h3, [data-theme="light"] .vw-word-card h4 {
+  color: #0B192C !important;
 }
 
-/* Body & structural text inside all light cards, panels, tabs, and white/ivory containers */
-.card p, .card span, .card div, .card label, .card li, .card td, .card th,
-.tool-card p, .tool-card span, .tool-card div, .tool-card label, .tool-card li, .tool-card td, .tool-card th,
-.quiz-card p, .quiz-card span, .quiz-card div, .quiz-card label, .quiz-card li, .quiz-card td, .quiz-card th,
-.tab-panel p, .tab-panel span, .tab-panel div, .tab-panel label, .tab-panel li, .tab-panel td, .tab-panel th,
-.word-card p, .word-card span, .word-card div, .word-card label, .word-card li, .word-card td, .word-card th,
-.vw-word-card p, .vw-word-card span, .vw-word-card div, .vw-word-card label, .vw-word-card li, .vw-word-card td, .vw-word-card th,
-[style*="background:#fff"] p, [style*="background:#fff"] span, [style*="background:#fff"] div, [style*="background:#fff"] label, [style*="background:#fff"] li, [style*="background:#fff"] td, [style*="background:#fff"] th,
-[style*="background: #fff"] p, [style*="background: #fff"] span, [style*="background: #fff"] div, [style*="background: #fff"] label, [style*="background: #fff"] li, [style*="background: #fff"] td, [style*="background: #fff"] th,
-[style*="background:#FAF8F5"] p, [style*="background:#FAF8F5"] span, [style*="background:#FAF8F5"] div, [style*="background:#FAF8F5"] label, [style*="background:#FAF8F5"] li, [style*="background:#FAF8F5"] td, [style*="background:#FAF8F5"] th,
-[style*="background: #FAF8F5"] p, [style*="background: #FAF8F5"] span, [style*="background: #FAF8F5"] div, [style*="background: #FAF8F5"] label, [style*="background: #FAF8F5"] li, [style*="background: #FAF8F5"] td, [style*="background: #FAF8F5"] th,
-[style*="background-color:#fff"] p, [style*="background-color:#fff"] span, [style*="background-color:#fff"] div, [style*="background-color:#fff"] label, [style*="background-color:#fff"] li, [style*="background-color:#fff"] td, [style*="background-color:#fff"] th,
-[style*="background-color: #fff"] p, [style*="background-color: #fff"] span, [style*="background-color: #fff"] div, [style*="background-color: #fff"] label, [style*="background-color: #fff"] li, [style*="background-color: #fff"] td, [style*="background-color: #fff"] th,
-[style*="background-color:#FAF8F5"] p, [style*="background-color:#FAF8F5"] span, [style*="background-color:#FAF8F5"] div, [style*="background-color:#FAF8F5"] label, [style*="background-color:#FAF8F5"] li, [style*="background-color:#FAF8F5"] td, [style*="background-color:#FAF8F5"] th,
-[style*="background-color: #FAF8F5"] p, [style*="background-color: #FAF8F5"] span, [style*="background-color: #FAF8F5"] div, [style*="background-color: #FAF8F5"] label, [style*="background-color: #FAF8F5"] li, [style*="background-color: #FAF8F5"] td, [style*="background-color: #FAF8F5"] th {
-  color: #2D3A35 !important;
+/* Light Mode: Body & structural text inside light cards */
+html:not([data-theme="dark"]) .card p, html:not([data-theme="dark"]) .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+html:not([data-theme="dark"]) .tool-card p, html:not([data-theme="dark"]) .tool-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+html:not([data-theme="dark"]) .quiz-card p, html:not([data-theme="dark"]) .quiz-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+html:not([data-theme="dark"]) .tab-panel p, html:not([data-theme="dark"]) .tab-panel span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+html:not([data-theme="dark"]) .word-card p, html:not([data-theme="dark"]) .word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+html:not([data-theme="dark"]) .vw-word-card p, html:not([data-theme="dark"]) .vw-word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="light"] .card p, [data-theme="light"] .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="light"] .vw-word-card p, [data-theme="light"] .vw-word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse) {
+  color: #1E293B !important;
 }
 
-/* Maintain crisp white text (#FFFFFF) on all dark #2D5A4C or #18221F buttons and badges */
-button.btn-primary,
-button.vw-btn-primary,
-button.vw-btn-sage,
-button[style*="background:#2D5A4C"],
-button[style*="background: #2D5A4C"],
-button[style*="background-color:#2D5A4C"],
-button[style*="background-color: #2D5A4C"],
-button[style*="background:#18221F"],
-button[style*="background: #18221F"],
-button[style*="background-color:#18221F"],
-button[style*="background-color: #18221F"],
-button[style*="background-color: var(--accent-sage)"],
-button[style*="background: var(--accent-sage)"],
-.btn-primary,
-.vw-btn-primary,
-.vw-btn-sage,
-.badge-beginner,
-.badge-intermediate,
-.badge-advanced,
-.badge-pro,
-.badge-primary,
-.filter-pill.active,
-.is-pill-target,
-[class*="bg-[#2D5A4C]"],
-[class*="bg-[#18221F]"],
-.bg-[#2D5A4C],
-.bg-[#18221F],
-button.btn-primary *,
-button.vw-btn-primary *,
-button.vw-btn-sage *,
-button[style*="background:#2D5A4C"] *,
-button[style*="background: #2D5A4C"] *,
-button[style*="background-color:#2D5A4C"] *,
-button[style*="background-color: #2D5A4C"] *,
-button[style*="background:#18221F"] *,
-button[style*="background: #18221F"] *,
-button[style*="background-color:#18221F"] *,
-button[style*="background-color: #18221F"] *,
-button[style*="background-color: var(--accent-sage)"] *,
-button[style*="background: var(--accent-sage)"] *,
-.btn-primary *,
-.vw-btn-primary *,
-.vw-btn-sage *,
-.badge-beginner *,
-.badge-intermediate *,
-.badge-advanced *,
-.badge-pro *,
-.badge-primary *,
-.filter-pill.active *,
-.is-pill-target *,
-[class*="bg-[#2D5A4C]"] *,
-[class*="bg-[#18221F]"] *,
-.bg-[#2D5A4C] *,
-.bg-[#18221F] * {
-  color: #FFFFFF !important;
+/* Dark Mode: Crisp light text inside glass-dark cards */
+[data-theme="dark"] .card h1, [data-theme="dark"] .card h2, [data-theme="dark"] .card h3, [data-theme="dark"] .card h4,
+[data-theme="dark"] .tool-card h1, [data-theme="dark"] .tool-card h2, [data-theme="dark"] .tool-card h3, [data-theme="dark"] .tool-card h4,
+[data-theme="dark"] .quiz-card h1, [data-theme="dark"] .quiz-card h2, [data-theme="dark"] .quiz-card h3, [data-theme="dark"] .quiz-card h4,
+[data-theme="dark"] .tab-panel h1, [data-theme="dark"] .tab-panel h2, [data-theme="dark"] .tab-panel h3, [data-theme="dark"] .tab-panel h4,
+[data-theme="dark"] .word-card h1, [data-theme="dark"] .word-card h2, [data-theme="dark"] .word-card h3, [data-theme="dark"] .word-card h4,
+[data-theme="dark"] .vw-word-card h1, [data-theme="dark"] .vw-word-card h2, [data-theme="dark"] .vw-word-card h3, [data-theme="dark"] .vw-word-card h4 {
+  color: #F0F9FF !important;
+}
+
+[data-theme="dark"] .card p, [data-theme="dark"] .card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="dark"] .tool-card p, [data-theme="dark"] .tool-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="dark"] .quiz-card p, [data-theme="dark"] .quiz-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="dark"] .tab-panel p, [data-theme="dark"] .tab-panel span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="dark"] .word-card p, [data-theme="dark"] .word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse),
+[data-theme="dark"] .vw-word-card p, [data-theme="dark"] .vw-word-card span:not([class*="badge"]):not([class*="pill"]):not([class*="btn"]):not(.animate-pulse) {
+  color: #E2E8F0 !important;
 }
 
 /* Explicit accent color integrity */
-[style*="color: var(--accent-sage)"],
-[style*="color:var(--accent-sage)"] {
-  color: #2D5A4C !important;
+html:not([data-theme="dark"]) [style*="color: var(--accent-sage)"],
+html:not([data-theme="dark"]) [style*="color:var(--accent-sage)"],
+[data-theme="light"] [style*="color: var(--accent-sage)"],
+[data-theme="light"] [style*="color:var(--accent-sage)"] {
+  color: #0284C7 !important;
 }
-[style*="color: var(--accent-terracotta)"],
-[style*="color:var(--accent-terracotta)"] {
-  color: #C05638 !important;
+[data-theme="dark"] [style*="color: var(--accent-sage)"],
+[data-theme="dark"] [style*="color:var(--accent-sage)"] {
+  color: #38BDF8 !important;
 }
 [style*="color: var(--ink-muted)"],
 [style*="color:var(--ink-muted)"] {
-  color: #6B7280 !important;
+  color: #7DD3FC !important;
 }
 
 /* =====================================================================
    3. STOP WORD & PILL OVERFLOW OUTSIDE CARDS
 ====================================================================== */
-/* Enforce bounded box model and word-wrapping on all card containers */
 .card,
 .tool-card,
 .quiz-card,
@@ -2929,22 +2936,13 @@ button[style*="background: var(--accent-sage)"] *,
 .vw-word-card,
 .vw-card,
 article,
-.card-container,
-[style*="background:#fff"],
-[style*="background: #fff"],
-[style*="background:#FAF8F5"],
-[style*="background: #FAF8F5"],
-[style*="background-color:#fff"],
-[style*="background-color: #fff"],
-[style*="background-color:#FAF8F5"],
-[style*="background-color: #FAF8F5"] {
+.card-container {
   box-sizing: border-box !important;
   max-width: 100% !important;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
 }
 
-/* Enforce flex wrapping and max-width on all pill, chip, and button rows */
 .vw-pill-row,
 .pill-row,
 .chip-row,
@@ -2970,7 +2968,6 @@ div:has(> [class*="pill"]) {
   box-sizing: border-box !important;
 }
 
-/* Guarantee pills, chips, and buttons themselves never overflow their container */
 .vw-pill-syn,
 .vw-pill-ant,
 .filter-pill,
@@ -2982,4 +2979,165 @@ div:has(> [class*="pill"]) {
   box-sizing: border-box !important;
   overflow-wrap: break-word !important;
   word-break: break-word !important;
+}
+
+/* =====================================================================
+   4. SKY BLUE GLOWING BUTTONS & STUDY READER SMART FEATURES
+   - 2px solid #38BDF8 border
+   - position: relative; overflow: hidden
+   - Radial-gradient shine expanding on hover (::before)
+   - Glow: box-shadow: 0 0 15px #38BDF8, 0 0 45px rgba(56, 189, 248, 0.6)
+   - Active: transform: scale(0.95)
+====================================================================== */
+button:not([class*="absolute"]):not([class*="fixed"]),
+.btn:not([class*="absolute"]):not([class*="fixed"]),
+.vw-btn:not([class*="absolute"]):not([class*="fixed"]),
+.vw-btn-primary:not([class*="absolute"]):not([class*="fixed"]),
+.vw-btn-sage:not([class*="absolute"]):not([class*="fixed"]),
+.vw-speak-btn:not([class*="absolute"]):not([class*="fixed"]),
+.vw-card-video-btn:not([class*="absolute"]):not([class*="fixed"]),
+.vw-personal-note-btn:not([class*="absolute"]):not([class*="fixed"]),
+.tab-btn:not([class*="absolute"]):not([class*="fixed"]),
+.filter-pill:not([class*="absolute"]):not([class*="fixed"]) {
+  position: relative !important;
+  overflow: hidden !important;
+  border: 2px solid #38BDF8 !important;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.25s ease, 
+              border-color 0.25s ease, 
+              background-color 0.25s ease !important;
+  cursor: pointer;
+}
+
+button[class*="absolute"],
+.btn[class*="absolute"] {
+  position: absolute !important;
+  overflow: hidden !important;
+  border: 2px solid #38BDF8 !important;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.25s ease, 
+              border-color 0.25s ease !important;
+  cursor: pointer;
+}
+
+/* Hover Expanding Radial-Gradient Shine (::before) */
+button::before,
+.btn::before,
+.vw-btn::before,
+.vw-btn-primary::before,
+.vw-btn-sage::before,
+.vw-speak-btn::before,
+.vw-card-video-btn::before,
+.vw-personal-note-btn::before,
+.tab-btn::before,
+.filter-pill::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.45) 0%, rgba(56, 189, 248, 0.12) 40%, rgba(56, 189, 248, 0) 70%) !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  transition: width 0.45s ease-out, height 0.45s ease-out !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+button:hover::before,
+.btn:hover::before,
+.vw-btn:hover::before,
+.vw-btn-primary:hover::before,
+.vw-btn-sage:hover::before,
+.vw-speak-btn:hover::before,
+.vw-card-video-btn:hover::before,
+.vw-personal-note-btn:hover::before,
+.tab-btn:hover::before,
+.filter-pill:hover::before {
+  width: 320% !important;
+  height: 320% !important;
+}
+
+/* Hover Sky Blue Glow */
+button:hover,
+.btn:hover,
+.vw-btn:hover,
+.vw-btn-primary:hover,
+.vw-btn-sage:hover,
+.vw-speak-btn:hover,
+.vw-card-video-btn:hover,
+.vw-personal-note-btn:hover,
+.tab-btn:hover,
+.filter-pill:hover {
+  box-shadow: 0 0 15px #38BDF8, 0 0 45px rgba(56, 189, 248, 0.6) !important;
+  border-color: #38BDF8 !important;
+}
+
+/* Active Click Press Animation */
+button:active,
+.btn:active,
+.vw-btn:active,
+.vw-btn-primary:active,
+.vw-btn-sage:active,
+.vw-speak-btn:active,
+.vw-card-video-btn:active,
+.vw-personal-note-btn:active,
+.tab-btn:active,
+.filter-pill:active {
+  transform: scale(0.95) !important;
+}
+
+/* Button Content z-index */
+button > *,
+.btn > *,
+.vw-btn > *,
+.vw-btn-primary > *,
+.vw-btn-sage > *,
+.vw-speak-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Study Reader Personal Note Styles */
+.vw-personal-note-btn {
+  background-color: var(--surface-sand) !important;
+  color: var(--ink-primary) !important;
+}
+.vw-personal-note-btn.has-note {
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.45) !important;
+  border-color: #38BDF8 !important;
+}
+.vw-personal-note-panel {
+  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="dark"] .vw-personal-note-panel {
+  background: rgba(11, 25, 44, 0.95) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+}
+[data-theme="dark"] .vw-personal-note-textarea {
+  background-color: #0B192C !important;
+  color: #F0F9FF !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+[data-theme="dark"] .vw-personal-note-textarea:focus {
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4) !important;
+}
+
+/* Video Usage Button Styles */
+.vw-card-video-btn {
+  background-color: rgba(56, 189, 248, 0.12) !important;
+  color: #38BDF8 !important;
+}
+[data-theme="dark"] .vw-card-video-btn {
+  background-color: rgba(14, 165, 233, 0.2) !important;
+  color: #38BDF8 !important;
+}
+html:not([data-theme="dark"]) .vw-card-video-btn,
+[data-theme="light"] .vw-card-video-btn {
+  background-color: #E0F2FE !important;
+  color: #0284C7 !important;
+  border-color: #0284C7 !important;
 }
