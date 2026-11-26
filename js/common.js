@@ -634,8 +634,25 @@ function syncCustomWordsIntoCurriculum() {
     }
   });
 
-  // 2. Inject current custom words into their assigned curriculum levels
+  // Set-based deduplication guard tracking all static curriculum words
+  const seenWords = new Set();
+  Object.keys(CURRICULUM_DATA).forEach((lvlKey) => {
+    const lvl = CURRICULUM_DATA[lvlKey];
+    if (lvl && Array.isArray(lvl.words)) {
+      lvl.words.forEach((w) => {
+        if (w && w.word) {
+          seenWords.add(w.word.trim().toLowerCase());
+        }
+      });
+    }
+  });
+
+  // 2. Inject current custom words into their assigned curriculum levels with Set-based deduplication
   customWords.forEach((wordObj) => {
+    if (!wordObj || !wordObj.word) return;
+    const norm = wordObj.word.trim().toLowerCase();
+    if (seenWords.has(norm)) return; // Zero duplicate words can ever appear
+    seenWords.add(norm);
     if (!wordObj.conversation || !wordObj.sceneTheme || !wordObj.cartoonConversation) {
       if (typeof generateCartoonConversation === 'function') {
         const convData = generateCartoonConversation(wordObj);
@@ -992,7 +1009,18 @@ function getLevelPracticeDeck(levelId) {
   if (typeof CURRICULUM_DATA === 'undefined') return [];
   const lvl = CURRICULUM_DATA[levelId || AppState.selectedLevel || 'beginner'];
   if (!lvl) return [];
-  return [...lvl.words, ...(lvl.practiceExtraWords || [])];
+  const rawList = [...(lvl.words || []), ...(lvl.practiceExtraWords || [])];
+  const seenWords = new Set();
+  const dedupedDeck = [];
+  rawList.forEach((item) => {
+    if (!item || !item.word) return;
+    const norm = item.word.trim().toLowerCase();
+    if (!seenWords.has(norm)) {
+      seenWords.add(norm);
+      dedupedDeck.push(item);
+    }
+  });
+  return dedupedDeck;
 }
 
 /* =====================================================================
@@ -11694,78 +11722,6 @@ function renderVoiceSectionHTML() {
 ====================================================================== */
 const HSC_DU_ADMISSION_VOCABULARY = [
   {
-    "id": "hsc_beg_01",
-    "word": "Abundant",
-    "ipa": "/əˈbʌn.dənt/",
-    "pos": "Adj",
-    "level": "beginner",
-    "bn": "প্রচুর, পর্যাপ্ত",
-    "meaningBn": "প্রচুর, পর্যাপ্ত",
-    "synonyms": [
-      "Plentiful",
-      "Ample"
-    ],
-    "antonyms": [
-      "Scarce",
-      "Rare"
-    ],
-    "example": "Bangladesh has abundant fertile land for farming."
-  },
-  {
-    "id": "hsc_beg_02",
-    "word": "Accurate",
-    "ipa": "/ˈæk.jər.ət/",
-    "pos": "Adj",
-    "level": "beginner",
-    "bn": "নির্ভুল, সঠিক",
-    "meaningBn": "নির্ভুল, সঠিক",
-    "synonyms": [
-      "Exact",
-      "Precise"
-    ],
-    "antonyms": [
-      "Inaccurate",
-      "Wrong"
-    ],
-    "example": "Double-check your calculations to ensure accurate results."
-  },
-  {
-    "id": "hsc_beg_03",
-    "word": "Adequate",
-    "ipa": "/ˈæd.ɪ.kwət/",
-    "pos": "Adj",
-    "level": "beginner",
-    "bn": "পর্যাপ্ত, যথেষ্ট",
-    "meaningBn": "পর্যাপ্ত, যথেষ্ট",
-    "synonyms": [
-      "Sufficient",
-      "Enough"
-    ],
-    "antonyms": [
-      "Inadequate",
-      "Lacking"
-    ],
-    "example": "Adequate sleep is essential for sharp memory."
-  },
-  {
-    "id": "hsc_beg_04",
-    "word": "Alter",
-    "ipa": "/ˈɔːl.tər/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "পরিবর্তন করা",
-    "meaningBn": "পরিবর্তন করা",
-    "synonyms": [
-      "Change",
-      "Modify"
-    ],
-    "antonyms": [
-      "Preserve",
-      "Keep"
-    ],
-    "example": "You cannot alter the past, so focus on today."
-  },
-  {
     "id": "hsc_beg_05",
     "word": "Ambitious",
     "ipa": "/æmˈbɪʃ.əs/",
@@ -11782,24 +11738,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Content"
     ],
     "example": "Ambitious students set clear milestones every week."
-  },
-  {
-    "id": "hsc_beg_06",
-    "word": "Ancient",
-    "ipa": "/ˈeɪn.ʃənt/",
-    "pos": "Adj",
-    "level": "beginner",
-    "bn": "প্রাচীন, পুরাতন",
-    "meaningBn": "প্রাচীন, পুরাতন",
-    "synonyms": [
-      "Old",
-      "Antique"
-    ],
-    "antonyms": [
-      "Modern",
-      "Recent"
-    ],
-    "example": "We studied ancient civilizations in history class."
   },
   {
     "id": "hsc_beg_07",
@@ -11836,24 +11774,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Modest"
     ],
     "example": "An arrogant attitude blocks a person from learning."
-  },
-  {
-    "id": "hsc_beg_09",
-    "word": "Assist",
-    "ipa": "/əˈsɪst/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "সাহায্য করা",
-    "meaningBn": "সাহায্য করা",
-    "synonyms": [
-      "Help",
-      "Aid"
-    ],
-    "antonyms": [
-      "Hinder",
-      "Obstruct"
-    ],
-    "example": "Seniors often assist juniors with admission notes."
   },
   {
     "id": "hsc_beg_10",
@@ -11980,24 +11900,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Accept"
     ],
     "example": "She politely declined the invitation to study late."
-  },
-  {
-    "id": "hsc_beg_17",
-    "word": "Diligent",
-    "ipa": "/ˈdɪl.ɪ.dʒənt/",
-    "pos": "Adj",
-    "level": "beginner",
-    "bn": "পরিশ্রমী, অধ্যবসায়ী",
-    "meaningBn": "পরিশ্রমী, অধ্যবসায়ী",
-    "synonyms": [
-      "Hardworking",
-      "Assiduous"
-    ],
-    "antonyms": [
-      "Lazy",
-      "Negligent"
-    ],
-    "example": "Diligent practice turns weak subjects into strengths."
   },
   {
     "id": "hsc_beg_18",
@@ -12144,96 +12046,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "She painted a vivid picture of rural Bengal in her essay."
   },
   {
-    "id": "hsc_int_26",
-    "word": "Adversity",
-    "ipa": "/ədˈvɜː.sə.ti/",
-    "pos": "Noun",
-    "level": "intermediate",
-    "bn": "প্রতিকূলতা, দুর্দশা",
-    "meaningBn": "প্রতিকূলতা, দুর্দশা",
-    "synonyms": [
-      "Hardship",
-      "Misfortune"
-    ],
-    "antonyms": [
-      "Prosperity",
-      "Fortune"
-    ],
-    "example": "True resilience is tested during times of adversity."
-  },
-  {
-    "id": "hsc_int_27",
-    "word": "Alleviate",
-    "ipa": "/əˈliː.vi.eɪt/",
-    "pos": "Verb",
-    "level": "intermediate",
-    "bn": "উপশম করা, কমানো",
-    "meaningBn": "উপশম করা, কমানো",
-    "synonyms": [
-      "Ease",
-      "Mitigate"
-    ],
-    "antonyms": [
-      "Aggravate",
-      "Worsen"
-    ],
-    "example": "Regular mock tests alleviate exam hall panic."
-  },
-  {
-    "id": "hsc_int_28",
-    "word": "Ambiguous",
-    "ipa": "/æmˈbɪɡ.ju.əs/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "দ্ব্যর্থবোধক, অস্পষ্ট",
-    "meaningBn": "দ্ব্যর্থবোধক, অস্পষ্ট",
-    "synonyms": [
-      "Vague",
-      "Unclear"
-    ],
-    "antonyms": [
-      "Clear",
-      "Explicit"
-    ],
-    "example": "Avoid ambiguous phrasing in formal letters."
-  },
-  {
-    "id": "hsc_int_29",
-    "word": "Apathy",
-    "ipa": "/ˈæp.ə.θi/",
-    "pos": "Noun",
-    "level": "intermediate",
-    "bn": "উদাসীনতা, অনীহা",
-    "meaningBn": "উদাসীনতা, অনীহা",
-    "synonyms": [
-      "Indifference",
-      "Lethargy"
-    ],
-    "antonyms": [
-      "Enthusiasm",
-      "Passion"
-    ],
-    "example": "Student apathy toward reading books must change."
-  },
-  {
-    "id": "hsc_int_30",
-    "word": "Articulate",
-    "ipa": "/ɑːˈtɪk.jə.lət/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "স্পষ্টভাষী, সুবক্তা",
-    "meaningBn": "স্পষ্টভাষী, সুবক্তা",
-    "synonyms": [
-      "Eloquent",
-      "Fluent"
-    ],
-    "antonyms": [
-      "Inarticulate",
-      "Mumbling"
-    ],
-    "example": "An articulate candidate excels in group discussions."
-  },
-  {
     "id": "hsc_int_31",
     "word": "Authentic",
     "ipa": "/ɔːˈθen.tɪk/",
@@ -12360,24 +12172,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "Handwriting can deteriorate if you rush too fast."
   },
   {
-    "id": "hsc_int_38",
-    "word": "Eloquent",
-    "ipa": "/ˈel.ə.kwənt/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "বাগ্মী, প্রাঞ্জলভাষী",
-    "meaningBn": "বাগ্মী, প্রাঞ্জলভাষী",
-    "synonyms": [
-      "Persuasive",
-      "Expressive"
-    ],
-    "antonyms": [
-      "Halting",
-      "Inarticulate"
-    ],
-    "example": "Her eloquent speech inspired the entire auditorium."
-  },
-  {
     "id": "hsc_int_39",
     "word": "Emulate",
     "ipa": "/ˈem.jə.leɪt/",
@@ -12432,24 +12226,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "Living on a student budget requires frugal habits."
   },
   {
-    "id": "hsc_int_42",
-    "word": "Inevitable",
-    "ipa": "/ɪˈnev.ɪ.tə.bəl/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "অনিবার্য",
-    "meaningBn": "অনিবার্য",
-    "synonyms": [
-      "Unavoidable",
-      "Certain"
-    ],
-    "antonyms": [
-      "Avoidable",
-      "Uncertain"
-    ],
-    "example": "Success is inevitable when effort meets consistency."
-  },
-  {
     "id": "hsc_int_43",
     "word": "Integrity",
     "ipa": "/ɪnˈteɡ.rə.ti/",
@@ -12484,24 +12260,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Confusing"
     ],
     "example": "The teacher explained complex grammar in lucid Bangla."
-  },
-  {
-    "id": "hsc_int_45",
-    "word": "Meticulous",
-    "ipa": "/məˈtɪk.jə.ləs/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "অতি সতর্ক ও খুঁতখুঁতে",
-    "meaningBn": "অতি সতর্ক ও খুঁতখুঁতে",
-    "synonyms": [
-      "Thorough",
-      "Careful"
-    ],
-    "antonyms": [
-      "Sloppy",
-      "Careless"
-    ],
-    "example": "Meticulous note-taking saves hours before finals."
   },
   {
     "id": "hsc_int_46",
@@ -12558,24 +12316,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "That is a plausible hypothesis for the price rise."
   },
   {
-    "id": "hsc_int_49",
-    "word": "Pragmatic",
-    "ipa": "/præɡˈmæt.ɪk/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "বাস্তববাদী, প্রায়োগিক",
-    "meaningBn": "বাস্তববাদী, প্রায়োগিক",
-    "synonyms": [
-      "Practical",
-      "Realistic"
-    ],
-    "antonyms": [
-      "Idealistic",
-      "Impractical"
-    ],
-    "example": "Adopt a pragmatic timetable you can actually follow."
-  },
-  {
     "id": "hsc_int_50",
     "word": "Tenacious",
     "ipa": "/təˈneɪ.ʃəs/",
@@ -12592,42 +12332,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Weak"
     ],
     "example": "Tenacious learners never quit after a single setback."
-  },
-  {
-    "id": "hsc_adv_51",
-    "word": "Acumen",
-    "ipa": "/ˈæk.jə.mən/",
-    "pos": "Noun",
-    "level": "advanced",
-    "bn": "তীক্ষ্ণ বুদ্ধি বা বিচক্ষণতা",
-    "meaningBn": "তীক্ষ্ণ বুদ্ধি বা বিচক্ষণতা",
-    "synonyms": [
-      "Shrewdness",
-      "Insight"
-    ],
-    "antonyms": [
-      "Ignorance",
-      "Stupidity"
-    ],
-    "example": "Business acumen helps commerce graduates lead firms."
-  },
-  {
-    "id": "hsc_adv_52",
-    "word": "Altruistic",
-    "ipa": "/ˌæl.truˈɪs.tɪk/",
-    "pos": "Adj",
-    "level": "advanced",
-    "bn": "পরার্থপর, নিঃস্বার্থ",
-    "meaningBn": "পরার্থপর, নিঃস্বার্থ",
-    "synonyms": [
-      "Selfless",
-      "Philanthropic"
-    ],
-    "antonyms": [
-      "Selfish",
-      "Egoistic"
-    ],
-    "example": "Volunteering at blood drives is an altruistic act."
   },
   {
     "id": "hsc_adv_53",
@@ -12792,24 +12496,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "Avoid a dogmatic tone when discussing social issues."
   },
   {
-    "id": "hsc_adv_62",
-    "word": "Ephemeral",
-    "ipa": "/ɪˈfem.ər.əl/",
-    "pos": "Adj",
-    "level": "advanced",
-    "bn": "ক্ষণস্থায়ী, স্বল্পকালীন",
-    "meaningBn": "ক্ষণস্থায়ী, স্বল্পকালীন",
-    "synonyms": [
-      "Transient",
-      "Fleeting"
-    ],
-    "antonyms": [
-      "Permanent",
-      "Eternal"
-    ],
-    "example": "Viral trends on the internet are usually ephemeral."
-  },
-  {
     "id": "hsc_adv_63",
     "word": "Equivocal",
     "ipa": "/ɪˈkwɪv.ə.kəl/",
@@ -12936,24 +12622,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "Skipping breakfast often makes learners feel lethargic."
   },
   {
-    "id": "hsc_adv_70",
-    "word": "Mitigate",
-    "ipa": "/ˈmɪt.ɪ.ɡeɪt/",
-    "pos": "Verb",
-    "level": "advanced",
-    "bn": "প্রশমিত বা লঘু করা",
-    "meaningBn": "প্রশমিত বা লঘু করা",
-    "synonyms": [
-      "Lessen",
-      "Reduce"
-    ],
-    "antonyms": [
-      "Intensify",
-      "Aggravate"
-    ],
-    "example": "Planting trees helps mitigate urban heat islands."
-  },
-  {
     "id": "hsc_adv_71",
     "word": "Ostentatious",
     "ipa": "/ˌɒs.tenˈteɪ.ʃəs/",
@@ -13008,24 +12676,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "Though taciturn in person, his writing is eloquent."
   },
   {
-    "id": "hsc_adv_74",
-    "word": "Ubiquitous",
-    "ipa": "/juːˈbɪk.wɪ.təs/",
-    "pos": "Adj",
-    "level": "advanced",
-    "bn": "সর্বত্র বিরাজমান",
-    "meaningBn": "সর্বত্র বিরাজমান",
-    "synonyms": [
-      "Omnipresent",
-      "Universal"
-    ],
-    "antonyms": [
-      "Rare",
-      "Scarce"
-    ],
-    "example": "Mobile apps have become ubiquitous among students."
-  },
-  {
     "id": "hsc_adv_75",
     "word": "Vindicate",
     "ipa": "/ˈvɪn.dɪ.keɪt/",
@@ -13078,24 +12728,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
       "Amicable"
     ],
     "example": "An acrimonious debate erupted over the policy change."
-  },
-  {
-    "id": "hsc_pro_78",
-    "word": "Anachronism",
-    "ipa": "/əˈnæk.rə.nɪ.zəm/",
-    "pos": "Noun",
-    "level": "pro",
-    "bn": "কালবিরোধী বস্তু বা প্রথা",
-    "meaningBn": "কালবিরোধী বস্তু বা প্রথা",
-    "synonyms": [
-      "Misplacement",
-      "Relic"
-    ],
-    "antonyms": [
-      "Modernity",
-      "Novelty"
-    ],
-    "example": "A typewriter in a modern AI lab looks like an anachronism."
   },
   {
     "id": "hsc_pro_79",
@@ -13494,132 +13126,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "example": "Students were vociferous in demanding better lab facilities."
   },
   {
-    "word": "Abolish",
-    "ipa": "/əˈbɒl.ɪʃ/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "বিলুপ্ত বা বাতিল করা",
-    "meaningBn": "বিলুপ্ত বা বাতিল করা",
-    "synonyms": [
-      "Eliminate",
-      "Repeal"
-    ],
-    "antonyms": [
-      "Establish",
-      "Retain"
-    ],
-    "example": "Many nations passed laws to abolish child labor.",
-    "id": "hsc_beg_101"
-  },
-  {
-    "word": "Absorb",
-    "ipa": "/əbˈzɔːb/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "শুষে নেওয়া, আত্মস্থ করা",
-    "meaningBn": "শুষে নেওয়া, আত্মস্থ করা",
-    "synonyms": [
-      "Soak up",
-      "Assimilate"
-    ],
-    "antonyms": [
-      "Emit",
-      "Release"
-    ],
-    "example": "Dry soil quickly absorbs the first monsoon rain.",
-    "id": "hsc_beg_102"
-  },
-  {
-    "word": "Acknowledge",
-    "ipa": "/əkˈnɒl.ɪdʒ/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "স্বীকার করা, প্রাপ্তি স্বীকার করা",
-    "meaningBn": "স্বীকার করা, প্রাপ্তি স্বীকার করা",
-    "synonyms": [
-      "Admit",
-      "Recognize"
-    ],
-    "antonyms": [
-      "Deny",
-      "Ignore"
-    ],
-    "example": "Good leaders acknowledge their mistakes openly.",
-    "id": "hsc_beg_103"
-  },
-  {
-    "word": "Acquire",
-    "ipa": "/əˈkwaɪər/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "অর্জন বা লাভ করা",
-    "meaningBn": "অর্জন বা লাভ করা",
-    "synonyms": [
-      "Obtain",
-      "Gain"
-    ],
-    "antonyms": [
-      "Lose",
-      "Forfeit"
-    ],
-    "example": "Students acquire confidence through daily speaking practice.",
-    "id": "hsc_beg_104"
-  },
-  {
-    "word": "Adapt",
-    "ipa": "/əˈdæpt/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "মানিয়ে নেওয়া, খাপ খাওয়ানো",
-    "meaningBn": "মানিয়ে নেওয়া, খাপ খাওয়ানো",
-    "synonyms": [
-      "Adjust",
-      "Modify"
-    ],
-    "antonyms": [
-      "Resist",
-      "Neglect"
-    ],
-    "example": "Successful learners quickly adapt to new exam patterns.",
-    "id": "hsc_beg_105"
-  },
-  {
-    "word": "Afford",
-    "ipa": "/əˈfɔːd/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "সামর্থ্য থাকা",
-    "meaningBn": "সামর্থ্য থাকা",
-    "synonyms": [
-      "Manage",
-      "Spare"
-    ],
-    "antonyms": [
-      "Lack",
-      "Forgo"
-    ],
-    "example": "We cannot afford to waste time before board exams.",
-    "id": "hsc_beg_106"
-  },
-  {
-    "word": "Anticipate",
-    "ipa": "/ænˈtɪs.ɪ.peɪt/",
-    "pos": "Verb",
-    "level": "beginner",
-    "bn": "পূর্বাভাস পাওয়া, প্রত্যাশা করা",
-    "meaningBn": "পূর্বাভাস পাওয়া, প্রত্যাশা করা",
-    "synonyms": [
-      "Expect",
-      "Foresee"
-    ],
-    "antonyms": [
-      "Doubt",
-      "Dread"
-    ],
-    "example": "Organizers anticipate a large turnout at the book fair.",
-    "id": "hsc_beg_107"
-  },
-  {
     "word": "Assemble",
     "ipa": "/əˈsem.bəl/",
     "pos": "Verb",
@@ -13944,60 +13450,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "id": "hsc_beg_125"
   },
   {
-    "word": "Advocate",
-    "ipa": "/ˈæd.və.keɪt/",
-    "pos": "Verb",
-    "level": "intermediate",
-    "bn": "সমর্থন করা, পক্ষে বলা",
-    "meaningBn": "সমর্থন করা, পক্ষে বলা",
-    "synonyms": [
-      "Support",
-      "Champion"
-    ],
-    "antonyms": [
-      "Oppose",
-      "Criticize"
-    ],
-    "example": "Economists advocate sustainable investments in education.",
-    "id": "hsc_int_126"
-  },
-  {
-    "word": "Aesthetic",
-    "ipa": "/iːsˈθet.ɪk/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "নান্দনিক, সৌন্দর্যবোধসম্পন্ন",
-    "meaningBn": "নান্দনিক, সৌন্দর্যবোধসম্পন্ন",
-    "synonyms": [
-      "Artistic",
-      "Tasteful"
-    ],
-    "antonyms": [
-      "Unattractive",
-      "Plain"
-    ],
-    "example": "The portfolio uses a soft, aesthetic color palette.",
-    "id": "hsc_int_127"
-  },
-  {
-    "word": "Aloof",
-    "ipa": "/əˈluːf/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "নির্লিপ্ত, দূরে সরে থাকা",
-    "meaningBn": "নির্লিপ্ত, দূরে সরে থাকা",
-    "synonyms": [
-      "Detached",
-      "Distant"
-    ],
-    "antonyms": [
-      "Friendly",
-      "Involved"
-    ],
-    "example": "He remained aloof from unnecessary campus politics.",
-    "id": "hsc_int_128"
-  },
-  {
     "word": "Benevolence",
     "ipa": "/bəˈnev.əl.əns/",
     "pos": "Noun",
@@ -14050,24 +13502,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     ],
     "example": "Chronic traffic congestion affects urban productivity.",
     "id": "hsc_int_131"
-  },
-  {
-    "word": "Collaborate",
-    "ipa": "/kəˈlæb.ə.reɪt/",
-    "pos": "Verb",
-    "level": "intermediate",
-    "bn": "যৌথভাবে কাজ করা",
-    "meaningBn": "যৌথভাবে কাজ করা",
-    "synonyms": [
-      "Cooperate",
-      "Team up"
-    ],
-    "antonyms": [
-      "Compete",
-      "Oppose"
-    ],
-    "example": "Students collaborate on group presentations every week.",
-    "id": "hsc_int_132"
   },
   {
     "word": "Compile",
@@ -14358,24 +13792,6 @@ const HSC_DU_ADMISSION_VOCABULARY = [
     "id": "hsc_int_148"
   },
   {
-    "word": "Resilient",
-    "ipa": "/rɪˈzɪl.jənt/",
-    "pos": "Adj",
-    "level": "intermediate",
-    "bn": "প্রতিকূলতা কাটিয়ে উঠতে সক্ষম",
-    "meaningBn": "প্রতিকূলতা কাটিয়ে উঠতে সক্ষম",
-    "synonyms": [
-      "Tough",
-      "Adaptable"
-    ],
-    "antonyms": [
-      "Fragile",
-      "Vulnerable"
-    ],
-    "example": "Resilient students bounce back stronger after low scores.",
-    "id": "hsc_int_149"
-  },
-  {
     "word": "Substantial",
     "ipa": "/səbˈstæn.ʃəl/",
     "pos": "Adj",
@@ -14399,35 +13815,90 @@ const VOCABULARY_DATA = HSC_DU_ADMISSION_VOCABULARY;
 
 function syncAdmissionVocabularyIntoCurriculum() {
   if (typeof CURRICULUM_DATA === 'undefined') return;
-  HSC_DU_ADMISSION_VOCABULARY.forEach((item) => {
-    const lvlKey = item.level || 'beginner';
+
+  // Global Set-based deduplication filter to ensure zero duplicate words appear anywhere
+  const seenWords = new Set();
+  Object.keys(CURRICULUM_DATA).forEach((lvlKey) => {
     const lvl = CURRICULUM_DATA[lvlKey];
     if (lvl && Array.isArray(lvl.words)) {
-      const exists = lvl.words.some(w => w.word.toLowerCase() === item.word.toLowerCase());
-      if (!exists) {
-        lvl.words.push({
-          id: item.id,
-          word: item.word,
-          pos: item.pos,
-          ipa: item.ipa,
-          level: item.level,
-          bn: item.bn,
-          meaningBn: item.meaningBn || item.bn,
-          explanationEn: `High-yield ${item.pos.toLowerCase()} vocabulary word frequently tested in HSC board and Dhaka University admission exams.`,
-          example: item.example,
-          exampleBn: `বাক্যে প্রয়োগ: "${item.example}"`,
-          synonyms: item.synonyms.map(s => typeof s === 'string' ? { word: s, meaningBn: item.bn } : s),
-          antonyms: item.antonyms.map(a => typeof a === 'string' ? { word: a, meaningBn: 'বিপরীত অর্থ' } : a)
-        });
-      }
+      const uniqueWords = [];
+      lvl.words.forEach((w) => {
+        if (!w || !w.word) return;
+        const norm = w.word.trim().toLowerCase();
+        if (!seenWords.has(norm)) {
+          seenWords.add(norm);
+          uniqueWords.push(w);
+        }
+      });
+      lvl.words = uniqueWords;
     }
   });
+
+  HSC_DU_ADMISSION_VOCABULARY.forEach((item) => {
+    if (!item || !item.word) return;
+    const norm = item.word.trim().toLowerCase();
+    if (seenWords.has(norm)) return; // Set-based deduplication guard
+    seenWords.add(norm);
+
+    const lvlKey = item.level || 'beginner';
+    const lvl = CURRICULUM_DATA[lvlKey] || CURRICULUM_DATA['beginner'];
+    if (lvl && Array.isArray(lvl.words)) {
+      lvl.words.push({
+        id: item.id,
+        word: item.word,
+        pos: item.pos,
+        ipa: item.ipa,
+        level: item.level,
+        bn: item.bn,
+        meaningBn: item.meaningBn || item.bn,
+        explanationEn: `High-yield ${item.pos.toLowerCase()} vocabulary word frequently tested in HSC board and Dhaka University admission exams.`,
+        example: item.example,
+        exampleBn: `বাক্যে প্রয়োগ: "${item.example}"`,
+        synonyms: Array.isArray(item.synonyms) ? item.synonyms.map(s => typeof s === 'string' ? { word: s, meaningBn: item.bn } : s) : [],
+        antonyms: Array.isArray(item.antonyms) ? item.antonyms.map(a => typeof a === 'string' ? { word: a, meaningBn: 'বিপরীত অর্থ' } : a) : []
+      });
+    }
+  });
+}
+
+function getVocabularyWords(levelId) {
+  if (typeof CURRICULUM_DATA === 'undefined') return [];
+  if (levelId && CURRICULUM_DATA[levelId]) {
+    const seenWords = new Set();
+    const result = [];
+    (CURRICULUM_DATA[levelId].words || []).forEach((item) => {
+      if (!item || !item.word) return;
+      const norm = item.word.trim().toLowerCase();
+      if (!seenWords.has(norm)) {
+        seenWords.add(norm);
+        result.push(item);
+      }
+    });
+    return result;
+  }
+  const seenWords = new Set();
+  const all = [];
+  ['beginner', 'intermediate', 'advanced', 'pro'].forEach((lvl) => {
+    if (CURRICULUM_DATA[lvl] && Array.isArray(CURRICULUM_DATA[lvl].words)) {
+      CURRICULUM_DATA[lvl].words.forEach((item) => {
+        if (!item || !item.word) return;
+        const norm = item.word.trim().toLowerCase();
+        if (!seenWords.has(norm)) {
+          seenWords.add(norm);
+          all.push(item);
+        }
+      });
+    }
+  });
+  return all;
 }
 
 
 if (typeof window !== 'undefined') {
   window.HSC_DU_ADMISSION_VOCABULARY = HSC_DU_ADMISSION_VOCABULARY;
   window.VOCABULARY_DATA = VOCABULARY_DATA;
+  window.getVocabularyWords = getVocabularyWords;
+  window.getAllWords = getVocabularyWords;
   window.syncAdmissionVocabularyIntoCurriculum = syncAdmissionVocabularyIntoCurriculum;
   window.ONE_WORD_DATA = ONE_WORD_DATA;
   window.IDIOMS_DATA = IDIOMS_DATA;
